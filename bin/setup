@@ -19,6 +19,7 @@ FileUtils.chdir APP_ROOT do
   system! "gem install overmind"
 
   puts "\n== Seeding database =="
+  system! "bin/rails db:drop"
   system! "bin/rails db:create"
   system! "bin/rails db:migrate"
   system! "bin/rails db:seed"
