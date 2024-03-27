@@ -26,12 +26,91 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: organisations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organisations (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: organisations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organisations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organisations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organisations_id_seq OWNED BY public.organisations.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    email character varying(100) NOT NULL,
+    password_digest character varying NOT NULL,
+    organisation_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: organisations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organisations ALTER COLUMN id SET DEFAULT nextval('public.organisations_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
@@ -43,6 +122,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: organisations organisations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organisations
+    ADD CONSTRAINT organisations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -51,10 +138,43 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_organisation_id ON public.users USING btree (organisation_id);
+
+
+--
+-- Name: users fk_rails_9a64b73984; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT fk_rails_9a64b73984 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
+INSERT INTO "schema_migrations" (version) VALUES
+('20240327123129'),
+('20240327123312');
 
 
