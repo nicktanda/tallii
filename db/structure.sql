@@ -59,6 +59,39 @@ ALTER SEQUENCE public.daycare_visits_id_seq OWNED BY public.daycare_visits.id;
 
 
 --
+-- Name: grooms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.grooms (
+    id bigint NOT NULL,
+    visit timestamp(6) without time zone,
+    organisation_id bigint NOT NULL,
+    pet_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: grooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.grooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: grooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.grooms_id_seq OWNED BY public.grooms.id;
+
+
+--
 -- Name: organisations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -175,6 +208,13 @@ ALTER TABLE ONLY public.daycare_visits ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: grooms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grooms ALTER COLUMN id SET DEFAULT nextval('public.grooms_id_seq'::regclass);
+
+
+--
 -- Name: organisations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -209,6 +249,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT daycare_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grooms grooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grooms
+    ADD CONSTRAINT grooms_pkey PRIMARY KEY (id);
 
 
 --
@@ -255,6 +303,20 @@ CREATE INDEX index_daycare_visits_on_organisation_id ON public.daycare_visits US
 --
 
 CREATE INDEX index_daycare_visits_on_pet_id ON public.daycare_visits USING btree (pet_id);
+
+
+--
+-- Name: index_grooms_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grooms_on_organisation_id ON public.grooms USING btree (organisation_id);
+
+
+--
+-- Name: index_grooms_on_pet_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
 
 
 --
@@ -318,11 +380,27 @@ ALTER TABLE ONLY public.pets
 
 
 --
+-- Name: grooms fk_rails_8f95164373; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grooms
+    ADD CONSTRAINT fk_rails_8f95164373 FOREIGN KEY (pet_id) REFERENCES public.pets(id);
+
+
+--
 -- Name: users fk_rails_9a64b73984; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT fk_rails_9a64b73984 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: grooms fk_rails_e1b884cc88; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grooms
+    ADD CONSTRAINT fk_rails_e1b884cc88 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --
@@ -335,6 +413,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240327123129'),
 ('20240327123312'),
 ('20240403115052'),
-('20240403120526');
+('20240403120526'),
+('20240403121514');
 
 
