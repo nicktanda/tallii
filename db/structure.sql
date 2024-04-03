@@ -26,6 +26,39 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: daycare_visits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daycare_visits (
+    id bigint NOT NULL,
+    visit timestamp(6) without time zone,
+    organisation_id bigint NOT NULL,
+    pet_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: daycare_visits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.daycare_visits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daycare_visits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.daycare_visits_id_seq OWNED BY public.daycare_visits.id;
+
+
+--
 -- Name: organisations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -135,6 +168,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: daycare_visits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daycare_visits ALTER COLUMN id SET DEFAULT nextval('public.daycare_visits_id_seq'::regclass);
+
+
+--
 -- Name: organisations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -161,6 +201,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: daycare_visits daycare_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daycare_visits
+    ADD CONSTRAINT daycare_visits_pkey PRIMARY KEY (id);
 
 
 --
@@ -196,6 +244,20 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daycare_visits_on_organisation_id ON public.daycare_visits USING btree (organisation_id);
+
+
+--
+-- Name: index_daycare_visits_on_pet_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daycare_visits_on_pet_id ON public.daycare_visits USING btree (pet_id);
+
+
+--
 -- Name: index_pets_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -224,11 +286,27 @@ CREATE INDEX index_users_on_organisation_id ON public.users USING btree (organis
 
 
 --
+-- Name: daycare_visits fk_rails_132c7d43ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daycare_visits
+    ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
 -- Name: pets fk_rails_5e502b2584; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pets
     ADD CONSTRAINT fk_rails_5e502b2584 FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: daycare_visits fk_rails_7589875ec8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daycare_visits
+    ADD CONSTRAINT fk_rails_7589875ec8 FOREIGN KEY (pet_id) REFERENCES public.pets(id);
 
 
 --
@@ -256,6 +334,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240327123129'),
 ('20240327123312'),
-('20240403115052');
+('20240403115052'),
+('20240403120526');
 
 
