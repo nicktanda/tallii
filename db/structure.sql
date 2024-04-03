@@ -131,6 +131,8 @@ CREATE TABLE public.pets (
     name character varying,
     age integer,
     breed character varying,
+    visits_remaining integer,
+    grooms_remaining integer,
     users_id bigint NOT NULL,
     organisation_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
