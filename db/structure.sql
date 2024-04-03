@@ -57,6 +57,41 @@ ALTER SEQUENCE public.organisations_id_seq OWNED BY public.organisations.id;
 
 
 --
+-- Name: pets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pets (
+    id bigint NOT NULL,
+    name character varying,
+    age integer,
+    breed character varying,
+    users_id bigint NOT NULL,
+    organisation_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pets_id_seq OWNED BY public.pets.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -107,6 +142,13 @@ ALTER TABLE ONLY public.organisations ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: pets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pets ALTER COLUMN id SET DEFAULT nextval('public.pets_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -130,6 +172,14 @@ ALTER TABLE ONLY public.organisations
 
 
 --
+-- Name: pets pets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pets
+    ADD CONSTRAINT pets_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -146,6 +196,20 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_pets_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pets_on_organisation_id ON public.pets USING btree (organisation_id);
+
+
+--
+-- Name: index_pets_on_users_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pets_on_users_id ON public.pets USING btree (users_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -157,6 +221,22 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 --
 
 CREATE INDEX index_users_on_organisation_id ON public.users USING btree (organisation_id);
+
+
+--
+-- Name: pets fk_rails_5e502b2584; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pets
+    ADD CONSTRAINT fk_rails_5e502b2584 FOREIGN KEY (users_id) REFERENCES public.users(id);
+
+
+--
+-- Name: pets fk_rails_7c53bdee02; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pets
+    ADD CONSTRAINT fk_rails_7c53bdee02 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --
@@ -175,6 +255,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240327123129'),
-('20240327123312');
+('20240327123312'),
+('20240403115052');
 
 
