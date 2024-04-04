@@ -43,6 +43,8 @@ gem "bootsnap", require: false
 
 gem 'jsbundling-rails'
 
+gem "active_storage_validations"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
