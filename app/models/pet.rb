@@ -4,5 +4,5 @@ class Pet < ApplicationRecord
   belongs_to :user
   has_many :daycare_visits, dependent: :destroy
 
-  enum type: { dog: 0, cat: 1, bird: 2, fish: 3, rabbit: 4, reptile: 5, other: 6 }
+  enum species: { dog: 0, cat: 1, bird: 2, fish: 3, rabbit: 4, reptile: 5, other: 6 }
 end

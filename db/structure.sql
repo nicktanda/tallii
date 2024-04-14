@@ -264,7 +264,8 @@ CREATE TABLE public.pets (
     breed character varying,
     visits_remaining integer,
     grooms_remaining integer,
-    users_id bigint NOT NULL,
+    species integer DEFAULT 0,
+    user_id bigint NOT NULL,
     organisation_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -555,10 +556,10 @@ CREATE INDEX index_pets_on_organisation_id ON public.pets USING btree (organisat
 
 
 --
--- Name: index_pets_on_users_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pets_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_pets_on_users_id ON public.pets USING btree (users_id);
+CREATE INDEX index_pets_on_user_id ON public.pets USING btree (user_id);
 
 
 --
@@ -576,19 +577,19 @@ CREATE INDEX index_users_on_organisation_id ON public.users USING btree (organis
 
 
 --
+-- Name: pets fk_rails_0fa4bae6b1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pets
+    ADD CONSTRAINT fk_rails_0fa4bae6b1 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: daycare_visits fk_rails_132c7d43ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
-
-
---
--- Name: pets fk_rails_5e502b2584; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pets
-    ADD CONSTRAINT fk_rails_5e502b2584 FOREIGN KEY (users_id) REFERENCES public.users(id);
 
 
 --

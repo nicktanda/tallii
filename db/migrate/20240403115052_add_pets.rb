@@ -6,9 +6,9 @@ class AddPets < ActiveRecord::Migration[7.0]
       t.string :breed
       t.integer :visits_remaining
       t.integer :grooms_remaining
-      t.integer :type, default: 0
+      t.integer :species, default: 0
 
-      t.references :users, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
       t.references :organisation, null: false, foreign_key: true
       t.timestamps
     end

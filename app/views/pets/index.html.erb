@@ -1,0 +1,10 @@
+<div class="items-center text-center">
+  <% @pets.each do |pet| %>
+    <div>
+      <h2><%= pet.name %></h2>
+      <p><%= pet.species %></p>
+      <p><%= pet.breed %></p>
+      <p><%= pet.age %></p>
+    </div>
+  <% end %>
+</div>
