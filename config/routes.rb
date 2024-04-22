@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy", as: "destroy_session"
 
   get "/pets/:id", to: "pets#show", as: "pet"
+
+  get "/shop", to: "shop#shop", as: "shop"
   root "pets#index", as: "root"
 end
