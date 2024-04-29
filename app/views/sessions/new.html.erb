@@ -5,17 +5,17 @@
 <% end -%>
 
 <%= form_with(url: create_session_path, method: :post) do |f| %>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit 'Sign in', class: 'btn btn-primary' %>
+  <div class="text-center m-8 text-white">
+    <div class="font-bold text-3xl mb-4">Hello again!</div>
+    <div class="font-light mb-16">Welcome back you've been missed!</div>
+    <div class="space-y-12 mb-16">
+      <%= f.email_field :email, placeholder: "Email", class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      <%= f.password_field :password, placeholder: "Password", class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+    </div>
+    <%= f.submit 'Sign in', class: 'bg-white w-full text-black font-bold p-4 rounded-lg' %>
+    <div class="mt-8 flex space-x-4 justify-center">
+      <div class="font-light">Not a member?</div>
+      <%= link_to "Sign up", new_user_path, class: "text-white font-bold underline" %>
+    </div>
   </div>
 <% end %>

@@ -310,7 +310,7 @@ CREATE TABLE public.users (
     last_name character varying(100) NOT NULL,
     email character varying(100) NOT NULL,
     password_digest character varying NOT NULL,
-    organisation_id bigint NOT NULL,
+    organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

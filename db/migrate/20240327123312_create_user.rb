@@ -6,7 +6,7 @@ class CreateUser < ActiveRecord::Migration[7.0]
       t.string :email, null: false, limit: 100
       t.string :password_digest, null: false
 
-      t.references :organisation, null: false, foreign_key: true
+      t.references :organisation, foreign_key: true
       t.timestamps
     end
 
