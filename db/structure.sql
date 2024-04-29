@@ -306,7 +306,8 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    name character varying(100) NOT NULL,
+    first_name character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
     email character varying(100) NOT NULL,
     password_digest character varying NOT NULL,
     organisation_id bigint NOT NULL,
