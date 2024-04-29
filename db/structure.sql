@@ -260,13 +260,16 @@ ALTER SEQUENCE public.organisations_id_seq OWNED BY public.organisations.id;
 CREATE TABLE public.pets (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
-    age integer,
+    dob date,
     breed character varying,
     visits_remaining integer,
     grooms_remaining integer,
     species integer DEFAULT 0,
+    gender integer DEFAULT 0,
+    weight integer DEFAULT 0,
+    health_conditions character varying,
     user_id bigint NOT NULL,
-    organisation_id bigint NOT NULL,
+    organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

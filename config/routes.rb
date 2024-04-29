@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy", as: "destroy_session"
 
   get "/pets/:id", to: "pets#show", as: "pet"
+  get "/create/pets", to: "pets#new", as: "new_pet"
+  post "/create/pets", to: "pets#create", as: "create_pet"
 
   get "/shop", to: "shop#shop", as: "shop"
   root "pets#index", as: "root"
