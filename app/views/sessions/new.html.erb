@@ -9,8 +9,8 @@
     <div class="font-bold text-3xl mb-4">Hello again!</div>
     <div class="font-light mb-16">Welcome back you've been missed!</div>
     <div class="space-y-12 mb-16">
-      <%= f.email_field :email, placeholder: "Email", class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
-      <%= f.password_field :password, placeholder: "Password", class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      <%= f.email_field :email, placeholder: "Email", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      <%= f.password_field :password, placeholder: "Password", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
     </div>
     <%= f.submit 'Sign in', class: 'bg-white w-full text-black font-bold p-4 rounded-lg' %>
     <div class="mt-8 flex space-x-4 justify-center">

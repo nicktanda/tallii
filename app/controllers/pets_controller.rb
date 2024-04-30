@@ -13,13 +13,13 @@ class PetsController < ApplicationController
     pet = current_user.pets.new(pet_params)
 
     if pet.save
-      redirect_to root_path
+      redirect_to pet_path(pet), notice: 'Pet created successfully'
     else
       redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
     end
   end
 
   def pet_params
-    params.require(:pet).permit(:name, :dob, :breed, :visits_remaining, :grooms_remaining, :species)
+    params.require(:pet).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions)
   end
 end
