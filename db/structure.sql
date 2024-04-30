@@ -197,7 +197,7 @@ ALTER SEQUENCE public.grooms_id_seq OWNED BY public.grooms.id;
 CREATE TABLE public.images (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
-    pets_id bigint NOT NULL,
+    pet_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -546,10 +546,10 @@ CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
 
 
 --
--- Name: index_images_on_pets_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_images_on_pet_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_images_on_pets_id ON public.images USING btree (pets_id);
+CREATE INDEX index_images_on_pet_id ON public.images USING btree (pet_id);
 
 
 --
@@ -637,14 +637,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: images fk_rails_c23ee5e7cf; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.images
-    ADD CONSTRAINT fk_rails_c23ee5e7cf FOREIGN KEY (pets_id) REFERENCES public.pets(id);
-
-
---
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -658,6 +650,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.grooms
     ADD CONSTRAINT fk_rails_e1b884cc88 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: images fk_rails_fef71f2b9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_fef71f2b9c FOREIGN KEY (pet_id) REFERENCES public.pets(id);
 
 
 --

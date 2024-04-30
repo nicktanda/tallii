@@ -1,10 +1,22 @@
 <div class="mx-1 space-y-2">
-  <div class="bg-green-500 rounded-2xl h-80 flex flex-col justify-end">
-    <div class="flex justify-between">
-      <div class="text-white font-bold text-5xl p-2"><%= @pet.name %></div>
-      <div class="text-white bg-black font-bold text-4xl rounded-tl-2xl p-3"><%= @pet.age %> YO</div>
+  <% if @pet.images.any? %>
+    <div class="relative">
+      <img src="<%= url_for(@pet.images.first.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <div class="absolute bottom-0 left-0 right-0 p-4">
+        <div class="flex justify-between">
+          <div class="text-white font-bold text-5xl"><%= @pet.name %></div>
+          <div class="text-white bg-black font-bold text-4xl rounded-tl-2xl p-3"><%= @pet.age %> YO</div>
+        </div>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="bg-green-500 rounded-2xl h-80 flex flex-col justify-end">
+      <div class="flex justify-between">
+        <div class="text-white font-bold text-5xl p-2"><%= @pet.name %></div>
+        <div class="text-white bg-black font-bold text-4xl rounded-tl-2xl p-3"><%= @pet.age %> YO</div>
+      </div>
+    </div>
+  <% end %>
   <div class="flex my-2 space-x-2">
     <div class="w-1/2 bg-red-500 rounded-2xl flex p-2 space-x-2">
       <div class="w-1/2 flex space-x-2">

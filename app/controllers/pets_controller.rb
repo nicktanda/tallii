@@ -14,6 +14,10 @@ class PetsController < ApplicationController
 
     if pet.save
       redirect_to pet_path(pet), notice: 'Pet created successfully'
+
+      if params[:pet][:image].present?
+        pet.images.create!(name: "test_image", image: params[:pet][:image])
+      end
     else
       redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
     end

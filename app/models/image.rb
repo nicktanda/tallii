@@ -1,5 +1,5 @@
 class Image < ApplicationRecord
-  belongs_to :user
+  belongs_to :pet
   has_one_attached :image
 
   validate :correct_image_type
