@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get "/create/pets", to: "pets#new", as: "new_pet"
   post "/create/pets", to: "pets#create", as: "create_pet"
 
+  get "/grooms", to: "grooms#index", as: "grooms"
+  get "/grooms/:id", to: "grooms#show", as: "groom"
+  get "/create/grooms", to: "grooms#new", as: "new_groom"
+  post "/create/grooms", to: "grooms#create", as: "create_groom"
+
   get "/shop", to: "shop#shop", as: "shop"
   root "pets#index", as: "root"
 end
