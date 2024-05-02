@@ -130,9 +130,11 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.daycare_visits (
     id bigint NOT NULL,
-    visit timestamp(6) without time zone,
-    organisation_id bigint NOT NULL,
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    notes text,
     pet_id bigint NOT NULL,
+    organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -163,9 +165,11 @@ ALTER SEQUENCE public.daycare_visits_id_seq OWNED BY public.daycare_visits.id;
 
 CREATE TABLE public.grooms (
     id bigint NOT NULL,
-    visit timestamp(6) without time zone,
-    organisation_id bigint NOT NULL,
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    notes text,
     pet_id bigint NOT NULL,
+    organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -197,7 +201,9 @@ ALTER SEQUENCE public.grooms_id_seq OWNED BY public.grooms.id;
 CREATE TABLE public.images (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
-    pet_id bigint NOT NULL,
+    pet_id bigint,
+    groom_id bigint,
+    daycare_visit_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -546,6 +552,20 @@ CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
 
 
 --
+-- Name: index_images_on_daycare_visit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_daycare_visit_id ON public.images USING btree (daycare_visit_id);
+
+
+--
+-- Name: index_images_on_groom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_groom_id ON public.images USING btree (groom_id);
+
+
+--
 -- Name: index_images_on_pet_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -597,6 +617,14 @@ ALTER TABLE ONLY public.daycare_visits
 
 
 --
+-- Name: images fk_rails_5f6f7eff28; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_5f6f7eff28 FOREIGN KEY (groom_id) REFERENCES public.grooms(id);
+
+
+--
 -- Name: daycare_visits fk_rails_7589875ec8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -634,6 +662,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT fk_rails_9a64b73984 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: images fk_rails_a235561275; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_a235561275 FOREIGN KEY (daycare_visit_id) REFERENCES public.daycare_visits(id);
 
 
 --
