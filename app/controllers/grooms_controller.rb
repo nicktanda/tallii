@@ -10,7 +10,15 @@ class GroomsController < ApplicationController
 
   def new; end
 
-  def create; end
+  def create
+    groom = Groom.new(groom_params)
+
+    if groom.save
+      redirect_to grooms_path, notice: 'Groom created successfully'
+    else
+      redirect_back fallback_location: new_groom_path, alert: 'Invalid groom information'
+    end
+  end
 
   def groom_params
     params.require(:groom).permit(:date, :time, :notes, :pet_id)

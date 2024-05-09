@@ -57,7 +57,7 @@
                 <% end %>
               </div>
               <div class="w-1/3 text-center" onclick="document.getElementById('bookingDialog').showModal();">
-                <div class="flex justify-center">
+                <div class="flex justify-center text-violet-400">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
@@ -112,12 +112,23 @@
           <% end %>
         </div>
         <div class="w-1/3 text-center" onclick="document.getElementById('bookingDialog').showModal();">
-          <div class="flex justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </div>
-          <div>Booking</div>
+          <% if current_page?(grooms_path) %>
+            <div class="text-violet-400">
+              <div class="flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </div>
+              <div>Booking</div>
+            </div>
+          <% else %>
+            <div class="flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </div>
+            <div>Booking</div>
+          <% end %>
         </div>
         <div class="w-1/3 text-center">
           <%= link_to shop_path do %>
