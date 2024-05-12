@@ -37,7 +37,7 @@
         </svg>
         <div>
           <div class="font-bold">Next Groom</div>
-          <div class="text-2xl font-bold">April 2, 2024</div>
+          <div class="text-2xl font-bold"><%= @pet.next_groom %></div>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
     <div class="flex flex-col justify-end">
       <div class="bg-white rounded-b-2xl flex justify-between p-2">
         <div>Last groom visit was:</div>
-        <div class="font-bold">March 02, 2024</div>
+        <div class="font-bold"><%= @pet.last_groom %></div>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@
     <div class="flex flex-col justify-end">
       <div class="bg-white rounded-b-2xl flex justify-between p-2">
         <div>Last added picture:</div>
-        <div class="font-bold">March 02, 2024</div>
+        <div class="font-bold"><%= last_uploaded_image_date(@pet) %></div>
       </div>
     </div>
   </div>

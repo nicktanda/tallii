@@ -12,4 +12,14 @@ class Pet < ApplicationRecord
     now = Time.now.utc.to_date
     now.year - dob.year - (dob.to_date.change(year: now.year) > now ? 1 : 0)
   end
+
+  def next_groom
+    groom_date = self.grooms.order(date: :asc).first.date
+    return groom_date.strftime("%B %d, %Y") unless groom_date > Time.now
+  end
+
+  def last_groom
+    groom_date = self.grooms.order(date: :desc).first.date
+    return groom_date.strftime("%B %d, %Y") unless groom_date < Time.now
+  end
 end
