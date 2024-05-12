@@ -132,6 +132,7 @@ CREATE TABLE public.daycare_visits (
     id bigint NOT NULL,
     date date NOT NULL,
     "time" time without time zone NOT NULL,
+    duration integer NOT NULL,
     notes text,
     pet_id bigint NOT NULL,
     organisation_id bigint,

@@ -1,5 +1,14 @@
 class DaycareVisit < ApplicationRecord
-
-  belongs_to :organisation
   belongs_to :pet
+  enum duration: { half_day: 0, full_day: 1 }
+
+  validate :daycare_visit_date_is_in_the_future
+
+  private
+
+  def daycare_visit_date_is_in_the_future
+    if date.present? && date < Date.today
+      errors.add(:date, "can't be in the past")
+    end
+  end
 end

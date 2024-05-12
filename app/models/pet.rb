@@ -14,11 +14,15 @@ class Pet < ApplicationRecord
   end
 
   def next_groom
+    return if self.grooms.empty?
+
     groom_date = self.grooms.order(date: :asc).first.date
     return groom_date.strftime("%B %d, %Y") unless groom_date > Time.now
   end
 
   def last_groom
+    return if self.grooms.empty?
+
     groom_date = self.grooms.order(date: :desc).first.date
     return groom_date.strftime("%B %d, %Y") unless groom_date < Time.now
   end
