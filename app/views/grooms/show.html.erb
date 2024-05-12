@@ -7,33 +7,33 @@
   </div>
   <div class="text-2xl">Disclaimer</div>
   <div class="font-light">Requested groom time may not be given but we will do our best to accommodate your request.</div>
-  <%= form_for Groom.new, url: create_groom_path do |f| %>
+  <%= form_for Groom.new, url: update_groom_path do |f| %>
     <div class="w-full mt-16 space-y-4">
       <div>
         <%= f.label :pet_id, "Pet" %>
-        <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
+        <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}, selected: @groom.pet_id), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
       </div>
       <div>
         <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        <%= f.date_field :date, value: @groom.date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
         <%= f.label :time, "Request Time" %>
-        <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        <%= f.time_field :time, value: @groom.time&.strftime("%H:%M"), required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
         <%= f.label :last_groom, "When Was Last Groom?" %>
-        <%= f.date_field :last_groom, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        <%= f.date_field :last_groom, value: @groom.last_groom, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
         <%= f.label :notes, "Additional Grooming Notes" %>
-        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3 %>
+        <%= f.text_area :notes, value: @groom.notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3 %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
-        Create Request
+        Update Request
       </button>
     </div>
   <% end -%>

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "/grooms/:id", to: "grooms#show", as: "groom"
   get "/create/grooms", to: "grooms#new", as: "new_groom"
   post "/create/grooms", to: "grooms#create", as: "create_groom"
+  post "/update/grooms/:id", to: "grooms#update", as: "update_groom"
+  delete "/grooms/:id", to: "grooms#delete", as: "delete_groom"
 
   get "/shop", to: "shop#shop", as: "shop"
   root "pets#index", as: "root"

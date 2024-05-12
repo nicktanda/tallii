@@ -167,6 +167,7 @@ CREATE TABLE public.grooms (
     id bigint NOT NULL,
     date date NOT NULL,
     "time" time without time zone NOT NULL,
+    last_groom date NOT NULL,
     notes text,
     pet_id bigint NOT NULL,
     organisation_id bigint,
