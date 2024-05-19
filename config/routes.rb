@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   delete "/daycare_visits/:id", to: "daycare_visits#delete", as: "delete_daycare_visits"
 
   get "/shop", to: "shop#shop", as: "shop"
+  get "/shop/products/:id", to: "shop#show", as: "product"
   root "pets#index", as: "root"
 end

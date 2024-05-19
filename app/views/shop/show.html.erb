@@ -1,0 +1,25 @@
+<div class="m-1 space-y-2 text-white">
+  <div class="w-full flex justify-between">
+    <%= link_to shop_path do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-14 h-14 p-2 bg-violet-400 rounded-full my-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+      </svg>
+    <% end %>
+  </div>
+  <div class="text-violet-400"><%= @product.brand %></div>
+  <div class="text-3xl font-bold"><%= @product.name %></div>
+  <div class="flex space-x-4 text-black pt-16">
+    <div class="bg-white w-full rounded-lg p-2">
+      <div class="text-violet-400">Total</div>
+      <div class="text-3xl font-bold mt-4">$<%= @product.price %></div>
+      <hr class="border-black border-t-1 my-2" />
+      <label for="stock">Quantity</label>
+      <select id="stock" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <% @product.stock.times do |i| %>
+          <option value=<%= i %>><%= i %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="bg-white h-8 w-full rounded-lg"></div>
+  </div>
+</div>

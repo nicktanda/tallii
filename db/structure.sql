@@ -125,6 +125,38 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.categories (
+    id bigint NOT NULL,
+    name character varying,
+    description text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
 -- Name: daycare_visits; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -204,8 +236,7 @@ CREATE TABLE public.images (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
     pet_id bigint,
-    groom_id bigint,
-    daycare_visit_id bigint,
+    product_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -303,6 +334,42 @@ ALTER SEQUENCE public.pets_id_seq OWNED BY public.pets.id;
 
 
 --
+-- Name: products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    name character varying,
+    brand character varying,
+    description text,
+    price numeric,
+    stock integer,
+    category_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -368,6 +435,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
 -- Name: daycare_visits id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -400,6 +474,13 @@ ALTER TABLE ONLY public.organisations ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.pets ALTER COLUMN id SET DEFAULT nextval('public.pets_id_seq'::regclass);
+
+
+--
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
 
 
 --
@@ -442,6 +523,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: daycare_visits daycare_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -479,6 +568,14 @@ ALTER TABLE ONLY public.organisations
 
 ALTER TABLE ONLY public.pets
     ADD CONSTRAINT pets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
 --
@@ -554,24 +651,17 @@ CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
 
 
 --
--- Name: index_images_on_daycare_visit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_images_on_daycare_visit_id ON public.images USING btree (daycare_visit_id);
-
-
---
--- Name: index_images_on_groom_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_images_on_groom_id ON public.images USING btree (groom_id);
-
-
---
 -- Name: index_images_on_pet_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_images_on_pet_id ON public.images USING btree (pet_id);
+
+
+--
+-- Name: index_images_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id);
 
 
 --
@@ -586,6 +676,13 @@ CREATE INDEX index_pets_on_organisation_id ON public.pets USING btree (organisat
 --
 
 CREATE INDEX index_pets_on_user_id ON public.pets USING btree (user_id);
+
+
+--
+-- Name: index_products_on_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_category_id ON public.products USING btree (category_id);
 
 
 --
@@ -616,14 +713,6 @@ ALTER TABLE ONLY public.pets
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
-
-
---
--- Name: images fk_rails_5f6f7eff28; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.images
-    ADD CONSTRAINT fk_rails_5f6f7eff28 FOREIGN KEY (groom_id) REFERENCES public.grooms(id);
 
 
 --
@@ -667,11 +756,11 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: images fk_rails_a235561275; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: images fk_rails_bd36e75ae4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.images
-    ADD CONSTRAINT fk_rails_a235561275 FOREIGN KEY (daycare_visit_id) REFERENCES public.daycare_visits(id);
+    ADD CONSTRAINT fk_rails_bd36e75ae4 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -688,6 +777,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.grooms
     ADD CONSTRAINT fk_rails_e1b884cc88 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: products fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_fb915499a4 FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
@@ -710,7 +807,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240403115052'),
 ('20240403120526'),
 ('20240403121514'),
-('20240404105315'),
-('20240404110118');
+('20240404110118'),
+('20240519114136');
 
 
