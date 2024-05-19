@@ -1,11 +1,11 @@
 class DaycareVisitsController < ApplicationController
   def index
     pets = current_user.pets.all.includes(:daycare_visits)
-    @grooms = pets.map(&:daycare_visits).flatten
+    @daycare_visits = pets.map(&:daycare_visits).flatten
   end
 
   def show
-    @groom = DaycareVisit.find(params[:id])
+    @daycare_visit = DaycareVisit.find(params[:id])
   end
 
   def new; end
@@ -32,9 +32,9 @@ class DaycareVisitsController < ApplicationController
   end
 
   def delete
-    daycare_visit = daycare_visit.find(params[:id])
+    daycare_visit = DaycareVisit.find(params[:id])
 
-    if daycar_visit.destroy
+    if daycare_visit.destroy
       redirect_to daycare_visits_path, notice: 'Daycare visit deleted successfully'
     else
       redirect_back fallback_location: daycare_visits_path, alert: 'Please try again'
