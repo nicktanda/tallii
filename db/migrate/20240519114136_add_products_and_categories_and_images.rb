@@ -13,6 +13,14 @@ class AddProductsAndCategoriesAndImages < ActiveRecord::Migration[7.0]
       t.text :description
       t.decimal :price
       t.integer :stock
+      t.string :features, array: true, default: []
+      t.string :item_number
+      t.string :dimensions
+      t.string :weight
+      t.string :life_stage
+      t.string :breed_size
+      t.string :toy_feature
+      t.string :material
 
       t.references :category, foreign_key: true
       t.timestamps
