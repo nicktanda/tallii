@@ -26,6 +26,15 @@ class AddProductsAndCategoriesAndImages < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
+    create_table :reviews do |t|
+      t.integer :rating, max: 5
+      t.text :comment
+
+      t.references :product, foreign_key: true, null: false
+      t.references :user, foreign_key: true, null: false
+      t.timestamps
+    end
+
     create_table :images do |t|
       t.string :name, null: false, limit: 100
 
