@@ -27,5 +27,7 @@ Rails.application.routes.draw do
 
   get "/shop", to: "shop#shop", as: "shop"
   get "/shop/products/:id", to: "shop#show", as: "product"
+  get "/shop/products/:id/review", to: "shop#review", as: "new_review"
+  post "/shop/products/:id/review", to: "shop#create_review", as: "create_review"
   root "pets#index", as: "root"
 end

@@ -119,15 +119,17 @@
       <div class="bg-black absolute bottom-0 w-full px-4 py-8 space-y-10" onclick="event.stopPropagation();">
         <div class="flex justify-between">
           <div class="font-bold text-2xl">Reviews</div>
-          <div class="underline text-blue-700">Write a Review</div>
-      </div>
+          <%= link_to new_review_path(@product) do %>
+            <div class="underline text-blue-700">Write a Review</div>
+          <% end %>
+        </div>
       <div class="flex space-x-4 items-center">
         <div class="font-bold text-4xl pr-4 border-white border-r-2"><%= review_summary[:average_review] %></div>
         <div class="font-extralight text-2xl"><%= review_summary[:total_reviews] %> reviews</div>
       </div>
       <div>
         <div class="text-2xl border-b-2 border-white">Customers Thoughts</div>
-        <div class="max-h-[35vh] overflow-y-scroll">
+        <div class="max-h-[30vh] overflow-y-scroll">
           <% @product.reviews.each do |review| %>
             <div class="flex justify-between pt-6">
               <div class="flex space-x-1">
