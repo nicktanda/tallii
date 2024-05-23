@@ -1,6 +1,7 @@
 class Image < ApplicationRecord
   belongs_to :pet, optional: true
   belongs_to :product, optional: true
+  belongs_to :category, optional: true
   has_one_attached :image
 
   validate :correct_image_type

@@ -353,6 +353,7 @@ CREATE TABLE public.products (
     breed_size character varying,
     toy_feature character varying,
     material character varying,
+    organisation_id bigint,
     category_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -751,6 +752,13 @@ CREATE INDEX index_products_on_category_id ON public.products USING btree (categ
 
 
 --
+-- Name: index_products_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_organisation_id ON public.products USING btree (organisation_id);
+
+
+--
 -- Name: index_reviews_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -792,6 +800,14 @@ ALTER TABLE ONLY public.pets
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: products fk_rails_550fc2b569; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_550fc2b569 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --

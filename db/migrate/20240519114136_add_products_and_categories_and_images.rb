@@ -23,6 +23,7 @@ class AddProductsAndCategoriesAndImages < ActiveRecord::Migration[7.0]
       t.string :toy_feature
       t.string :material
 
+      t.references :organisation, foreign_key: true
       t.references :category, foreign_key: true
       t.timestamps
     end
