@@ -17,6 +17,11 @@ class ShopController < ApplicationController
     redirect_to product_path(@product)
   end
 
+  def category
+    @category = Category.find(params[:id])
+    @products = @category.products
+  end
+
   private
 
   def review_params

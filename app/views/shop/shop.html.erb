@@ -18,14 +18,9 @@
   <% end %>
   <div class="grid grid-cols-2 gap-4">
     <% current_organisation.categories.first(3).each_with_index do |category, index| %>
-      <% if index != 2 %>
-        <div class="bg-amber-300 col-span-1 h-56 rounded-2xl p-2">
-          <div class="font-bold text-white text-2xl"><%= category.name %></div>
-        </div>
-      <% else %>
-        <div class="bg-amber-300 col-span-2 h-56 rounded-2xl p-2">
-          <div class="font-bold text-white text-2xl"><%= category.name %></div>
-        </div>
+      <% col_span_class = index != 2 ? 'col-span-1' : 'col-span-2' %>
+      <%= link_to category_path(category), class: "bg-amber-300 #{col_span_class} h-56 rounded-2xl p-2" do %>
+        <div class="font-bold text-white text-2xl"><%= category.name %></div>
       <% end %>
     <% end %>
   </div>
