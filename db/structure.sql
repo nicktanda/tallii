@@ -132,6 +132,7 @@ CREATE TABLE public.categories (
     id bigint NOT NULL,
     name character varying,
     description text,
+    organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -680,6 +681,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_categories_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_categories_on_organisation_id ON public.categories USING btree (organisation_id);
+
+
+--
 -- Name: index_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -784,6 +792,14 @@ ALTER TABLE ONLY public.pets
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: categories fk_rails_6ee4866115; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT fk_rails_6ee4866115 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --

@@ -4,6 +4,7 @@ class AddProductsAndCategoriesAndImages < ActiveRecord::Migration[7.0]
       t.string :name
       t.text :description
 
+      t.references :organisation, foreign_key: true
       t.timestamps
     end
 
