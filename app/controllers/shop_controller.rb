@@ -2,7 +2,6 @@ class ShopController < ApplicationController
   def shop; end
 
   def product
-    binding.pry
     @product = Product.find(params[:id])
   end
 
@@ -29,12 +28,16 @@ class ShopController < ApplicationController
     session["user"]["cart"] ||= []
     session["user"]["cart"] << params[:id]
 
-    binding.pry
     redirect_to cart_path
   end
 
   def cart
-    # @products = session[current_user.id][:cart].map { |id| Product.find(id) }
+    cart = session["user"]["cart"]
+    @cart_products = cart.group_by(&:itself).transform_values(&:count).map do |product_id, quantity|
+      product = Product.find(product_id)
+      
+      { product: product, quantity: quantity }
+    end
   end
 
   private
