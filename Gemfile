@@ -45,6 +45,10 @@ gem 'jsbundling-rails'
 
 gem "active_storage_validations"
 
+source 'https://rubygems.org'
+
+gem 'stripe'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

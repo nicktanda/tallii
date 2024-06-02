@@ -27,8 +27,11 @@ Rails.application.routes.draw do
 
   get "/shop", to: "shop#shop", as: "shop"
   get "/shop/categories/:id", to: "shop#category", as: "category"
-  get "/shop/products/:id", to: "shop#show", as: "product"
+  get "/shop/products/:id", to: "shop#product", as: "product"
   get "/shop/products/:id/review", to: "shop#review", as: "new_review"
   post "/shop/products/:id/review", to: "shop#create_review", as: "create_review"
+  post "/shop/products/:id/add_to_cart", to: "shop#add_to_cart", as: "add_to_cart"
+  get "/shop/cart", to: "shop#cart", as: "cart"
+
   root "pets#index", as: "root"
 end

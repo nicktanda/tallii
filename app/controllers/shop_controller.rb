@@ -1,7 +1,8 @@
 class ShopController < ApplicationController
   def shop; end
 
-  def show
+  def product
+    binding.pry
     @product = Product.find(params[:id])
   end
 
@@ -20,6 +21,20 @@ class ShopController < ApplicationController
   def category
     @category = Category.find(params[:id])
     @products = @category.products
+  end
+
+  def add_to_cart
+    return unless session["user"]["id"] == current_user.id
+
+    session["user"]["cart"] ||= []
+    session["user"]["cart"] << params[:id]
+
+    binding.pry
+    redirect_to cart_path
+  end
+
+  def cart
+    # @products = session[current_user.id][:cart].map { |id| Product.find(id) }
   end
 
   private
