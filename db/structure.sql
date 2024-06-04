@@ -296,6 +296,16 @@ ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 
 --
+-- Name: orders_products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders_products (
+    product_id bigint NOT NULL,
+    order_id bigint NOT NULL
+);
+
+
+--
 -- Name: organisations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -786,6 +796,20 @@ CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
 
 
 --
+-- Name: index_orders_products_on_order_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_products_on_order_id ON public.orders_products USING btree (order_id);
+
+
+--
+-- Name: index_orders_products_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_products_on_product_id ON public.orders_products USING btree (product_id);
+
+
+--
 -- Name: index_pets_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -991,6 +1015,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240403121514'),
 ('20240404110118'),
 ('20240519114136'),
-('20240604113529');
+('20240604113529'),
+('20240604115053');
 
 
