@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def create
-    order = Order.new(order_params)
+    order = current_user.orders.new(order_params)
 
     if order.save
       redirect_to root_path
@@ -10,6 +10,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:product_id, :quantity)
+    params.require(:order).permit(products: [:product_id, :quantity])
   end
 end

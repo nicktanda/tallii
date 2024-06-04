@@ -269,7 +269,6 @@ ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 CREATE TABLE public.orders (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    total integer,
     status integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
