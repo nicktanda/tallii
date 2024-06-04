@@ -3,4 +3,6 @@ class Order < ApplicationRecord
   belongs_to :user, dependent: :destroy
   has_many :order_product_joins, dependent: :destroy
   has_many :products, through: :order_product_joins
+
+  enum status: [:pending, :processing, :failed, :succeed]
 end
