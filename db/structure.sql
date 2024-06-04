@@ -263,6 +263,39 @@ ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
+-- Name: orders; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    total integer,
+    status integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
 -- Name: organisations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -507,6 +540,13 @@ ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.image
 
 
 --
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
 -- Name: organisations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -603,6 +643,14 @@ ALTER TABLE ONLY public.grooms
 
 ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
 
 
 --
@@ -728,6 +776,13 @@ CREATE INDEX index_images_on_pet_id ON public.images USING btree (pet_id);
 --
 
 CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
 
 
 --
@@ -899,6 +954,14 @@ ALTER TABLE ONLY public.grooms
 
 
 --
+-- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: products fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -927,6 +990,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240403120526'),
 ('20240403121514'),
 ('20240404110118'),
-('20240519114136');
+('20240519114136'),
+('20240604113529');
 
 
