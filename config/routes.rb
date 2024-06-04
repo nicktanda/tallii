@@ -33,5 +33,9 @@ Rails.application.routes.draw do
   post "/shop/products/:id/add_to_cart", to: "shop#add_to_cart", as: "add_to_cart"
   get "/shop/cart", to: "shop#cart", as: "cart"
 
+  post "/orders", to: "orders#create", as: "create_order"
+  get "/orders/:id/pay", to: "payments#pay", as: "pay"
+  post "webhooks/payment", to: "webhooks#payment"
+
   root "pets#index", as: "root"
 end

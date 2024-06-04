@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
   def create
-    order = current_user.orders.new(order_params)
+    order = current_user.orders.create!
 
-    if order.save
-      redirect_to root_path
-    else
-      redirect_back fallback_location: new_order_path, alert: 'Invalid order'
+    order_params[:products].each do |product|
+      order.order_product_joins.create!(product_id: product[:product_id], quantity: product[:quantity])
     end
+
+    redirect_to pay_path(order)
   end
 
   def order_params
