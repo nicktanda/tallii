@@ -26,7 +26,9 @@ class ShopController < ApplicationController
     return unless session["user"]["id"] == current_user.id
 
     session["user"]["cart"] ||= []
-    session["user"]["cart"] << params[:id]
+    params[:stock].to_i.times do
+      session["user"]["cart"] << params[:id]
+    end
 
     redirect_to cart_path
   end
