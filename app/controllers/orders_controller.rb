@@ -8,11 +8,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    redirect_to order_summary_path(order)
-  end
-
-  def summary
-    @order = Order.find(params[:id])
+    redirect_to pay_path(order)
   end
 
   private

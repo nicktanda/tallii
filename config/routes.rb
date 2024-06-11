@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   post "/orders", to: "orders#create", as: "create_order"
   get "/orders/:id/pay", to: "payments#pay", as: "pay"
-  get "/orders/:id", to: "orders#summary", as: "order_summary"
   post "webhooks/payment", to: "webhooks#payment"
 
   root "pets#index", as: "root"

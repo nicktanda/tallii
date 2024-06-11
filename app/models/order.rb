@@ -9,4 +9,8 @@ class Order < ApplicationRecord
   def total_price
     (products.sum(:price) * 100).to_i # in cents
   end
+
+  def total_price_in_dollars
+    total_price / 100.0
+  end
 end
