@@ -1,8 +1,8 @@
 class Order < ApplicationRecord
   belongs_to :organisation, dependent: :destroy
   belongs_to :user, dependent: :destroy
-  has_many :order_product_joins, dependent: :destroy
-  has_many :products, through: :order_product_joins
+  has_many :product_order_joins, dependent: :destroy
+  has_many :products, through: :product_order_joins
 
   enum status: [:pending, :processing, :failed, :succeed]
 end

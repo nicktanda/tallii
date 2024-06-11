@@ -269,6 +269,7 @@ ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 CREATE TABLE public.orders (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
+    organisation_id bigint NOT NULL,
     status integer DEFAULT 0,
     payment_intent_id character varying,
     created_at timestamp(6) without time zone NOT NULL,
@@ -293,16 +294,6 @@ CREATE SEQUENCE public.orders_id_seq
 --
 
 ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
-
-
---
--- Name: orders_products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.orders_products (
-    product_id bigint NOT NULL,
-    order_id bigint NOT NULL
-);
 
 
 --
@@ -375,6 +366,16 @@ CREATE SEQUENCE public.pets_id_seq
 --
 
 ALTER SEQUENCE public.pets_id_seq OWNED BY public.pets.id;
+
+
+--
+-- Name: product_order_joins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_order_joins (
+    product_id bigint NOT NULL,
+    order_id bigint NOT NULL
+);
 
 
 --
@@ -789,24 +790,17 @@ CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id
 
 
 --
+-- Name: index_orders_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_organisation_id ON public.orders USING btree (organisation_id);
+
+
+--
 -- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
-
-
---
--- Name: index_orders_products_on_order_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_orders_products_on_order_id ON public.orders_products USING btree (order_id);
-
-
---
--- Name: index_orders_products_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_orders_products_on_product_id ON public.orders_products USING btree (product_id);
 
 
 --
@@ -821,6 +815,20 @@ CREATE INDEX index_pets_on_organisation_id ON public.pets USING btree (organisat
 --
 
 CREATE INDEX index_pets_on_user_id ON public.pets USING btree (user_id);
+
+
+--
+-- Name: index_product_order_joins_on_order_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_order_joins_on_order_id ON public.product_order_joins USING btree (order_id);
+
+
+--
+-- Name: index_product_order_joins_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_order_joins_on_product_id ON public.product_order_joins USING btree (product_id);
 
 
 --
@@ -919,6 +927,14 @@ ALTER TABLE ONLY public.daycare_visits
 
 ALTER TABLE ONLY public.pets
     ADD CONSTRAINT fk_rails_7c53bdee02 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: orders fk_rails_8adba69ca4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_8adba69ca4 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --

@@ -5,4 +5,5 @@ class Organisation < ApplicationRecord
   has_many :grooms, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end

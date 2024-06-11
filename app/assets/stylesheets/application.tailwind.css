@@ -983,6 +983,10 @@ select {
   max-height: 30vh;
 }
 
+.max-h-\[60vh\] {
+  max-height: 60vh;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
