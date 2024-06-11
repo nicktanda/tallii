@@ -7,6 +7,6 @@ class Order < ApplicationRecord
   enum status: [:pending, :processing, :failed, :succeed]
 
   def total_price
-    products.sum(:price)
+    (products.sum(:price) * 100).to_i # in cents
   end
 end
