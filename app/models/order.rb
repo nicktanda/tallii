@@ -5,4 +5,8 @@ class Order < ApplicationRecord
   has_many :products, through: :product_order_joins
 
   enum status: [:pending, :processing, :failed, :succeed]
+
+  def total_price
+    products.sum(:price)
+  end
 end
