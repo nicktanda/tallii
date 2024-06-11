@@ -8,8 +8,14 @@ class OrdersController < ApplicationController
       end
     end
 
-    redirect_to pay_path(order)
+    redirect_to order_summary_path(order)
   end
+
+  def summary
+    @order = Order.find(params[:id])
+  end
+
+  private
 
   def order_params
     params.require(:order).map do |order|
