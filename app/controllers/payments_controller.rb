@@ -59,7 +59,7 @@ class PaymentsController < ApplicationController
 
   def create_payment_intent
     Stripe::PaymentIntent.create(
-      amount: (@order.total_price * 100).to_i,
+      amount: (@order.total_price * 100).to_i, # in cents
       currency: 'usd',
       automatic_payment_methods: {enabled: true},
       description: "Order #{@order.id}"
