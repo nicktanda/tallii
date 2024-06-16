@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
       @order.update(payment_intent_id: payment_intent.id)
     end
 
-    @payment_intent_client_sectret = payment_intent.client_secret
+    @payment_intent_client_secret = payment_intent.client_secret
   end
 
   def webhook
