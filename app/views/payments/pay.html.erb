@@ -1,15 +1,19 @@
-<div class="mx-4 text-white space-y-10">
-  <div class="text-white text-4xl font-thin mx-2 pt-2">Your Order</div>
-  <div>Order total: $<%= @order.total_price_in_dollars %></div>
+<div class="mx-4 text-white space-y-6">
+  <div class="text-white text-4xl font-thin pt-2">Your Order</div>
+  <div>
+    <%= link_to cart_path, class: "underline text-xl" do %>
+      Review your order
+    <% end %>
+  </div>
+  <div class="text-2xl">Order total: $<%= @order.total_price_in_dollars %></div>
   <form id="payment-form" data-controller="checkout" data-stripe-publishable-key="pk_test_51PNCaHEu9YTm4fWpN9cMHCYt8tJYIlCTcXRlkXln49pOdVI2ClJECc6WLJ5duzKPCLKG9YTvCIfWev8lshi8acU100O0qK3Bmh" data-stripe-client-secret="<%= @payment_intent_client_secret %>">
     <div id="payment-message" class="hidden"></div>
     <div id="payment-element"></div>
-    <button id="submit" class="btnbtn-success mt-3">
-      <div class="spinner hidden" id="spinner"></div>
-      <span id="button-text">Pay now</span>
-    </button>
+    <div class="flex w-full justify-center items-center">
+      <button id="submit" class="bg-blue-700 flex rounded-full w-full p-3 px-8 mt-6 justify-center">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+    </div>
   </form>
-  <%= link_to cart_path, class: "underline" do %>
-    Back to cart
-  <% end %>
 </div>

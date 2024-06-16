@@ -1,0 +1,32 @@
+<div class="mx-4 text-white">
+  <div class="text-white text-4xl font-thin pt-2">Your Orders</div>
+  <div class="space-y-4 mt-4">
+    <% @orders.each do |order| %>
+      <table class="w-full text-left">
+        <tr class="font-light text-sm">
+          <th>Order ID</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>Order Date</th>
+        </tr>
+        <tr class="bg-white text-black my-2">
+          <td class="py-2"><%= order.id %></td>
+          <td class="py-2">$<%= order.total_price_in_dollars %></td>
+          <td class="py-2">
+            <% case order.status %>
+            <% when "pending" %>
+              <p class="text-blue-500"><%= order.status.capitalize %></p>
+            <% when "succeed" %>
+              <p class="text-green-500"><%= order.status.capitalize %></p>
+            <% when "failed" %>
+              <p class="text-red-500"><%= order.status.capitalize %></p>
+            <% else %>
+              <p><%= order.status.capitalize %></p>
+            <% end %>
+          </td>
+          <td class="py-2"><%= order.created_at.strftime("%B %d, %Y") %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
