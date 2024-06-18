@@ -38,5 +38,16 @@ Rails.application.routes.draw do
   get "/orders/:id/pay", to: "payments#pay", as: "pay"
   post "/webhooks/payment", to: "payments#webhook"
 
+  get "/settings", to: "settings#index", as: "settings"
+  get "/settings/pet_profiles", to: "settings#pet_profiles", as: "pet_profiles"
+  get "/settings/pet_profiles/:id", to: "settings#pet_profile", as: "pet_profile"
+  get "/settings/pet_profiles/:id/edit", to: "settings#edit_pet_profile", as: "edit_pet_profile"
+  post "/settings/pet_profiles/:id/edit", to: "settings#update_pet_profile", as: "update_pet_profile"
+  get "/settings/pet_selection", to: "settings#pet_selection", as: "pet_selection"
+  post "/settings/pet_selection", to: "settings#switch_pet", as: "switch_pet"
+  get "/settings/user_profile", to: "settings#user_profile", as: "user_profile"
+  get "/settings/user_profile/edit", to: "settings#edit_user_profile", as: "edit_user_profile"
+  post "/settings/user_profile/edit", to: "settings#update_user_profile", as: "update_user_profile"
+
   root "pets#index", as: "root"
 end
