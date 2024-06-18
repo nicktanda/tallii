@@ -1,47 +1,49 @@
 <%= form_for Order.new, url: create_order_path do |f| %>
   <div class="mx-4 text-white space-y-10">
     <div class="text-white text-4xl font-thin mx-2 pt-2">Your Cart</div>
-    <div class="max-h-[60vh] overflow-y-scroll space-y-4">
-      <% @cart_products.each_with_index do |cart_product, index| %>
-        <% product = cart_product[:product] %>
-        <% quantity = cart_product[:quantity] %>
-        <div class="relative bg-white p-1">
-          <div class="border-4 border-black bg-white p-4 flex space-x-4 text-black">
-            <div class="space-y-2">
-              <div class="font-light text-sm">Product</div>
-              <div class="font-bold underline h-12 items-center flex">
-                <%= link_to product_path(product) do %>
-                  <%= product.name %>
-                <% end %>
+    <% if @cart_products.any? %>
+      <div class="max-h-[60vh] overflow-y-scroll space-y-4">
+        <% @cart_products.each_with_index do |cart_product, index| %>
+          <% product = cart_product[:product] %>
+          <% quantity = cart_product[:quantity] %>
+          <div class="relative bg-white p-1">
+            <div class="border-4 border-black bg-white p-4 flex space-x-4 text-black">
+              <div class="space-y-2">
+                <div class="font-light text-sm">Product</div>
+                <div class="font-bold underline h-12 items-center flex">
+                  <%= link_to product_path(product) do %>
+                    <%= product.name %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-            <div class="space-y-2">
-              <div class="font-light text-sm">Price</div>
-              <div class="font-bold h-12 items-center flex">
-                <div>$<%= product.price %></div>
+              <div class="space-y-2">
+                <div class="font-light text-sm">Price</div>
+                <div class="font-bold h-12 items-center flex">
+                  <div>$<%= product.price %></div>
+                </div>
               </div>
-            </div>
-            <div class="space-y-2">
-              <div class="font-light text-sm">Quantity</div>
-              <select id="stock" name="order[][stock]" class=" h-12 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                <% (product.stock + 1).times do |i| %>
-                  <option value="<%= i %>" <%= 'selected="selected"' if i == quantity %>><%= i %></option>
-                <% end %>
-              </select>
-              <%= hidden_field_tag "order[][id]", product.id %>
+              <div class="space-y-2">
+                <div class="font-light text-sm">Quantity</div>
+                <select id="stock" name="order[][stock]" class=" h-12 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                  <% (product.stock + 1).times do |i| %>
+                    <option value="<%= i %>" <%= 'selected="selected"' if i == quantity %>><%= i %></option>
+                  <% end %>
+                </select>
+                <%= hidden_field_tag "order[][id]", product.id %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="flex w-full justify-center items-center">
-      <%= f.submit class: "bg-blue-700 flex rounded-full p-3 px-8 space-x-2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-        </svg>
-        <div class="font-bold">Proceed To Checkout</div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+      <div class="flex w-full justify-center items-center">
+        <%= f.submit class: "bg-blue-700 flex rounded-full p-3 px-8 space-x-2" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+          <div class="font-bold">Proceed To Checkout</div>
+        <% end %>
+      </div>
+    <% end %>
     <div class="flex w-full justify-center items-center text-center">
       <%= link_to shop_path, class: "underline" do %>
         Continue shopping

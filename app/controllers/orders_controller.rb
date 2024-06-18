@@ -7,11 +7,14 @@ class OrdersController < ApplicationController
     order = current_user.orders.create!(organisation_id: current_organisation.id)
 
     order_params.each do |product|
+      item = Product.find(product[:id])
       product[:stock].to_i.times do
-        order.product_order_joins.create!(product_id: product[:id])
+        order.product_order_joins.create!(product_id: item.id)
       end
+      item.update!(stock: item.stock - product[:stock].to_i)
     end
 
+    session["user"].delete("cart")
     redirect_to pay_path(order)
   end
 

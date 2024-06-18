@@ -73,6 +73,5 @@ class PaymentsController < ApplicationController
   def handle_payment_intent_status(payment_intent, status)
     @order = Order.find_by(payment_intent_id: payment_intent.id)
     @order.update(status: status)
-    session["user"]["cart"] = []
   end
 end
