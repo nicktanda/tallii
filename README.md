@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Things To Run:
+```
+bin/setup
+overmind start
+overmind connect # in a separate tab
+# in another tab
+stripe login
+stripe listen --forward-to http://localhost:3000/webhooks/payment
+```
 
-Things you may want to cover:
+Eventually I'll get everything into its own script when I deploy to a docker container but for now I don't particularly care lol
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Resources where I source shit from that's useful:
+ruby.mobidev.biz/posts/stripe-payment-gateway-integration-in-ruby-on-rails-app/
