@@ -1,5 +1,5 @@
 <div class="mx-4 text-white space-y-4">
-  <div class="text-white text-4xl font-thin pt-2">Settings</div>
+  <div class="text-white text-4xl font-thin pt-2 pb-4">Settings</div>
   <div>
     <%= link_to pet_profiles_path, class: "text-2xl" do %>
       Pet Profiles
@@ -11,8 +11,17 @@
     <% end %>
   </div>
   <div>
-    <%= link_to user_profile_path, class: "text-2xl" do %>
-      Human Profile
+    <%= link_to pet_selection_path, class: "text-2xl" do %>
+      Switch Pet Account
     <% end %>
+  </div>
+  <div class="absolute bottom-0 left-0 mb-[20vh] w-full px-4">
+    <div class="flex justify-between">
+      <div class="text-2xl"><%= current_user.first_name %> <%= current_user.last_name %></div>
+      <%= link_to destroy_session_path, class: "text-2xl underline" do %>
+        Sign Out
+      <% end %>
+    </div>
+    <div class="h-[12vh]"></div>
   </div>
 </div>
