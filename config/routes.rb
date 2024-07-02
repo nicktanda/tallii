@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "/pets/:id", to: "pets#show", as: "pet"
   get "/create/pets", to: "pets#new", as: "new_pet"
   post "/create/pets", to: "pets#create", as: "create_pet"
+  post "/update/pets/:id", to: "pets#update", as: "update_pet"
+  delete "/pets/:id", to: "pets#delete", as: "delete_pet"
 
   get "/grooms", to: "grooms#index", as: "grooms"
   get "/grooms/:id", to: "grooms#show", as: "groom"
@@ -39,9 +41,9 @@ Rails.application.routes.draw do
   post "/webhooks/payment", to: "payments#webhook"
 
   get "/settings", to: "settings#index", as: "settings"
+
   get "/settings/pet_profiles", to: "settings#pet_profiles", as: "pet_profiles"
   get "/settings/pet_profiles/:id", to: "settings#pet_profile", as: "pet_profile"
-  post "/settings/pet_profiles/:id/edit", to: "settings#update_pet_profile", as: "update_pet_profile"
 
   get "/settings/pet_selection", to: "settings#pet_selection", as: "pet_selection"
   post "/settings/pet_selection", to: "settings#switch_pet", as: "switch_pet"

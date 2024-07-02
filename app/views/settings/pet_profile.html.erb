@@ -1,0 +1,63 @@
+<% if flash[:alert].present? -%>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end -%>
+<%= form_for @pet, url: update_pet_path(@pet) do |f| %>
+  <div class="text-center m-8 text-white">
+    <div class="font-bold text-3xl mb-4">Create your pet's profile!</div>
+    <div class="font-light mb-4">Please enter your pet's details below</div>
+    <img src="<%= url_for(@pet.images.first.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
+    <div class="space-y-12 text-left">
+      <div>
+        <%= f.label :name, class: "text-xl mb-2" %>
+        <%= f.text_field :name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :species, class: "text-xl mb-2" %>
+        <div>
+          <%= f.radio_button :species, :dog, id: "species_dog", required: true %>
+          <%= f.label :dog, class: "text-lg", for: "species_dog" %>
+        </div>
+
+        <div>
+          <%= f.radio_button :species, :cat, id: "species_cat", required: true %>
+          <%= f.label :cat, class: "text-lg", for: "species_cat" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :gender, class: "text-xl mb-2" %>
+        <div>
+          <%= f.radio_button :gender, :male, id: "gender_male", required: true %>
+          <%= f.label :male, class: "text-lg", for: "gender_male" %>
+        </div>
+
+        <div>
+          <%= f.radio_button :gender, :female, id: "gender_female", required: true %>
+          <%= f.label :female, class: "text-lg", for: "gender_female" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :dob, "Birthday" %>
+        <%= f.date_field :dob, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :weight %>
+        <%= f.number_field :weight, required: true, step: 0, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :breed %>
+        <%= f.text_field :breed, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :health_conditions, "Health" %>
+        <%= f.text_area :health_conditions, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <%= f.file_field :image, accept: "image/jpeg, image/png" %>
+      <%= f.submit "Update Pet", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
+    </div>
+  </div>
+<% end %>
+<%= button_to delete_pet_path(@pet), method: :delete, class: "w-full" do %>
+  <div class="bg-white text-black font-bold p-4 rounded-lg text-center mt-4 mx-8">Delete Pet</div>
+<% end %>
