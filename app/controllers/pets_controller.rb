@@ -41,6 +41,8 @@ class PetsController < ApplicationController
   end
 
   def current_pet_profile
+    redirect_to new_pet_path unless current_pet
+
     @pet = current_pet
     render :show
   end
