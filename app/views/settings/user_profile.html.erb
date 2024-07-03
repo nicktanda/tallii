@@ -1,0 +1,33 @@
+<div class="mx-4 text-white space-y-4">
+  <div class="flex space-x-8">
+    <%= link_to settings_path, class: "pt-2" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    <% end %>
+    <div class="text-white text-4xl font-thin pt-2 pb-4">Your Profile</div>
+  </div>
+  <%= form_for current_user, url: update_user_path(current_user) do |f| %>
+    <div class="space-y-12 text-left">
+      <div>
+        <%= f.label :first_name, class: "text-xl mb-2" %>
+        <%= f.text_field :first_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :last_name, class: "text-xl mb-2" %>
+        <%= f.text_field :last_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :email, class: "text-xl mb-2" %>
+        <%= f.email_field :email, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <%= f.submit "Update Account", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
+    </div>
+  <% end %>
+  <%= link_to reset_password_path, class: "w-full" do %>
+    <div class="bg-white text-black font-bold p-4 rounded-lg text-center mt-4">Change Password</div>
+  <% end %>
+  <%= button_to delete_user_path(current_user), method: :delete, class: "w-full" do %>
+    <div class="bg-white text-black font-bold p-4 rounded-lg text-center mt-4">Delete Account</div>
+  <% end %>
+</div>

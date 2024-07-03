@@ -478,7 +478,8 @@ CREATE TABLE public.users (
     password_digest character varying NOT NULL,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    active boolean DEFAULT true
 );
 
 
@@ -1032,6 +1033,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240404110118'),
 ('20240519114136'),
 ('20240604113529'),
-('20240604115053');
+('20240604115053'),
+('20240703102909');
 
 

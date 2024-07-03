@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   get "/sign_up", to: "users#new", as: "new_user"
   post "/sign_up", to: "users#create", as: "create_user"
+  patch "/update/:id", to: "users#update", as: "update_user"
+  delete "/delete/:id", to: "users#delete", as: "delete_user"
+  get "/reset_password", to: "users#reset_password", as: "reset_password"
+  post "/update_password", to: "users#update_password", as: "update_password"
   get "/landing", to: "sessions#landing", as: "landing"
 
   get "/login", to: "sessions#new", as: "new_session"

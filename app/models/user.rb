@@ -5,4 +5,12 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :pets, dependent: :destroy
   has_many :orders, dependent: :destroy
+
+  scope :active, -> { where(active: true) }
+
+  default_scope { active }
+
+  def archive
+    self.update!(active: false)
+  end
 end
