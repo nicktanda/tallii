@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session["user"]["id"])
   end
 
+  def current_pet
+    return if session["pet"].nil?
+    @current_pet ||= current_user.pets.find_by(id: session["current_pet"])
+  end
+
   def current_organisation
     @current_organisation ||= current_user.organisation
   end

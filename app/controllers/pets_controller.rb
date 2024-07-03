@@ -40,6 +40,11 @@ class PetsController < ApplicationController
     redirect_to pet_profiles_path, notice: 'Pet deleted successfully'
   end
 
+  def current_pet_profile
+    @pet = current_pet
+    render :show
+  end
+
   private
 
   def pet_params

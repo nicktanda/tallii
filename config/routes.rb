@@ -54,5 +54,5 @@ Rails.application.routes.draw do
   get "/settings/user_profile", to: "settings#user_profile", as: "user_profile"
   post "/settings/user_profile/edit", to: "settings#update_user_profile", as: "update_user_profile"
 
-  root "pets#index", as: "root"
+  root "pets#current_pet_profile", as: "root"
 end
