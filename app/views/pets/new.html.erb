@@ -52,7 +52,10 @@
         <%= f.label :health_conditions, "Health" %>
         <%= f.text_area :health_conditions, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
-      <%= f.file_field :image, accept: "image/jpeg, image/png" %>
+      <div>
+        <%= f.label :image, "Photos" %>
+        <%= f.file_field :image, accept: "image/jpeg, image/png" %>
+      </div>
       <%= f.submit "Create Pet", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>
   </div>

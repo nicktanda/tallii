@@ -5,7 +5,7 @@
 <% end -%>
 <%= form_for @pet, url: update_pet_path(@pet) do |f| %>
   <div class="text-center m-8 text-white">
-    <div class="font-bold text-3xl mb-4">Create your pet's profile!</div>
+    <div class="font-bold text-3xl mb-4">Edit Pet Details</div>
     <div class="font-light mb-4">Please enter your pet's details below</div>
     <img src="<%= url_for(@pet.images.first.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
     <div class="space-y-12 text-left">
@@ -53,7 +53,6 @@
         <%= f.label :health_conditions, "Health" %>
         <%= f.text_area :health_conditions, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
-      <%= f.file_field :image, accept: "image/jpeg, image/png" %>
       <%= f.submit "Update Pet", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>
   </div>

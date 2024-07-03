@@ -895,14 +895,6 @@ select {
   margin-top: 2rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
 .block {
   display: block;
 }
@@ -931,29 +923,14 @@ select {
   display: none;
 }
 
-.size-6 {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.size-8 {
-  width: 2rem;
-  height: 2rem;
-}
-
-.size-12 {
-  width: 3rem;
-  height: 3rem;
-}
-
 .size-10 {
   width: 2.5rem;
   height: 2.5rem;
 }
 
-.size-4 {
-  width: 1rem;
-  height: 1rem;
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .h-11 {
@@ -1012,20 +989,16 @@ select {
   height: 10vh;
 }
 
+.h-\[12vh\] {
+  height: 12vh;
+}
+
 .h-\[8vh\] {
   height: 8vh;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[16vh\] {
-  height: 16vh;
-}
-
-.h-\[12vh\] {
-  height: 12vh;
 }
 
 .max-h-80 {
@@ -1192,6 +1165,10 @@ select {
   overflow-y: scroll;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -1206,14 +1183,6 @@ select {
 
 .rounded-md {
   border-radius: 0.375rem;
-}
-
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
 }
 
 .rounded-b-2xl {
@@ -1391,14 +1360,14 @@ select {
   padding-right: 2rem;
 }
 
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .py-4 {
@@ -1406,9 +1375,9 @@ select {
   padding-bottom: 1rem;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .pb-20 {
