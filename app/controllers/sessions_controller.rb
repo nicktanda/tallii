@@ -21,6 +21,4 @@ class SessionsController < ApplicationController
     session.delete(:user)
     redirect_to new_session_path
   end
-
-  def landing; end
 end

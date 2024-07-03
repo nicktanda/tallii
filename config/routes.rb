@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   delete "/delete/:id", to: "users#delete", as: "delete_user"
   get "/reset_password", to: "users#reset_password", as: "reset_password"
   post "/update_password", to: "users#update_password", as: "update_password"
-  get "/landing", to: "sessions#landing", as: "landing"
 
   get "/login", to: "sessions#new", as: "new_session"
   post "/login", to: "sessions#create", as: "create_session"
