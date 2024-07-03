@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   end
 
   def set_current_pet
-    session["current_pet"] = params[:pet_id]
-    redirect_back fallback_location: root_path
+    session["pet"] = params[:id]
+    redirect_to root_path
   end
 end

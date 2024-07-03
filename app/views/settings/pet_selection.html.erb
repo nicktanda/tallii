@@ -1,0 +1,33 @@
+<div class="mx-4 text-white space-y-4">
+  <div class="flex space-x-8">
+    <%= link_to settings_path, class: "pt-2" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    <% end %>
+    <div class="text-white text-4xl font-thin pt-2 pb-4">Switch Pet</div>
+  </div>
+  <% current_user.pets.each do |pet| %>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-green-500 text-center items-center p-2 rounded-2xl text-black">
+        <img src="<%= url_for(pet.images.first.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+        <div class="font-bold"><%= pet.name %></div>
+        <% if current_pet == pet %>
+          <div class="font-light">Current Pet</div>
+        <% end %>
+        <%= button_to set_current_pet_path(pet), class: "w-full flex justify-center items-center space-x-2 border border-black rounded text-center mt-6 py-1" do %>
+          <div class="font-light">Set as current pet</div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="absolute bottom-0 left-0 mb-[20vh] w-full px-4">
+    <%= link_to new_pet_path, class: "w-full flex justify-center items-center space-x-2 border rounded-2xl text-center py-4" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      <div class="font-light">Add New Pet</div>
+    <% end %>
+    <div class="h-[12vh]"></div>
+  </div>
+</div>

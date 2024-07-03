@@ -7,7 +7,6 @@ class SettingsController < ApplicationController
   end
 
   def pet_selection; end
-  def switch_pet; end
 
   def user_profile; end
   def update_user_profile; end

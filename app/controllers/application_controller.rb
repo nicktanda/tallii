@@ -22,5 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
+  helper_method :current_pet
   helper_method :current_organisation
 end
