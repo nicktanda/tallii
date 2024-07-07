@@ -1,7 +1,7 @@
 class DaycareVisitsController < ApplicationController
   def index
-    pets = current_user.pets.all.includes(:daycare_visits)
-    @daycare_visits = pets.map(&:daycare_visits).flatten
+    pet = current_pet || current_user.pets.first
+    @daycare_visits = pet.daycare_visits
   end
 
   def show

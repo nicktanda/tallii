@@ -26,4 +26,11 @@ class Pet < ApplicationRecord
     groom_date = self.grooms.order(date: :desc).first.date
     return groom_date.strftime("%B %d, %Y") unless groom_date < Time.now
   end
+
+  def next_daycare_visit
+    return if self.daycare_visits.empty?
+
+    visit_date = self.daycare_visits.order(date: :asc).first.date
+    return visit_date.strftime("%B %d, %Y") unless visit_date > Time.now
+  end
 end

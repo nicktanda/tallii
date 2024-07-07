@@ -1,7 +1,7 @@
 class GroomsController < ApplicationController
   def index
-    pets = current_user.pets.all.includes(:grooms)
-    @grooms = pets.map(&:grooms).flatten
+    pet = current_pet || current_user.pets.first
+    @grooms = pet.grooms.all
   end
 
   def show
