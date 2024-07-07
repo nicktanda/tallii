@@ -7,6 +7,11 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
   end
 
+  def pictures
+    @pet = Pet.find(params[:id])
+    @images = @pet.images
+  end
+
   def new; end
 
   def create
@@ -32,6 +37,19 @@ class PetsController < ApplicationController
     else
       redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
     end
+  end
+
+  def upload_new_image
+    pet = Pet.find(params[:id])
+    pet.images.create!(name: "test_image", image: params[:image])
+    redirect_to pet_pictures_path(pet), notice: 'Image uploaded'
+  end
+
+  def delete_image
+    pet = Pet.find(params[:id])
+    image = pet.images.find(params[:image_id])
+    image.destroy
+    redirect_to pet_pictures_path(pet), notice: 'Image deleted'
   end
 
   def delete

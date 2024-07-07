@@ -12,10 +12,13 @@ Rails.application.routes.draw do
   post "/set_current_pet/:id", to: "sessions#set_current_pet", as: "set_current_pet"
 
   get "/pets/:id", to: "pets#show", as: "pet"
+  get "/pets/:id/pictures", to: "pets#pictures", as: "pet_pictures"
   get "/create/pets", to: "pets#new", as: "new_pet"
   post "/create/pets", to: "pets#create", as: "create_pet"
+  post "/create/pets/:id/images", to: "pets#upload_new_image", as: "upload_new_image"
   patch "/update/pets/:id", to: "pets#update", as: "update_pet"
   delete "/pets/:id", to: "pets#delete", as: "delete_pet"
+  delete "/pets/:id/images/:image_id", to: "pets#delete_image", as: "delete_image"
 
   get "/grooms", to: "grooms#index", as: "grooms"
   get "/grooms/:id", to: "grooms#show", as: "groom"
