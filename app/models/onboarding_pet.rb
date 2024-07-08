@@ -1,0 +1,2 @@
+class OnboardingPet < Pet
+end

@@ -263,6 +263,45 @@ ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
+-- Name: onboarding_pets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.onboarding_pets (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    dob date NOT NULL,
+    breed character varying NOT NULL,
+    species integer DEFAULT 0 NOT NULL,
+    gender integer DEFAULT 0 NOT NULL,
+    weight integer DEFAULT 0 NOT NULL,
+    health_conditions character varying NOT NULL,
+    user_id bigint NOT NULL,
+    organisation_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: onboarding_pets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.onboarding_pets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: onboarding_pets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.onboarding_pets_id_seq OWNED BY public.onboarding_pets.id;
+
+
+--
 -- Name: orders; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -552,6 +591,13 @@ ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.image
 
 
 --
+-- Name: onboarding_pets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_pets ALTER COLUMN id SET DEFAULT nextval('public.onboarding_pets_id_seq'::regclass);
+
+
+--
 -- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -655,6 +701,14 @@ ALTER TABLE ONLY public.grooms
 
 ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: onboarding_pets onboarding_pets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_pets
+    ADD CONSTRAINT onboarding_pets_pkey PRIMARY KEY (id);
 
 
 --
@@ -791,6 +845,20 @@ CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id
 
 
 --
+-- Name: index_onboarding_pets_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_onboarding_pets_on_organisation_id ON public.onboarding_pets USING btree (organisation_id);
+
+
+--
+-- Name: index_onboarding_pets_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_onboarding_pets_on_user_id ON public.onboarding_pets USING btree (user_id);
+
+
+--
 -- Name: index_orders_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -891,6 +959,14 @@ ALTER TABLE ONLY public.daycare_visits
 
 
 --
+-- Name: onboarding_pets fk_rails_3a66c530fb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_pets
+    ADD CONSTRAINT fk_rails_3a66c530fb FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: products fk_rails_550fc2b569; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -944,6 +1020,14 @@ ALTER TABLE ONLY public.orders
 
 ALTER TABLE ONLY public.grooms
     ADD CONSTRAINT fk_rails_8f95164373 FOREIGN KEY (pet_id) REFERENCES public.pets(id);
+
+
+--
+-- Name: onboarding_pets fk_rails_91a9501b99; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_pets
+    ADD CONSTRAINT fk_rails_91a9501b99 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
 
 
 --
@@ -1034,6 +1118,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240519114136'),
 ('20240604113529'),
 ('20240604115053'),
-('20240703102909');
+('20240703102909'),
+('20240708111816');
 
 
