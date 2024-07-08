@@ -9,36 +9,43 @@ module Pets
     def species; end
     def update_species
       @pet.update!(species: params[:species])
+      redirect_to pet_name_onboarding_path(@pet)
     end
 
     def name; end
     def update_name
       @pet.update!(name: params[:name])
+      redirect_to pet_gender_onboarding_path(@pet)
     end
 
     def gender; end
     def update_gender
       @pet.update!(gender: params[:gender])
+      redirect_to pet_dob_onboarding_path(@pet)
     end
 
     def dob; end
     def update_dob
       @pet.update!(dob: params[:dob])
+      redirect_to pet_weight_onboarding_path(@pet)
     end
 
     def weight; end
     def update_weight
       @pet.update!(weight: params[:weight])
+      redirect_to pet_breed_onboarding_path(@pet)
     end
 
     def breed; end
     def update_breed
       @pet.update!(breed: params[:breed])
+      redirect_to pet_health_conditions_onboarding_path(@pet)
     end
 
     def health_conditions; end
     def update_health_conditions
       @pet.update!(health_conditions: params[:health_conditions])
+      redirect_to pet_images_onboarding_path(@pet)
     end
 
     def images; end
