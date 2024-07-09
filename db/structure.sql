@@ -237,6 +237,7 @@ CREATE TABLE public.images (
     id bigint NOT NULL,
     name character varying(100) NOT NULL,
     pet_id bigint,
+    onboarding_pet_id bigint,
     product_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -831,6 +832,13 @@ CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
 
 
 --
+-- Name: index_images_on_onboarding_pet_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_onboarding_pet_id ON public.images USING btree (onboarding_pet_id);
+
+
+--
 -- Name: index_images_on_pet_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1076,6 +1084,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.grooms
     ADD CONSTRAINT fk_rails_e1b884cc88 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: images fk_rails_e4ddc9e2c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_e4ddc9e2c4 FOREIGN KEY (onboarding_pet_id) REFERENCES public.onboarding_pets(id);
 
 
 --

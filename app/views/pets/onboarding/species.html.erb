@@ -1,0 +1,16 @@
+<div class="m-2">
+  <%= form_with url: pet_name_onboarding_path(@pet) do |f| %>
+    <div class="text-center">
+      <div class="text-yellow-200 text-4xl">Pet Type</div>
+      <div class="text-white text-2xl mt-4">Please select an animal</div>
+    </div>
+    <div>
+      <%= f.radio_button :species, :dog, id: "species_dog", required: true, checked: @pet.species == "dog" %>
+      <%= f.label :dog, "Dog", class: "text-lg", for: "species_dog" %>
+    </div>
+    <div>
+      <%= f.radio_button :species, :cat, id: "species_cat", required: true, checked: @pet.species == "cat" %>
+      <%= f.label :cat, "Cat", class: "text-lg", for: "species_cat" %>
+    </div>
+  <% end %>
+</div>

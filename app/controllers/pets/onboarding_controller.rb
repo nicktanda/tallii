@@ -1,9 +1,9 @@
 module Pets
   class OnboardingController < ApplicationController
-    before_action: :pet
+    before_action :pet, except: [:new]
 
     def new
-      @pet = OnboardingPet.create!(user: current_user, organisation: current_user.organisation)
+      @pet = OnboardingPet.create!(user: current_user, organisation_id: current_user.organisation_id)
     end
 
     def species; end
@@ -62,7 +62,7 @@ module Pets
     private
 
     def pet
-      @pet ||= OnboardingPet.find(params[:id])
+      @pet ||= params[:id] ? OnboardingPet.find(params[:id]) : current_user.onboarding_pets.create!
     end
   end
 end

@@ -1,0 +1,15 @@
+<div class="m-2">
+  <div class="w-full h-96 bg-white rounded-2xl"></div>
+  <div class="absolute left-2 top-2 bg-white w-24 h-24">
+    <div class="w-24 overflow-hidden inline-block">
+      <div class=" h-36 bg-black rotate-45 transform origin-top-right"></div>
+    </div>
+  </div>
+  <div class="mx-4">
+    <div class="mt-8 text-yellow-200 font-bold text-6xl">Now</div>
+    <div class="mt-2 text-white text-4xl">Let's create a profile for your pet!</div>
+    <%= link_to pet_species_onboarding_path(@pet) do %>
+      <div class="mt-2 text-white text-4xl underline">Next!</div>
+    <% end %>
+  </div>
+</div>
