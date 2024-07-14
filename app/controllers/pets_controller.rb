@@ -12,22 +12,6 @@ class PetsController < ApplicationController
     @images = @pet.images
   end
 
-  def new; end
-
-  def create
-    pet = current_user.pets.new(pet_params)
-
-    if pet.save
-      redirect_to pet_path(pet), notice: 'Pet created successfully'
-
-      if params[:pet][:image].present?
-        pet.images.create!(name: "test_image", image: params[:pet][:image])
-      end
-    else
-      redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
-    end
-  end
-
   def update
     pet = current_user.pets.find(params[:id])
     pet.assign_attributes(pet_params)
