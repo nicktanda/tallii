@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_authenticated_user, only: [:new, :create]
+  skip_before_action :require_pet, only: [:new, :create]
 
   def new; end
 

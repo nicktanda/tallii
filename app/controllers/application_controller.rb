@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :require_authenticated_user
+  before_action :require_pet
 
   Stripe.api_key = "sk_test_51PNCaHEu9YTm4fWpeCNiLjQMQfX6jns4gevTWPefyjEr5mf5uhxsH2c8ZO9pK7SRowuVdaJZTCNBxUh9eztuy23t002bhh4UVb"
 
@@ -9,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_pet
-    return if session["pet"].nil?
+    return if session["current_pet"].nil?
     @current_pet ||= current_user.pets.find_by(id: session["current_pet"])
   end
 
@@ -19,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   def require_authenticated_user
     redirect_to new_session_path unless current_user
+  end
+
+  def require_pet
+    redirect_to new_pet_onboarding_path unless current_pet
   end
 
   helper_method :current_user

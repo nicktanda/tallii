@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_authenticated_user
+  skip_before_action :require_pet
 
   def new
     return redirect_to root_path if current_user

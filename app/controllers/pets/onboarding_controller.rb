@@ -1,6 +1,7 @@
 module Pets
   class OnboardingController < ApplicationController
     before_action :pet, except: [:new]
+    skip_before_action :require_pet
 
     def new
       @pet = OnboardingPet.create!(user: current_user, organisation_id: current_user.organisation_id)
@@ -61,6 +62,7 @@ module Pets
       @pet.images.update_all(pet_id: pet.id, onboarding_pet_id: nil)
       pet.save!
       @pet.destroy!
+      session["current_pet"] = pet.id if current_pet.nil?
       redirect_to pet_path(pet), notice: 'Pet created successfully'
     end
 
