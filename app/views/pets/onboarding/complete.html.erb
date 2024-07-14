@@ -1,0 +1,8 @@
+<div class="m-2">
+  <%= form_with url: create_pet_onboarding_path(@pet) do |f| %>
+    <div class="text-center mb-8">
+      <div class="text-yellow-200 text-4xl">Ready To Go?</div>
+    </div>
+    <%= f.submit "Create #{@pet.name}'s Profile", class: "mt-2 text-white text-4xl w-full bg-blue-700 p-4 rounded-2xl" %>
+  <% end %>
+</div>

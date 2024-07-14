@@ -1,38 +1,36 @@
 <style>
 input:checked + label {
-  border-color: red;
+  border-color: #00FFFF;
+  font-weight: bold;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 </style>
 <div class="m-2">
-  <%= form_with url: pet_name_onboarding_path(@pet) do |f| %>
+  <%= form_with url: update_pet_species_onboarding_path(@pet) do |f| %>
     <div class="text-center">
       <div class="text-yellow-200 text-4xl">Pet Type</div>
       <div class="text-white text-2xl mt-4">Please select an animal</div>
     </div>
-    <div class="text-white flex w-full">
+    <div class="text-white text-2xl flex w-full">
       <div class="w-full">
-        <input class="hidden" id="species_dog" type="radio" name="species" checked>
-        <label class="flex flex-col p-4 border-2 border-gray-400 cursor-pointer" for="species_dog">
-          <span class="text-xs font-semibold uppercase">Small</span>
-          <span class="text-xl font-bold mt-2">$10/mo</span>
-          <ul class="text-sm mt-2">
-            <li>Thing 1</li>
-            <li>Thing 2</li>
-          </ul>
+        <input class="hidden" id="species_dog" type="radio" name="species" value="dog" <%= @pet.species == "dog" || @pet.species.nil? ? 'checked' : '' %>>
+        <label class="flex flex-col p-4 border-2 border-black cursor-pointer bg-red-400" for="species_dog">
+          <div class="flex justify-start">
+            <div class="bg-black rounded-lg p-4">Dog</div>
+          </div>
+          <div class="h-32"></div>
         </label>
       </div>
       <div class="w-full">
-        <input class="hidden" id="species_cat" type="radio" name="species">
-        <label class="flex flex-col p-4 border-2 border-gray-400 cursor-pointer" for="species_cat">
-          <span class="text-xs font-semibold uppercase">Medium</span>
-          <span class="text-xl font-bold mt-2">$40/mo</span>
-          <ul class="text-sm mt-2">
-            <li>Thing 1</li>
-            <li>Thing 2</li>
-          </ul>
+        <input class="hidden" id="species_cat" type="radio" name="species" value="cat" <%= @pet.species == "cat" ? 'checked' : '' %>>
+        <label class="flex flex-col p-4 border-2 border-black cursor-pointer bg-purple-400" for="species_cat">
+          <div class="h-32"></div>
+          <div class="flex justify-end">
+            <div class="content-end bg-black rounded-lg p-4">Cat</div>
+          </div>
         </label>
       </div>
     </div>
+    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
   <% end %>
 </div>

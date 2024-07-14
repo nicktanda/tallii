@@ -1,0 +1,36 @@
+<style>
+input:checked + label {
+  border-color: #00FFFF;
+  font-weight: bold;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+</style>
+<div class="m-2">
+  <%= form_with url: update_pet_gender_onboarding_path(@pet) do |f| %>
+    <div class="text-center mb-8">
+      <div class="text-yellow-200 text-4xl">Sex</div>
+      <div class="text-white text-2xl mt-4"><%= @pet.name %> is a good...</div>
+    </div>
+    <div class="text-white text-2xl flex w-full">
+      <div class="w-full">
+        <input class="hidden" id="gender_dog" type="radio" name="gender" value="male" <%= @pet.gender == "male" || @pet.gender.nil? ? 'checked' : '' %>>
+        <label class="flex flex-col p-4 border-2 border-black cursor-pointer bg-red-400" for="gender_dog">
+          <div class="flex justify-start">
+            <div class="bg-black rounded-lg p-4">Boy</div>
+          </div>
+          <div class="h-32"></div>
+        </label>
+      </div>
+      <div class="w-full">
+        <input class="hidden" id="gender_cat" type="radio" name="gender" value="female" <%= @pet.gender == "female" ? 'checked' : '' %>>
+        <label class="flex flex-col p-4 border-2 border-black cursor-pointer bg-purple-400" for="gender_cat">
+          <div class="h-32"></div>
+          <div class="flex justify-end">
+            <div class="content-end bg-black rounded-lg p-4">Girl</div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+  <% end %>
+</div>

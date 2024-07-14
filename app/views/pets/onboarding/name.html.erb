@@ -1,0 +1,12 @@
+<div class="m-2">
+  <%= form_with url: update_pet_name_onboarding_path(@pet) do |f| %>
+    <div class="text-center mb-8">
+      <div class="text-yellow-200 text-4xl">What is your <%= @pet.species %>'s name?</div>
+    </div>
+    <div class="w-full mb-4">
+      <%= f.label :name, "Name", class: "block text-xl font-semibold mb-2 text-yellow-200" %>
+      <%= f.text_field :name, required: true, class: "bg-black border-2 border-yellow-200 rounded-2xl text-white text-4xl p-4 font-bold w-full" %>
+    </div>
+    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+  <% end %>
+</div>

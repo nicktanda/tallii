@@ -1,0 +1,13 @@
+<div class="m-2">
+  <%= form_with url: upload_pet_image_onboarding_path(@pet) do |f| %>
+    <div class="text-center mb-8">
+      <div class="text-yellow-200 text-4xl">Selfie Time!</div>
+      <div class="text-white text-2xl mt-4">Upload <%= @pet.name %>'s best selfie!</div>
+    </div>
+    <div class="w-full mb-4 text-white">
+      <%= f.label :image, "Select a photo here" %>
+      <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "block w-full text-2xl border border-gray-300 rounded-lg cursor-pointer bg-black text-white" %>
+    </div>
+    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+  <% end %>
+</div>

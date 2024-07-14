@@ -51,11 +51,16 @@ module Pets
     def images; end
     def upload_image
       @pet.images.create!(name: "test_image", image: params[:image])
+      redirect_to complete_onboarding_path(@pet)
     end
 
+    def complete; end
     def create_pet
       pet_attributes = @pet.attributes.except("id", "created_at", "updated_at")
       pet = current_user.pets.create!(pet_attributes)
+      @pet.images.update_all(pet_id: pet.id, onboarding_pet_id: nil)
+      pet.save!
+      @pet.destroy!
       redirect_to pet_path(pet), notice: 'Pet created successfully'
     end
 
