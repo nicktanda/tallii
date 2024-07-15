@@ -37,27 +37,31 @@
       </svg>
     </div>
   </div>
-  <div class="pt-8 text-white text-4xl font-thin mx-2">Tailored for "Pet Name"</div>
-  <div class="grid grid-cols-2 gap-4">
-    <% current_organisation.products.first(4).each do |product| %>
-      <div class="col-span-1 bg-blue-200 rounded-2xl">
-        <div class="h-32">
+  <div class="pt-8 text-white text-4xl font-thin mx-2">Tailored for <%= current_pet.name %></div>
+  <% if current_organisation.products.any? %>
+    <div class="grid grid-cols-2 gap-4">
+      <% current_organisation.products.first(4).each do |product| %>
+        <div class="col-span-1 bg-blue-200 rounded-2xl">
+          <div class="h-32">
 
-        </div>
-        <div class="flex flex-col justify-end">
-          <div class="bg-white p-2 rounded-b-2xl">
-            <div><%= product.name %></div>
-            <div class="font-bold mb-2"><%= product.brand %></div>
-            <div class="font-bold">$<%= product.price %></div>
-            <hr class="my-2" />
-            <div class="flex justify-center font-bold text-white">
-              <%= link_to product_path(product) do %>
-                <div class="bg-blue-700 p-1 rounded-2xl px-4">BUY NOW</div>
-              <% end %>
+          </div>
+          <div class="flex flex-col justify-end">
+            <div class="bg-white p-2 rounded-b-2xl">
+              <div><%= product.name %></div>
+              <div class="font-bold mb-2"><%= product.brand %></div>
+              <div class="font-bold">$<%= product.price %></div>
+              <hr class="my-2" />
+              <div class="flex justify-center font-bold text-white">
+                <%= link_to product_path(product) do %>
+                  <div class="bg-blue-700 p-1 rounded-2xl px-4">BUY NOW</div>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-white mx-4 text-lg">Products coming soon!</div>
+  <% end %>
 </div>
