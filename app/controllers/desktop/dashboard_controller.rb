@@ -1,5 +1,5 @@
 module Desktop
-  class ApplicationController < ActionController::Base
-    
+  class DashboardController < DesktopController
+    def index; end
   end
 end

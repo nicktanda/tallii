@@ -80,4 +80,5 @@ Rails.application.routes.draw do
   root "pets#current_pet_profile", as: "root"
 
   # DESKTOP APP ROUTES
+  get "/dashboard", to: "desktop/dashboard#index", as: "dashboard"
 end
