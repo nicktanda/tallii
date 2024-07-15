@@ -21,6 +21,26 @@
         <%= f.label :email, class: "text-xl mb-2" %>
         <%= f.email_field :email, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
+      <div>
+        <%= f.label :phone, class: "text-xl mb-2" %>
+        <%= f.telephone_field :phone, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :weight, class: "text-xl mb-2" %>
+        <%= f.number_field :weight, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :address, class: "text-xl mb-2" %>
+        <%= f.text_field :address, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :city, class: "text-xl mb-2" %>
+        <%= f.text_field :city, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :postcode, class: "text-xl mb-2" %>
+        <%= f.text_field :postcode, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
       <%= f.submit "Update Account", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>
   <% end %>

@@ -519,7 +519,12 @@ CREATE TABLE public.users (
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    phone text,
+    weight integer,
+    address text,
+    city text,
+    postcode text
 );
 
 
@@ -1135,6 +1140,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240604113529'),
 ('20240604115053'),
 ('20240703102909'),
-('20240708111816');
+('20240708111816'),
+('20240715114418');
 
 

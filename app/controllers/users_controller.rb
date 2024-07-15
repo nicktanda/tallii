@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     current_user.assign_attributes(user_params)
 
     if current_user.save
-      redirect_to settings_path, notice: 'User updated'
+      redirect_to user_profile_path(current_user), notice: 'User updated'
     else
       redirect_back fallback_location: settings_path, alert: 'Invalid user information'
     end
@@ -47,6 +47,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
   end
 end
