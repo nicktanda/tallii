@@ -9,6 +9,9 @@
   </div>
   <%= form_for current_user, url: update_user_path(current_user) do |f| %>
     <div class="space-y-12 text-left">
+      <% if current_user.images&.order(:created_at)&.first&.image.present? %>
+        <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
+      <% end %>
       <div>
         <%= f.label :first_name, class: "text-xl mb-2" %>
         <%= f.text_field :first_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
@@ -40,6 +43,10 @@
       <div>
         <%= f.label :postcode, class: "text-xl mb-2" %>
         <%= f.text_field :postcode, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div class="w-full mb-4 text-xl text-white">
+        <%= f.label :image, "Profile Picture" %>
+        <%= f.file_field :image, accept: "image/jpeg, image/png", class: "block w-full text-2xl border border-gray-300 rounded-lg cursor-pointer bg-black text-white" %>
       </div>
       <%= f.submit "Update Account", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>

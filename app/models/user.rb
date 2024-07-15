@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :pets, dependent: :destroy
   has_many :onboarding_pets, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   scope :active, -> { where(active: true) }
 

@@ -240,7 +240,8 @@ CREATE TABLE public.images (
     onboarding_pet_id bigint,
     product_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id bigint
 );
 
 
@@ -858,6 +859,13 @@ CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id
 
 
 --
+-- Name: index_images_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_user_id ON public.images USING btree (user_id);
+
+
+--
 -- Name: index_onboarding_pets_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -969,6 +977,14 @@ ALTER TABLE ONLY public.pets
 
 ALTER TABLE ONLY public.daycare_visits
     ADD CONSTRAINT fk_rails_132c7d43ca FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: images fk_rails_19cd822056; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_19cd822056 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1141,6 +1157,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240604115053'),
 ('20240703102909'),
 ('20240708111816'),
-('20240715114418');
+('20240715114418'),
+('20240715115959');
 
 

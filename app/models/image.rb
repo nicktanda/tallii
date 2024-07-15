@@ -1,4 +1,5 @@
 class Image < ApplicationRecord
+  belongs_to :user, optional: true
   belongs_to :pet, optional: true
   belongs_to :onboarding_pet, optional: true
   belongs_to :product, optional: true

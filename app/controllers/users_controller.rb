@@ -17,9 +17,10 @@ class UsersController < ApplicationController
 
   def update
     current_user.assign_attributes(user_params)
+    current_user.images.create!(name: "Profile Pic", image: params[:user][:image]) if params[:user][:image]
 
     if current_user.save
-      redirect_to user_profile_path(current_user), notice: 'User updated'
+      redirect_to settings_path, notice: 'User updated'
     else
       redirect_back fallback_location: settings_path, alert: 'Invalid user information'
     end
