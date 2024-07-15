@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # MOBILE APP ROUTES
   get "/sign_up", to: "users#new", as: "new_user"
   post "/sign_up", to: "users#create", as: "create_user"
   patch "/update/:id", to: "users#update", as: "update_user"
@@ -77,4 +78,6 @@ Rails.application.routes.draw do
   post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
   root "pets#current_pet_profile", as: "root"
+
+  # DESKTOP APP ROUTES
 end
