@@ -14,8 +14,8 @@
   <body class="min-h-screen bg-white flex w-full">
     <div class="min-h-screen w-[20vw] bg-gray-200 pt-4">
       <div class="text-4xl font-bold flex justify-center mb-4">Talii</div>
-      <% if current_page?(dashboard_path)%>
-        <%= link_to dashboard_path do %>
+      <% if current_page?(desktop_dashboard_path)%>
+        <%= link_to desktop_dashboard_path do %>
           <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -24,7 +24,7 @@
           </div>
         <% end %>
       <% else %>
-        <%= link_to dashboard_path do %>
+        <%= link_to desktop_dashboard_path do %>
           <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -33,12 +33,25 @@
           </div>
         <% end %>
       <% end %>
-      <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-600">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-        </svg>
-        <div>Grooming</div>
-      </div>
+      <% if current_page?(desktop_grooms_path)%>
+        <%= link_to desktop_grooms_path do %>
+          <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+            <div>Grooming</div>
+          </div>
+        <% end %>
+      <% else %>
+        <%= link_to desktop_grooms_path do %>
+          <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+            <div>Grooming</div>
+          </div>
+        <% end %>
+      <% end %>
       <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-600">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
