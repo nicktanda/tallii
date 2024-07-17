@@ -3,7 +3,7 @@ class AddGrooms < ActiveRecord::Migration[7.0]
     create_table :grooms do |t|
       t.date :date, null: false
       t.time :time, null: false
-      t.date :last_groom, null: false
+      t.date :last_groom
       t.text :notes
 
       t.references :pet, null: false, foreign_key: true

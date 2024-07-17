@@ -201,12 +201,13 @@ CREATE TABLE public.grooms (
     id bigint NOT NULL,
     date date NOT NULL,
     "time" time without time zone NOT NULL,
-    last_groom date NOT NULL,
+    last_groom date,
     notes text,
     pet_id bigint NOT NULL,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    status integer DEFAULT 0
 );
 
 
@@ -1158,6 +1159,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240703102909'),
 ('20240708111816'),
 ('20240715114418'),
-('20240715115959');
+('20240715115959'),
+('20240717104219');
 
 

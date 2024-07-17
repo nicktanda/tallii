@@ -1,43 +1,44 @@
 <div class="py-4 px-2">
   <div class="font-bold text-2xl">Daily Calendar</div>
-  <details>
-    <summary class="bg-white font-bold p-4 rounded-lg">
-      <%= Time.zone.today.strftime("%B %e") %>
-    </summary>
-    <div class="overflow-hidden rounded-lg">
-      <div class="max-h-40 overflow-y-scroll">
-        <table class="w-full">
-          <thead>
-            <tr class="bg-gray-300 text-left sticky top-0">
-              <th class="p-2">Employee</th>
-              <th class="p-2">Time</th>
-              <th class="p-2">Service</th>
-              <th class="p-2">Pet</th>
-              <th class="p-2">Customer</th>
-              <th class="p-2">Phone</th>
-              <th class="p-2">Breed</th>
-              <th class="p-2">Notes</th>
-              <th class="p-2">Booked By</th>
-              <th class="p-2">Confirmed</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <tr class="bg-gray-50 text-left">
-              <td class="p-2">Aydan</td>
-              <td class="p-2">7:30AM</td>
-              <td class="p-2">Full Groom</td>
-              <td class="p-2">Apollo</td>
-              <td class="p-2">Scott R.</td>
-              <td class="p-2">0415961021</td>
-              <td class="p-2">Pug</td>
-              <td class="p-2">Yes</td>
-              <td class="p-2">Izzy</td>
-              <td class="p-2">Yes</td>
-            </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </details>
+  <div class="max-h-80 overflow-y-scroll">
+    <% @grooms.each do |date, grooms|%>
+      <details class="mb-2">
+        <summary class="bg-white font-bold p-4 rounded-lg">
+          <%= date.strftime("%B %e") %>
+        </summary>
+        <div class="overflow-hidden rounded-lg">
+          <div class="max-h-40 overflow-y-scroll">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-gray-300 text-left sticky top-0">
+                  <th class="p-2">Employee</th>
+                  <th class="p-2">Time</th>
+                  <th class="p-2">Pet</th>
+                  <th class="p-2">Customer</th>
+                  <th class="p-2">Phone</th>
+                  <th class="p-2">Breed</th>
+                  <th class="p-2">Notes</th>
+                  <th class="p-2">Status</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% grooms.each do |groom| %>
+                  <tr class="bg-gray-50 text-left">
+                    <td class="p-2">Aydan</td>
+                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2"><%= groom.pet.name %></td>
+                    <td class="p-2"><%= groom.pet.user.full_name %></td>
+                    <td class="p-2"><%= groom.pet.user.phone %></td>
+                    <td class="p-2"><%= groom.pet.breed %></td>
+                    <td class="p-2"><%= groom.notes.present? ? "Yes" : "No" %></td>
+                    <td class="p-2"><%= groom.status.capitalize %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    <% end %>
+  </div>
 </div>
