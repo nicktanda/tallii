@@ -2,7 +2,7 @@
   <div class="font-bold text-2xl">Daily Calendar</div>
   <div class="max-h-80 overflow-y-scroll pb-4">
     <% @grooms.each do |date, grooms|%>
-      <details class="mb-2">
+      <details class="mb-2" <%= date == Time.zone.today ? "open" : "" %>>
         <summary class="bg-white font-bold p-4 rounded-lg">
           <%= date.strftime("%B %e") %>
         </summary>
@@ -41,7 +41,7 @@
       </details>
     <% end %>
   </div>
-  <div class="flex space-x-4">
+  <div class="flex space-x-4 pt-4">
     <div class="w-full">
       <div class="font-bold text-xl pb-2">Daycare Count</div>
       <div class="w-full bg-white rounded-lg p-4">

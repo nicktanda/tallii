@@ -4,9 +4,15 @@ class Groom < ApplicationRecord
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }
 
+  scope :pending, -> { where(status: "pending")}
+  scope :confirmed, -> { where(status: "confirmed")}
+  scope :pending_or_confirmed, -> { pending.or(confirmed) }
+  scope :in_progress, -> { where(status: "in_progress")}
+  scope :completed, -> { where(status: "completed")}
+
   validate :groom_date_is_in_the_future
 
-  enum status: { pending: 0, confirmed: 1, completed: 2 }
+  enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }
 
   private
 
