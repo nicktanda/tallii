@@ -2,6 +2,8 @@ class DaycareVisit < ApplicationRecord
   belongs_to :pet
   enum duration: { half_day: 0, full_day: 1 }
 
+  scope :today, -> { where(date: Time.zone.today) }
+
   validate :daycare_visit_date_is_in_the_future
 
   private
