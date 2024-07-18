@@ -82,4 +82,5 @@ Rails.application.routes.draw do
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
+  get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
 end
