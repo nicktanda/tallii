@@ -170,7 +170,8 @@ CREATE TABLE public.daycare_visits (
     pet_id bigint NOT NULL,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    status integer DEFAULT 0
 );
 
 
@@ -1160,6 +1161,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240708111816'),
 ('20240715114418'),
 ('20240715115959'),
-('20240717104219');
+('20240717104219'),
+('20240721104704');
 
 
