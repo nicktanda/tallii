@@ -1,0 +1,20 @@
+<div class="space-y-12 h-[85vh] overflow-y-scroll">
+  <div class="flex justify-between w-full">
+    <button class="bg-black text-white p-3 rounded">+ Add Product</button>
+  </div>
+  <div class="grid grid-cols-4 gap-12">
+    <% @products.each do |product| %>
+      <div class="w-full">
+        <div class="w-full h-32 bg-blue-300"></div>
+        <div class="border p-4">
+          <div class="font-bold"><%= product.name %></div>
+          <div class="font-light">$<%= product.price %></div>
+          <div class="font-light">Stock: <%= product.stock %></div>
+          <div class="flex justfy-between w-full mt-4">
+            <div class="text-xs font-light">SKU: <%= product.item_number %></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
