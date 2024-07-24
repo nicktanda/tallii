@@ -6,7 +6,7 @@ module Desktop
 
     def show
       @users = current_organisation.users
-      @user = current_organisation.users.joins(pets: [:grooms, :daycare_visits]).find(params[:id])
+      @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
       @bookings = @user.pets.map do |pet|
         grooms = pet.grooms.map do |groom|
           { pet: pet.name, time: groom.time, date: groom.date, status: groom.status }
@@ -16,6 +16,24 @@ module Desktop
         end
         (grooms + daycare_visits).sort_by {|booking| [booking[:date], booking[:time]] }
       end.flatten
+    end
+
+    def new; end
+
+    def create
+      user = current_organisation.users.new(user_params)
+
+      if user.save
+        redirect_to desktop_users_path
+      else
+        redirect_back fallback_location: desktop_users_new_path, alert: 'Invalid email'
+      end
+    end
+
+    private
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
     end
   end
 end

@@ -1,0 +1,18 @@
+<div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
+  <div class="font-bold text-2xl">Add A Customer</div>
+  <%= form_for User.new, url: desktop_users_create_path do |f| %>
+    <div class="space-y-4">
+      <%= f.text_field :first_name, placeholder: "First Name", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      <%= f.text_field :last_name, placeholder: "Last Name", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      <%= f.email_field :email, placeholder: "Email", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      <%= f.text_field :password, placeholder: "Password", value: "Password", readonly: true, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      <small class="help-text text-gray-600">New user passwords will be set to this and should be changed after the customer accesses their account.</small>
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        Create Customer
+      </button>
+    </div>
+  <% end %>
+</div>
