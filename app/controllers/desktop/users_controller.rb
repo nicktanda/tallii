@@ -24,7 +24,7 @@ module Desktop
       user = current_organisation.users.new(user_params)
 
       if user.save
-        redirect_to desktop_users_path
+        redirect_to desktop_user_path(user)
       else
         redirect_back fallback_location: desktop_users_new_path, alert: 'Invalid email'
       end
