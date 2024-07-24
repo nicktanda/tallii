@@ -25,9 +25,17 @@ class GroomsController < ApplicationController
     groom = Groom.new(groom_params)
 
     if groom.save
-      redirect_to grooms_path, notice: 'Groom created successfully'
+      if params[:groom][:origin] == "desktop"
+        redirect_to desktop_grooms_path, notice: 'Groom created successfully'
+      else
+        redirect_to grooms_path, notice: 'Groom created successfully'
+      end
     else
-      redirect_back fallback_location: new_groom_path, alert: 'Invalid groom information'
+      if params[:groom][:origin] == "desktop"
+        redirect_back fallback_location: desktop_grooms_new, alert: 'Invalid groom information'
+      else
+        redirect_back fallback_location: new_groom_path, alert: 'Invalid groom information'
+      end
     end
   end
 

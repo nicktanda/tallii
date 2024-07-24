@@ -151,7 +151,9 @@
     </div>
   <div class="w-full">
     <div class="w-full p-4 justify-end flex space-x-4">
-      <button class="bg-black text-white p-3 rounded">Book Groom</button>
+      <%= link_to desktop_grooms_new_path do %>
+        <button class="bg-black text-white p-3 rounded">Book Groom</button>
+      <% end %>
       <button class="bg-black text-white p-3 rounded">+ Add Customer</button>
     </div>
     <div class="mx-4 bg-gray-100 rounded-lg max-h-screen">

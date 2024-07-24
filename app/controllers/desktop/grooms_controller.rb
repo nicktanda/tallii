@@ -5,5 +5,9 @@ module Desktop
       @in_progress_grooms = current_organisation.grooms.joins(:pet).today.in_progress
       @completed_grooms = current_organisation.grooms.joins(:pet).today.completed
     end
+
+    def new
+      @pets = current_organisation.users.map(&:pets).flatten
+    end
   end
 end

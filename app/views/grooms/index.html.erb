@@ -54,7 +54,7 @@
                   </svg>
                   <div class="flex items-center space-x-2">
                     <div class="font-light">Last Groom: </div>
-                    <div class="font-bold"><%= groom.last_groom.strftime("%B %d, %Y") %></div>
+                    <div class="font-bold"><%= groom.last_groom&.strftime("%B %d, %Y") %></div>
                   </div>
                 </div>
               </div>
