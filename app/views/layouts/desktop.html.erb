@@ -33,7 +33,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if current_page?(desktop_grooms_path)%>
+      <% if current_page?(desktop_grooms_path) || current_page?(desktop_grooms_new_path) %>
         <%= link_to desktop_grooms_path do %>
           <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
