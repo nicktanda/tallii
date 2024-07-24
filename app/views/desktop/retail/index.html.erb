@@ -2,10 +2,10 @@
   <div class="flex justify-between w-full">
     <button class="bg-black text-white p-3 rounded">+ Add Product</button>
   </div>
-  <div class="grid grid-cols-4 gap-12">
+  <div class="grid grid-cols-4 gap-6">
     <% @products.each do |product| %>
       <div class="w-full">
-        <div class="w-full h-32 bg-blue-300"></div>
+        <div class="w-full h-36 bg-blue-300"></div>
         <div class="border p-4">
           <div class="font-bold"><%= product.name %></div>
           <div class="font-light">$<%= product.price %></div>
