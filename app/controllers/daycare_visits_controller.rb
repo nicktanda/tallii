@@ -22,12 +22,20 @@ class DaycareVisitsController < ApplicationController
   end
 
   def create
-    daycare_visit = DaycareVisit.new(visit_params)
+    daycare_visit = current_organisation.daycare_visits.new(visit_params)
 
     if daycare_visit.save
-      redirect_to daycare_visits_path, notice: 'Daycare visit created successfully'
+      if params[:daycare_visit][:origin] == "desktop"
+        redirect_to desktop_daycare_visits_path, notice: 'Daycare visit created successfully'
+      else
+        redirect_to daycare_visits_path, notice: 'Daycare visit created successfully'
+      end
     else
-      redirect_back fallback_location: new_daycare_visits_path, alert: 'Invalid daycare visit information'
+      if params[:daycare_visit][:origin] == "desktop"
+        redirect_back fallback_location: new_daycare_visits_path, alert: 'Invalid daycare visit information'
+      else
+        redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'Invalid daycare visit information'
+      end
     end
   end
 
