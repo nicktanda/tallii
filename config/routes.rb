@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
 
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
+  get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
 
   get "/desktop/users", to: "desktop/users#index", as: "desktop_users"
   get "/desktop/users/new", to: "desktop/users#new", as: "desktop_users_new"

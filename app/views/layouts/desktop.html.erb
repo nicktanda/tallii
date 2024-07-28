@@ -52,7 +52,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if current_page?(desktop_daycare_visits_path)%>
+      <% if current_page?(desktop_daycare_visits_path) || current_page?(desktop_daycare_visits_new_path)%>
         <%= link_to desktop_daycare_visits_path do %>
           <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -151,6 +151,9 @@
     </div>
   <div class="w-full">
     <div class="w-full p-4 justify-end flex space-x-4">
+      <%= link_to desktop_daycare_visits_new_path do %>
+        <button class="bg-black text-white p-3 rounded">Book Daycare Visit</button>
+      <% end %>
       <%= link_to desktop_grooms_new_path do %>
         <button class="bg-black text-white p-3 rounded">Book Groom</button>
       <% end %>

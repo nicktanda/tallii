@@ -5,5 +5,9 @@ module Desktop
       @in_progress_daycare_visits = current_organisation.daycare_visits.joins(:pet).today.in_progress
       @completed_daycare_visits = current_organisation.daycare_visits.joins(:pet).today.completed
     end
+
+    def new
+      @pets = current_organisation.users.map(&:pets).flatten
+    end
   end
 end
