@@ -5,7 +5,7 @@ module Desktop
     end
 
     def show
-      @users = current_organisation.users
+      @users = current_organisation.users.active
       @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
       @bookings = @user.pets.map do |pet|
         grooms = pet.grooms.map do |groom|
@@ -16,6 +16,11 @@ module Desktop
         end
         (grooms + daycare_visits).sort_by {|booking| [booking[:date], booking[:time]] }
       end.flatten
+    end
+
+    def edit
+      @users = current_organisation.users
+      @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
     end
 
     def new; end
@@ -30,10 +35,30 @@ module Desktop
       end
     end
 
+    def update
+      user = current_organisation.users.find(user_params[:id])
+
+      user.assign_attributes(user_params)
+      user.images.create!(name: "Profile Pic", image: params[:user][:image]) if params[:user][:image]
+
+      if user.save
+        redirect_to desktop_user_path(user), notice: 'User updated'
+      else
+        redirect_back fallback_location: desktop_user_path(user), alert: 'Invalid user information'
+      end
+    end
+
+    def delete
+      user = current_organisation.users.find(params[:id])
+
+      user.archive
+      redirect_to desktop_users_path
+    end
+
     private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
+      params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
     end
   end
 end

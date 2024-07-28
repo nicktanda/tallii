@@ -81,14 +81,23 @@ Rails.application.routes.draw do
 
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
+
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
+
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
+
   get "/desktop/users", to: "desktop/users#index", as: "desktop_users"
   get "/desktop/users/new", to: "desktop/users#new", as: "desktop_users_new"
   post "/desktop/users/create", to: "desktop/users#create", as: "desktop_users_create"
   get "/desktop/users/:id", to: "desktop/users#show", as: "desktop_user"
+  get "/desktop/users/:id/edit", to: "desktop/users#edit", as: "desktop_user_edit"
+  patch "/desktop/users/:id/update", to: "desktop/users#update", as: "desktop_user_update"
+  delete "/desktop/users/:id/delete", to: "desktop/users#delete", as: "desktop_user_delete"
+
   get "/desktop/retail", to: "desktop/retail#index", as: "desktop_retail"
+
   get "/desktop/reports", to: "desktop/reports#index", as: "desktop_reports"
+
   get "/desktop/settings", to: "desktop/settings#index", as: "desktop_settings"
 end
