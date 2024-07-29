@@ -71,7 +71,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if current_page?(desktop_users_path) || (controller_name == 'users' && action_name == 'show') || current_page?(desktop_users_new_path) || (controller_name == 'users' && action_name == 'edit')%>
+      <% if current_page?(desktop_users_path) || (controller_name == 'users' && action_name == 'show') || current_page?(desktop_users_new_path) || (controller_name == 'users' && action_name == 'edit') || (controller_name == 'pets' && action_name == 'new')%>
         <%= link_to desktop_users_path do %>
           <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

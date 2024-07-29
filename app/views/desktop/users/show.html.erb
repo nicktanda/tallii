@@ -73,23 +73,25 @@
       </div>
     <% end %>
     <hr class="border-black"></hr>
-    <div>
-      <div class="flex justify-between">
+    <div class="w-full">
+      <div class="flex justify-between mb-2">
         <div class="text-3xl font-bold mb-2">Pets</div>
         <%= link_to desktop_pets_new_path(@user) do %>
           <div class="bg-gray-200 p-2 rounded-lg">+ Add New Pet</div>
         <% end %>
       </div>
       <% if @user.pets.any? %>
-        <div class="flex overflow-x-scroll">
+        <div class="flex overflow-x-auto space-x-4 py-4 w-[54vw]">
           <% @user.pets.each do |pet| %>
-            <div class="flex space-x-4">
-              <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-full h-20 w-20">
-              <div>
-                <div class="font-bold text-xl"><%= pet.name %></div>
-                <div class="font-light text-xs"><%= pet.gender.capitalize %></div>
-                <div class="font-light text-xs"><%= pet.breed.capitalize %></div>
-                <div class="font-light text-xs"><%= pet.age %> years old</div>
+            <div class="min-w-[12rem] p-2 bg-white rounded-lg">
+              <div class="flex space-x-2">
+                <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-full h-20 w-20">
+                <div>
+                  <div class="font-bold text-xl"><%= pet.name %></div>
+                  <div class="font-light text-xs"><%= pet.gender.capitalize %></div>
+                  <div class="font-light text-xs"><%= pet.breed.capitalize %></div>
+                  <div class="font-light text-xs"><%= pet.age %> years old</div>
+                </div>
               </div>
             </div>
           <% end %>

@@ -1167,12 +1167,68 @@ select {
   width: 100vw;
 }
 
+.w-\[24vw\] {
+  width: 24vw;
+}
+
+.w-40 {
+  width: 10rem;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
+.w-\[60vw\] {
+  width: 60vw;
+}
+
+.w-\[50vw\] {
+  width: 50vw;
+}
+
+.w-\[55vw\] {
+  width: 55vw;
+}
+
+.w-\[57vw\] {
+  width: 57vw;
+}
+
+.w-\[53vw\] {
+  width: 53vw;
+}
+
+.w-\[54vw\] {
+  width: 54vw;
+}
+
+.min-w-\[10rem\] {
+  min-width: 10rem;
+}
+
+.min-w-\[12rem\] {
+  min-width: 12rem;
+}
+
 .max-w-28 {
   max-width: 7rem;
 }
 
 .max-w-8 {
   max-width: 2rem;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.max-w-\[60vw\] {
+  max-width: 60vw;
+}
+
+.flex-none {
+  flex: none;
 }
 
 .flex-shrink-0 {
@@ -1210,6 +1266,10 @@ select {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
 }
 
 .content-end {
@@ -1321,6 +1381,10 @@ select {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 .overflow-x-scroll {
@@ -1829,6 +1893,12 @@ select {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .backdrop-blur-sm {

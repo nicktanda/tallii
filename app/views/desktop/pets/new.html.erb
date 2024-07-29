@@ -1,0 +1,71 @@
+<div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
+  <div class="font-bold text-2xl">Add A Pet</div>
+  <%= form_for Pet.new, url: desktop_pets_create_path do |f| %>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :user_id, "User" %>
+        <%= f.select(:user_id, options_for_select(current_organisation.users.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
+      </div>
+      <div>
+        <%= f.label :name, class: "mb-2" %>
+        <%= f.text_field :name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :species, class: "mb-2" %>
+        <div>
+          <%= f.radio_button :species, :dog, id: "species_dog", required: true %>
+          <%= f.label :dog, for: "species_dog" %>
+        </div>
+
+        <div>
+          <%= f.radio_button :species, :cat, id: "species_cat", required: true %>
+          <%= f.label :cat, for: "species_cat" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :gender, class: "text-xl mb-2" %>
+        <div>
+          <%= f.radio_button :gender, :male, id: "gender_male", required: true %>
+          <%= f.label :male, for: "gender_male" %>
+        </div>
+
+        <div>
+          <%= f.radio_button :gender, :female, id: "gender_female", required: true %>
+          <%= f.label :female, for: "gender_female" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :dob, "Birthday" %>
+        <%= f.date_field :dob, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :weight %>
+        <%= f.number_field :weight, required: true, step: 0, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :breed %>
+        <%= f.text_field :breed, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :health_conditions, "Health" %>
+        <%= f.text_area :health_conditions, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :image, "Pet Photo" %>
+        <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
+      </div>
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        Create Pet
+      </button>
+    </div>
+  <% end %>
+  <%= link_to desktop_user_path(@user), class: "bg-white w-full border font-bold p-4 rounded-lg flex items-center justify-center" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+    Cancel
+  <% end %>
+</div>
