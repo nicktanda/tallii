@@ -1,7 +1,7 @@
 module Desktop
   class PetsController < DesktopController
     def show
-
+      @pet = current_organisation.pets.joins(:user).find(params[:id])
     end
 
     def new
@@ -21,6 +21,10 @@ module Desktop
       else
         redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
       end
+    end
+
+    def update
+      pet = current_organisation.pets.find(params[:])
     end
 
     private

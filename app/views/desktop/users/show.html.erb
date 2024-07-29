@@ -87,7 +87,9 @@
               <div class="flex space-x-2">
                 <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-full h-20 w-20">
                 <div>
-                  <div class="font-bold text-xl"><%= pet.name %></div>
+                  <%= link_to desktop_pets_path(pet) do %>
+                    <div class="font-bold text-xl"><%= pet.name %></div>
+                  <% end %>
                   <div class="font-light text-xs"><%= pet.gender.capitalize %></div>
                   <div class="font-light text-xs"><%= pet.breed.capitalize %></div>
                   <div class="font-light text-xs"><%= pet.age %> years old</div>

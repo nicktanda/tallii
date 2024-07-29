@@ -100,6 +100,7 @@ Rails.application.routes.draw do
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
+  get "/desktop/pets/:id", to: "desktop/pets#show", as: "desktop_pets"
 
   get "/desktop/reports", to: "desktop/reports#index", as: "desktop_reports"
 
