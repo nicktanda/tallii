@@ -98,6 +98,8 @@ Rails.application.routes.draw do
 
   get "/desktop/retail", to: "desktop/retail#index", as: "desktop_retail"
 
+  get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
+
   get "/desktop/reports", to: "desktop/reports#index", as: "desktop_reports"
 
   get "/desktop/settings", to: "desktop/settings#index", as: "desktop_settings"

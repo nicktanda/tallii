@@ -72,10 +72,15 @@
         <div class="font-light"><%= @user.city %></div>
       </div>
     <% end %>
-    <% if @user.pets.any? %>
-      <hr class="border-black"></hr>
-      <div>
+    <hr class="border-black"></hr>
+    <div>
+      <div class="flex justify-between">
         <div class="text-3xl font-bold mb-2">Pets</div>
+        <%= link_to desktop_pets_new_path(@user) do %>
+          <div class="bg-gray-200 p-2 rounded-lg">+ Add New Pet</div>
+        <% end %>
+      </div>
+      <% if @user.pets.any? %>
         <div class="flex overflow-x-scroll">
           <% @user.pets.each do |pet| %>
             <div class="flex space-x-4">
@@ -89,8 +94,8 @@
             </div>
           <% end %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
     <% if @bookings.any? %>
       <hr class="border-black"></hr>
       <div>
