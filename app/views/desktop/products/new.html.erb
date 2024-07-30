@@ -1,0 +1,71 @@
+<div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
+  <div class="font-bold text-2xl">Add A Product</div>
+  <%= form_for Product.new, url: desktop_products_create_path do |f| %>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "Chew Toy", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :brand %>
+        <%= f.text_field :brand, placeholder: "ChuckIt!", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :description %>
+        <%= f.text_area :description, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4", rows: 1, placeholder: "Chew toy, very soft!" %>
+      </div>
+      <div>
+        <%= f.label :price %>
+        <%= f.number_field :price, placeholder: "4.99", step: "0.01", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :stock %>
+        <%= f.number_field :stock, placeholder: "50", step: "0", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :features %>
+        <%= f.text_area :features, required: true, value: "", class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4", rows: 3, placeholder: "Add a new feature in each row" %>
+      </div>
+      <div>
+        <%= f.label :item_number %>
+        <%= f.text_field :item_number, placeholder: "0010", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :dimensions %>
+        <%= f.text_field :dimensions, placeholder: "4 inches x 4 inches", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :weight %>
+        <%= f.text_field :weight, placeholder: "3 ounces", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :life_stage %>
+        <%= f.text_field :life_stage, placeholder: "Adult", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :breed_size %>
+        <%= f.text_field :breed_size, placeholder: "Small breed, Medium breed", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :toy_feature %>
+        <%= f.text_field :toy_feature, placeholder: "Tough Chew, Bouncy, Exercise", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :material %>
+        <%= f.text_field :material, placeholder: "Rubber", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        Create Product
+      </button>
+    </div>
+  <% end %>
+  <%= link_to desktop_products_path, class: "bg-white w-full border font-bold p-4 rounded-lg flex items-center justify-center" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+    Cancel
+  <% end %>
+</div>
