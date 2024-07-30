@@ -32,8 +32,12 @@ class PetsController < ApplicationController
   def delete_image
     pet = Pet.find(params[:id])
     image = pet.images.find(params[:image_id])
-    image.destroy
-    redirect_to pet_pictures_path(pet), notice: 'Image deleted'
+    if pet.images.count > 1
+      image.destroy
+      redirect_to pet_pictures_path(pet), notice: 'Image deleted'
+    else
+      redirect_to pet_pictures_path(pet), notice: 'Pet needs to always have at least 1 photo'
+    end
   end
 
   def delete

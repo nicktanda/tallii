@@ -100,7 +100,12 @@ Rails.application.routes.draw do
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
+  patch "/desktop/pets/:id", to: "desktop/pets#update", as: "desktop_pets_update"
   get "/desktop/pets/:id", to: "desktop/pets#show", as: "desktop_pets"
+  get "/desktop/pets/:id/images", to: "desktop/pets#pictures", as: "desktop_pets_pictures"
+  post "/desktop/pets/:id/images", to: "desktop/pets#upload_new_image", as: "desktop_pets_pictures_upload"
+  delete "/desktop/pets/:id/images/:image_id", to: "desktop/pets#delete_pet_picture", as: "desktop_pets_pictures_delete"
+  delete "/desktop/pets/:id", to: "desktop/pets#delete", as: "desktop_pets_delete"
 
   get "/desktop/reports", to: "desktop/reports#index", as: "desktop_reports"
 
