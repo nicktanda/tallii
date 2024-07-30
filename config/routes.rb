@@ -97,6 +97,9 @@ Rails.application.routes.draw do
   delete "/desktop/users/:id/delete", to: "desktop/users#delete", as: "desktop_user_delete"
 
   get "/desktop/products", to: "desktop/products#index", as: "desktop_products"
+  get "/desktop/products/new", to: "desktop/products#new", as: "desktop_products_new"
+  post "/desktop/products/create", to: "desktop/products#create", as: "desktop_products_create"
+  get "/desktop/products/:id", to: "desktop/products#show", as: "desktop_product"
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
