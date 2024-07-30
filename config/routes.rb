@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   patch "/desktop/users/:id/update", to: "desktop/users#update", as: "desktop_user_update"
   delete "/desktop/users/:id/delete", to: "desktop/users#delete", as: "desktop_user_delete"
 
-  get "/desktop/retail", to: "desktop/retail#index", as: "desktop_retail"
+  get "/desktop/products", to: "desktop/products#index", as: "desktop_products"
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
