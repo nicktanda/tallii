@@ -100,10 +100,10 @@
         </div>
       <% end %>
     </div>
-    <% if @bookings.any? %>
-      <hr class="border-black"></hr>
-      <div>
-        <div class="text-3xl font-bold mb-2">Bookings</div>
+    <hr class="border-black"></hr>
+    <div>
+      <div class="text-3xl font-bold mb-2">Bookings</div>
+      <% if @bookings.any? %>
         <div class="overflow-hidden rounded-lg">
           <div class="max-h-40 overflow-y-scroll">
             <table class="w-full">
@@ -128,7 +128,7 @@
             </table>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
