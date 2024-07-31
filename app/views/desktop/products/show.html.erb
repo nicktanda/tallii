@@ -1,3 +1,43 @@
 <div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
-
+  <div class="flex space-x-4">
+    <div class="w-full">
+      <div class="font-bold text-4xl"><%= @product.name %></div>
+      <div class="w-full overflow-y-scroll h-full space-y-4">
+        <div class="mt-2">
+          <div class="text-xl italic"><%= @product.brand %></div>
+          <div class="font-bold">$<%= @product.price %></div>
+          <% if @product.stock > 0 %>
+            <div class="text-green-500 font-bold">In stock</div>
+          <% else %>
+            <div class="text-red-500 font-bold">No stock</div>
+          <% end %>
+        </div>
+        <div>
+          <div class="text-lg font-bold">Description</div>
+          <div class="w-4/5"><%= @product.description %></div>
+        </div>
+        <div>
+          <div class="text-lg font-bold">Main Features</div>
+          <ul class="list-disc pl-5">
+            <% @product.features.each do |feature| %>
+              <li><%= feature %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div>
+          <div class="text-lg font-bold">Other Features</div>
+          <div>Dimensions: <%= @product.dimensions %></div>
+          <div>Weight: <%= @product.weight %></div>
+          <div>Life Stage: <%= @product.life_stage %></div>
+          <div>Breed Size: <%= @product.breed_size %></div>
+          <div>Material: <%= @product.material %></div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full overflow-y-scroll h-full">
+      <% @product.images.each do |image| %>
+        <img src="<%= url_for(image.image) %>" alt="<%= @product.name %>" class="w-full h-[50vh] bg-blue-300">
+      <% end %>
+    </div>
+  </div>
 </div>
