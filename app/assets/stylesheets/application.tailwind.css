@@ -1052,6 +1052,10 @@ select {
   height: 20rem;
 }
 
+.h-9 {
+  height: 2.25rem;
+}
+
 .h-96 {
   height: 24rem;
 }
@@ -1076,12 +1080,8 @@ select {
   height: 100vh;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
-.h-9 {
-  height: 2.25rem;
+.h-40 {
+  height: 10rem;
 }
 
 .max-h-28 {
@@ -1160,6 +1160,10 @@ select {
   width: 1.75rem;
 }
 
+.w-9 {
+  width: 2.25rem;
+}
+
 .w-\[20vw\] {
   width: 20vw;
 }
@@ -1182,14 +1186,6 @@ select {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
-.w-9 {
-  width: 2.25rem;
 }
 
 .min-w-\[12rem\] {

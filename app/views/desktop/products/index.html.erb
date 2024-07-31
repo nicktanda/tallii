@@ -6,17 +6,23 @@
   <% end %>
   <div class="grid grid-cols-4 gap-6">
     <% @products.each do |product| %>
-      <div class="w-full">
-        <div class="w-full h-36 bg-blue-300"></div>
-        <div class="border p-4">
-          <div class="font-bold"><%= product.name %></div>
-          <div class="font-light">$<%= product.price %></div>
-          <div class="font-light">Stock: <%= product.stock %></div>
-          <div class="flex justfy-between w-full mt-4">
-            <div class="text-xs font-light">SKU: <%= product.item_number %></div>
+      <%= link_to desktop_product_path(product) do %>
+        <div class="w-full">
+          <% if product.images.any? %>
+            <img src="<%= url_for(product.images.first.image) %>" alt="<%= product.name %>" class="w-full h-36 bg-blue-300">
+          <% else %>
+            <div class="w-full h-36 bg-blue-300"></div>
+          <% end %>
+          <div class="border p-4 h-40">
+            <div class="font-bold"><%= product.name %></div>
+            <div class="font-light">$<%= product.price %></div>
+            <div class="font-light">Stock: <%= product.stock %></div>
+            <div class="flex justfy-between w-full mt-4">
+              <div class="text-xs font-light">SKU: <%= product.item_number %></div>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>

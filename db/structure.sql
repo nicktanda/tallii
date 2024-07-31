@@ -438,7 +438,6 @@ CREATE TABLE public.products (
     weight character varying,
     life_stage character varying,
     breed_size character varying,
-    toy_feature character varying,
     material character varying,
     organisation_id bigint,
     category_id bigint,
@@ -1162,6 +1161,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240715114418'),
 ('20240715115959'),
 ('20240717104219'),
-('20240721104704');
+('20240721104704'),
+('20240731102032');
 
 

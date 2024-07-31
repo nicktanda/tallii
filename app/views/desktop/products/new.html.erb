@@ -47,12 +47,12 @@
         <%= f.text_field :breed_size, placeholder: "Small breed, Medium breed", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :toy_feature %>
-        <%= f.text_field :toy_feature, placeholder: "Tough Chew, Bouncy, Exercise", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
         <%= f.label :material %>
         <%= f.text_field :material, placeholder: "Rubber", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
+        <%= f.label :image, "Product Photo" %>
+        <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
