@@ -8,7 +8,7 @@
   <div class="text-2xl">Disclaimer</div>
   <div class="font-light">Maximum occupany at daycare is 30 dogs per day, your request may be reviewed before approval.</div>
   <div class="font-light">You have <u>8 visits</u> remaining in your package</div>
-  <%= form_for DaycareVisit.new, url: update_daycare_visits_path do |f| %>
+  <%= form_for @daycare_visit, url: update_daycare_visits_path do |f| %>
     <div class="w-full mt-16 space-y-4">
       <div>
         <%= f.label :pet_id, "Pet" %>

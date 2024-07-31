@@ -100,6 +100,13 @@ Rails.application.routes.draw do
   get "/desktop/products/new", to: "desktop/products#new", as: "desktop_products_new"
   post "/desktop/products/create", to: "desktop/products#create", as: "desktop_products_create"
   get "/desktop/products/:id", to: "desktop/products#show", as: "desktop_product"
+  get "/desktop/products/:id/edit", to: "desktop/products#edit", as: "desktop_product_edit"
+  patch "/desktop/products/:id/update", to: "desktop/products#update", as: "desktop_products_update"
+  delete "/desktop/products/:id/delete", to: "desktop/products#delete", as: "desktop_products_delete"
+
+  get "/desktop/products/:id/pictures", to: "desktop/products#pictures", as: "desktop_product_pictures"
+  post "/desktop/products/:id/pictures/create", to: "desktop/products#upload_new_image", as: "desktop_product_pictures_upload"
+  delete "/desktop/products/:id/images/:image_id", to: "desktop/products#delete_product_picture", as: "desktop_products_pictures_delete"
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
