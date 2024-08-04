@@ -16,5 +16,7 @@ module Tallii
     config.eager_load_paths << Rails.root.join("lib")
 
     config.generators.system_tests = nil
+
+    config.active_support.default_message_encryptor_serializer = :marshal
   end
 end
