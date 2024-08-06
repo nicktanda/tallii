@@ -37,6 +37,20 @@ class AddProductsAndCategoriesAndImages < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
+    create_table :onboarding_pets do |t|
+      t.string :name, limit: 100
+      t.date :dob
+      t.string :breed
+      t.integer :species
+      t.integer :gender
+      t.integer :weight
+      t.string :health_conditions
+
+      t.references :user, null: false, foreign_key: true
+      t.references :organisation, foreign_key: true
+      t.timestamps
+    end
+
     create_table :images do |t|
       t.string :name, null: false, limit: 100
 
