@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+system! "gem install overmind"
+
 if ! gem list foreman -i --silent; then
   echo "Installing foreman gem"
   gem install foreman
