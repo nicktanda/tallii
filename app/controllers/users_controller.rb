@@ -6,8 +6,10 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    user.organisation_id = Organisation.first.id
 
-    if user.save
+    if user.save!
+      session["user"] ||= {}
       session[:user][:id] = user.id
       redirect_to root_path
     else

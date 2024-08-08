@@ -1,15 +1,15 @@
 databases:
   - name: postgres
     ipAllowList: []
-    databaseName: tallii
-    user: tallii
+    databaseName: talii
+    user: talii
 
 services:
   - type: web
-    name: tallii
+    name: talii
     env: ruby
     buildCommand: "./render-build.sh"
-    startCommand: "bundle exec rails s"
+    startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
