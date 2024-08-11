@@ -106,7 +106,19 @@ Rails.application.routes.draw do
 
   get "/desktop/products/:id/pictures", to: "desktop/products#pictures", as: "desktop_product_pictures"
   post "/desktop/products/:id/pictures/create", to: "desktop/products#upload_new_image", as: "desktop_product_pictures_upload"
-  delete "/desktop/products/:id/images/:image_id", to: "desktop/products#delete_product_picture", as: "desktop_products_pictures_delete"
+  delete "/desktop/products/:id/images/:image_id", to: "desktop/products#delete_product_picture", as: "desktop_product_pictures_delete"
+
+  get "/desktop/categories", to: "desktop/categories#index", as: "desktop_categories"
+  get "/desktop/categories/new", to: "desktop/categories#new", as: "desktop_categories_new"
+  post "/desktop/categories/create", to: "desktop/categories#create", as: "desktop_categories_create"
+  get "/desktop/categories/:id", to: "desktop/categories#show", as: "desktop_category"
+  get "/desktop/categories/:id/edit", to: "desktop/categories#edit", as: "desktop_category_edit"
+  patch "/desktop/categories/:id/update", to: "desktop/categories#update", as: "desktop_categories_update"
+  delete "/desktop/categories/:id/delete", to: "desktop/categories#delete", as: "desktop_categories_delete"
+
+  get "/desktop/categories/:id/pictures", to: "desktop/categories#pictures", as: "desktop_category_pictures"
+  post "/desktop/categories/:id/pictures/create", to: "desktop/categories#upload_new_image", as: "desktop_category_pictures_upload"
+  delete "/desktop/categories/:id/images/:image_id", to: "desktop/categories#delete_category_picture", as: "desktop_category_pictures_delete"
 
   get "/desktop/users/:id/pets/new", to: "desktop/pets#new", as: "desktop_pets_new"
   post "/desktop/pets/create", to: "desktop/pets#create", as: "desktop_pets_create"
