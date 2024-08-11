@@ -1,0 +1,24 @@
+<div class="space-y-12 h-[85vh] overflow-y-scroll p-4">
+  <%= link_to desktop_categories_new_path do %>
+    <div class="flex justify-between w-full">
+      <button class="bg-black text-white p-3 rounded">+ Add Category</button>
+    </div>
+  <% end %>
+  <div class="grid grid-cols-4 gap-6">
+    <% @categories.each do |category| %>
+      <%= link_to desktop_categories_path(category) do %>
+        <div class="w-full">
+          <% if category.images.any? %>
+            <img src="<%= url_for(category.images.first.image) %>" alt="<%= category.name %>" class="w-full h-36 bg-blue-300">
+          <% else %>
+            <div class="w-full h-36 bg-blue-300"></div>
+          <% end %>
+          <div class="border p-4 h-40">
+            <div class="font-bold"><%= product.name %></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
