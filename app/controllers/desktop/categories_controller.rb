@@ -11,16 +11,16 @@ module Desktop
 
       category.assign_attributes(category_params)
 
-      if product.save
+      if category.save
         category.images.create!(name: "test_image", image: params[:category][:image]) if params[:category][:image]
-        redirect_to desktop_category_path(product), notice: 'Category successfully created'
+        redirect_to desktop_category_path(category), notice: 'Category successfully created'
       else
         redirect_back fallback_location: desktop_categories_new_path, alert: 'Invalid category information'
       end
     end
 
     def update
-      product = current_organisation.category.find(params[:id])
+      category = current_organisation.categories.find(params[:id])
 
       category.assign_attributes(category_params)
 
