@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_11_113015) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_12_124826) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -146,6 +146,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_11_113015) do
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
+  create_table "product_category_joins", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_product_category_joins_on_category_id"
+    t.index ["product_id"], name: "index_product_category_joins_on_product_id"
+  end
+
   create_table "product_order_joins", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "order_id", null: false
@@ -167,10 +176,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_11_113015) do
     t.string "breed_size"
     t.string "material"
     t.bigint "organisation_id"
-    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["organisation_id"], name: "index_products_on_organisation_id"
   end
 
@@ -221,7 +228,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_11_113015) do
   add_foreign_key "orders", "users"
   add_foreign_key "pets", "organisations"
   add_foreign_key "pets", "users"
-  add_foreign_key "products", "categories"
+  add_foreign_key "product_category_joins", "categories"
+  add_foreign_key "product_category_joins", "products"
   add_foreign_key "products", "organisations"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"

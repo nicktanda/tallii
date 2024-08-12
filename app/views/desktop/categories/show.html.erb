@@ -14,6 +14,16 @@
           <div class="text-lg font-bold">Description</div>
           <div class="w-4/5"><%= @category.description %></div>
         </div>
+        <% if @category.products.any? %>
+          <div>
+            <div class="text-lg font-bold">Products</div>
+            <% @category.products.each do |product| %>
+              <%= link_to desktop_product_path(product) do %>
+                <div class="underline"><%= product.name %></div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="w-full overflow-y-scroll h-full space-y-4">

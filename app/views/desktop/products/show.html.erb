@@ -39,6 +39,16 @@
           <div>Breed Size: <%= @product.breed_size %></div>
           <div>Material: <%= @product.material %></div>
         </div>
+        <% if @product.categories.any? %>
+          <div>
+            <div class="text-lg font-bold">Other Features</div>
+            <% @product.categories.each do |category| %>
+              <%= link_to desktop_category_path(category) do %>
+                <div class="underline"><%= category.name %></div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="w-full overflow-y-scroll h-full space-y-4">

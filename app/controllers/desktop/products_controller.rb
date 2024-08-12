@@ -4,7 +4,9 @@ module Desktop
       @products = current_organisation.products
     end
 
-    def new; end
+    def new
+      @categories = current_organisation.categories
+    end
     
     def create
       product = current_organisation.products.new
@@ -14,6 +16,11 @@ module Desktop
 
       if product.save
         product.images.create!(name: "test_image", image: params[:product][:image]) if params[:product][:image]
+
+        params[:product][:category_ids].each do |category_id|
+          product.product_category_joins.create!(category_id: category_id)
+        end
+
         redirect_to desktop_product_path(product), notice: 'Product successfully created'
       else
         redirect_back fallback_location: desktop_products_new_path, alert: 'Invalid product information'
@@ -25,6 +32,11 @@ module Desktop
 
       product.assign_attributes(product_params)
       product.features = product_params[:features].split("\r\n")
+
+      product.product_category_joins.destroy_all
+      params[:product][:category_ids].each do |category_id|
+        product.product_category_joins.create!(category_id: category_id)
+      end
 
       if product.save
         product.images.create!(name: "test_image", image: params[:product][:image]) if params[:product][:image]
@@ -39,7 +51,8 @@ module Desktop
     end
 
     def edit
-      @product = current_organisation.products.find(params[:id])
+      @product = current_organisation.products.joins(:categories).find(params[:id])
+      @categories = current_organisation.categories
     end
 
     def delete

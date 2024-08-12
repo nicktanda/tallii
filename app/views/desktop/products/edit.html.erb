@@ -60,6 +60,16 @@
         <%= f.label :material %>
         <%= f.text_field :material, placeholder: "Rubber", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
+      <% if @categories.any? %>
+        <div>
+          <% @categories.each do |category| %>
+            <div class="flex items-center space-x-2">
+              <%= check_box_tag "product[category_ids][]", category.id, @product.categories.pluck(:id).include?(category.id), id: "category_#{category.id}", class: "border-gray-300" %>
+              <%= label_tag "category_#{category.id}", category.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
