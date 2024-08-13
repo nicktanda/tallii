@@ -7,4 +7,40 @@
     <% end %>
     <div class="font-bold text-2xl">Company Profile</div>
   </div>
+  <%= form_for current_organisation, url: update_desktop_organisation_settings_path, method: :patch do |f| %>
+    <div class="space-y-4 w-full">
+      <div class="text-xl w-full border-l-0 border-r-0 border p-2">Details</div>
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name, required: true, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <div>
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <div>
+        <%= f.label :phone %>
+        <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <div class="text-xl w-full border-l-0 border-r-0 border p-2">Address</div>
+      <div>
+        <%= f.label :address %>
+        <%= f.text_field :address, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <div>
+        <%= f.label :city %>
+        <%= f.text_field :city, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <div>
+        <%= f.label :postcode %>
+        <%= f.text_field :postcode, class: "border w-full rounded-lg p-2" %>
+      </div>
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        Update Details
+      </button>
+    </div>
+  <% end %>
 </div>
