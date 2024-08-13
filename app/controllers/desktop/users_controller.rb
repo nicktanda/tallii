@@ -1,11 +1,10 @@
 module Desktop
   class UsersController < DesktopController
-    def index
-      @users = current_organisation.users
-    end
+    before_action :users, only: [:index, :show, :edit]
+
+    def index; end
 
     def show
-      @users = current_organisation.users.active
       @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
       @bookings = @user.pets.map do |pet|
         grooms = pet.grooms.map do |groom|
@@ -19,7 +18,6 @@ module Desktop
     end
 
     def edit
-      @users = current_organisation.users
       @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
     end
 
@@ -59,6 +57,10 @@ module Desktop
 
     def user_params
       params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
+    end
+
+    def users
+      @users ||= current_organisation.users.active.where.not(id: current_user.id)
     end
   end
 end
