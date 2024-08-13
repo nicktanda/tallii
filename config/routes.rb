@@ -132,4 +132,8 @@ Rails.application.routes.draw do
   get "/desktop/reports", to: "desktop/reports#index", as: "desktop_reports"
 
   get "/desktop/settings", to: "desktop/settings#index", as: "desktop_settings"
+  get "/desktop/settings/user", to: "desktop/settings#user", as: "desktop_user_settings"
+  patch "/desktop/settings/user", to: "desktop/settings#update_user", as: "update_desktop_user_settings"
+  get "/desktop/settings/organisation", to: "desktop/settings#organisation", as: "desktop_organisation_settings"
+  patch "/desktop/settings/organisation", to: "desktop/settings#update_organisation", as: "update_desktop_organisation_settings"
 end
