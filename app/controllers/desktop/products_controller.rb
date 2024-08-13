@@ -51,7 +51,7 @@ module Desktop
     end
 
     def edit
-      @product = current_organisation.products.joins(:categories).find(params[:id])
+      @product = current_organisation.products.find(params[:id])
       @categories = current_organisation.categories
     end
 

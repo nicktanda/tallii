@@ -10,6 +10,13 @@
     </div>
     <div class="text-violet-400"><%= f.object.brand %></div>
     <div class="text-3xl font-bold"><%= f.object.name %></div>
+    <% if f.object.images.any? %>
+      <div class="flex space-x-2 overflow-x-auto w-full h-44">
+        <% f.object.images.each do |image| %>
+          <img src="<%= url_for(image.image) %>" alt="<%= f.object.name %>" class="rounded-lg h-full">
+        <% end %>
+      </div>
+    <% end %>
     <div class="flex space-x-4 text-black pt-16">
       <div class="bg-white w-full rounded-lg p-4">
         <div class="text-violet-400">Total</div>
