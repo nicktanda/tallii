@@ -6,7 +6,7 @@ module Desktop
       def index; end
 
       def show
-        @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
+        @user = current_organisation.users.customers.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
         @bookings = @user.pets.map do |pet|
           grooms = pet.grooms.map do |groom|
             { pet: pet.name, time: groom.time, date: groom.date, status: groom.status }
@@ -19,7 +19,7 @@ module Desktop
       end
 
       def edit
-        @user = current_organisation.users.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
+        @user = current_organisation.users.customers.left_joins(pets: [:grooms, :daycare_visits]).find(params[:id])
       end
 
       def new; end
@@ -61,7 +61,7 @@ module Desktop
       end
 
       def users
-        @users ||= current_organisation.users.active.customers
+        @users ||= current_organisation.users.customers
       end
     end
   end
