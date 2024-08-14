@@ -93,6 +93,12 @@ Rails.application.routes.draw do
   get "/desktop/users/new", to: "desktop/users/customers#new", as: "desktop_users_new"
   get "/desktop/users/:id", to: "desktop/users/customers#show", as: "desktop_user"
   get "/desktop/users/:id/edit", to: "desktop/users/customers#edit", as: "desktop_user_edit"
+
+  # employee routes
+  get "/desktop/employees", to: "desktop/users/employees#index", as: "desktop_employees"
+  get "/desktop/employees/new", to: "desktop/users/employees#new", as: "desktop_employees_new"
+  get "/desktop/employees/:id", to: "desktop/users/employees#show", as: "desktop_employee"
+  get "/desktop/employees/:id/edit", to: "desktop/users/employees#edit", as: "desktop_employee_edit"
   
   # generic user action routes
   post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"

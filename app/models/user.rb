@@ -14,6 +14,7 @@ class User < ApplicationRecord
   scope :customers, -> { where(role: :customer) }
   scope :employees, -> { where(role: :employee) }
   scope :admins, -> { where(role: :admin) }
+  scope :employees_and_admins, -> { where(role: [:employee, :admin]) }
 
   default_scope { active }
 
