@@ -8,7 +8,12 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :images, dependent: :destroy
 
+  enum role: { customer: 0, employee: 1, admin: 2 }
+
   scope :active, -> { where(active: true) }
+  scope :customers, -> { where(role: :customer) }
+  scope :employees, -> { where(role: :employee) }
+  scope :admins, -> { where(role: :admin) }
 
   default_scope { active }
 
