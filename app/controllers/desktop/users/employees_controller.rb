@@ -1,7 +1,7 @@
 module Desktop
   module Users
-    class CustomersController < DesktopController
-      before_action :users
+    class EmployeesController < DesktopController
+      before_action :users, only: [:index, :show, :edit]
 
       def index; end
 

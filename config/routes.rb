@@ -88,13 +88,16 @@ Rails.application.routes.draw do
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
 
+  # customer routes
   get "/desktop/users", to: "desktop/users/customers#index", as: "desktop_users"
   get "/desktop/users/new", to: "desktop/users/customers#new", as: "desktop_users_new"
-  post "/desktop/users/create", to: "desktop/users/customers#create", as: "desktop_users_create"
   get "/desktop/users/:id", to: "desktop/users/customers#show", as: "desktop_user"
   get "/desktop/users/:id/edit", to: "desktop/users/customers#edit", as: "desktop_user_edit"
-  patch "/desktop/users/:id/update", to: "desktop/users/customers#update", as: "desktop_user_update"
-  delete "/desktop/users/:id/delete", to: "desktop/users/customers#delete", as: "desktop_user_delete"
+  
+  # generic user action routes
+  post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
+  patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
+  delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"
 
   get "/desktop/products", to: "desktop/products#index", as: "desktop_products"
   get "/desktop/products/new", to: "desktop/products#new", as: "desktop_products_new"
