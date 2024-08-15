@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_14_120510) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_15_121645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_14_120510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.bigint "employee_id", null: false
+    t.index ["employee_id"], name: "index_daycare_visits_on_employee_id"
     t.index ["organisation_id"], name: "index_daycare_visits_on_organisation_id"
     t.index ["pet_id"], name: "index_daycare_visits_on_pet_id"
   end
@@ -75,6 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_14_120510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.bigint "employee_id", null: false
+    t.index ["employee_id"], name: "index_grooms_on_employee_id"
     t.index ["organisation_id"], name: "index_grooms_on_organisation_id"
     t.index ["pet_id"], name: "index_grooms_on_pet_id"
   end
@@ -221,8 +225,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_14_120510) do
   add_foreign_key "categories", "organisations"
   add_foreign_key "daycare_visits", "organisations"
   add_foreign_key "daycare_visits", "pets"
+  add_foreign_key "daycare_visits", "users", column: "employee_id"
   add_foreign_key "grooms", "organisations"
   add_foreign_key "grooms", "pets"
+  add_foreign_key "grooms", "users", column: "employee_id"
   add_foreign_key "images", "categories"
   add_foreign_key "images", "onboarding_pets"
   add_foreign_key "images", "pets"

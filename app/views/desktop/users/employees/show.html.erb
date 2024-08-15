@@ -73,69 +73,16 @@
       </div>
     <% end %>
     <hr class="border-black"></hr>
-    <div class="w-full">
+    <div>
       <div class="flex justify-between mb-2">
-        <div class="text-3xl font-bold mb-2">Pets</div>
-        <%= link_to desktop_pets_new_path(@user) do %>
-          <div class="bg-gray-200 p-2 rounded-lg">+ Add New Pet</div>
-        <% end %>
+        <div class="text-3xl font-bold mb-2">Daycare Visits</div>
       </div>
-      <% if @user.pets.any? %>
-        <div class="flex overflow-x-auto space-x-4 py-4 w-[54vw]">
-          <% @user.pets.each do |pet| %>
-            <div class="min-w-[12rem] p-2 bg-white rounded-lg">
-              <div class="flex space-x-2">
-                <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-full h-20 w-20">
-                <div>
-                  <%= link_to desktop_pets_path(pet) do %>
-                    <div class="font-bold text-xl"><%= pet.name %></div>
-                  <% end %>
-                  <div class="font-light text-xs"><%= pet.gender.capitalize %></div>
-                  <div class="font-light text-xs"><%= pet.breed.capitalize %></div>
-                  <div class="font-light text-xs"><%= pet.age %> years old</div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
     </div>
     <hr class="border-black"></hr>
     <div>
       <div class="flex justify-between mb-2">
-        <div class="text-3xl font-bold mb-2">Bookings</div>
-        <% if @user.pets.any? %>
-          <%= link_to desktop_daycare_visits_new_path do %>
-            <div class="bg-gray-200 p-2 rounded-lg">+ Add New Booking</div>
-          <% end %>
-        <% end %>
+        <div class="text-3xl font-bold mb-2">Grooms</div>
       </div>
-      <% if @bookings.any? %>
-        <div class="overflow-hidden rounded-lg">
-          <div class="max-h-40 overflow-y-scroll">
-            <table class="w-full">
-              <thead>
-                <tr class="bg-gray-300 text-left sticky top-0">
-                  <th class="p-2">Pet</th>
-                  <th class="p-2">Date</th>
-                  <th class="p-2">Time</th>
-                  <th class="p-2">Status</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <% @bookings.each do |booking| %>
-                  <tr class="bg-gray-50 text-left">
-                    <td class="p-2"><%= booking[:pet] %></td>
-                    <td class="p-2"><%= booking[:date].strftime("%B %e, %Y") %></td>
-                    <td class="p-2"><%= booking[:time].strftime("%I:%M%P") %></td>
-                    <td class="p-2"><%= booking[:status].capitalize %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

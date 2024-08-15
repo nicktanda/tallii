@@ -136,7 +136,6 @@
         <% end %>
       <% end %>
       <div class="mt-24">
-        <div class="mt-4"></div>
         <% if current_user.images&.order(:created_at)&.first&.image.present? %>
         <div class="w-full flex justify-center items-center">
           <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-full max-h-80 w-[4vw] flex-shrink-0">

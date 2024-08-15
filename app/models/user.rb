@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :onboarding_pets, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :grooms, foreign_key: 'employee_id'
+  has_many :daycare_visits, foreign_key: 'employee_id'
 
   enum role: { customer: 0, employee: 1, admin: 2 }
 
