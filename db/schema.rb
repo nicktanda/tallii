@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_15_121645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
-    t.bigint "employee_id", null: false
+    t.bigint "employee_id"
     t.index ["employee_id"], name: "index_daycare_visits_on_employee_id"
     t.index ["organisation_id"], name: "index_daycare_visits_on_organisation_id"
     t.index ["pet_id"], name: "index_daycare_visits_on_pet_id"
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_15_121645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
-    t.bigint "employee_id", null: false
+    t.bigint "employee_id"
     t.index ["employee_id"], name: "index_grooms_on_employee_id"
     t.index ["organisation_id"], name: "index_grooms_on_organisation_id"
     t.index ["pet_id"], name: "index_grooms_on_pet_id"
