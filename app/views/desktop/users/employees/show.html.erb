@@ -75,13 +75,73 @@
     <hr class="border-black"></hr>
     <div>
       <div class="flex justify-between mb-2">
-        <div class="text-3xl font-bold mb-2">Daycare Visits</div>
+        <div class="text-3xl font-bold mb-2">Upcoming Grooms</div>
+      </div>
+      <div class="max-h-80 overflow-y-scroll pb-4">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-300 text-left sticky top-0">
+                <th class="p-2">Pet</th>
+                <th class="p-2">Time</th>
+                <th class="p-2">Date</th>
+                <th class="p-2">Status</th>
+              </tr>
+            </thead>
+            <% @user.grooms.in_future.each do |groom| %>
+              <tr class="bg-gray-50 text-left">
+                <td class="p-2">
+                  <div class="font-bold">
+                    <%= groom.pet.name %>
+                  </div>
+                  <div class="text-xs">
+                    <%= groom.pet.user.full_name %>
+                  </div>
+                </td>
+                <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                <td class="p-2"><%= groom.date.strftime("%B %e") %></td>
+                <td class="p-2"><%= groom.status.capitalize %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
     <hr class="border-black"></hr>
     <div>
       <div class="flex justify-between mb-2">
-        <div class="text-3xl font-bold mb-2">Grooms</div>
+        <div class="text-3xl font-bold mb-2">Upcoming Daycare Visits</div>
+      </div>
+      <div class="max-h-80 overflow-y-scroll pb-4">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-300 text-left sticky top-0">
+                <th class="p-2">Pet</th>
+                <th class="p-2">Time</th>
+                <th class="p-2">Date</th>
+                <th class="p-2">Duration</th>
+                <th class="p-2">Status</th>
+              </tr>
+            </thead>
+            <% @user.daycare_visits.in_future.each do |daycare_visit| %>
+              <tr class="bg-gray-50 text-left">
+                <td class="p-2">
+                  <div class="font-bold">
+                    <%= daycare_visit.pet.name %>
+                  </div>
+                  <div class="text-xs">
+                    <%= daycare_visit.pet.user.full_name %>
+                  </div>
+                </td>
+                <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                <td class="p-2"><%= daycare_visit.date.strftime("%B %e") %></td>
+                <td class="p-2"><%= daycare_visit.duration == "half_day" ? "Half Day" : "Full Day" %>
+                <td class="p-2"><%= daycare_visit.status.capitalize %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
   </div>

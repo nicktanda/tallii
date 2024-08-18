@@ -5,6 +5,7 @@ class Groom < ApplicationRecord
 
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }
+  scope :in_future , -> { where("date >= ?", Date.today) }
 
   scope :pending, -> { where(status: "pending")}
   scope :confirmed, -> { where(status: "confirmed")}
