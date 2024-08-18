@@ -26,6 +26,7 @@ module Desktop
 
       def delete
         user = current_organisation.users.find(params[:id])
+        redirect_to desktop_users_path if user == current_user
 
         user.archive
         redirect_to desktop_users_path
