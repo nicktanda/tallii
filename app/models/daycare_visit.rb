@@ -1,6 +1,7 @@
 class DaycareVisit < ApplicationRecord
   belongs_to :pet
   belongs_to :user, foreign_key: 'employee_id'
+  belongs_to :organisation
 
   enum duration: { half_day: 0, full_day: 1 }
   enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }

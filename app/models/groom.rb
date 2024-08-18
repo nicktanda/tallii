@@ -1,6 +1,7 @@
 class Groom < ApplicationRecord
   belongs_to :pet
   belongs_to :user, foreign_key: 'employee_id'
+  belongs_to :organisation
 
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }
