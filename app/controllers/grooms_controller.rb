@@ -5,13 +5,13 @@ class GroomsController < ApplicationController
   end
 
   def show
-    @groom = Groom.find(params[:id])
+    @groom = current_organisation.grooms.find(params[:id])
   end
 
   def new; end
 
   def update
-    groom = Groom.find(params[:id])
+    groom = current_organisation.grooms.find(params[:id])
     groom.assign_attributes(groom_params)
 
     if groom.save
@@ -22,7 +22,7 @@ class GroomsController < ApplicationController
   end
 
   def create
-    groom = Groom.new(groom_params)
+    groom = current_organisation.grooms.new(groom_params)
 
     if groom.save
       if params[:groom][:origin] == "desktop"
@@ -40,7 +40,7 @@ class GroomsController < ApplicationController
   end
 
   def delete
-    groom = Groom.find(params[:id])
+    groom = current_organisation.grooms.find(params[:id])
 
     if groom.destroy
       redirect_to grooms_path, notice: 'Groom deleted successfully'

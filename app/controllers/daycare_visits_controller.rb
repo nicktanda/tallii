@@ -5,13 +5,13 @@ class DaycareVisitsController < ApplicationController
   end
 
   def show
-    @daycare_visit = DaycareVisit.find(params[:id])
+    @daycare_visit = current_organisation.daycare_visits.find(params[:id])
   end
 
   def new; end
 
   def update
-    daycare_visit = DaycareVisit.find(params[:id])
+    daycare_visit = current_organisation.daycare_visits.find(params[:id])
     daycare_visit.assign_attributes(visit_params)
 
     if daycare_visit.save
@@ -40,7 +40,7 @@ class DaycareVisitsController < ApplicationController
   end
 
   def delete
-    daycare_visit = DaycareVisit.find(params[:id])
+    daycare_visit = current_organisation.daycare_visits.find(params[:id])
 
     if daycare_visit.destroy
       redirect_to daycare_visits_path, notice: 'Daycare visit deleted successfully'
