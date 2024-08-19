@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get "/grooms/:id", to: "grooms#show", as: "groom"
   get "/create/grooms", to: "grooms#new", as: "new_groom"
   post "/create/grooms", to: "grooms#create", as: "create_groom"
-  post "/update/grooms/:id", to: "grooms#update", as: "update_groom"
+  patch "/update/grooms/:id", to: "grooms#update", as: "update_groom"
   delete "/grooms/:id", to: "grooms#delete", as: "delete_groom"
   
   get "/daycare_visits", to: "daycare_visits#index", as: "daycare_visits"
@@ -85,6 +85,7 @@ Rails.application.routes.draw do
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
+  patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
 
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"

@@ -13,7 +13,7 @@ class Groom < ApplicationRecord
   scope :in_progress, -> { where(status: "in_progress")}
   scope :completed, -> { where(status: "completed")}
 
-  validate :groom_date_is_in_the_future
+  validate :groom_date_is_in_the_future, on: :create
 
   enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }
 
