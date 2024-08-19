@@ -8,10 +8,18 @@
         <%= f.hidden_field :pet_id, value: @groom.pet_id %>
         <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @groom.pet.name %></div>
       </div>
-      <div>
-        <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
+      <% if @groom.status == "completed" %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.hidden_field :pet_id, value: @groom.date %>
+          <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @groom.date %>
+        </div>
+      <% else %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        </div>
+      <% end %>
       <div>
         <%= f.label :time, "Request Time" %>
         <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>

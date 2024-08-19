@@ -8,10 +8,18 @@
         <%= f.hidden_field :pet_id, value: @daycare_visit.pet_id %>
         <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @daycare_visit.pet.name %></div>
       </div>
-      <div>
-        <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
+      <% if @daycare_visit.status == "completed" %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.hidden_field :pet_id, value: @daycare_visit.date %>
+          <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @daycare_visit.date %></div>
+        </div>
+      <% else %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        </div>
+      <% end %>
       <div>
         <%= f.label :time, "Dropoff Time" %>
         <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
