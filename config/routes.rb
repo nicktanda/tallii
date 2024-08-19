@@ -89,6 +89,8 @@ Rails.application.routes.draw do
 
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
+  get "/desktop/daycare_visits/:id", to: "desktop/daycare_visits#show", as: "desktop_daycare_visit"
+  patch "/desktop/daycare_visits/:id/update", to: "desktop/daycare_visits#update", as: "desktop_daycare_visit_update"
 
   # customer routes
   get "/desktop/users", to: "desktop/users/customers#index", as: "desktop_users"

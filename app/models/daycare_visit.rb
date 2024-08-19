@@ -15,7 +15,7 @@ class DaycareVisit < ApplicationRecord
   scope :in_progress, -> { where(status: "in_progress")}
   scope :completed, -> { where(status: "completed")}
 
-  validate :daycare_visit_date_is_in_the_future
+  validate :daycare_visit_date_is_in_the_future, on: :create
 
   private
 
