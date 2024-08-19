@@ -9,5 +9,9 @@ module Desktop
     def new
       @pets = current_organisation.users.map(&:pets).flatten
     end
+
+    def show
+      @groom = current_organisation.grooms.find(params[:id])
+    end
   end
 end

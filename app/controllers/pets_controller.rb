@@ -4,11 +4,11 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find(params[:id])
+    @pet = current_user.pets.find(params[:id])
   end
 
   def pictures
-    @pet = Pet.find(params[:id])
+    @pet = current_user.pets.find(params[:id])
     @images = @pet.images
   end
 
@@ -24,13 +24,13 @@ class PetsController < ApplicationController
   end
 
   def upload_new_image
-    pet = Pet.find(params[:id])
+    pet = current_user.pets.find(params[:id])
     pet.images.create!(name: "test_image", image: params[:image])
     redirect_to pet_pictures_path(pet), notice: 'Image uploaded'
   end
 
   def delete_image
-    pet = Pet.find(params[:id])
+    pet = current_user.pets.find(params[:id])
     image = pet.images.find(params[:image_id])
     if pet.images.count > 1
       image.destroy
@@ -41,7 +41,7 @@ class PetsController < ApplicationController
   end
 
   def delete
-    pet = Pet.find(params[:id])
+    pet = current_user.pets.find(params[:id])
     pet.destroy
     redirect_to pet_profiles_path, notice: 'Pet deleted successfully'
   end
