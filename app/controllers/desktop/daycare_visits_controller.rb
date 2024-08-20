@@ -25,10 +25,24 @@ module Desktop
       end
     end
 
+    def update_settings
+      current_organisation.assign_attributes(daycare_visit_settings_params)
+
+      if current_organisation.save
+        redirect_to desktop_daycare_visits_path, notice: 'Daycare Visit settings updated successfully'
+      else
+        redirect_to desktop_daycare_visits_path, notice: 'Invalid settings'
+      end
+    end
+
     private
 
     def daycare_visit_params
       params.require(:daycare_visit).permit(:date, :time, :notes, :pet_id, :duration, :employee_id, :status)
+    end
+
+    def daycare_visit_settings_params
+      params.permit(:maximum_weekly_daycare_visits, :maximum_daily_daycare_visits)
     end
   end
 end

@@ -87,11 +87,12 @@ Rails.application.routes.draw do
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
   post "/desktop/grooms/settings/update", to: "desktop/grooms#update_settings", as: "desktop_groom_settings_update"
-
+  
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
   get "/desktop/daycare_visits/:id", to: "desktop/daycare_visits#show", as: "desktop_daycare_visit"
   patch "/desktop/daycare_visits/:id/update", to: "desktop/daycare_visits#update", as: "desktop_daycare_visit_update"
+  post "/desktop/daycare_visits/settings/update", to: "desktop/daycare_visits#update_settings", as: "desktop_daycare_visits_settings_update"
 
   # customer routes
   get "/desktop/users", to: "desktop/users/customers#index", as: "desktop_users"
