@@ -2,53 +2,52 @@
   <div class="w-full flex space-x-4">
     <div class="w-full bg-white border border-gray-200 rounded-lg">
       <div class="w-full p-4">
-        <div class="font-bold">Daycare Check In</div>
+        <div class="font-bold">Pending And Confirmed Grooms</div>
       </div>
-      <div class="max-h-80 overflow-y-scroll pb-4">
-        <% @daycare_visits.each do |date, daycare_visits|%>
-          <details class="mb-2" <%= date == Time.zone.today ? "open" : "" %>>
-            <summary class="bg-white font-bold p-4 rounded-lg">
-              <%= date.strftime("%B %e") %>
-            </summary>
-            <div class="overflow-hidden rounded-lg">
-              <div class="max-h-40 overflow-y-scroll">
-                <table class="w-full">
-                  <thead>
-                    <tr class="bg-gray-300 text-left sticky top-0">
-                      <th class="p-2">Pet</th>
-                      <th class="p-2">Time In</th>
-                      <th class="p-2">Status</th>
-                      <th class="p-2">Additional</th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    <% daycare_visits.each do |daycare_visit| %>
-                      <tr class="bg-gray-50 text-left">
-                        <td class="p-2">
-                          <div class="font-bold">
-                            <%= daycare_visit.pet.name %>
-                          </div>
-                          <div class="text-xs">
-                            <%= daycare_visit.pet.user.full_name %>
-                          </div>
-                        </td>
-                        <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
-                        <td class="p-2"><%= daycare_visit.status.capitalize %></td>
-                        <td class="flex space-x-4 p-4">
-                          <%= link_to desktop_daycare_visit_path(daycare_visit) do %>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>
-                          <% end %>
-                        </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </details>
-        <% end %>
+      <div class="overflow-hidden rounded-lg">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-300 text-left sticky top-0">
+                <th class="p-2">Pet</th>
+                <th class="p-2">Time In</th>
+                <th class="p-2">Status</th>
+                <th class="p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @daycare_visits.each do |date, daycare_visits|%>
+                <tr>
+                  <td class="p-2"><%= date.strftime("%B %e") %></td>
+                  <td class="p-2"></td>
+                  <td class="p-2"></td>
+                  <td class="p-2"></td>
+                </tr>
+                <% daycare_visits.each do |daycare_visit| %>
+                  <tr class="bg-gray-50 text-left">
+                    <td class="p-2">
+                      <div class="font-bold">
+                        <%= daycare_visit.pet.name %>
+                      </div>
+                      <div class="text-xs">
+                        <%= daycare_visit.pet.user.full_name %>
+                      </div>
+                    </td>
+                    <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2"><%= daycare_visit.status.capitalize %></td>
+                    <td class="flex space-x-4 p-4">
+                      <%= link_to desktop_daycare_visit_path(daycare_visit) do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="w-full bg-white border border-gray-200 rounded-lg">
@@ -62,7 +61,7 @@
               <tr class="bg-gray-300 text-left sticky top-0">
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
-                <th class="p-2">Additional</th>
+                <th class="p-2">Actions</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -102,7 +101,7 @@
               <tr class="bg-gray-300 text-left sticky top-0">
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
-                <th class="p-2">Additional</th>
+                <th class="p-2">Actions</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
