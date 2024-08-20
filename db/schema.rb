@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_20_121612) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_20_123001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,8 +135,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_20_121612) do
     t.text "address"
     t.text "city"
     t.text "postcode"
-    t.integer "maximum_grooms", default: 0
-    t.integer "maximum_visits", default: 0
+    t.integer "maximum_weekly_grooms", default: 0
+    t.integer "maximum_daily_grooms", default: 0
+    t.integer "maximum_weekly_daycare_visits", default: 0
+    t.integer "maximum_daily_daycare_visits", default: 0
   end
 
   create_table "pets", force: :cascade do |t|

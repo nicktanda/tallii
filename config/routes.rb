@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
+  post "/desktop/grooms/settings/update", to: "desktop/grooms#update_settings", as: "desktop_groom_settings_update"
 
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
