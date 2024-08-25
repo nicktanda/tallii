@@ -6,8 +6,11 @@
     <div class="text-yellow-200 text-3xl">Book a Daycare Visit</div>
   </div>
   <div class="text-2xl">Disclaimer</div>
-  <div class="font-light">Maximum occupany at daycare is 30 dogs per day, your request may be reviewed before approval.</div>
-  <div class="font-light">You have <u>8 visits</u> remaining in your package</div>
+  <% flash.each do |type, msg| %>
+    <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+      <%= msg %>
+    </div>
+  <% end %>
   <%= form_for DaycareVisit.new, url: create_daycare_visits_path do |f| %>
     <div class="w-full mt-16 space-y-4">
       <div>
