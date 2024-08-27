@@ -19,6 +19,15 @@ class DaycareVisit < ApplicationRecord
 
   validate :daycare_visit_date_is_in_the_future, on: :create
 
+  def formatted_duration
+    case duration
+    when 'half_day'
+      'Half Day'
+    when 'full_day'
+      'Full Day'
+    end
+  end
+
   private
 
   def daycare_visit_date_is_in_the_future

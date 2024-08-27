@@ -12,6 +12,7 @@
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
                 <th class="p-2">Status</th>
+                <th class="p-2">Duration</th>
                 <th class="p-2">Actions</th>
               </tr>
             </thead>
@@ -19,6 +20,7 @@
               <% @daycare_visits.each do |date, daycare_visits|%>
                 <tr>
                   <td class="p-2"><%= date.strftime("%B %e") %></td>
+                  <td class="p-2"></td>
                   <td class="p-2"></td>
                   <td class="p-2"></td>
                   <td class="p-2"></td>
@@ -35,6 +37,7 @@
                     </td>
                     <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
                     <td class="p-2"><%= daycare_visit.status.capitalize %></td>
+                    <td class="p-2"><%= daycare_visit.formatted_duration %></td>
                     <td class="flex space-x-4 p-4">
                       <%= link_to desktop_daycare_visit_path(daycare_visit) do %>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -61,6 +64,7 @@
               <tr class="bg-gray-300 text-left sticky top-0">
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
+                <th class="p-2">Duration</th>
                 <th class="p-2">Actions</th>
               </tr>
             </thead>
@@ -76,6 +80,7 @@
                     </div>
                   </td>
                   <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                  <td class="p-2"><%= daycare_visit.formatted_duration %></td>
                   <td class="flex space-x-4 p-4">
                     <%= link_to desktop_daycare_visit_path(daycare_visit) do %>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -101,6 +106,7 @@
               <tr class="bg-gray-300 text-left sticky top-0">
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
+                <th class="p-2">Duration</th>
                 <th class="p-2">Actions</th>
               </tr>
             </thead>
@@ -116,6 +122,7 @@
                     </div>
                   </td>
                   <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                  <td class="p-2"><%= daycare_visit.formatted_duration %></td>
                   <td class="flex space-x-4 p-4">
                     <%= link_to desktop_daycare_visit_path(daycare_visit) do %>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
