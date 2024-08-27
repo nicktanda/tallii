@@ -7,7 +7,9 @@ class DaycareVisit < ApplicationRecord
   enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }
 
   scope :today, -> { where(date: Time.zone.today) }
-  scope :in_future , -> { where("date >= ?", Date.today) }
+  scope :on_date, ->(date) { where(date: date) }
+  scope :in_future , -> { where("date > ?", Date.today) }
+  scope :this_week, -> { where(date: Date.today.beginning_of_week..Date.today.end_of_week) }
 
   scope :pending, -> { where(status: "pending")}
   scope :confirmed, -> { where(status: "confirmed")}

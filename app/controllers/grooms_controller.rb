@@ -24,6 +24,14 @@ class GroomsController < ApplicationController
   def create
     groom = current_organisation.grooms.new(groom_params)
 
+    if current_organisation.grooms.today.count == current_organisation.maximum_daily_grooms
+      redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
+    end
+
+    if current_organisation.grooms.this_week.count == current_organisation.maximum_weekly_grooms
+      redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
+    end
+
     if groom.save
       if params[:groom][:origin] == "desktop"
         redirect_to desktop_grooms_path, notice: 'Groom created successfully'
