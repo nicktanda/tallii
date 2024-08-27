@@ -32,7 +32,7 @@ module Desktop
     end
 
     def organisation_params
-      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode)
+      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode, :maximum_weekly_daycare_visits, :maximum_daily_daycare_visits, :maximum_weekly_grooms, :maximum_daily_grooms)
     end
   end
 end

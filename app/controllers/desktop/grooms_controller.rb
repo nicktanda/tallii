@@ -25,24 +25,10 @@ module Desktop
       end
     end
 
-    def update_settings
-      current_organisation.assign_attributes(groom_settings_params)
-
-      if current_organisation.save
-        redirect_to desktop_organisation_settings_path, notice: 'Groom settings updated successfully'
-      else
-        redirect_to desktop_organisation_settings_path, notice: 'Invalid settings'
-      end
-    end
-
     private
 
     def groom_params
       params.require(:groom).permit(:date, :time, :notes, :pet_id, :last_groom, :employee_id, :status)
-    end
-
-    def groom_settings_params
-      params.permit(:maximum_weekly_grooms, :maximum_daily_grooms)
     end
   end
 end
