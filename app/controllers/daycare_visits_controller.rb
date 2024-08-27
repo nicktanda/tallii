@@ -24,6 +24,15 @@ class DaycareVisitsController < ApplicationController
   def create
     daycare_visit = current_organisation.daycare_visits.new(visit_params)
 
+    if current_user.max_daycare_visits == 0
+      if params[:daycare_visit][:origin] == "desktop"
+        redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'User has no more daycare visits in their package. Please confirm the customer would like more daycare visits'
+      else
+        redirect_back fallback_location: new_daycare_visits_path, alert: 'You have reached your maximum number of daycare visits'
+      end
+      return
+    end
+
     if current_organisation.daycare_visits.today.count == current_organisation.maximum_daily_daycare_visits
       if params[:daycare_visit][:origin] == "desktop"
         redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
