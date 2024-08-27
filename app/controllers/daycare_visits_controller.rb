@@ -26,10 +26,12 @@ class DaycareVisitsController < ApplicationController
 
     if current_organisation.daycare_visits.today.count == current_organisation.maximum_daily_daycare_visits
       redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
+      return
     end
 
     if current_organisation.daycare_visits.this_week.count == current_organisation.maximum_weekly_daycare_visits
       redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits this week, please rebook for another week'
+      return
     end
 
     if daycare_visit.save

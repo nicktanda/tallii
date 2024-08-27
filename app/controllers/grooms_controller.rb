@@ -26,10 +26,12 @@ class GroomsController < ApplicationController
 
     if current_organisation.grooms.today.count == current_organisation.maximum_daily_grooms
       redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
+      return
     end
 
     if current_organisation.grooms.this_week.count == current_organisation.maximum_weekly_grooms
       redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
+      return
     end
 
     if groom.save
