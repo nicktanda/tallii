@@ -25,12 +25,20 @@ class DaycareVisitsController < ApplicationController
     daycare_visit = current_organisation.daycare_visits.new(visit_params)
 
     if current_organisation.daycare_visits.today.count == current_organisation.maximum_daily_daycare_visits
-      redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
+      if params[:daycare_visit][:origin] == "desktop"
+        redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
+      else
+        redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
+      end
       return
     end
 
     if current_organisation.daycare_visits.this_week.count == current_organisation.maximum_weekly_daycare_visits
-      redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits this week, please rebook for another week'
+      if params[:daycare_visit][:origin] == "desktop"
+        redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits this week, please rebook for another week'
+      else
+        redirect_back fallback_location: new_daycare_visits_path, alert: 'We are unable to take any extra daycare visits this week, please rebook for another week'
+      end
       return
     end
 

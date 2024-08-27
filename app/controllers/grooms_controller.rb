@@ -25,12 +25,20 @@ class GroomsController < ApplicationController
     groom = current_organisation.grooms.new(groom_params)
 
     if current_organisation.grooms.today.count == current_organisation.maximum_daily_grooms
-      redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
+      if params[:groom][:origin] == "desktop"
+        redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
+      else
+        redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
+      end
       return
     end
 
     if current_organisation.grooms.this_week.count == current_organisation.maximum_weekly_grooms
-      redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
+      if params[:groom][:origin] == "desktop"
+        redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
+      else
+        redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
+      end
       return
     end
 
@@ -42,7 +50,7 @@ class GroomsController < ApplicationController
       end
     else
       if params[:groom][:origin] == "desktop"
-        redirect_back fallback_location: desktop_grooms_new, alert: 'Invalid groom information'
+        redirect_back fallback_location: desktop_grooms_new_path, alert: 'Invalid groom information'
       else
         redirect_back fallback_location: new_groom_path, alert: 'Invalid groom information'
       end
