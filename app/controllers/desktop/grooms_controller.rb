@@ -29,9 +29,9 @@ module Desktop
       current_organisation.assign_attributes(groom_settings_params)
 
       if current_organisation.save
-        redirect_to desktop_grooms_path, notice: 'Groom settings updated successfully'
+        redirect_to desktop_organisation_settings_path, notice: 'Groom settings updated successfully'
       else
-        redirect_to desktop_grooms_path, notice: 'Invalid settings'
+        redirect_to desktop_organisation_settings_path, notice: 'Invalid settings'
       end
     end
 
