@@ -22,6 +22,10 @@ module Desktop
         @user = users.find(params[:id])
       end
 
+      def booking_settings
+        @user = users.find(params[:id])
+      end
+
       def new; end
 
       private

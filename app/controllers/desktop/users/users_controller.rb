@@ -35,7 +35,7 @@ module Desktop
       private
 
       def user_params
-        params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
+        params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode, :max_grooms, :max_daycare_visits)
       end
     end
   end
