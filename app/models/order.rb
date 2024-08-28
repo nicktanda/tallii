@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   has_many :product_order_joins, dependent: :destroy
   has_many :products, through: :product_order_joins
 
+  scope :today, -> { where(created_at: Time.zone.today.beginning_of_day..Time.zone.today.end_of_day) }
+
   enum status: [:pending, :processing, :failed, :succeed]
 
   def total_price

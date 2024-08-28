@@ -1,67 +1,68 @@
-<div class="py-4 px-2">
-  <div class="font-bold text-2xl">Daily Calendar</div>
-  <div class="max-h-80 overflow-y-scroll pb-4">
-    <% @grooms.each do |date, grooms|%>
-      <details class="mb-2" <%= date == Time.zone.today ? "open" : "" %>>
-        <summary class="bg-white font-bold p-4 rounded-lg">
-          <%= date.strftime("%B %e") %>
-        </summary>
-        <div class="overflow-hidden rounded-lg">
+<div class="py-4 px-2 space-y-4">
+  <div>
+    <div class="font-bold text-2xl">Daily Calendar</div>
+    <div class="flex space-x-4">
+      <div class="w-full bg-white border border-gray-200 rounded-lg">
+        <div class="w-full p-4">
+          <div class="font-bold">Daycare Visit Targets</div>
+        </div>
+        <div class="overflow-hidden rounded-lg p-4">
           <div class="max-h-40 overflow-y-scroll">
-            <table class="w-full">
-              <thead>
-                <tr class="bg-gray-300 text-left sticky top-0">
-                  <th class="p-2">Employee</th>
-                  <th class="p-2">Time</th>
-                  <th class="p-2">Pet</th>
-                  <th class="p-2">Customer</th>
-                  <th class="p-2">Phone</th>
-                  <th class="p-2">Breed</th>
-                  <th class="p-2">Notes</th>
-                  <th class="p-2">Status</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <% grooms.each do |groom| %>
-                  <tr class="bg-gray-50 text-left">
-                    <td class="p-2">Aydan</td>
-                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-                    <td class="p-2"><%= groom.pet.name %></td>
-                    <td class="p-2"><%= groom.pet.user.full_name %></td>
-                    <td class="p-2"><%= groom.pet.user.phone %></td>
-                    <td class="p-2"><%= groom.pet.breed %></td>
-                    <td class="p-2"><%= groom.notes.present? ? "Yes" : "No" %></td>
-                    <td class="p-2"><%= groom.status.capitalize %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+            <div class="flex w-full justify-between">
+              <div class="font-bold">Half Day Visits:</div>
+              <div><%= current_organisation.daycare_visits.today.where(duration: "half_day").count %></div>
+            </div>
+            <div class="flex w-full justify-between">
+              <div class="font-bold pl-4">Full Day Visits:</div>
+              <div><%= current_organisation.daycare_visits.today.where(duration: "full_day").count %></div>
+            </div>
+            <div class="flex w-full justify-between">
+              <div class="font-bold">Daily Daycare Visits Target:</div>
+              <div><%= current_organisation.maximum_daily_daycare_visits %></div>
+            </div>
+            <div class="flex w-full justify-between">
+              <div class="font-bold">Daycare Visits Booked Today:</div>
+              <div><%= current_organisation.daycare_visits.today.count %></div>
+            </div>
           </div>
         </div>
-      </details>
-    <% end %>
+      </div>
+      <div class="w-full bg-white border border-gray-200 rounded-lg">
+        <div class="w-full p-4">
+          <div class="font-bold">Grooming Targets</div>
+        </div>
+        <div class="overflow-hidden rounded-lg p-4">
+          <div class="max-h-40 overflow-y-scroll">
+            <div class="flex w-full justify-between">
+              <div class="font-bold">Daily Grooms Target:</div>
+              <div><%= current_organisation.maximum_daily_grooms %></div>
+            </div>
+            <div class="flex w-full justify-between">
+              <div class="font-bold">Grooms Booked Today:</div>
+              <div><%= current_organisation.grooms.today.count %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="flex space-x-4 pt-4">
-    <div class="w-full">
-      <div class="font-bold text-xl pb-2">Daycare Count</div>
-      <div class="w-full bg-white rounded-lg p-4">
-        <div class="h-32 space-y-4">
-          <div><b>Full day:</b> <%= @daycare_visits.select{|visit| visit.duration == "full_day"}.count %></div>
-          <div><b>Half day:</b> <%= @daycare_visits.select{|visit| visit.duration == "half_day"}.count %></div>
-          <div><b>Total:</b> <%= @daycare_visits.count %></div>
+  <div class="flex space-x-4">
+    <div class="w-1/2">
+      <div class="font-bold text-2xl">Retail Sales</div>
+      <div class="flex w-full space-x-4">
+        <div class="w-full bg-white border border-gray-200 rounded-lg p-4">
+          <div class="flex w-full space-x-6">
+            <div>
+              <div class="font-bold">Today's Sales</div>
+              <div class="text-2xl">$<%= current_organisation.orders.today.sum {|order| order.total_price_in_dollars } %></div>
+            </div>
+            <div>
+              <div class="font-bold">Today's Sales</div>
+              <div class="text-2xl"><%= current_organisation.orders.today.count %> orders</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="w-full">
-      <div class="font-bold text-xl pb-2">Retail Sales</div>
-      <div class="w-full bg-white rounded-lg text-center p-4">
-        <div class="h-32 space-y-4">
-          <div class="font-bold">Today's Online Revenue</div>
-          <div class="font-bold text-4xl">$300.95</div>
-          <div class="font-bold">View Sales</div>
-        </div>
-      </div>
-    </div>
-    <div class="h-8 w-full"></div>
   </div>
 </div>
