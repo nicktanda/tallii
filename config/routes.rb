@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "/service-worker.js" => "service_worker#service_worker"
+  get "/manifest.json" => "service_worker#manifest"
+
   # MOBILE APP ROUTES
   get "/sign_up", to: "users#new", as: "new_user"
   post "/sign_up", to: "users#create", as: "create_user"

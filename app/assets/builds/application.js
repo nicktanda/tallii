@@ -8161,4 +8161,15 @@ var checkout_controller_default2 = checkout_controller_default;
 
 // app/javascript/controllers/index.js
 application.register("checkout", checkout_controller_default2);
+
+// app/javascript/custom/companion.js
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => navigator.serviceWorker.ready).then((registration) => {
+    if ("SyncManager" in window) {
+      registration.sync.register("sync-forms");
+    } else {
+      window.alert("This browser does not support background sync.");
+    }
+  }).then(() => console.log("[Companion]", "Service worker registered!"));
+}
 //# sourceMappingURL=application.js.map
