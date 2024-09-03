@@ -8171,11 +8171,5 @@ if (navigator.serviceWorker) {
       window.alert("This browser does not support background sync.");
     }
   }).then(() => console.log("[Companion]", "Service worker registered!"));
-  let deferredPrompt;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInAppInstallPromotion();
-  });
 }
 //# sourceMappingURL=application.js.map
