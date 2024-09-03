@@ -8165,10 +8165,23 @@ application.register("checkout", checkout_controller_default2);
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => console.log("Service worker registered!")).catch((error2) => console.error("Service worker registration failed:", error2));
+  let deferredPrompt;
   window.addEventListener("beforeinstallprompt", (e) => {
-    console.log("beforeinstallprompt event fired");
     e.preventDefault();
     deferredPrompt = e;
+    const installButton = document.getElementById("install-button");
+    installButton.style.display = "block";
+    installButton.addEventListener("click", () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the install prompt");
+        } else {
+          console.log("User dismissed the install prompt");
+        }
+        deferredPrompt = null;
+      });
+    });
   });
 }
 //# sourceMappingURL=application.js.map
