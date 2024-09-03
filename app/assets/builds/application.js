@@ -8164,24 +8164,6 @@ application.register("checkout", checkout_controller_default2);
 
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {
-  let showInAppInstallPromotion = function() {
-    const installButton = document.getElementById("install-button");
-    if (installButton) {
-      installButton.style.display = "block";
-      installButton.addEventListener("click", () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === "accepted") {
-            console.log("User accepted the A2HS prompt");
-          } else {
-            console.log("User dismissed the A2HS prompt");
-          }
-          deferredPrompt = null;
-        });
-      });
-    }
-  };
-  showInAppInstallPromotion2 = showInAppInstallPromotion;
   navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => navigator.serviceWorker.ready).then((registration) => {
     if ("SyncManager" in window) {
       registration.sync.register("sync-forms");
@@ -8189,12 +8171,5 @@ if (navigator.serviceWorker) {
       window.alert("This browser does not support background sync.");
     }
   }).then(() => console.log("[Companion]", "Service worker registered!"));
-  let deferredPrompt;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInAppInstallPromotion();
-  });
 }
-var showInAppInstallPromotion2;
 //# sourceMappingURL=application.js.map
