@@ -22,4 +22,24 @@ if (navigator.serviceWorker) {
       // as part of a critical journey.
       showInAppInstallPromotion();
     });
+
+  // Function to show the install prompt
+  function showInAppInstallPromotion() {
+    // Add your custom UI logic here
+    const installButton = document.getElementById('install-button');
+    installButton.style.display = 'block';
+
+    installButton.addEventListener('click', () => {
+      // Show the install prompt
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
 }
