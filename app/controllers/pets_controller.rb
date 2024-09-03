@@ -19,7 +19,7 @@ class PetsController < ApplicationController
     if pet.save
       redirect_to pet_path(pet), notice: 'Pet updated successfully'
     else
-      redirect_back fallback_location: new_pet_path, alert: 'Invalid pet information'
+      redirect_back fallback_location: new_pet_onboarding_path, alert: 'Invalid pet information'
     end
   end
 
