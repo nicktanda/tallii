@@ -8164,12 +8164,6 @@ application.register("checkout", checkout_controller_default2);
 
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => navigator.serviceWorker.ready).then((registration) => {
-    if ("SyncManager" in window) {
-      registration.sync.register("sync-forms");
-    } else {
-      window.alert("This browser does not support background sync.");
-    }
-  }).then(() => console.log("[Companion]", "Service worker registered!"));
+  navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => console.log("Service worker registered!")).catch((error2) => console.error("Service worker registration failed:", error2));
 }
 //# sourceMappingURL=application.js.map
