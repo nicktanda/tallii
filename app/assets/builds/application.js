@@ -8166,18 +8166,20 @@ application.register("checkout", checkout_controller_default2);
 if (navigator.serviceWorker) {
   let showInAppInstallPromotion = function() {
     const installButton = document.getElementById("install-button");
-    installButton.style.display = "block";
-    installButton.addEventListener("click", () => {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the A2HS prompt");
-        } else {
-          console.log("User dismissed the A2HS prompt");
-        }
-        deferredPrompt = null;
+    if (installButton) {
+      installButton.style.display = "block";
+      installButton.addEventListener("click", () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the A2HS prompt");
+          } else {
+            console.log("User dismissed the A2HS prompt");
+          }
+          deferredPrompt = null;
+        });
       });
-    });
+    }
   };
   showInAppInstallPromotion2 = showInAppInstallPromotion;
   navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => navigator.serviceWorker.ready).then((registration) => {
