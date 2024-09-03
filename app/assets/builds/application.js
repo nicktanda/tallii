@@ -8168,6 +8168,7 @@ if (navigator.serviceWorker) {
   let deferredPrompt;
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
+    console.log("Fuck you");
     deferredPrompt = e;
     const installButton = document.getElementById("install-button");
     installButton.style.display = "block";
