@@ -16,10 +16,5 @@ if (navigator.serviceWorker) {
   
   window.addEventListener('beforeinstallprompt', (e) => {
     console.log('beforeinstallprompt event fired');
-    // Prevent the mini-infobar from appearing
-    e.preventDefault();
-    // Stash the event so it can be triggered later.
-    deferredPrompt = e;
-    // Optionally, show your custom install UI here
   });
 }

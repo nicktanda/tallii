@@ -8167,8 +8167,6 @@ if (navigator.serviceWorker) {
   navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => console.log("Service worker registered!")).catch((error2) => console.error("Service worker registration failed:", error2));
   window.addEventListener("beforeinstallprompt", (e) => {
     console.log("beforeinstallprompt event fired");
-    e.preventDefault();
-    deferredPrompt = e;
   });
 }
 //# sourceMappingURL=application.js.map
