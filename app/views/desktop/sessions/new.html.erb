@@ -1,0 +1,20 @@
+<% if flash[:alert].present? -%>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end -%>
+<%= form_with(url: desktop_create_session_path, method: :post) do |f| %>
+  <div class="text-center m-8">
+    <div class="font-bold text-3xl mb-4">Hello again!</div>
+    <div class="font-light mb-16">Welcome back you've been missed!</div>
+    <div class="space-y-12 mb-16">
+      <%= f.email_field :email, placeholder: "Email", required: true, class: "border-black w-full text-xl rounded-lg" %>
+      <%= f.password_field :password, placeholder: "Password", required: true, class: "border-black w-full text-xl rounded-lg" %>
+    </div>
+    <%= f.submit 'Sign in', class: 'bg-black text-white w-full font-bold p-4 rounded-lg' %>
+    <div class="mt-8 flex space-x-4 justify-center">
+      <div class="font-light">Not a member?</div>
+      <%= link_to "Sign up", new_user_path, class: "font-bold underline" %>
+    </div>
+  </div>
+<% end %>

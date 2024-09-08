@@ -19,7 +19,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_authenticated_user
-    redirect_to new_session_path unless current_user
+    unless current_user
+      return redirect_to desktop_new_session if controller_path.include?("desktop")
+      redirect_to new_session_path
+    end
   end
 
   def require_pet
