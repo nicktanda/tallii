@@ -1,0 +1,23 @@
+<% if flash[:alert].present? -%>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end -%>
+
+<%= form_for User.new, url: desktop_users_create_path do |f| %>
+  <div class="text-center m-8">
+    <div class="font-bold text-3xl mb-4">Create Account</div>
+    <div class="font-light mb-16">Hello you! Please enter your details below or login</div>
+    <div class="space-y-12 mb-12">
+      <%= f.text_field :first_name, placeholder: "First Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
+      <%= f.text_field :last_name, placeholder: "Last Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
+      <%= f.email_field :email, placeholder: "Email", required: true, class: "border-black w-full text-xl rounded-lg" %>
+      <%= f.password_field :password, placeholder: "Password", required: true, class: "border-black w-full text-xl rounded-lg" %>
+    </div>
+    <%= f.submit "Create Account", class: "bg-black w-full text-white font-bold p-4 rounded-lg" %>
+    <div class="mt-4 flex space-x-4 justify-center">
+      <div class="font-light">Already a member?</div>
+      <%= link_to "Log in", desktop_new_session_path, class: "font-bold underline" %>
+    </div>
+  </div>
+<% end %>

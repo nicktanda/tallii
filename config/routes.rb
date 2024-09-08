@@ -88,9 +88,6 @@ Rails.application.routes.draw do
   get "/desktop/login", to: "desktop/sessions#new", as: "desktop_new_session"
   post "/desktop/login", to: "desktop/sessions#create", as: "desktop_create_session"
   get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
-
-  get "/desktop/sign_up", to: "desktop/users#new", as: "desktop_new_user"
-  post "/desktop/sign_up", to: "desktop/users#create", as: "desktop_create_user"
   # get "/reset_password", to: "users#reset_password", as: "reset_password"
   # post "/update_password", to: "users#update_password", as: "update_password"
 
@@ -118,6 +115,7 @@ Rails.application.routes.draw do
   get "/desktop/employees/:id/edit", to: "desktop/users/employees#edit", as: "desktop_employee_edit"
   
   # generic user action routes
+  get "/desktop/sign_up", to: "desktop/users/users#new", as: "desktop_user_new"
   post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
   patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
   delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"

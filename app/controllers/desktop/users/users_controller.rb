@@ -1,6 +1,10 @@
 module Desktop
   module Users
     class UsersController < DesktopController
+      skip_before_action :require_authenticated_user, only: [:new, :create]
+
+      def new; end
+
       def create
         user = current_organisation.users.new(user_params)
 
