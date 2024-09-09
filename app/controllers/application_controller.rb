@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organisation
-    @current_organisation ||= current_user.organisation
+    @current_organisation ||= current_user&.organisation if current_user
   end
 
   def require_authenticated_user
