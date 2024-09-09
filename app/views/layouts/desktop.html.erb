@@ -17,7 +17,7 @@
       <div class="min-h-screen w-[20vw] bg-gray-200 pt-4">
         <div class="text-4xl font-bold flex justify-center mb-4">Talii</div>
         <%= link_to desktop_settings_path do %>
-          <div class="text-xl underline flex justify-center mb-4"><%= current_organisation.name %></div>
+          <div class="text-xl underline flex justify-center text-center mb-4"><%= current_organisation.name %></div>
         <% end %>
         <% if current_page?(desktop_dashboard_path)%>
           <%= link_to desktop_dashboard_path do %>
@@ -139,7 +139,7 @@
             </div>
           <% end %>
         <% end %>
-        <div class="mt-24">
+        <div class="mt-20">
           <% if current_user.images&.order(:created_at)&.first&.image.present? %>
           <div class="w-full flex justify-center items-center">
             <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-full max-h-80 w-[4vw] flex-shrink-0">
