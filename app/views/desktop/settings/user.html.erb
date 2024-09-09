@@ -12,7 +12,7 @@
       <div class="text-xl w-full border-l-0 border-r-0 border p-2">Personal Details</div>
       <div class="flex space-x-4 overflow-x-auto items-center">
         <% current_user.images.each do |image| %>
-          <img src="<%= url_for(image.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-lg max-h-32 max-w-32">
+          <img src="<%= url_for(image.image) %>" alt="<%= current_user.first_name %>" class="rounded-lg max-h-32 max-w-32">
         <% end %>
       </div>
     </div>

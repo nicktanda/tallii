@@ -9,8 +9,8 @@
   </div>
   <% current_user.pets.each do |pet| %>
     <div class="grid grid-cols-2 gap-4">
-      <div class="bg-green-500 text-center items-center p-2 rounded-2xl text-black">
-        <img src="<%= url_for(pet.images.first.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <div class="text-center items-center p-2 rounded-2xl text-black">
+        <img src="<%= url_for(pet.images.first.image) %>" alt="<%= pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
         <div class="font-bold"><%= pet.name %></div>
         <% if current_pet == pet %>
           <div class="font-light">Current Pet</div>

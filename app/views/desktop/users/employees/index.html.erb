@@ -6,7 +6,7 @@
         <%= link_to desktop_employee_path(user) do %>
           <div class="hover:bg-white p-2 rounded-lg flex items-center space-x-4">
             <% if user.images&.order(:created_at)&.first&.image.present? %>
-              <img src="<%= url_for(user.images.order(:created_at).first.image) %>" alt="<%= user.first_name %>" class="bg-green-500 rounded-full max-h-8 max-w-8">
+              <img src="<%= url_for(user.images.order(:created_at).first.image) %>" alt="<%= user.first_name %>" class="rounded-full max-h-8 max-w-8">
             <% end %>
             <span><%= user.full_name %></span>
           </div>

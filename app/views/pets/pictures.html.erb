@@ -22,7 +22,7 @@
   <% end %>
   <div class="space-y-12">
     <% @images.each do |image| %>
-      <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
     <% end %>
   </div>
 <div>

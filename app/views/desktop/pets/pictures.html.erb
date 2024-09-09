@@ -22,7 +22,7 @@
     <div class="space-y-8 overflow-y-scroll h-[85vh]">
       <% @pet.images.each do |image| %>
         <div class="flex space-x-2">
-          <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+          <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
           <% if @pet.images.count > 1 %>
             <%= button_to desktop_pets_pictures_delete_path(@pet, image), method: :delete do %>
               <div class="bg-white text-red-500 border rounded-lg h-9 w-9 p-1">

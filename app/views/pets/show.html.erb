@@ -1,7 +1,7 @@
 <div class="m-1 space-y-2">
   <% if @pet.images.any? %>
     <div class="relative">
-      <img src="<%= url_for(@pet.images.first.image) %>" alt="<%= @pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <img src="<%= url_for(@pet.images.first.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
       <%= link_to settings_path do %>
         <div class="absolute top-1 left-1 text-white bg-black rounded-full p-1">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">

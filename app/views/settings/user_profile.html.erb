@@ -10,7 +10,7 @@
   <%= form_for current_user, url: update_user_path(current_user) do |f| %>
     <div class="space-y-12 text-left">
       <% if current_user.images&.order(:created_at)&.first&.image.present? %>
-        <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
+        <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
       <% end %>
       <div>
         <%= f.label :first_name, class: "text-xl mb-2" %>

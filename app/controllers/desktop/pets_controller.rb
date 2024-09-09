@@ -32,7 +32,7 @@ module Desktop
 
     def create
       user = current_organisation.users.find(params[:pet][:user_id])
-      pet = current_user.pets.new
+      pet = user.pets.new
       pet.organisation_id = current_organisation.id
     
       pet.assign_attributes(pet_params)

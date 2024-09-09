@@ -142,7 +142,7 @@
         <div class="mt-20">
           <% if current_user.images&.order(:created_at)&.first&.image.present? %>
           <div class="w-full flex justify-center items-center">
-            <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="bg-green-500 rounded-full max-h-80 w-[4vw] flex-shrink-0">
+            <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="rounded-full max-h-80 w-[4vw] flex-shrink-0">
           </div>
           <% end %>
           <div class="text-center w-full font-bold"><%= current_user.full_name %>

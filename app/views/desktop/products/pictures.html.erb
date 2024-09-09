@@ -22,7 +22,7 @@
     <div class="space-y-8 overflow-y-scroll h-[85vh]">
       <% @product.images.each do |image| %>
         <div class="flex space-x-2">
-          <img src="<%= url_for(image.image) %>" alt="<%= @product.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+          <img src="<%= url_for(image.image) %>" alt="<%= @product.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
           <% if @product.images.count > 1 %>
             <%= button_to desktop_product_pictures_delete_path(@product, image), method: :delete do %>
               <div class="bg-white text-red-500 border rounded-lg h-9 w-9 p-1">

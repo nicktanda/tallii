@@ -9,8 +9,8 @@
   </div>
   <div class="grid grid-cols-2 gap-4">
     <% current_user.pets.each do |pet| %>
-      <div class="bg-green-500 text-center items-center p-2 rounded-2xl text-black">
-        <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="bg-green-500 rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <div class="text-center items-center p-2 rounded-2xl text-black">
+        <img src="<%= url_for(pet&.images&.first&.image) %>" alt="<%= pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
         <div class="font-bold"><%= pet.name %></div>
         <%= link_to pet_profile_path(pet), class: "w-full flex justify-center items-center space-x-2 border border-black rounded text-center mt-6 py-1" do %>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
