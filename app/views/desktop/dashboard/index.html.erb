@@ -13,7 +13,7 @@
               <div><%= current_organisation.daycare_visits.today.where(duration: "half_day").count %></div>
             </div>
             <div class="flex w-full justify-between">
-              <div class="font-bold pl-4">Full Day Visits:</div>
+              <div class="font-bold">Full Day Visits:</div>
               <div><%= current_organisation.daycare_visits.today.where(duration: "full_day").count %></div>
             </div>
             <div class="flex w-full justify-between">
