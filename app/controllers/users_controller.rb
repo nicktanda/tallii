@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   skip_before_action :require_authenticated_user, only: [:new, :create]
   skip_before_action :require_pet, only: [:new, :create]
 
-  def new; end
+  def new
+    @organisations = Organisation.all.map { |o| { name: o.name, id: o.id } }
+  end
 
   def create
     user = User.new(user_params)
