@@ -7,6 +7,7 @@
   <% end %>
   <%= form_for User.new, url: desktop_users_create_path do |f| %>
     <div class="space-y-4">
+      <%= f.hidden_field :organisation_id, value: current_organisation.id %>
       <%= f.text_field :first_name, placeholder: "First Name", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       <%= f.text_field :last_name, placeholder: "Last Name", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       <%= f.email_field :email, placeholder: "Email", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
