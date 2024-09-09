@@ -50,6 +50,7 @@ module Desktop
       pet.assign_attributes(pet_params)
 
       if pet.save
+        return redirect_to desktop_user_path(pet.user), notice: "Pet updated successfully" unless pet.alive?
         redirect_to desktop_pets_path(pet), notice: 'Pet updated successfully'
       else
         redirect_back fallback_location: desktop_pets_path(pet), alert: 'Invalid pet information'
@@ -67,7 +68,7 @@ module Desktop
     private
 
     def pet_params
-      params.require(:pet).except(:user_name).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions, :notes)
+      params.require(:pet).except(:user_name).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions, :notes, :date_of_death)
     end
   end
 end

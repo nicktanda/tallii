@@ -7,6 +7,13 @@ class Pet < ApplicationRecord
   enum species: { dog: 0, cat: 1, bird: 2, fish: 3, rabbit: 4, reptile: 5, other: 6 }
   enum gender: { male: 0, female: 1 }
 
+  scope :alive, -> { where("date_of_death > ? OR date_of_death IS NULL", Date.today) }
+  default_scope { alive }
+
+  def alive?
+    date_of_death > Date.today || date_of_death.nil?
+  end
+
   def age
     dob = self.dob
     now = Time.now.utc.to_date
