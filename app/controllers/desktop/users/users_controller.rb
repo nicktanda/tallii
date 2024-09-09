@@ -2,6 +2,7 @@ module Desktop
   module Users
     class UsersController < DesktopController
       skip_before_action :require_authenticated_user, only: [:new, :create]
+      skip_before_action :require_organisation
 
       def new
         @organisations = [{ name: "New Location", id: nil }] + Organisation.all.map { |o| { name: o.name, id: o.id } }
@@ -11,7 +12,7 @@ module Desktop
         user = if user_params[:organisation_id].empty?
           User.new(user_params)
         else
-          current_organisation.users.new(user_params)
+          Organisation.find(user_params[:organisation_id]).users.new(user_params)
         end
 
         if user.save
