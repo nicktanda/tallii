@@ -13,6 +13,7 @@
       <%= f.text_field :last_name, placeholder: "Last Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
       <%= f.email_field :email, placeholder: "Email", required: true, class: "border-black w-full text-xl rounded-lg" %>
       <%= f.password_field :password, placeholder: "Password", required: true, class: "border-black w-full text-xl rounded-lg" %>
+      <%= f.select(:organisation_id, options_for_select(@organisations.map{|org| [org[:name], org[:id]]}), { prompt: 'Select Location' }, { required: true, class: "text-black border-black w-full text-xl rounded-lg" }) %>
     </div>
     <%= f.submit "Create Account", class: "bg-black w-full text-white font-bold p-4 rounded-lg" %>
     <div class="mt-4 flex space-x-4 justify-center">

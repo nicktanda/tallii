@@ -13,7 +13,7 @@
   </head>
 
   <body class="min-h-screen bg-white flex w-full">
-    <% if current_user %>
+    <% if current_user && current_organisation %>
       <div class="min-h-screen w-[20vw] bg-gray-200 pt-4">
         <div class="text-4xl font-bold flex justify-center mb-4">Talii</div>
         <%= link_to desktop_settings_path do %>

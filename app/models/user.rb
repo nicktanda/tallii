@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  belongs_to :organisation
+  belongs_to :organisation, optional: true
 
   has_many :reviews, dependent: :destroy
   has_many :pets, dependent: :destroy

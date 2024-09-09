@@ -3,12 +3,21 @@ module Desktop
     class UsersController < DesktopController
       skip_before_action :require_authenticated_user, only: [:new, :create]
 
-      def new; end
+      def new
+        @organisations = [{ name: "New Location", id: nil }] + Organisation.all.map { |o| { name: o.name, id: o.id } }
+      end
 
       def create
-        user = current_organisation.users.new(user_params)
+        user = if user_params[:organisation_id].empty?
+          User.new(user_params)
+        else
+          current_organisation.users.new(user_params)
+        end
 
         if user.save
+          session["user"] ||= {}
+          session[:user][:id] = user.id
+          return redirect_to desktop_organisations_new_path if user_params[:organisation_id].empty?
           redirect_to desktop_user_path(user)
         else
           redirect_back fallback_location: desktop_users_new_path, alert: 'Invalid email'
@@ -39,7 +48,7 @@ module Desktop
       private
 
       def user_params
-        params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode, :max_grooms, :max_daycare_visits)
+        params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode, :max_grooms, :max_daycare_visits, :organisation_id)
       end
     end
   end
