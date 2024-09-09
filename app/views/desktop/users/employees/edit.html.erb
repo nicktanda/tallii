@@ -45,24 +45,28 @@
         </div>
         <div>
           <%= f.label :phone %>
-          <%= f.telephone_field :phone, required: true, class: "border w-full rounded-lg p-2" %>
+          <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>
           <%= f.label :weight %>
-          <%= f.number_field :weight, required: true, class: "border w-full rounded-lg p-2" %>
+          <%= f.number_field :weight, class: "border w-full rounded-lg p-2" %>
+        </div>
+        <div>
+          <%= f.label :notes %>
+          <%= f.text_area :notes, rows: 2, class: "border w-full rounded-lg p-2" %>
         </div>
         <div class="text-xl w-full border-l-0 border-r-0 border p-2">Living Details</div>
         <div>
           <%= f.label :address %>
-          <%= f.text_field :address, required: true, class: "border w-full rounded-lg p-2" %>
+          <%= f.text_field :address, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>
           <%= f.label :city %>
-          <%= f.text_field :city, required: true, class: "border w-full rounded-lg p-2" %>
+          <%= f.text_field :city, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>
           <%= f.label :postcode %>
-          <%= f.text_field :postcode, required: true, class: "border w-full rounded-lg p-2" %>
+          <%= f.text_field :postcode, class: "border w-full rounded-lg p-2" %>
         </div>
         <div class="text-xl w-full border-l-0 border-r-0 border p-2">Profile Pictures</div>
         <div class="w-full mb-4">
