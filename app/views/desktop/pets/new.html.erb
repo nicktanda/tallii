@@ -56,6 +56,10 @@
         <%= f.text_area :health_conditions, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
+        <%= f.label :notes %>
+        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
+      </div>
+      <div>
         <%= f.label :image, "Pet Photo" %>
         <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>

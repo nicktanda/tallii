@@ -67,7 +67,7 @@ module Desktop
     private
 
     def pet_params
-      params.require(:pet).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions)
+      params.require(:pet).except(:user_name).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions, :notes)
     end
   end
 end
