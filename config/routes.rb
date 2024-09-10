@@ -88,18 +88,26 @@ Rails.application.routes.draw do
   get "/desktop/login", to: "desktop/sessions#new", as: "desktop_new_session"
   post "/desktop/login", to: "desktop/sessions#create", as: "desktop_create_session"
   get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
-  # get "/reset_password", to: "users#reset_password", as: "reset_password"
-  # post "/update_password", to: "users#update_password", as: "update_password"
 
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
   
+  get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"
+  get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
+  post "/desktop/temporary_grooms/create", to: "desktop/temporary_grooms#create", as: "desktop_temporary_grooms_create"
+  patch "/desktop/temporary_grooms/:id/update", to: "desktop/temporary_grooms#update", as: "desktop_temporary_groom_update"
+  
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
   get "/desktop/daycare_visits/new", to: "desktop/daycare_visits#new", as: "desktop_daycare_visits_new"
   get "/desktop/daycare_visits/:id", to: "desktop/daycare_visits#show", as: "desktop_daycare_visit"
   patch "/desktop/daycare_visits/:id/update", to: "desktop/daycare_visits#update", as: "desktop_daycare_visit_update"
+
+  get "/desktop/temporary_daycare_visits/new", to: "desktop/temporary_daycare_visits#new", as: "desktop_temporary_daycare_visits_new"
+  get "/desktop/temporary_daycare_visits/:id", to: "desktop/temporary_daycare_visits#show", as: "desktop_temporary_daycare_visit"
+  post "/desktop/temporary_daycare_visits/create", to: "desktop/temporary_daycare_visits#create", as: "desktop_temporary_daycare_visit_create"
+  patch "/desktop/temporary_daycare_visits/:id/update", to: "desktop/temporary_daycare_visits#update", as: "desktop_temporary_daycare_visit_update"
 
   # customer routes
   get "/desktop/users", to: "desktop/users/customers#index", as: "desktop_users"
