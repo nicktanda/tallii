@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_100011) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_111129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -209,6 +209,40 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_100011) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "temporary_daycare_visits", force: :cascade do |t|
+    t.text "pet_name", null: false
+    t.text "owner_name", null: false
+    t.date "date", null: false
+    t.time "time", null: false
+    t.integer "duration", null: false
+    t.text "pet_notes"
+    t.text "owner_notes"
+    t.bigint "employee_id"
+    t.integer "status", default: 0
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_temporary_daycare_visits_on_employee_id"
+    t.index ["organisation_id"], name: "index_temporary_daycare_visits_on_organisation_id"
+  end
+
+  create_table "temporary_grooms", force: :cascade do |t|
+    t.text "pet_name", null: false
+    t.text "owner_name", null: false
+    t.date "date", null: false
+    t.time "time", null: false
+    t.date "last_groom"
+    t.text "pet_notes"
+    t.text "owner_notes"
+    t.bigint "employee_id"
+    t.integer "status", default: 0
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_temporary_grooms_on_employee_id"
+    t.index ["organisation_id"], name: "index_temporary_grooms_on_organisation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", limit: 100, null: false
     t.string "last_name", limit: 100, null: false
@@ -256,5 +290,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_100011) do
   add_foreign_key "products", "organisations"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
+  add_foreign_key "temporary_daycare_visits", "organisations"
+  add_foreign_key "temporary_daycare_visits", "users", column: "employee_id"
+  add_foreign_key "temporary_grooms", "organisations"
+  add_foreign_key "temporary_grooms", "users", column: "employee_id"
   add_foreign_key "users", "organisations"
 end
