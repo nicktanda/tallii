@@ -90,12 +90,12 @@ Rails.application.routes.draw do
   get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
 
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
-  get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
+  get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
   
-  get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"
   get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
+  get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"
   post "/desktop/temporary_grooms/create", to: "desktop/temporary_grooms#create", as: "desktop_temporary_grooms_create"
   patch "/desktop/temporary_grooms/:id/update", to: "desktop/temporary_grooms#update", as: "desktop_temporary_groom_update"
   

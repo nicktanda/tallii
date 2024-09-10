@@ -1,5 +1,5 @@
 module Desktop
-  class DaycareVisitsController < DesktopController
+  class TemporaryDaycareVisitsController < DesktopController
     def new
       @pets = current_organisation.users.map(&:pets).flatten
     end

@@ -38,7 +38,7 @@
             </div>
           <% end %>
         <% end %>
-        <% if controller_name == 'grooms' %>
+        <% if controller_name == 'grooms' || controller_name == "temporary_grooms" %>
           <%= link_to desktop_grooms_path do %>
             <div class="w-full hover:bg-gray-300 hover:text-black text-center p-4 text-lg flex space-x-2 text-gray-800 font-bold">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
