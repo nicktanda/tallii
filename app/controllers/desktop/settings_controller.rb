@@ -25,6 +25,17 @@ module Desktop
       end
     end
 
+    def retail; end
+    def update_retail
+      current_organisation.assign_attributes(organisation_params)
+
+      if current_organisation.save
+        redirect_to desktop_settings_path, notice: 'Organisation updated'
+      else
+        redirect_back fallback_location: desktop_retail_settings_path, alert: 'Invalid retail information'
+      end
+    end
+
     private
 
     def user_params
@@ -32,7 +43,7 @@ module Desktop
     end
 
     def organisation_params
-      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode, :maximum_weekly_daycare_visits, :maximum_daily_daycare_visits, :maximum_weekly_grooms, :maximum_daily_grooms)
+      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode, :maximum_weekly_daycare_visits, :maximum_daily_daycare_visits, :maximum_weekly_grooms, :maximum_daily_grooms, :stripe_api_key)
     end
   end
 end

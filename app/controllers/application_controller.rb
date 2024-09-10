@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   before_action :require_authenticated_user
   before_action :require_pet
+  before_action :set_stripe_api_key
 
-  Stripe.api_key = "sk_test_51PNCaHEu9YTm4fWpeCNiLjQMQfX6jns4gevTWPefyjEr5mf5uhxsH2c8ZO9pK7SRowuVdaJZTCNBxUh9eztuy23t002bhh4UVb"
+  def set_stripe_api_key
+    return unless current_organisation
+    Stripe.api_key = current_organisation.stripe_api_key.presence || ""
+  end
 
   def current_user
     return if session["user"].nil?

@@ -160,6 +160,8 @@ Rails.application.routes.draw do
   patch "/desktop/settings/user", to: "desktop/settings#update_user", as: "update_desktop_user_settings"
   get "/desktop/settings/organisation", to: "desktop/settings#organisation", as: "desktop_organisation_settings"
   patch "/desktop/settings/organisation", to: "desktop/settings#update_organisation", as: "update_desktop_organisation_settings"
+  get "/desktop/settings/retail", to: "desktop/settings#retail", as: "desktop_retail_settings"
+  patch "/desktop/settings/retail", to: "desktop/settings#update_retail", as: "update_desktop_retail_settings"
 
   get "/desktop/organisations/new", to: "desktop/organisations#new", as: "desktop_organisations_new"
   post "/desktop/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
