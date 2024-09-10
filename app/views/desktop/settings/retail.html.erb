@@ -13,6 +13,10 @@
       <div>
         <%= f.label :stripe_api_key %>
         <%= f.password_field :stripe_api_key, value: current_organisation.stripe_api_key, required: true, class: "border w-full rounded-lg p-2" %>
+        <details class="p-4">
+          <summary>What is this?</summary>
+          <p>This allows you connection to your stripe account to process transactions</p>
+        </details>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
