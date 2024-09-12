@@ -1,18 +1,21 @@
 <div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
   <div class="font-bold text-2xl">Edit Daycare Visit</div>
-  <%= form_for @daycare_visit, url: desktop_daycare_visit_update_path do |f| %>
+  <%= form_for @temporary_daycare_visit, url: desktop_temporary_daycare_visit_update_path do |f| %>
     <%= f.hidden_field :origin, value: "desktop"%>
     <div class="space-y-4">
       <div>
-        <%= f.label :pet_id, "Pet" %>
-        <%= f.hidden_field :pet_id, value: @daycare_visit.pet_id %>
-        <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @daycare_visit.pet.name %></div>
+        <%= f.label :pet_name %>
+        <%= f.text_field :pet_name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
-      <% if @daycare_visit.status == "completed" %>
+      <div>
+        <%= f.label :owner_name %>
+        <%= f.text_field :owner_name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      </div>
+      <% if @temporary_daycare_visit.status == "completed" %>
         <div>
           <%= f.label :date, "Request Date" %>
-          <%= f.hidden_field :pet_id, value: @daycare_visit.date %>
-          <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @daycare_visit.date %></div>
+          <%= f.hidden_field :pet_id, value: @temporary_daycare_visit.date %>
+          <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @temporary_daycare_visit.date %></div>
         </div>
       <% else %>
         <div>
@@ -36,17 +39,21 @@
         </div>
       </div>
       <div>
-        <%= f.label :notes, "Additional Grooming Notes" %>
-        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
+        <%= f.label :pet_notes %>
+        <%= f.text_area :pet_notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
+      </div>
+      <div>
+        <%= f.label :owner_notes %>
+        <%= f.text_area :owner_notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
       </div>
       <div>
         <%= f.label :employee_id, "Employee" %>
         <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
       </div>
-      <% unless @daycare_visit.status == "completed" %>
+      <% unless @temporary_daycare_visit.status == "completed" %>
         <div>
           <%= f.label :status, "Status" %>
-          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"]], selected: @daycare_visit.status), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
+          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"]], selected: @temporary_daycare_visit.status), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
         </div>
       <% end %>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
