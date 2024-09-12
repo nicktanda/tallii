@@ -1,6 +1,6 @@
 class DaycareVisit < ApplicationRecord
   belongs_to :pet
-  belongs_to :user, foreign_key: 'employee_id'
+  belongs_to :user, foreign_key: 'employee_id', optional: true
   belongs_to :organisation
 
   enum duration: { half_day: 0, full_day: 1 }

@@ -9,7 +9,7 @@ module Desktop
     end
 
     def create
-      temporary_daycare_visit = current_organisation.temporary_daycare_visits.new(visit_params)
+      temporary_daycare_visit = current_organisation.temporary_daycare_visits.new(temporary_daycare_visit_params)
   
       if current_organisation.daycare_visits_today_count == current_organisation.maximum_daily_daycare_visits
         redirect_back fallback_location: desktop_temporary_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
@@ -42,7 +42,7 @@ module Desktop
     private
 
     def temporary_daycare_visit_params
-      params.require(:temporary_daycare_visit).permit(:date, :time, :notes, :pet_id, :duration, :employee_id, :status)
+      params.require(:temporary_daycare_visit).permit(:pet_name, :owner_name, :date, :time, :pet_notes, :owner_notes, :duration, :employee_id, :status)
     end
   end
 end
