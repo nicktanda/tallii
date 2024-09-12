@@ -9,7 +9,6 @@
     <div class="font-bold text-3xl mb-4">Create Account</div>
     <div class="font-light mb-16">Hello you! Please enter your details below or login</div>
     <div class="space-y-12 mb-12">
-      <%= f.hidden_field :organisation_id, value: current_organisation.id %>
       <%= f.text_field :first_name, placeholder: "First Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
       <%= f.text_field :last_name, placeholder: "Last Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
       <%= f.email_field :email, placeholder: "Email", required: true, class: "border-black w-full text-xl rounded-lg" %>
