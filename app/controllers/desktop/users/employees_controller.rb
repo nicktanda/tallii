@@ -7,15 +7,20 @@ module Desktop
 
       def show
         @user = users.find(params[:id])
-        @bookings = @user.pets.map do |pet|
+
+        bookings = @user.pets.map do |pet|
           grooms = pet.grooms.map do |groom|
             { pet: pet.name, time: groom.time, date: groom.date, status: groom.status }
           end
           daycare_visits = pet.daycare_visits.map do |daycare_visit|
             { pet: pet.name, time: daycare_visit.time, date: daycare_visit.date, status: daycare_visit.status }
           end
-          (grooms + daycare_visits).sort_by {|booking| [booking[:date], booking[:time]] }
+          (grooms + daycare_visits)
         end.flatten
+
+        temporary_bookings = @user.temporary_grooms + @user.temporary_daycare_visits
+
+        @bookings = (bookings + temporary_bookings).sort_by {|booking| [booking[:date], booking[:time]] }.flatten
       end
 
       def edit

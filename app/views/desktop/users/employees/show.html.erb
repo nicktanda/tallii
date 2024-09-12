@@ -88,14 +88,14 @@
                 <th class="p-2">Status</th>
               </tr>
             </thead>
-            <% @user.grooms.in_future.each do |groom| %>
+            <% (@user.grooms.in_future + @user.temporary_grooms.in_future).each do |groom| %>
               <tr class="bg-gray-50 text-left">
                 <td class="p-2">
                   <div class="font-bold">
-                    <%= groom.pet.name %>
+                    <%= groom.pet_name || groom.pet.name %>
                   </div>
                   <div class="text-xs">
-                    <%= groom.pet.user.full_name %>
+                    <%= groom.owner_name || groom.pet.user.full_name %>
                   </div>
                 </td>
                 <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
@@ -124,14 +124,14 @@
                 <th class="p-2">Status</th>
               </tr>
             </thead>
-            <% @user.daycare_visits.in_future.each do |daycare_visit| %>
+            <% (@user.daycare_visits.in_future + @user.temporary_daycare_visits.in_future).each do |daycare_visit| %>
               <tr class="bg-gray-50 text-left">
                 <td class="p-2">
                   <div class="font-bold">
-                    <%= daycare_visit.pet.name %>
+                    <%= daycare_visit.pet_name || daycare_visit.pet.name %>
                   </div>
                   <div class="text-xs">
-                    <%= daycare_visit.pet.user.full_name %>
+                    <%= daycare_visit.owner_name || daycare_visit.pet.user.full_name %>
                   </div>
                 </td>
                 <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
