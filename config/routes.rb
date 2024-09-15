@@ -87,10 +87,6 @@ Rails.application.routes.draw do
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
 
-  get "/desktop/login", to: "desktop/sessions#new", as: "desktop_new_session"
-  post "/desktop/login", to: "desktop/sessions#create", as: "desktop_create_session"
-  get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
-
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
   get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
