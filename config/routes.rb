@@ -12,9 +12,13 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new", as: "new_session"
   post "/login", to: "sessions#create", as: "create_session"
+
+  get "/choose_platform", to: "sessions#choose_platform", as: "choose_platform"
+
   get "/logout", to: "sessions#destroy", as: "destroy_session"
   post "/set_current_pet/:id", to: "sessions#set_current_pet", as: "set_current_pet"
 
+  get "/pets/current_pet_profile", to: "pets#current_pet_profile", as: "current_pet_profile"
   get "/pets/:id", to: "pets#show", as: "pet"
   get "/pets/:id/pictures", to: "pets#pictures", as: "pet_pictures"
   post "/create/pets/:id/images", to: "pets#upload_new_image", as: "upload_new_image"
@@ -79,8 +83,6 @@ Rails.application.routes.draw do
   post "/onboarding/pets/:id/images", to: "pets/onboarding#upload_image", as: "upload_pet_image_onboarding"
   get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
   post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
-
-  get "/pets/current_pet_profile", to: "pets#current_pet_profile", as: "current_pet_profile"
 
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"

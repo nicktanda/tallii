@@ -1,0 +1,17 @@
+<div class="text-white flex items-center min-h-screen">
+  <div class="w-full">
+    <div class="w-full flex justify-center text-white text-3xl">Welcome! What would you like to work from today?</div>
+    <div class="flex p-6">
+      <div class="w-full justify-end flex p-6">
+        <%= link_to desktop_dashboard_path do %>
+          <div class="border-white border-2 rounded-lg p-6 text-lg">Dashboard</div>
+        <% end %>
+      </div>
+      <div class="w-full justify-start flex p-6">
+        <%= link_to current_pet_profile_path do %>
+          <div class="border-white border-2 rounded-lg p-6 text-lg">Mobile App</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

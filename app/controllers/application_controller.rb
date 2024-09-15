@@ -2,13 +2,13 @@ class ApplicationController < ActionController::Base
   before_action :require_authenticated_user
   before_action :require_pet
   before_action :set_stripe_api_key
-  before_action :prevent_access_to_other_platforms
+  before_action :prevent_customer_accessing_desktop
 
-  def prevent_access_to_other_platforms
-    if session["origin"] == "desktop" && !controller_path.include?("desktop")
-      redirect_to desktop_dashboard_path
-    elsif session["origin"] == "mobile" && controller_path.include?("desktop")
-      redirect_to current_pet_profile_path
+  def prevent_customer_accessing_desktop
+    if current_user
+      if current_user.role == "customer" && controller_path.include?("desktop")
+        redirect_to current_pet_profile_path
+      end
     end
   end
 
