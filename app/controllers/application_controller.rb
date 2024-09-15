@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if session["origin"] == "desktop" && !controller_path.include?("desktop")
       redirect_to desktop_dashboard_path
     elsif session["origin"] == "mobile" && controller_path.include?("desktop")
-      redirect_to root_path
+      redirect_to current_pet_profile_path
     end
   end
 

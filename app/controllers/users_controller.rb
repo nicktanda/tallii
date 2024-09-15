@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if user.save!
       session["user"] ||= {}
       session[:user][:id] = user.id
-      redirect_to root_path
+      redirect_to current_pet_profile_path
     else
       redirect_back fallback_location: new_user_path, alert: 'Invalid email or password'
     end

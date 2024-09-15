@@ -80,7 +80,7 @@ Rails.application.routes.draw do
   get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
   post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
-  root "pets#current_pet_profile", as: "root"
+  get "/pets/current_pet_profile", to: "pets#current_pet_profile", as: "current_pet_profile"
 
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
