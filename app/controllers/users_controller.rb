@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :require_pet, only: [:new, :create]
 
   def new
-    @organisations = [{ name: "New Location", id: nil }] + Organisation.all.map { |o| { name: o.name, id: o.id } }
+    @organisations = [{ name: "New Location(Business Owners Only)", id: nil }] + Organisation.all.map { |o| { name: o.name, id: o.id } }
   end
 
   def create
