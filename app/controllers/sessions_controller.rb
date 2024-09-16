@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   skip_before_action :require_pet
   skip_before_action :prevent_customer_accessing_desktop
   before_action :prevent_users_reaching_platform_switch, only: :choose_platform
+  before_action :require_organisation, only: :choose_platform
 
   def choose_platform; end
 
@@ -41,5 +42,11 @@ class SessionsController < ApplicationController
 
   def prevent_users_reaching_platform_switch
     redirect_to current_pet_profile_path if current_user.role == "customer"
+  end
+
+  def require_organisation
+    unless current_organisation
+      redirect_to desktop_organisations_new_path
+    end
   end
 end

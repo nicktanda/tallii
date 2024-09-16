@@ -5,9 +5,14 @@ class UsersController < ApplicationController
 
   def new
     @organisations = [{ name: "New Location(Business Owners Only)", id: nil }] + Organisation.all.map { |o| { name: o.name, id: o.id } }
+    @user_roles = User.roles.map { |role| { name: role.first.capitalize, id: role.first } }
   end
 
   def create
+    if user_params[:organisation_id].empty? && user_params[:role] == "customer"
+      return redirect_back fallback_location: new_user_path, alert: 'Cannot be a customer without an organisation'
+    end
+
     user = if user_params[:organisation_id].empty?
       User.new(user_params)
     else
@@ -17,7 +22,7 @@ class UsersController < ApplicationController
     if user.save!
       session["user"] ||= {}
       session[:user][:id] = user.id
-      redirect_to current_pet_profile_path
+      redirect_to root_path
     else
       redirect_back fallback_location: new_user_path, alert: 'Invalid email or password'
     end
@@ -56,6 +61,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :phone, :weight, :address, :city, :postcode, :organisation_id, :role)
   end
 end

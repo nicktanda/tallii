@@ -4,18 +4,20 @@
   </div>
 <% end -%>
 
-<%= form_for Organisation.new, url: desktop_organisations_create_path do |f| %>
-  <div class="text-center m-8">
-    <div class="font-bold text-3xl mb-4">Welcome!</div>
-    <div class="font-light mb-10">Thanks for signing up! Tell Us About Your Business</div>
-    <div class="space-y-8 mb-8">
-      <%= f.text_field :name, placeholder: "Name", required: true, class: "border-black w-full text-xl rounded-lg" %>
-      <%= f.email_field :email, placeholder: "Email", required: true, class: "border-black w-full text-xl rounded-lg" %>
-      <%= f.phone_field :phone, placeholder: "Phone", required: true, class: "border-black w-full text-xl rounded-lg" %>
-      <%= f.text_field :address, placeholder: "Address", required: true, class: "border-black w-full text-xl rounded-lg" %>
-      <%= f.text_field :city, placeholder: "City", required: true, class: "border-black w-full text-xl rounded-lg" %>
-      <%= f.text_field :postcode, placeholder: "Postcode", required: true, class: "border-black w-full text-xl rounded-lg" %>
+<div class="bg-black text-white">
+  <%= form_for Organisation.new, url: desktop_organisations_create_path do |f| %>
+    <div class="text-center m-8">
+      <div class="font-bold text-3xl mb-4">Welcome!</div>
+      <div class="font-light mb-10">Thanks for signing up! Tell Us About Your Business</div>
+      <div class="space-y-8 mb-8">
+        <%= f.text_field :name, placeholder: "Name", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.email_field :email, placeholder: "Email", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.phone_field :phone, placeholder: "Phone", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.text_field :address, placeholder: "Address", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.text_field :city, placeholder: "City", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.text_field :postcode, placeholder: "Postcode", required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <%= f.submit "Create Business", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>
-    <%= f.submit "Create Business", class: "bg-black w-full text-white font-bold p-4 rounded-lg" %>
-  </div>
-<% end %>
+  <% end %>
+</div>
