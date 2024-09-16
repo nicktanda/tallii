@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       if current_user.role == "customer"
         redirect_to current_pet_profile_path
       else
-        redirect_to choose_platform_path
+        redirect_to root_path
       end
     else
       redirect_back fallback_location: new_session_path, alert: 'Invalid email or password'
