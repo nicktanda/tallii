@@ -24,7 +24,7 @@ class GroomsController < ApplicationController
   def create
     groom = current_organisation.grooms.new(groom_params)
 
-    if current_user.max_grooms == 0
+    if groom.pet.user.max_grooms == 0
       if params[:groom][:origin] == "desktop"
         redirect_back fallback_location: desktop_grooms_new_path, alert: 'User has no more grooms in their package. Please confirm the customer would like more grooms'
       else

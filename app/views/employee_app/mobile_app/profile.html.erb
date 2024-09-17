@@ -1,0 +1,13 @@
+<div class="m-4 space-y-12 text-white">
+  <div class="text-3xl">Welcome back <%= current_user.first_name %>!</div>
+  <div class="space-y-4">
+    <div class="text-2xl">What's On Today</div>
+    <div class="text-xl"><%= current_user.grooms.today.count + current_user.temporary_grooms.today.count %> grooms today</div>
+    <div class="text-xl"><%= current_user.daycare_visits.today.count + current_user.temporary_daycare_visits.today.count %> daycare visits today</div>
+  </div>
+  <div class="space-y-4">
+    <div class="text-2xl">What's On This Week</div>
+    <div class="text-xl"><%= current_user.grooms.this_week.completed.count + current_user.temporary_grooms.this_week.completed.count %>/<%= current_user.grooms.this_week.completed.count + current_user.temporary_grooms.this_week.completed.count %> grooms completed this week</div>
+    <div class="text-xl"><%= current_user.daycare_visits.this_week.completed.count + current_user.temporary_daycare_visits.this_week.completed.count %>/<%= current_user.daycare_visits.this_week.completed.count + current_user.temporary_daycare_visits.this_week.completed.count %> daycare visits completed this week</div>
+  </div>
+</div>

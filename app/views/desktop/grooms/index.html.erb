@@ -27,10 +27,10 @@
                   <tr class="bg-gray-50 text-left">
                     <td class="p-2">
                       <div class="font-bold">
-                        <%= groom.pet_name || groom.pet.name %>
+                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
                       </div>
                       <div class="text-xs">
-                        <%= groom.owner_name || groom.pet.user.full_name %>
+                        <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
                       </div>
                     </td>
                     <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
@@ -77,10 +77,10 @@
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
                     <div class="font-bold">
-                      <%= groom.pet_name || groom.pet.name %>
+                      <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
                     </div>
                     <div class="text-xs">
-                      <%= groom.owner_name || groom.pet.user.full_name %>
+                      <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
                     </div>
                   </td>
                   <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
@@ -125,10 +125,10 @@
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
                     <div class="font-bold">
-                      <%= groom.pet_name || groom.pet.name %>
+                      <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
                     </div>
                     <div class="text-xs">
-                      <%= groom.owner_name || groom.pet.user.full_name %>
+                      <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
                     </div>
                   </td>
                   <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>

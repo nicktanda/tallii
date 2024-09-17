@@ -29,10 +29,10 @@
                   <tr class="bg-gray-50 text-left">
                     <td class="p-2">
                       <div class="font-bold">
-                        <%= daycare_visit.pet_name || daycare_visit.pet.name %>
+                        <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
                       </div>
                       <div class="text-xs">
-                        <%= daycare_visit.owner_name || daycare_visit.pet.user.full_name %>
+                        <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
                       </div>
                     </td>
                     <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
@@ -81,10 +81,10 @@
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
                     <div class="font-bold">
-                      <%= daycare_visit.pet_name || daycare_visit.pet.name %>
+                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
                     </div>
                     <div class="text-xs">
-                      <%= daycare_visit.owner_name || daycare_visit.pet.user.full_name %>
+                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
                     </div>
                   </td>
                   <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
@@ -131,10 +131,10 @@
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
                     <div class="font-bold">
-                      <%= daycare_visit.pet_name || daycare_visit.pet.name %>
+                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
                     </div>
                     <div class="text-xs">
-                      <%= daycare_visit.owner_name || daycare_visit.pet.user.full_name %>
+                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
                     </div>
                   </td>
                   <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>

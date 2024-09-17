@@ -36,6 +36,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_pet
+    return if params[:groom][:origin] == "desktop"
+    return if params[:daycare_visit][:origin] == "desktop"
     redirect_to new_pet_onboarding_path unless current_pet
   end
 
