@@ -170,4 +170,21 @@ Rails.application.routes.draw do
 
   get "/desktop/organisations/new", to: "desktop/organisations#new", as: "desktop_organisations_new"
   post "/desktop/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
+
+  # Employee App Routes
+  get "/employee_app/dashboard", to: "employee_app/mobile_app#index", as: "mobile_app_profile"
+
+  get "/employee_app/grooms", to: "employee_app/grooms#index", as: "employee_app_grooms"
+  get "/employee_app/grooms/:id", to: "employee_app/grooms#show", as: "employee_app_groom"
+  patch "/employee_app/grooms/:id/update", to: "employee_app/grooms#update", as: "employee_app_groom_update"
+
+  get "/employee_app/temporary_grooms/:id", to: "employee_app/temporary_grooms#show", as: "employee_app_temporary_groom"
+  patch "/employee_app/temporary_grooms/:id/update", to: "employee_app/temporary_grooms#update", as: "employee_app_temporary_groom_update"
+
+  get "/employee_app/daycare_visits", to: "employee_app/daycare_visits#index", as: "employee_app_daycare_visits"
+  get "/employee_app/daycare_visits/:id", to: "employee_app/daycare_visits#show", as: "employee_app_daycare_visit"
+  patch "/employee_app/daycare_visits/:id/update", to: "employee_app/daycare_visits#update", as: "employee_app_daycare_visit_update"
+
+  get "/employee_app/temporary_daycare_visits/:id", to: "employee_app/temporary_daycare_visits#show", as: "employee_app_temporary_daycare_visit"
+  patch "/employee_app/temporary_daycare_visits/:id/update", to: "employee_app/temporary_daycare_visits#update", as: "employee_app_temporary_daycare_visit_update"
 end
