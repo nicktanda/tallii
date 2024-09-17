@@ -172,7 +172,7 @@ Rails.application.routes.draw do
   post "/desktop/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
 
   # Employee App Routes
-  get "/employee_app/dashboard", to: "employee_app/mobile_app#index", as: "mobile_app_profile"
+  get "/employee_app/dashboard", to: "employee_app/mobile_app#profile", as: "mobile_app_profile"
 
   get "/employee_app/grooms", to: "employee_app/grooms#index", as: "employee_app_grooms"
   get "/employee_app/grooms/:id", to: "employee_app/grooms#show", as: "employee_app_groom"
