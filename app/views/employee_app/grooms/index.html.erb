@@ -8,7 +8,6 @@
           <tr class="bg-gray-800 text-left sticky top-0">
             <th class="p-2">Pet</th>
             <th class="p-2">Time In</th>
-            <th class="p-2">Status</th>
             <th class="p-2">Actions</th>
           </tr>
         </thead>
@@ -70,7 +69,6 @@
                 </div>
               </td>
               <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-              <td class="p-2"><%= groom.status.capitalize %></td>
               <td class="flex space-x-4 p-4">
                 <% if groom.is_a?(Groom) %>
                   <%= link_to employee_app_groom_path(groom) do %>
@@ -100,7 +98,6 @@
           <tr class="bg-gray-800 text-left sticky top-0">
             <th class="p-2">Pet</th>
             <th class="p-2">Time In</th>
-            <th class="p-2">Status</th>
             <th class="p-2">Actions</th>
           </tr>
         </thead>
@@ -116,7 +113,6 @@
                 </div>
               </td>
               <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-              <td class="p-2"><%= groom.status.capitalize %></td>
               <td class="flex space-x-4 p-4">
                 <% if groom.is_a?(Groom) %>
                   <%= link_to employee_app_groom_path(groom) do %>
