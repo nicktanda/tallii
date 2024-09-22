@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_111129) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_22_130108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -261,6 +261,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_111129) do
     t.integer "max_grooms", default: 0
     t.integer "max_daycare_visits", default: 0
     t.text "notes"
+    t.string "colour"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
   end
