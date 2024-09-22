@@ -1,3 +1,63 @@
 <div class="m-4 space-y-4 text-white">
-
+  <div class="text-3xl">Daycare Visit</div>
+  <%= form_for @temporary_daycare_visit, url: employee_app_temporary_daycare_visit_update_path do |f| %>
+    <%= f.hidden_field :origin, value: "desktop"%>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :pet_name %>
+        <%= f.text_field :pet_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :owner_name %>
+        <%= f.text_field :owner_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <% if @temporary_daycare_visit.status == "completed" %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.hidden_field :pet_id, value: @temporary_daycare_visit.date %>
+          <div class="bg-black text-white border-x-0 border-t-0 w-full text-xl"><%= @temporary_daycare_visit.date %></div>
+        </div>
+      <% else %>
+        <div>
+          <%= f.label :date, "Request Date" %>
+          <%= f.date_field :date, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        </div>
+      <% end %>
+      <div>
+        <%= f.label :time, "Dropoff Time" %>
+        <%= f.time_field :time, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+      </div>
+      <div>
+        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+        <div>
+          <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
+          <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>
+        </div>
+        <div>
+          <%= f.radio_button :duration, :full_day, id: "duration_full_day", required: true %>
+          <%= f.label :full_day, "Full Day", class: "text-lg", for: "duration_full_day" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :pet_notes %>
+        <%= f.text_area :pet_notes, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl", rows: 3, placeholder: "Write any notes here" %>
+      </div>
+      <div>
+        <%= f.label :owner_notes %>
+        <%= f.text_area :owner_notes, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl", rows: 3, placeholder: "Write any notes here" %>
+      </div>
+      <% unless @temporary_daycare_visit.status == "completed" %>
+        <div>
+          <%= f.label :status, "Status" %>
+          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"]], selected: @temporary_daycare_visit.status), { prompt: 'Select' }, { required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" }) %>
+        </div>
+      <% end %>
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        Update Request
+      </button>
+    </div>
+  <% end %>
 </div>

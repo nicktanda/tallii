@@ -24,7 +24,7 @@ class DaycareVisitsController < ApplicationController
   def create
     daycare_visit = current_organisation.daycare_visits.new(visit_params)
 
-    if groom.pet.user.max_daycare_visits == 0
+    if daycare_visit.pet.user.max_daycare_visits == 0
       if params[:daycare_visit][:origin] == "desktop"
         redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'User has no more daycare visits in their package. Please confirm the customer would like more daycare visits'
       else
