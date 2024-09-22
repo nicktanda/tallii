@@ -7,11 +7,24 @@ module EmployeeApp
     end
 
     def show
-
+      @groom = current_user.grooms.find(params[:id])
     end
 
     def update
+      groom = current_user.grooms.find(params[:id])
+      groom.assign_attributes(groom_params)
+  
+      if groom.save
+        redirect_to employee_app_grooms_path, notice: 'Groom updated successfully'
+      else
+        redirect_back fallback_location: employee_app_groom_path(groom), alert: 'Invalid groom information'
+      end
+    end
 
+    private
+
+    def groom_params
+      params.require(:groom).permit(:date, :time, :notes, :pet_id, :last_groom, :status)
     end
   end
 end
