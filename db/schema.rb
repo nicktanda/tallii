@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_23_112139) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_23_113840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,6 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_112139) do
     t.integer "maximum_daily_daycare_visits", default: 0
     t.integer "revenue_target", default: 0
     t.text "stripe_api_key"
+    t.integer "grooming_reward_points", default: 0
+    t.integer "daycare_visit_reward_points", default: 0
   end
 
   create_table "pets", force: :cascade do |t|
