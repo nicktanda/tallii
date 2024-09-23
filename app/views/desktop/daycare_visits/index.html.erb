@@ -28,8 +28,13 @@
                 <% daycare_visits.each do |daycare_visit| %>
                   <tr class="bg-gray-50 text-left">
                     <td class="p-2">
-                      <div class="font-bold">
-                        <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                      <div class="flex space-x-2 items-center">
+                        <% if daycare_visit.user&.colour.present? %>
+                          <div class="rounded-full h-2 w-2" style="background-color: <%= daycare_visit.user.colour %>;"></div>
+                        <% end %>
+                        <div class="font-bold">
+                          <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                        </div>
                       </div>
                       <div class="text-xs">
                         <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
@@ -80,8 +85,13 @@
               <% @in_progress_daycare_visits.each do |daycare_visit| %>
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
-                    <div class="font-bold">
-                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                    <div class="flex space-x-2 items-center">
+                      <% if daycare_visit.user&.colour.present? %>
+                        <div class="rounded-full h-2 w-2" style="background-color: <%= daycare_visit.user.colour %>;"></div>
+                      <% end %>
+                      <div class="font-bold">
+                        <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                      </div>
                     </div>
                     <div class="text-xs">
                       <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
@@ -130,8 +140,13 @@
               <% @completed_daycare_visits.each do |daycare_visit| %>
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
-                    <div class="font-bold">
-                      <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                    <div class="flex space-x-2 items-center">
+                      <% if daycare_visit.user&.colour.present? %>
+                        <div class="rounded-full h-2 w-2" style="background-color: <%= daycare_visit.user.colour %>;"></div>
+                      <% end %>
+                      <div class="font-bold">
+                        <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
+                      </div>
                     </div>
                     <div class="text-xs">
                       <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>

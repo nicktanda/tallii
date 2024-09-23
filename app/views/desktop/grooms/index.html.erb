@@ -26,8 +26,13 @@
                 <% grooms.each do |groom| %>
                   <tr class="bg-gray-50 text-left">
                     <td class="p-2">
-                      <div class="font-bold">
-                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                      <div class="flex space-x-2 items-center">
+                        <% if groom.user&.colour.present? %>
+                          <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
+                        <% end %>
+                        <div class="font-bold">
+                          <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                        </div>
                       </div>
                       <div class="text-xs">
                         <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
@@ -76,8 +81,13 @@
               <% @in_progress_grooms.each do |groom| %>
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
-                    <div class="font-bold">
-                      <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                    <div class="flex space-x-2 items-center">
+                      <% if groom.user&.colour.present? %>
+                        <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
+                      <% end %>
+                      <div class="font-bold">
+                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                      </div>
                     </div>
                     <div class="text-xs">
                       <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
@@ -124,8 +134,13 @@
               <% @completed_grooms.each do |groom| %>
                 <tr class="bg-gray-50 text-left">
                   <td class="p-2">
-                    <div class="font-bold">
-                      <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                    <div class="flex space-x-2 items-center">
+                      <% if groom.user&.colour.present? %>
+                        <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
+                      <% end %>
+                      <div class="font-bold">
+                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                      </div>
                     </div>
                     <div class="text-xs">
                       <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
