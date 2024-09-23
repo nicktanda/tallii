@@ -17,6 +17,7 @@
   </div>
   <%= form_for Groom.new, url: create_groom_path do |f| %>
     <div class="w-full mt-16 space-y-4">
+      <%= render partial: "partials/availability_calendar", locals: { bookings: (@current_organisation.grooms + @current_organisation.temporary_grooms).group_by(&:date), max_daily_bookings: @current_organisation.maximum_daily_grooms } %>
       <div>
         <%= f.label :pet_id, "Pet" %>
         <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
