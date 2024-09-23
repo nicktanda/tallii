@@ -4,7 +4,7 @@ class DaycareVisit < ApplicationRecord
   belongs_to :organisation
 
   enum duration: { half_day: 0, full_day: 1 }
-  enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }
+  enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }
 
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }

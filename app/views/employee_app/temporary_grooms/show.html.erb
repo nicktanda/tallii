@@ -42,7 +42,7 @@
       <% unless @temporary_groom.status == "completed" %>
         <div>
           <%= f.label :status, "Status" %>
-          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"]], selected: @temporary_groom.status), { prompt: 'Select' }, { required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" }) %>
+          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: @temporary_groom.status), { prompt: 'Select' }, { required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" }) %>
         </div>
       <% end %>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
