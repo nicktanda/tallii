@@ -46,27 +46,4 @@
       </div>
     </div>
   </div>
-  <div class="flex space-x-4">
-    <div class="w-1/2">
-      <div class="font-bold text-2xl">Retail Sales</div>
-      <div class="flex w-full space-x-4">
-        <div class="w-full bg-white border border-gray-200 rounded-lg p-4">
-          <div class="flex w-full space-x-6">
-            <div>
-              <div class="font-bold">Today's Sales</div>
-              <div class="text-2xl">$<%= current_organisation.orders.today.sum {|order| order.total_price_in_dollars } %></div>
-            </div>
-            <div>
-              <div class="font-bold">Today's Orders</div>
-              <div class="text-2xl"><%= current_organisation.orders.today.count %> orders</div>
-            </div>
-            <div>
-              <div class="font-bold">Today's Sales Target</div>
-              <div class="text-2xl">$<%= current_organisation.orders.today.sum {|order| order.total_price_in_dollars } %> / $<%= current_organisation.revenue_target %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
