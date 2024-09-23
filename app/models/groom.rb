@@ -18,6 +18,27 @@ class Groom < ApplicationRecord
 
   enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3 }
 
+  def service
+    "Groom"
+  end
+
+  def notes?
+    notes.present? ? "Yes" : "No"
+  end
+
+  def formatted_status
+    case status
+    when 'pending'
+      'Pending'
+    when 'confirmed'
+      'Confirmed'
+    when 'in_progress'
+      'In Progress'
+    when 'completed'
+      'Completed'
+    end
+  end
+
   private
 
   def groom_date_is_in_the_future

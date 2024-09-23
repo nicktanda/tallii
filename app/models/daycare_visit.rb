@@ -28,6 +28,27 @@ class DaycareVisit < ApplicationRecord
     end
   end
 
+  def service
+    "Daycare Visit"
+  end
+
+  def notes?
+    notes.present? ? "Yes" : "No"
+  end
+
+  def formatted_status
+    case status
+    when 'pending'
+      'Pending'
+    when 'confirmed'
+      'Confirmed'
+    when 'in_progress'
+      'In Progress'
+    when 'completed'
+      'Completed'
+    end
+  end
+
   private
 
   def daycare_visit_date_is_in_the_future

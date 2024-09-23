@@ -142,7 +142,7 @@
                 <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
                 <td class="p-2"><%= daycare_visit.date.strftime("%B %e") %></td>
                 <td class="p-2"><%= daycare_visit.duration == "half_day" ? "Half Day" : "Full Day" %>
-                <td class="p-2"><%= daycare_visit.status.capitalize %></td>
+                <td class="p-2"><%= daycare_visit.formatted_status %></td>
               </tr>
             <% end %>
           </table>

@@ -23,7 +23,7 @@
                 </div>
               </td>
               <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-              <td class="p-2"><%= groom.status.capitalize %></td>
+              <td class="p-2"><%= groom.formatted_status %></td>
               <td class="flex space-x-4 p-4">
                 <% if groom.is_a?(Groom) %>
                   <%= link_to employee_app_groom_path(groom) do %>
