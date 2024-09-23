@@ -3,7 +3,7 @@ module Desktop
     def index
       @grooms = (current_organisation.grooms.pending_or_confirmed.order(:date, :time) + current_organisation.temporary_grooms.pending_or_confirmed.order(:date, :time)).group_by(&:date)
       @in_progress_grooms = current_organisation.grooms.order(:date, :time).in_progress + current_organisation.temporary_grooms.order(:date, :time).in_progress
-      @completed_grooms = current_organisation.grooms.order(:date, :time).completed + current_organisation.temporary_grooms.order(:date, :time).completed
+      @completed_grooms = current_organisation.grooms.order(:date, :time).missed_appointment_or_completed + current_organisation.temporary_grooms.order(:date, :time).missed_appointment_or_completed
     end
 
     def new

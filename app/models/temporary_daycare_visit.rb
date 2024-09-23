@@ -15,6 +15,8 @@ class TemporaryDaycareVisit < ApplicationRecord
   scope :pending_or_confirmed, -> { pending.or(confirmed) }
   scope :in_progress, -> { where(status: "in_progress")}
   scope :completed, -> { where(status: "completed")}
+  scope :missed_appointment, -> { where(status: "missed_appointment")}
+  scope :missed_appointment_or_completed, -> { missed_appointment.or(completed) }
 
   validate :daycare_visit_date_is_in_the_future, on: :create
 
@@ -45,6 +47,8 @@ class TemporaryDaycareVisit < ApplicationRecord
       'In Progress'
     when 'completed'
       'Completed'
+    when 'missed_appointment'
+      'Missed Appointment'
     end
   end
 

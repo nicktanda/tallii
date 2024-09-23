@@ -133,6 +133,7 @@
                 <th class="p-2">Pet</th>
                 <th class="p-2">Time In</th>
                 <th class="p-2">Duration</th>
+                <th class="p-2">Missed Appointment?</th>
                 <th class="p-2">Actions</th>
               </tr>
             </thead>
@@ -154,6 +155,7 @@
                   </td>
                   <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
                   <td class="p-2"><%= daycare_visit.formatted_duration %></td>
+                  <td class="p-2"><%= daycare_visit.status == "missed_appointment" ? "Yes" : "No" %></td>
                   <td class="flex space-x-4 p-4">
                     <% if daycare_visit.is_a?(DaycareVisit) %>
                       <%= link_to desktop_daycare_visit_path(daycare_visit) do %>

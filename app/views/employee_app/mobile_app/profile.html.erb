@@ -7,7 +7,7 @@
   </div>
   <div class="space-y-4">
     <div class="text-2xl">What's On This Week</div>
-    <div class="text-xl"><%= current_user.grooms.this_week.completed.count + current_user.temporary_grooms.this_week.completed.count %>/<%= current_user.grooms.this_week.completed.count + current_user.temporary_grooms.this_week.completed.count %> grooms completed this week</div>
-    <div class="text-xl"><%= current_user.daycare_visits.this_week.completed.count + current_user.temporary_daycare_visits.this_week.completed.count %>/<%= current_user.daycare_visits.this_week.completed.count + current_user.temporary_daycare_visits.this_week.completed.count %> daycare visits completed this week</div>
+    <div class="text-xl"><%= current_user.grooms.this_week.missed_appointment_or_completed.count + current_user.temporary_grooms.this_week.missed_appointment_or_completed.count %>/<%= current_user.grooms.this_week.missed_appointment_or_completed.count + current_user.temporary_grooms.this_week.missed_appointment_or_completed.count %> grooms completed this week</div>
+    <div class="text-xl"><%= current_user.daycare_visits.this_week.missed_appointment_or_completed.count + current_user.temporary_daycare_visits.this_week.missed_appointment_or_completed.count %>/<%= current_user.daycare_visits.this_week.missed_appointment_or_completed.count + current_user.temporary_daycare_visits.this_week.missed_appointment_or_completed.count %> daycare visits completed this week</div>
   </div>
 </div>

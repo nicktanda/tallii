@@ -3,7 +3,7 @@ module EmployeeApp
     def index
       @daycare_visits = current_user.daycare_visits.pending_or_confirmed.today.order(:time) + current_user.temporary_daycare_visits.pending_or_confirmed.today.order(:time)
       @in_progress_daycare_visits = current_user.daycare_visits.in_progress.today.order(:time) + current_user.temporary_daycare_visits.in_progress.today.order(:time)
-      @completed_daycare_visits = current_user.daycare_visits.completed.today.order(:time) + current_user.temporary_daycare_visits.completed.today.order(:time)
+      @completed_daycare_visits = current_user.daycare_visits.missed_appointment_or_completed.today.order(:time) + current_user.temporary_daycare_visits.missed_appointment_or_completed.today.order(:time)
     end
 
     def show
