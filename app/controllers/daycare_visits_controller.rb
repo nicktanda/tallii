@@ -52,6 +52,8 @@ class DaycareVisitsController < ApplicationController
     end
 
     if daycare_visit.save
+      rewards_points = daycare_visit.pet.user.rewards_points + current_organisation.daycare_visit_reward_points
+      daycare_visit.pet.user.update!(rewards_points: rewards_points)
       if params[:daycare_visit][:origin] == "desktop"
         redirect_to desktop_daycare_visits_path, notice: 'Daycare visit created successfully'
       else

@@ -52,6 +52,8 @@ class GroomsController < ApplicationController
     end
 
     if groom.save
+      rewards_points = groom.pet.user.rewards_points + current_organisation.grooming_reward_points
+      groom.pet.user.update!(rewards_points: rewards_points)
       if params[:groom][:origin] == "desktop"
         redirect_to desktop_grooms_path, notice: 'Groom created successfully'
       else
