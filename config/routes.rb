@@ -174,6 +174,9 @@ Rails.application.routes.draw do
   # Employee App Routes
   get "/employee_app/dashboard", to: "employee_app/mobile_app#profile", as: "mobile_app_profile"
 
+  get "/employee_app/settings", to: "employee_app/mobile_app#user_settings", as: "employee_app_settings"
+  patch "/employee_app/settings", to: "employee_app/mobile_app#update_user_settings", as: "employee_app_update_user_settings"
+
   get "/employee_app/grooms", to: "employee_app/grooms#index", as: "employee_app_grooms"
   get "/employee_app/grooms/:id", to: "employee_app/grooms#show", as: "employee_app_groom"
   patch "/employee_app/grooms/:id/update", to: "employee_app/grooms#update", as: "employee_app_groom_update"
