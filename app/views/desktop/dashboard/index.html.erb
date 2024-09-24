@@ -38,8 +38,8 @@
                 <% @bookings.each do |booking| %>
                   <tr>
                     <td class="p-2 rounded-full">
-                      <div class="inline-block p-2 rounded-full" style="background-color: <%= booking.user&.colour %>;">
-                        <%= booking.user&.full_name.split.map{|name| name.first}.join %>
+                      <div class="inline-block p-2 rounded-full" style="background-color: <%= booking&.user&.colour %>;">
+                        <%= booking&.user&.full_name&.split&.map{|name| name.first}&.join %>
                       </div>
                     </td>
                     <td class="p-2"><%= booking.time.strftime('%H:%M') %></td>
@@ -54,8 +54,9 @@
             </table>
           </div>
         </div>
-        <div class="w-56 h-36 border-2 border-black p-2 rounded-lg space-y-4">
+        <div class="w-56 border-2 border-black p-2 rounded-lg space-y-4">
           <div class="text-lg font-bold">Daily Count</div>
+          <%= pie_chart({"Grooms"=> @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}, "Daycare Visits" => @bookings.count{|booking| booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)}}, height: "100px", width: "200px", legend: false) %>
           <div class="space-y-2">
             <div class="flex justify-between">
               <div>Grooms</div>
@@ -74,6 +75,9 @@
     <div class="w-full bg-white border border-gray-200 rounded-lg">
       <div class="w-full p-4">
         <div class="font-bold">Daycare Visit Targets</div>
+        <% if current_organisation.daycare_visits.today.any? %>
+          <%= pie_chart({"Half Day Visits"=> current_organisation.daycare_visits.today.where(duration: "half_day").count, "Full Day Visits" => current_organisation.daycare_visits.today.where(duration: "full_day").count}, height: "100px", width: "500px", legend: false) %>
+        <% end %>
       </div>
       <div class="overflow-hidden rounded-lg p-4">
         <div class="max-h-40 overflow-y-scroll">

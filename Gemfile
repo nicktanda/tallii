@@ -51,6 +51,8 @@ source 'https://rubygems.org'
 
 gem 'stripe'
 
+gem "chartkick"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
