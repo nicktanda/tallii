@@ -2,6 +2,7 @@ class Groom < ApplicationRecord
   belongs_to :pet
   belongs_to :user, foreign_key: 'employee_id', optional: true
   belongs_to :organisation
+  has_many :images, dependent: :destroy
 
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }

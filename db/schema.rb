@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_23_113840) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_25_115751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_113840) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "category_id"
+    t.bigint "groom_id"
     t.index ["category_id"], name: "index_images_on_category_id"
+    t.index ["groom_id"], name: "index_images_on_groom_id"
     t.index ["onboarding_pet_id"], name: "index_images_on_onboarding_pet_id"
     t.index ["pet_id"], name: "index_images_on_pet_id"
     t.index ["product_id"], name: "index_images_on_product_id"
@@ -279,6 +281,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_23_113840) do
   add_foreign_key "grooms", "pets"
   add_foreign_key "grooms", "users", column: "employee_id"
   add_foreign_key "images", "categories"
+  add_foreign_key "images", "grooms"
   add_foreign_key "images", "onboarding_pets"
   add_foreign_key "images", "pets"
   add_foreign_key "images", "products"
