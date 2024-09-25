@@ -33,7 +33,7 @@ module Desktop
         image.destroy
         redirect_to desktop_groom_images_path(groom), notice: 'Image deleted'
       else
-        redirect_to desktop_groom_images_path(groom), notice: 'Category needs to always have at least 1 photo'
+        redirect_to desktop_groom_images_path(groom), notice: 'Groom needs to always have at least 1 photo'
       end
     end
 

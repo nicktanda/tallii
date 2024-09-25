@@ -97,6 +97,9 @@ Rails.application.routes.draw do
   get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
   get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"
   post "/desktop/temporary_grooms/create", to: "desktop/temporary_grooms#create", as: "desktop_temporary_grooms_create"
+  get "/desktop/temporary_grooms/:id/images", to: "desktop/temporary_grooms#images", as: "desktop_temporary_groom_images"
+  post "/desktop/temporary_grooms/:id/images/upload", to: "desktop/temporary_grooms#upload_image", as: "desktop_temporary_groom_images_upload"
+  delete "/desktop/temporary_grooms/:id/images/:image_id", to: "desktop/temporary_grooms#destroy_image", as: "desktop_temporary_groom_images_destroy"
   patch "/desktop/temporary_grooms/:id/update", to: "desktop/temporary_grooms#update", as: "desktop_temporary_groom_update"
   
   get "/desktop/daycare_visits", to: "desktop/daycare_visits#index", as: "desktop_daycare_visits"
