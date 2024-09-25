@@ -89,6 +89,9 @@ Rails.application.routes.draw do
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
   get "/desktop/grooms/:id", to: "desktop/grooms#show", as: "desktop_groom"
+  get "/desktop/grooms/:id/images", to: "desktop/grooms#images", as: "desktop_groom_images"
+  post "/desktop/grooms/:id/images/upload", to: "desktop/grooms#upload_image", as: "desktop_groom_images_upload"
+  delete "/desktop/grooms/:id/images/:image_id", to: "desktop/grooms#destroy_image", as: "desktop_groom_images_destroy"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
   
   get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
