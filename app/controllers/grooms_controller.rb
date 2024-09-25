@@ -53,8 +53,8 @@ class GroomsController < ApplicationController
 
     if groom.save
       rewards_points = groom.pet.user.rewards_points + current_organisation.grooming_reward_points
-      groom.pet.user.update!(rewards_points: rewards_points)
-      binding.pry
+      max_visits = groom.pet.user.max_grooms - 1
+      groom.pet.user.update!(rewards_points: rewards_points, max_grooms: max_visits)
       groom.images.create!(name: "test_image", image: params[:groom][:image])
       if params[:groom][:origin] == "desktop"
         redirect_to desktop_grooms_path, notice: 'Groom created successfully'
