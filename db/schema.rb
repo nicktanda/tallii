@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_25_115751) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_25_124458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,11 +93,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_25_115751) do
     t.bigint "user_id"
     t.bigint "category_id"
     t.bigint "groom_id"
+    t.bigint "temporary_groom_id"
     t.index ["category_id"], name: "index_images_on_category_id"
     t.index ["groom_id"], name: "index_images_on_groom_id"
     t.index ["onboarding_pet_id"], name: "index_images_on_onboarding_pet_id"
     t.index ["pet_id"], name: "index_images_on_pet_id"
     t.index ["product_id"], name: "index_images_on_product_id"
+    t.index ["temporary_groom_id"], name: "index_images_on_temporary_groom_id"
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
@@ -285,6 +287,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_25_115751) do
   add_foreign_key "images", "onboarding_pets"
   add_foreign_key "images", "pets"
   add_foreign_key "images", "products"
+  add_foreign_key "images", "temporary_grooms"
   add_foreign_key "images", "users"
   add_foreign_key "onboarding_pets", "organisations"
   add_foreign_key "onboarding_pets", "users"

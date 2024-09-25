@@ -5,6 +5,7 @@ class Image < ApplicationRecord
   belongs_to :product, optional: true
   belongs_to :category, optional: true
   belongs_to :groom, optional: true
+  belongs_to :temporary_groom, optional: true
   has_one_attached :image
 
   validate :correct_image_type
