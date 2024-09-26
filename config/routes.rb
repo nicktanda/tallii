@@ -186,9 +186,15 @@ Rails.application.routes.draw do
   get "/employee_app/grooms", to: "employee_app/grooms#index", as: "employee_app_grooms"
   get "/employee_app/grooms/:id", to: "employee_app/grooms#show", as: "employee_app_groom"
   patch "/employee_app/grooms/:id/update", to: "employee_app/grooms#update", as: "employee_app_groom_update"
+  get "/employee_app/grooms/:id/images", to: "employee_app/grooms#images", as: "employee_app_groom_images"
+  post "/employee_app/grooms/:id/images/upload", to: "employee_app/grooms#upload_image", as: "employee_app_groom_images_upload"
+  delete "/employee_app/grooms/:id/images/:image_id", to: "employee_app/grooms#destroy_image", as: "employee_app_groom_images_destroy"
 
   get "/employee_app/temporary_grooms/:id", to: "employee_app/temporary_grooms#show", as: "employee_app_temporary_groom"
   patch "/employee_app/temporary_grooms/:id/update", to: "employee_app/temporary_grooms#update", as: "employee_app_temporary_groom_update"
+  get "/employee_app/temporary_grooms/:id/images", to: "employee_app/temporary_grooms#images", as: "employee_app_temporary_groom_images"
+  post "/employee_app/temporary_grooms/:id/images/upload", to: "employee_app/temporary_grooms#upload_image", as: "employee_app_temporary_groom_images_upload"
+  delete "/employee_app/temporary_grooms/:id/images/:image_id", to: "employee_app/temporary_grooms#destroy_image", as: "employee_app_temporary_groom_images_destroy"
 
   get "/employee_app/daycare_visits", to: "employee_app/daycare_visits#index", as: "employee_app_daycare_visits"
   get "/employee_app/daycare_visits/:id", to: "employee_app/daycare_visits#show", as: "employee_app_daycare_visit"

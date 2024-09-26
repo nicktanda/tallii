@@ -21,6 +21,29 @@ module EmployeeApp
       end
     end
 
+    def images
+      @groom = current_organisation.grooms.find(params[:id])
+      @images = @groom.images
+    end
+
+    def upload_image
+      groom = current_organisation.grooms.find(params[:id])
+      groom.images.create!(name: "test_image", image: params[:image])
+      redirect_to employee_app_groom_images_path(groom), notice: 'Image uploaded'
+    end
+
+    def destroy_image
+      groom = current_organisation.grooms.find(params[:id])
+
+      image = groom.images.find(params[:image_id])
+      if groom.images.count > 1
+        image.destroy
+        redirect_to employee_app_groom_images_path(groom), notice: 'Image deleted'
+      else
+        redirect_to employee_app_groom_images_path(groom), notice: 'Groom needs to always have at least 1 photo'
+      end
+    end
+
     private
 
     def groom_params
