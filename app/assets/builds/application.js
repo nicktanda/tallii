@@ -8166,4 +8166,8 @@ application.register("checkout", checkout_controller_default2);
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register("/service-worker.js", {scope: "/"}).then(() => console.log("Service worker registered!")).catch((error2) => console.error("Service worker registration failed:", error2));
 }
+
+// app/javascript/application.js
+import "chartkick";
+import "Chart.bundle";
 //# sourceMappingURL=application.js.map
