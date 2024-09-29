@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_pet
-    return if session["pet"].nil?
-    @current_pet ||= current_user.pets.find_by(id: session["pet"])
+    return if session["current_pet"].nil?
+    @current_pet ||= current_user.pets.find_by(id: session["current_pet"])
   end
 
   def current_organisation

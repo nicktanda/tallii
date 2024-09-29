@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       session["user"] ||= {}
       session["user"]["id"] = user.id
-      session["pet"] = user.pets.first.id if user.pets.any?
+      session["current_pet"] = user.pets.first.id if user.pets.any?
       if current_user.role == "customer"
         redirect_to current_pet_profile_path
       else
@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
   end
 
   def set_current_pet
-    session["pet"] = params[:id]
+    session["current_pet"] = params[:id]
     redirect_to current_pet_profile_path
   end
 

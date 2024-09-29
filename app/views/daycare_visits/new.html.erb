@@ -42,7 +42,7 @@
         </div>
       </div>
       <div>
-        <%= f.label :notes, "Additional Grooming Notes" %>
+        <%= f.label :notes, "Additional Notes" %>
         <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center" <%= "disabled" if current_user.max_daycare_visits.zero? %>>
