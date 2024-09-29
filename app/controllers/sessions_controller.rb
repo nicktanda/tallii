@@ -41,6 +41,7 @@ class SessionsController < ApplicationController
   private
 
   def prevent_users_reaching_platform_switch
+    return if current_user.nil?
     redirect_to current_pet_profile_path if current_user.role == "customer"
   end
 
