@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get "/create/daycare_visits", to: "daycare_visits#new", as: "new_daycare_visits"
   post "/create/daycare_visits", to: "daycare_visits#create", as: "create_daycare_visits"
   post "/update/daycare_visits/:id", to: "daycare_visits#update", as: "update_daycare_visits"
+  patch "/confirm/daycare_visits/:id", to: "daycare_visits#confirm", as: "confirm_daycare_visits"
   delete "/daycare_visits/:id", to: "daycare_visits#delete", as: "delete_daycare_visits"
 
   get "/shop", to: "shop#shop", as: "shop"

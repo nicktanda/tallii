@@ -69,6 +69,16 @@ class DaycareVisitsController < ApplicationController
     end
   end
 
+  def confirm
+    daycare_visit = current_organisation.daycare_visits.find(params[:id])
+
+    if daycare_visit.update!(status: 'confirmed')
+      redirect_to daycare_visits_path, notice: 'Daycare visit confirmed successfully'
+    else
+      redirect_back fallback_location: daycare_visits_path, alert: 'Please try again'
+    end
+  end
+
   def delete
     daycare_visit = current_organisation.daycare_visits.find(params[:id])
 
