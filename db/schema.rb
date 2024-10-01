@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_25_124458) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_01_114038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -264,7 +264,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_25_124458) do
     t.text "city"
     t.text "postcode"
     t.integer "role", default: 0
-    t.integer "max_grooms", default: 0
     t.integer "max_daycare_visits", default: 0
     t.text "notes"
     t.string "colour"

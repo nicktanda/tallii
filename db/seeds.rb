@@ -12,7 +12,6 @@ aydan = org.users.create!(
   email: "aydan.lalonde@gmail.com",
   password: "password",
   role: "employee",
-  max_grooms: 10,
   max_daycare_visits: 10
 )
 
@@ -22,7 +21,6 @@ linda = org.users.create!(
   email: "linda.lalonde@gmail.com",
   password: "password",
   role: "admin",
-  max_grooms: 10,
   max_daycare_visits: 10
 )
 
@@ -32,6 +30,5 @@ customer = org.users.create!(
   email: "customer@customer.com",
   password: "password",
   role: "customer",
-  max_grooms: 10,
   max_daycare_visits: 10
 )
