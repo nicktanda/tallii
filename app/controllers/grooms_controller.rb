@@ -52,6 +52,16 @@ class GroomsController < ApplicationController
     end
   end
 
+  def confirm
+    groom = current_organisation.grooms.find(params[:id])
+
+    if groom.update!(status: 'confirmed')
+      redirect_to grooms_path, notice: 'Groom confirmed successfully'
+    else
+      redirect_back fallback_location: grooms_path, alert: 'Please try again'
+    end
+  end
+
   def delete
     groom = current_organisation.grooms.find(params[:id])
 
