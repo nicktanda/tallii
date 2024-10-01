@@ -33,24 +33,6 @@ class GroomsController < ApplicationController
       return
     end
 
-    if current_organisation.grooms.today.count == current_organisation.maximum_daily_grooms
-      if params[:groom][:origin] == "desktop"
-        redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
-      else
-        redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
-      end
-      return
-    end
-
-    if current_organisation.grooms.this_week.count == current_organisation.maximum_weekly_grooms
-      if params[:groom][:origin] == "desktop"
-        redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
-      else
-        redirect_back fallback_location: new_groom_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
-      end
-      return
-    end
-
     if groom.save
       rewards_points = groom.pet.user.rewards_points + current_organisation.grooming_reward_points
       max_visits = groom.pet.user.max_grooms - 1
