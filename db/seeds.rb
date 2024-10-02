@@ -5,22 +5,22 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-org = Organisation.create!(name: "Paws Oasis")
+# org = Organisation.create!(name: "Paws Oasis")
 
-linda = org.users.find_or_create_by!(
-  first_name: "Linda",
-  last_name: "Lalonde",
-  email: "linda.lalonde@gmail.com",
-  password: "password",
-  role: "admin",
-  max_daycare_visits: 10
-)
+# linda = org.users.find_or_create_by!(
+#   first_name: "Linda",
+#   last_name: "Lalonde",
+#   email: "linda.lalonde@gmail.com",
+#   password: "password",
+#   role: "admin",
+#   max_daycare_visits: 10
+# )
 
-customer = org.users.find_or_create_by!(
-  first_name: "Customer",
-  last_name: "Customer",
-  email: "customer@customer.com",
-  password: "password",
-  role: "customer",
-  max_daycare_visits: 10
-)
+# customer = org.users.find_or_create_by!(
+#   first_name: "Customer",
+#   last_name: "Customer",
+#   email: "customer@customer.com",
+#   password: "password",
+#   role: "customer",
+#   max_daycare_visits: 10
+# )
