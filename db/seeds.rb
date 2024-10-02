@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 org = Organisation.create!(name: "Paws Oasis")
 
-linda = org.users.create!(
+linda = org.users.find_or_create_by!(
   first_name: "Linda",
   last_name: "Lalonde",
   email: "linda.lalonde@gmail.com",
@@ -16,7 +16,7 @@ linda = org.users.create!(
   max_daycare_visits: 10
 )
 
-customer = org.users.create!(
+customer = org.users.find_or_create_by!(
   first_name: "Customer",
   last_name: "Customer",
   email: "customer@customer.com",
