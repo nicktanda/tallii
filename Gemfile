@@ -47,6 +47,8 @@ gem 'jsbundling-rails'
 
 gem "active_storage_validations"
 
+gem 'aws-sdk-s3', '~> 1.100'
+
 source 'https://rubygems.org'
 
 gem 'stripe'
