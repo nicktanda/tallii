@@ -131,12 +131,17 @@
 
 <script>
   function openNav() {
-    document.getElementById("overlay").classList.remove("hidden");
     const sidenav = document.getElementById("mySidenav");
-    sidenav.style.height = "auto"; // Set to auto to calculate height
-    const height = sidenav.scrollHeight + "px"; // Get the scroll height
-    sidenav.style.height = height; // Set the calculated height
+    document.getElementById("overlay").classList.remove("hidden");
+    sidenav.style.height = "auto";
+    const height = sidenav.scrollHeight + "px"; 
+    sidenav.style.height = "0";
+    requestAnimationFrame(() => {
+      sidenav.style.height = height;
+    });
+    sidenav.style.transition = "height 0.5s ease"; 
   }
+
 
   function closeNav() {
     document.getElementById("overlay").classList.add("hidden");
