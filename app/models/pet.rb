@@ -24,20 +24,27 @@ class Pet < ApplicationRecord
     return if self.grooms.empty?
 
     groom_date = self.grooms.order(date: :asc).first.date
-    return groom_date.strftime("%B %d, %Y") unless groom_date > Time.now
+    groom_date.strftime("%B %d, %Y") unless groom_date < Time.now
   end
 
   def last_groom
     return if self.grooms.empty?
 
     groom_date = self.grooms.order(date: :desc).first.date
-    return groom_date.strftime("%B %d, %Y") unless groom_date < Time.now
+    groom_date.strftime("%B %d, %Y") unless groom_date > Time.now
+  end
+
+  def last_daycare_visit
+    return if self.daycare_visits.empty?
+
+    visit_date = self.daycare_visits.order(date: :desc).first.date
+    visit_date.strftime("%B %d, %Y") unless visit_date > Time.now
   end
 
   def next_daycare_visit
     return if self.daycare_visits.empty?
 
     visit_date = self.daycare_visits.order(date: :asc).first.date
-    return visit_date.strftime("%B %d, %Y") unless visit_date > Time.now
+    visit_date.strftime("%B %d, %Y") unless visit_date < Time.now
   end
 end
