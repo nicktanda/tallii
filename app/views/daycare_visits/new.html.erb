@@ -17,7 +17,6 @@
   </div>
   <%= form_for DaycareVisit.new, url: create_daycare_visits_path do |f| %>
     <div class="w-full mt-16 space-y-4">
-      <%= render partial: "partials/availability_calendar", locals: { bookings: (@current_organisation.daycare_visits + @current_organisation.temporary_daycare_visits).group_by(&:date), max_daily_bookings: @current_organisation.maximum_daily_daycare_visits } %>
       <div>
         <%= f.label :pet_id, "Pet" %>
         <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
