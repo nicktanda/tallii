@@ -13,7 +13,7 @@
       <div class="absolute bottom-0 left-0 right-0">
         <div class="flex justify-between">
           <div class="text-white font-bold text-5xl px-4"><%= @pet.name %></div>
-          <div class="text-white bg-black font-bold text-4xl rounded-tl-2xl p-3"><%= @pet.age %> YO</div>
+          <div class="text-white bg-blue-500 font-bold text-xl rounded-2xl p-3"><%= @pet.age %> YO</div>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <% end %>
       <div class="flex justify-between">
         <div class="text-white font-bold text-5xl p-2"><%= @pet.name %></div>
-        <div class="text-white bg-black font-bold text-4xl rounded-tl-2xl p-3"><%= @pet.age %> YO</div>
+        <div class="text-white bg-blue-500 font-bold text-xl rounded-2xl p-3"><%= @pet.age %> YO</div>
       </div>
     </div>
   <% end %>
@@ -110,19 +110,28 @@
       </div>
     </div>
   </div>
-  <div class="bg-teal-200 rounded-2xl">
-    <%= link_to pet_pictures_path(@pet) do %>
-      <div class="p-2 h-28">
-        <div class="text-xl font-bold">Pictures of <%= @pet.name %></div>
-        <div>Pictures of <%= @pet.name %>'s daycare visits can be found here</div>
-      </div>
-      <div class="flex flex-col justify-end">
-        <div class="bg-white rounded-b-2xl flex justify-between p-2">
-          <div>Last added picture:</div>
-          <div class="font-bold"><%= last_uploaded_image_date(@pet) || "-" %></div>
+  <div class="relative">
+    <div class="bg-black w-full h-6"></div>
+    <div class="absolute top-0 right-24 rounded-t-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="rounded-full h-12 w-12 border-4 border-black bg-teal-200 p-2">
+        <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+        <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <div class="bg-teal-200 rounded-2xl">
+      <%= link_to pet_pictures_path(@pet) do %>
+        <div class="p-2 h-28">
+          <div class="text-xl font-bold">Pictures of <%= @pet.name %></div>
+          <div>Pictures of <%= @pet.name %>'s daycare visits can be found here</div>
         </div>
-      </div>
-    <% end %>
+        <div class="flex flex-col justify-end">
+          <div class="bg-white rounded-b-2xl flex justify-between p-2">
+            <div>Last added picture:</div>
+            <div class="font-bold"><%= last_uploaded_image_date(@pet) || "-" %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div id="overlay" class="fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-75 backdrop-blur-sm hidden" onclick="closeModals()"></div>
