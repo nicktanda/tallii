@@ -13,26 +13,26 @@
       <div class="flex space-x-4 h-auto">
         <div class="flex-1 flex flex-col">
           <%= f.label :pet_id, "Pet" %>
-          <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow" }) %>
+          <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-violet-400 text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow", disabled: @groom.status != "pending" }) %>
         </div>
         <div class="flex-1 space-y-2">
           <div>
             <%= f.label :date, "Request Date" %>
-            <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+            <%= f.date_field :date, required: true, class: "bg-violet-400 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
           </div>
           <div>
             <%= f.label :time, "Request Time" %>
-            <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+            <%= f.time_field :time, required: true, class: "bg-violet-400 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
           </div>
           <div>
             <%= f.label :last_groom, "When Was Last Groom?" %>
-            <%= f.date_field :last_groom, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+            <%= f.date_field :last_groom, class: "bg-violet-400 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
           </div>
         </div>
       </div>
-      <div class="bg-white text-black rounded-lg p-2 space-y-2">
+      <div class="bg-violet-400 text-black rounded-lg p-2 space-y-2">
         <%= f.label :notes, "Additional Grooming Notes" %>
-        <%= f.text_area :notes, class: "bg-gray-100 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
+        <%= f.text_area :notes, class: "bg-violet-300 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
       </div>
       <div class="w-full mb-4 text-white">
         <%= f.label :image, "Grooming Photos" %>
