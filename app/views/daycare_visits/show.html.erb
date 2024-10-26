@@ -7,37 +7,48 @@
   </div>
   <div class="text-2xl">Disclaimer</div>
   <div class="font-light">Maximum occupany at daycare is 30 dogs per day, your request may be reviewed before approval.</div>
-  <div class="font-light">You have <u>8 visits</u> remaining in your package</div>
+  <div class="text-orange-500 border-orange-500 w-full p-2 border-2 rounded-lg">
+    <%= "You have #{current_user.max_daycare_visits} visits remaining in your package" %>
+  </div>
+  <% flash.each do |type, msg| %>
+    <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+      <%= msg %>
+    </div>
+  <% end %>
   <%= form_for @daycare_visit, url: update_daycare_visits_path do |f| %>
-    <div class="w-full mt-4 space-y-4">
-      <div>
-        <%= f.label :pet_id, "Pet" %>
-        <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}, selected: @daycare_visit.pet_id), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
-      </div>
-      <div>
-        <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, value: @daycare_visit.date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :time, "Dropoff Time" %>
-        <%= f.time_field :time, value: @daycare_visit.time&.strftime("%H:%M"), required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
-        <div>
-          <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true, checked: @daycare_visit.duration == "half_day" %>
-          <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>
+    <div class="w-full mt-4 space-y-4 h-auto">
+      <div class="flex space-x-4 h-auto">
+        <div class="flex-1 flex flex-col">
+          <%= f.label :pet_id, "Pet" %>
+          <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow" }) %>
         </div>
-        <div>
-          <%= f.radio_button :duration, :full_day, id: "duration_full_day", required: true, checked: @daycare_visit.duration == "full_day" %>
-          <%= f.label :full_day, "Full Day", class: "text-lg", for: "duration_full_day" %>
+        <div class="flex-1 space-y-2">
+          <div>
+            <%= f.label :date, "Request Date" %>
+            <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div>
+            <%= f.label :time, "Dropoff Time" %>
+            <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div class="bg-white p-2 rounded-lg text-black">
+            <%= f.label :duration, "Half or Full Day Visit?", class: "mb-2" %>
+            <div class="flex items-center">
+              <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
+              <%= f.label :half_day, "Half Day", class: "text-lg pl-2", for: "duration_half_day" %>
+            </div>
+            <div class="flex items-center">
+              <%= f.radio_button :duration, :full_day, id: "duration_full_day", required: true %>
+              <%= f.label :half_day, "Full Day", class: "text-lg pl-2", for: "duration_full_day" %>
+            </div>
+          </div>
         </div>
       </div>
       <div>
-        <%= f.label :notes, "Additional Grooming Notes" %>
-        <%= f.text_area :notes, value: @daycare_visit.notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
+        <%= f.label :notes, "Additional Notes" %>
+        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
       </div>
-      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center" <%= "disabled" if current_user.max_daycare_visits.zero? %>>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>

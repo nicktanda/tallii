@@ -16,28 +16,32 @@
     <%= "You have #{current_user.max_daycare_visits} visits remaining in your package" %>
   </div>
   <%= form_for DaycareVisit.new, url: create_daycare_visits_path do |f| %>
-    <div class="w-full mt-4 space-y-4">
-      <div>
-        <%= f.label :pet_id, "Pet" %>
-        <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
-      </div>
-      <div>
-        <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :time, "Dropoff Time" %>
-        <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
-        <div>
-          <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
-          <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>
+    <div class="w-full mt-4 space-y-4 h-auto">
+      <div class="flex space-x-4 h-auto">
+        <div class="flex-1 flex flex-col">
+          <%= f.label :pet_id, "Pet" %>
+          <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow" }) %>
         </div>
-        <div>
-          <%= f.radio_button :duration, :full_day, id: "duration_full_day", required: true %>
-          <%= f.label :full_day, "Full Day", class: "text-lg", for: "duration_full_day" %>
+        <div class="flex-1 space-y-2">
+          <div>
+            <%= f.label :date, "Request Date" %>
+            <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div>
+            <%= f.label :time, "Dropoff Time" %>
+            <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div class="bg-white p-2 rounded-lg text-black">
+            <%= f.label :duration, "Half or Full Day Visit?", class: "mb-2" %>
+            <div class="flex items-center">
+              <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
+              <%= f.label :half_day, "Half Day", class: "text-lg pl-2", for: "duration_half_day" %>
+            </div>
+            <div class="flex items-center">
+              <%= f.radio_button :duration, :full_day, id: "duration_full_day", required: true %>
+              <%= f.label :half_day, "Full Day", class: "text-lg pl-2", for: "duration_full_day" %>
+            </div>
+          </div>
         </div>
       </div>
       <div>

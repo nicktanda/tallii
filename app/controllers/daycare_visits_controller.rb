@@ -15,7 +15,7 @@ class DaycareVisitsController < ApplicationController
     daycare_visit.assign_attributes(visit_params)
 
     if daycare_visit.save
-      redirect_to daycare_visits_path, notice: 'Daycare visit updated successfully'
+      redirect_to daycare_visits_path
     else
       redirect_back fallback_location: show_daycare_visit_path(daycare_visit), alert: 'Invalid daycare visit information'
     end
@@ -56,7 +56,7 @@ class DaycareVisitsController < ApplicationController
       max_visits = daycare_visit.pet.user.max_daycare_visits - 1
       daycare_visit.pet.user.update!(rewards_points: rewards_points, max_daycare_visits: max_visits)
       if params[:daycare_visit][:origin] == "desktop"
-        redirect_to desktop_daycare_visits_path, notice: 'Daycare visit created successfully'
+        redirect_to desktop_daycare_visits_path
       else
         redirect_to daycare_visits_path, notice: 'Daycare visit created successfully'
       end
@@ -73,7 +73,7 @@ class DaycareVisitsController < ApplicationController
     daycare_visit = current_organisation.daycare_visits.find(params[:id])
 
     if daycare_visit.update!(status: 'confirmed')
-      redirect_to daycare_visits_path, notice: 'Daycare visit confirmed successfully'
+      redirect_to daycare_visits_path
     else
       redirect_back fallback_location: daycare_visits_path, alert: 'Please try again'
     end
@@ -83,7 +83,7 @@ class DaycareVisitsController < ApplicationController
     daycare_visit = current_organisation.daycare_visits.find(params[:id])
 
     if daycare_visit.destroy
-      redirect_to daycare_visits_path, notice: 'Daycare visit deleted successfully'
+      redirect_to daycare_visits_path
     else
       redirect_back fallback_location: daycare_visits_path, alert: 'Please try again'
     end
