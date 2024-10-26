@@ -12,31 +12,48 @@
       <%= msg %>
     </div>
   <% end %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <%= form_for Groom.new, url: create_groom_path do |f| %>
-    <div class="w-full mt-16 space-y-4">
-      <div>
-        <%= f.label :pet_id, "Pet" %>
-        <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
+    <div class="w-full mt-4 space-y-4 h-auto">
+      <div class="flex space-x-4 h-auto">
+        <div class="flex-1 flex flex-col">
+          <%= f.label :pet_id, "Pet" %>
+          <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow" }) %>
+        </div>
+        <div class="flex-1 space-y-2">
+          <div>
+            <%= f.label :date, "Request Date" %>
+            <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div>
+            <%= f.label :time, "Request Time" %>
+            <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+          <div>
+            <%= f.label :last_groom, "When Was Last Groom?" %>
+            <%= f.date_field :last_groom, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          </div>
+        </div>
       </div>
-      <div>
-        <%= f.label :date, "Request Date" %>
-        <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :time, "Request Time" %>
-        <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :last_groom, "When Was Last Groom?" %>
-        <%= f.date_field :last_groom, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
-      </div>
-      <div>
+      <div class="bg-white text-black rounded-lg p-2 space-y-2">
         <%= f.label :notes, "Additional Grooming Notes" %>
-        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
+        <%= f.text_area :notes, class: "bg-gray-100 text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4", rows: 3, placeholder: "Write any notes here" %>
       </div>
       <div class="w-full mb-4 text-white">
         <%= f.label :image, "Select a photo here" %>
-        <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "block w-full text-2xl border border-gray-300 rounded-lg cursor-pointer bg-black text-white" %>
+      
+        <div class="flex items-center">
+          <div class="relative flex mr-4">
+            <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/png,image/jpeg' %>
+            <label for="file-input3" class="flex items-center justify-center w-24 h-24 border-2 border-dotted border-gray-800 rounded-lg cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </label>
+            <img class="prev hidden w-24 h-24 rounded-lg border-2 border-gray-800 ml-4" src="" alt="Preview" />
+          </div>
+        </div>
+
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -47,3 +64,19 @@
     </div>
   <% end %>
 </div>
+<script>
+  document.getElementById('file-input3').addEventListener('change', function() {
+    const file = this.files[0];
+    const preview = document.querySelector('.prev');
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.classList.remove('hidden'); // Show the preview
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
