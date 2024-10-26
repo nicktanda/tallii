@@ -9,7 +9,7 @@
   <div class="font-light">Maximum occupany at daycare is 30 dogs per day, your request may be reviewed before approval.</div>
   <div class="font-light">You have <u>8 visits</u> remaining in your package</div>
   <%= form_for @daycare_visit, url: update_daycare_visits_path do |f| %>
-    <div class="w-full mt-16 space-y-4">
+    <div class="w-full mt-4 space-y-4">
       <div>
         <%= f.label :pet_id, "Pet" %>
         <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}, selected: @daycare_visit.pet_id), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>

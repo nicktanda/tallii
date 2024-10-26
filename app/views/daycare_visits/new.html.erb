@@ -16,7 +16,7 @@
     <%= "You have #{current_user.max_daycare_visits} visits remaining in your package" %>
   </div>
   <%= form_for DaycareVisit.new, url: create_daycare_visits_path do |f| %>
-    <div class="w-full mt-16 space-y-4">
+    <div class="w-full mt-4 space-y-4">
       <div>
         <%= f.label :pet_id, "Pet" %>
         <%= f.select(:pet_id, options_for_select(current_user.pets.all.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
