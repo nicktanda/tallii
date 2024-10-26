@@ -110,7 +110,7 @@
       </div>
     </div>
   </div>
-  <div class="relative">
+  <div class="relative" onclick="openPhotoModal()">
     <div class="bg-black w-full h-6"></div>
     <div class="absolute top-0 right-24 rounded-t-2xl">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="rounded-full h-12 w-12 border-4 border-black bg-teal-200 p-2">
@@ -119,18 +119,16 @@
       </svg>
     </div>
     <div class="bg-teal-200 rounded-2xl">
-      <%= link_to pet_pictures_path(@pet) do %>
-        <div class="p-2 h-28">
-          <div class="text-xl font-bold">Pictures of <%= @pet.name %></div>
-          <div>Pictures of <%= @pet.name %>'s daycare visits can be found here</div>
+      <div class="p-2 h-28">
+        <div class="text-xl font-bold">Pictures of <%= @pet.name %></div>
+        <div>Pictures of <%= @pet.name %>'s visits can be found here</div>
+      </div>
+      <div class="flex flex-col justify-end">
+        <div class="bg-white rounded-b-2xl flex justify-between p-2">
+          <div>Last added picture:</div>
+          <div class="font-bold"><%= last_uploaded_image_date(@pet) || "-" %></div>
         </div>
-        <div class="flex flex-col justify-end">
-          <div class="bg-white rounded-b-2xl flex justify-between p-2">
-            <div>Last added picture:</div>
-            <div class="font-bold"><%= last_uploaded_image_date(@pet) || "-" %></div>
-          </div>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -171,6 +169,22 @@
     <% end %>
   </div>
 </div>
+<div id="photoModal" class="fixed bottom-0 left-0 w-full bg-white overflow-hidden transition-all duration-500 z-20 rounded-t-xl" style="height: 0;">
+  <div class="flex justify-between p-4">
+    <div class="absolute top-0 right-6 text-black text-4xl cursor-pointer" onclick="closeModals()">&times;</div>
+  </div>
+  <div class="text-center font-bold">Photo Gallery</div>
+  <div class="text-center mb-2">Here are your photos from <%= @pet.name %>'s previous visits</b></div>
+  
+  <div class="bg-teal-200 overflow-y-scroll max-h-[60vh]">
+    <% @pet.grooms.flat_map(&:images).each_with_index do |image, index| %>
+      <div class="space-y-2 p-4 <%= index.even? ? 'bg-teal-200' : 'bg-teal-300' %>">
+        <div><b>Uploaded at:</b> <%= image.created_at.strftime("%B %d, %Y") %></div>
+        <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <script>
   function openDaycareVisitModal() {
@@ -197,11 +211,23 @@
     sidenav.style.transition = "height 0.5s ease"; 
   }
 
+  function openPhotoModal() {
+    const sidenav = document.getElementById("photoModal");
+    document.getElementById("overlay").classList.remove("hidden");
+    sidenav.style.height = "auto";
+    const height = sidenav.scrollHeight + "px"; 
+    sidenav.style.height = "0";
+    requestAnimationFrame(() => {
+      sidenav.style.height = height;
+    });
+    sidenav.style.transition = "height 0.5s ease"; 
+  }
 
   function closeModals() {
     document.getElementById("overlay").classList.add("hidden");
     document.getElementById("daycareVisitModal").style.height = "0";
     document.getElementById("groomModal").style.height = "0";
+    document.getElementById("photoModal").style.height = "0";
   }
 </script>
 
