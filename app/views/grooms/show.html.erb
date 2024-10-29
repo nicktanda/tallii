@@ -38,7 +38,7 @@
         <%= f.label :image, "Grooming Photos" %>
         <div class="flex items-center">
           <div class="relative flex">
-            <img class="prev w-24 h-24 rounded-lg border-2 border-gray-800" src="<%= @groom.images.any? ? url_for(@groom.images.first.image) : "" %>" alt="Preview" />
+            <img class="prev w-24 h-24 rounded-lg border-2 border-white" src="<%= @groom.images.any? ? url_for(@groom.images.first.image) : "" %>" alt="Preview" />
           </div>
         </div>
 
