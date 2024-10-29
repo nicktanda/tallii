@@ -1,15 +1,81 @@
+<style>
+  /* Slider Track with Text */
+  .slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Hide default appearance of the slider */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: transparent; /* Make native track transparent */
+    outline: none;
+    position: relative;
+  }
+
+  /* Text Background for the slider track */
+  .slider::before {
+    content: "(Throw the ball right to get started) - - - >";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #666;
+    pointer-events: none;
+    width: 100%;
+    text-align: right;
+    line-height: 10px;
+    z-index: -1; /* Ensures it appears below the slider thumb */
+  }
+
+  /* Slider thumb with an image */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+</style>
+
 <div class="m-2">
   <div class="w-full h-96 bg-white rounded-2xl"></div>
   <div class="absolute left-2 top-2 bg-white w-24 h-24">
     <div class="w-24 overflow-hidden inline-block">
-      <div class=" h-36 bg-black rotate-45 transform origin-top-right"></div>
+      <div class="h-36 bg-black rotate-45 transform origin-top-right"></div>
     </div>
   </div>
   <div class="mx-4">
     <div class="mt-8 text-yellow-200 font-bold text-6xl">Now</div>
     <div class="mt-2 text-white text-4xl">Let's create a profile for your pet!</div>
-    <%= link_to pet_species_onboarding_path(@pet) do %>
-      <div class="mt-2 text-white text-4xl underline">Next!</div>
-    <% end %>
+    <div class="slider-container mt-32">
+      <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+    </div>
   </div>
 </div>
+
+<script>
+  var slider = document.getElementById("myRange");
+
+  slider.oninput = function() {
+    if (this.value == this.max) {
+      // Redirect when the slider reaches the max value
+      window.location.href = "<%= pet_species_onboarding_path(@pet) %>";
+    }
+  }
+</script>
