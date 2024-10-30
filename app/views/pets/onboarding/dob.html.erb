@@ -1,18 +1,106 @@
+<style>
+  /* Slider Track with Text */
+  .slider-container {
+    position: absolute; /* Change position to absolute */
+    bottom: 20px; /* Position from the bottom of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Centering correction */
+    width: 100%; /* Full width */
+    max-width: 500px; /* Max width */
+  }
+
+  /* Hide default appearance of the slider */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: transparent; /* Make native track transparent */
+    outline: none;
+    position: relative;
+  }
+
+  /* Text Background for the slider track */
+  .slider::before {
+    content: "(Half way there) - - - >";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #666;
+    pointer-events: none;
+    width: 100%;
+    text-align: right;
+    line-height: 10px;
+    z-index: -1; /* Ensures it appears below the slider thumb */
+  }
+
+  /* Slider thumb with an image */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+</style>
+
 <div class="m-2">
-  <%= form_with url: update_pet_dob_onboarding_path(@pet), local: true do |f| %>
+  <%= form_with url: update_pet_dob_onboarding_path(@pet), id: "petDobForm", local: true do |f| %>
     <div class="text-center mb-8">
-      <div class="text-yellow-200 text-4xl">Birthday</div>
-      <div class="text-white text-2xl mt-4">When is <%= @pet.name %>'s birthday?</div>
+      <div class="text-yellow-200 text-4xl mt-12">Birthday</div>
+      <div class="text-gray-400 text-2xl mt-4">When is <%= @pet.name %>'s birthday?</div>
     </div>
-    <div class="w-full mb-4">
-      <%= f.label :dob, "Birthday", class: "block text-xl font-semibold mb-2 text-yellow-200" %>
-      <div class="flex space-x-2">
-        <%= f.select :dob_day, (1..31).to_a, { prompt: 'Day' }, id: 'dob_day', class: "bg-black text-white border-2 border-yellow-200 rounded-2xl text-4xl p-4 font-bold w-full" %>
-        <%= f.select :dob_month, Date::MONTHNAMES.compact.each_with_index.map { |m, i| [m, i + 1] }, { prompt: 'Month' }, id: 'dob_month', class: "bg-black text-white border-2 border-yellow-200 rounded-2xl text-4xl p-4 font-bold w-full" %>
-        <%= f.select :dob_year, (1900..Date.current.year).to_a.reverse, { prompt: 'Year' }, id: 'dob_year', class: "bg-black text-white border-2 border-yellow-200 rounded-2xl text-4xl p-4 font-bold w-full" %>
+    <input type="hidden" name="dob" id="dob_input">
+    <div class="w-full mb-4 mt-24">
+      <div class="flex space-x-2 mx-4">
+        <div class="flex flex-grow w-1/2 relative">
+          <label for="dob_day" class="absolute top-0 left-0 text-red-400 font-bold bg-black p-2 rounded-br-xl">Day</label>
+          <%= f.select :dob_day, (1..31).to_a.map { |d| [d, d] }, { prompt: ' ' }, { id: 'dob_day', required: true, class: "bg-red-400 text-white text-4xl rounded-2xl font-bold w-full pt-6 text-center appearance-none" } %>
+        </div>
+        <div class="space-y-2 w-full">
+          <div class="flex flex-grow w-full relative">
+            <label for="dob_month" class="absolute top-0 left-0 text-violet-400 font-bold bg-black p-2 rounded-br-xl">Month</label>
+            <%= f.select :dob_month, Date::MONTHNAMES.compact.each_with_index.map { |m, i| [m, i + 1] }, { prompt: '' }, { 
+              id: 'dob_month', 
+              required: true, 
+              class: "bg-violet-400 text-white text-3xl rounded-2xl font-bold w-full pt-12 pb-4 text-center appearance-none"
+            } %>
+          </div>
+          <div class="flex flex-grow w-full relative">
+            <label for="dob_year" class="absolute top-0 left-0 text-teal-400 font-bold bg-black p-2 rounded-br-xl">Year</label>
+            <%= f.select :dob_year, (1900..Date.current.year).to_a.reverse, { prompt: '' }, { 
+              id: 'dob_year', 
+              required: true, 
+              class: "bg-teal-200 text-white text-3xl rounded-2xl font-bold w-full pt-12 pb-4 text-center appearance-none"
+            } %>
+          </div>
+        </div>
       </div>
     </div>
-    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+    <div class="slider-container mt-32 px-8">
+      <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+      <div class="mt-12 flex space-x-1 mx-12">
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-gray-400"></div>
+        <div class="w-full h-1 bg-gray-400"></div>
+        <div class="w-full h-1 bg-gray-400"></div>
+      </div>
+    </div>
   <% end %>
 </div>
 
@@ -24,71 +112,98 @@
     const yearSelect = document.getElementById('dob_year');
 
     const updateDays = () => {
-      const month = parseInt(monthSelect.value, 10);
-      const year = parseInt(yearSelect.value, 10);
-      let daysInMonth = 31; // Default to 31 days
+    const month = parseInt(monthSelect.value, 10);
+    const year = parseInt(yearSelect.value, 10);
+    let daysInMonth = 31; // Default to 31 days
 
-      if (month && year) {
-        // Determine the number of days in the month
-        daysInMonth = new Date(year, month, 0).getDate(); // 0 gets the last day of the previous month
-      }
+    if (month && year) {
+      // Determine the number of days in the month
+      daysInMonth = new Date(year, month, 0).getDate(); // 0 gets the last day of the previous month
+    }
 
-      // Clear existing options
-      daySelect.innerHTML = '';
+    // Clear existing options
+    daySelect.innerHTML = '';
 
-      // Add the prompt option
-      const promptOption = document.createElement('option');
-      promptOption.value = '';
-      promptOption.textContent = 'Day'; // Placeholder text
-      promptOption.disabled = true; // Make it unselectable
-      promptOption.selected = true; // Set it as the default selected option
-      daySelect.appendChild(promptOption);
+    // Add the prompt option
+    const promptOption = document.createElement('option');
+    promptOption.value = '';
+    promptOption.disabled = true; // Make it unselectable
+    promptOption.selected = true; // Set it as the default selected option
+    daySelect.appendChild(promptOption);
 
-      // Populate day select with the correct number of days
-      for (let day = 1; day <= daysInMonth; day++) {
-        const option = document.createElement('option');
-        option.value = day;
-        option.textContent = day;
-        daySelect.appendChild(option);
-      }
+    // Populate day select with the correct number of days
+    for (let day = 1; day <= daysInMonth; day++) {
+      const option = document.createElement('option');
+      option.value = day;
+      option.textContent = day;
+      daySelect.appendChild(option);
+    }
 
-      // Ensure the day selector is enabled
-      daySelect.disabled = false; 
+    // Ensure the day selector is enabled
+    daySelect.disabled = false; 
 
-      // Reset the day selection if the current selection is no longer valid
-      if (parseInt(daySelect.value, 10) > daysInMonth) {
-        daySelect.value = ''; // Reset to the prompt option
-      }
-    };
+    // Reset the day selection if the current selection is no longer valid
+    if (parseInt(daySelect.value, 10) > daysInMonth) {
+      daySelect.value = ''; // Reset to the prompt option
+    }
+  };
 
+  // Update days when month or year is changed
+  monthSelect.addEventListener('change', updateDays);
+  yearSelect.addEventListener('change', updateDays);
 
-    // Update days when month or year is changed
-    monthSelect.addEventListener('change', updateDays);
-    yearSelect.addEventListener('change', updateDays);
+  // Initial call to set up the days based on default selections
+  updateDays();
 
-    // Initial call to set up the days based on default selections
-    updateDays();
+  // Update the hidden 'dob' input value before form submission
+  form.addEventListener('submit', function(event) {
+    const day = daySelect.value;
+    const month = monthSelect.value;
+    const year = yearSelect.value;
 
-    form.addEventListener('submit', function(event) {
-      const day = daySelect.value;
-      const month = monthSelect.value;
-      const year = yearSelect.value;
+    let dobInput = form.querySelector('input[name="dob"]');
 
-      // Create a hidden input to submit the full date
-      let dobInput = form.querySelector('input[name="dob]"]');
-      if (!dobInput) {
-        dobInput = document.createElement('input');
-        dobInput.type = 'hidden';
-        dobInput.name = 'dob'; // Ensure this matches your form field's name
-        form.appendChild(dobInput);
-      }
+    if (!dobInput) {
+      dobInput = document.createElement('input');
+      dobInput.type = 'hidden';
+      dobInput.name = 'dob'; // Ensure this matches your form field's name
+      form.appendChild(dobInput);
+    }
 
-      // Set the value in the format YYYY-MM-DD
-      if (day && month && year) {
-        dobInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Format: YYYY-MM-DD
-      } else {
-        dobInput.value = ''; // Clear the value if any are missing
-      }
-    });
+    // Set the value in the format YYYY-MM-DD
+    if (day && month && year) {
+      dobInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Format: YYYY-MM-DD
+    } else {
+      dobInput.value = ''; // Clear the value if any are missing
+    }
   });
+
+  var slider = document.getElementById("myRange");
+
+  slider.oninput = function() {
+    // Ensure the dob input is updated before submitting
+    const day = daySelect.value;
+    const month = monthSelect.value;
+    const year = yearSelect.value;
+
+    let dobInput = form.querySelector('input[name="dob"]');
+
+    if (!dobInput) {
+      dobInput = document.createElement('input');
+      dobInput.type = 'hidden';
+      dobInput.name = 'dob'; // Ensure this matches your form field's name
+      form.appendChild(dobInput);
+    }
+
+    // Set the value in the format YYYY-MM-DD
+    if (day && month && year) {
+      dobInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Format: YYYY-MM-DD
+    }
+
+    if (this.value == this.max) {
+      // Submit the form when the slider reaches the max value
+      form.submit();
+    }
+  }
+});
 </script>
