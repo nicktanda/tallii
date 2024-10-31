@@ -27,7 +27,6 @@ module Pets
 
     def dob; end
     def update_dob
-      binding.pry
       @pet.update!(dob: params[:dob])
       redirect_to pet_weight_onboarding_path(@pet)
     end

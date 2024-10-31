@@ -1,13 +1,103 @@
+<style>
+  .input-label {
+    position: absolute;
+    right: 4px;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center adjustment */
+    transition: transform 0.2s ease, top 0.2s ease;
+    color: #FEF08A; /* Change color to match your design */
+    pointer-events: none; /* Prevent pointer events on label */
+    font-size: 24px;
+  }
+
+  /* Slider Track with Text */
+  .slider-container {
+    position: absolute; /* Change position to absolute */
+    bottom: 20px; /* Position from the bottom of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Centering correction */
+    width: 100%; /* Full width */
+    max-width: 500px; /* Max width */
+  }
+
+  /* Hide default appearance of the slider */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: transparent; /* Make native track transparent */
+    outline: none;
+    position: relative;
+  }
+
+  /* Text Background for the slider track */
+  .slider::before {
+    content: "(Selfie time!) - - - >";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #666;
+    pointer-events: none;
+    width: 100%;
+    text-align: right;
+    line-height: 10px;
+    z-index: -1; /* Ensures it appears below the slider thumb */
+  }
+
+  /* Slider thumb with an image */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 96px;
+    height: 96px;
+    background: url('/icons/logo.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+  }
+</style>
 <div class="m-2">
-  <%= form_with url: update_pet_health_conditions_onboarding_path(@pet) do |f| %>
-    <div class="text-center mb-8">
+  <%= form_with url: update_pet_health_conditions_onboarding_path(@pet), id: "petHealthForm" do |f| %>
+    <div class="text-center mb-8 mt-12">
       <div class="text-yellow-200 text-4xl">Health</div>
-      <div class="text-white text-2xl mt-4">Does <%= @pet.name %> have any health problems?</div>
+      <div class="text-gray-400 text-2xl mt-4">Does <%= @pet.name %> have any health problems?</div>
     </div>
-    <div class="w-full mb-4">
+    <div class="w-full mb-4 mt-24">
       <%= f.label :health_conditions, "Share health history", class: "block text-xl font-semibold mb-2 text-yellow-200" %>
-      <%= f.text_area :health_conditions, required: true, class: "bg-black border-2 border-yellow-200 rounded-2xl text-white text-2xl p-4 font-bold w-full" %>
+      <%= f.text_area :health_conditions, required: true, rows: 5, placeholder: "#{@pet.name}...", class: "bg-black border-2 border-yellow-200 rounded-2xl text-white text-2xl p-4 font-bold w-full" %>
     </div>
-    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+    <div class="slider-container mt-32 px-8">
+      <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+      <div class="mt-12 flex space-x-1 mx-12">
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+        <div class="w-full h-1 bg-yellow-200"></div>
+      </div>
+    </div>
   <% end %>
 </div>
+<script>
+  var slider = document.getElementById("myRange");
+  var form = document.getElementById("petHealthForm");
+
+  slider.oninput = function() {
+    if (this.value == this.max) {
+      // Submit the form when the slider reaches the max value
+      form.submit();
+    }
+  }
+</script>

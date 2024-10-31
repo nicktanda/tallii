@@ -1,13 +1,48 @@
 <div class="m-2">
-  <%= form_with url: upload_pet_image_onboarding_path(@pet) do |f| %>
-    <div class="text-center mb-8">
+  <%= form_with url: upload_pet_image_onboarding_path(@pet), method: :post, multipart: true do |f| %>
+    <div class="text-center mb-8 mt-12">
       <div class="text-yellow-200 text-4xl">Selfie Time!</div>
       <div class="text-white text-2xl mt-4">Upload <%= @pet.name %>'s best selfie!</div>
     </div>
-    <div class="w-full mb-4 text-white">
-      <%= f.label :image, "Select a photo here" %>
-      <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "block w-full text-2xl border border-gray-300 rounded-lg cursor-pointer bg-black text-white" %>
+
+    <div class="image-upload mt-24 mx-auto">
+      <label for="file-input3" class="cursor-pointer mx-auto">
+        <div class="upload-icon w-[300px] h-[200px] border-2 border-dotted border-white rounded-[18px] flex items-center justify-center mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[60px] h-[60px] text-white">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          <img class="prev hidden w-[300px] h-[200px] m-[2px] rounded-[15px]" src="https://image.flaticon.com/icons/png/128/61/61112.png" alt="Preview">
+        </div>
+      </label>
+      <!-- Set the file input name to be 'image' -->
+      <%= f.file_field :image, id: 'file-input3', class: 'hidden' %>
     </div>
-    <%= f.submit "Next!", class: "mt-2 text-white text-4xl underline" %>
+
+    <%= f.submit "Save information", class: "bg-blue-800 mt-36 text-white p-4 w-full rounded-xl" %>
+  <% end %>
+
+  <%= link_to new_pet_onboarding_path do %>
+    <div class="text-white p-2 bg-black border-2 border-white w-full rounded-xl mt-4 flex items-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 rounded-lg border-2 text-white">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      <div>Add another pet</div>
+    </div>
   <% end %>
 </div>
+<script>
+  document.getElementById('file-input3').addEventListener('change', function() {
+    const file = this.files[0];
+    const preview = document.querySelector('.prev');
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.classList.remove('hidden'); // Show the preview
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
