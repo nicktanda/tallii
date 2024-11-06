@@ -17,7 +17,7 @@ class PetsController < ApplicationController
     pet.assign_attributes(pet_params)
 
     if pet.save
-      redirect_to pet_path(pet), notice: 'Pet updated successfully'
+      redirect_to pet_profiles_path, notice: 'Pet updated successfully'
     else
       redirect_back fallback_location: new_pet_onboarding_path, alert: 'Invalid pet information'
     end

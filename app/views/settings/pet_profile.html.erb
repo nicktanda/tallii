@@ -15,27 +15,11 @@
       </div>
       <div>
         <%= f.label :species, class: "text-xl mb-2" %>
-        <div>
-          <%= f.radio_button :species, :dog, id: "species_dog", required: true %>
-          <%= f.label :dog, class: "text-lg", for: "species_dog" %>
-        </div>
-
-        <div>
-          <%= f.radio_button :species, :cat, id: "species_cat", required: true %>
-          <%= f.label :cat, class: "text-lg", for: "species_cat" %>
-        </div>
+        <%= f.select :species, options_for_select([['Dog', :dog], ['Cat', :cat]], f.object.species), { include_blank: false }, { class: 'bg-black text-white border-x-0 border-t-0 w-full text-xl' } %>
       </div>
       <div>
         <%= f.label :gender, class: "text-xl mb-2" %>
-        <div>
-          <%= f.radio_button :gender, :male, id: "gender_male", required: true %>
-          <%= f.label :male, class: "text-lg", for: "gender_male" %>
-        </div>
-
-        <div>
-          <%= f.radio_button :gender, :female, id: "gender_female", required: true %>
-          <%= f.label :female, class: "text-lg", for: "gender_female" %>
-        </div>
+        <%= f.select :gender, options_for_select([['Male', :male], ['Female', :female]], f.object.gender), { include_blank: false }, { class: 'bg-black text-white border-x-0 border-t-0 w-full text-xl' } %>
       </div>
       <div>
         <%= f.label :dob, "Birthday" %>
@@ -58,5 +42,5 @@
   </div>
 <% end %>
 <%= button_to delete_pet_path(@pet), method: :delete, class: "w-full" do %>
-  <div class="bg-white text-black font-bold p-4 rounded-lg text-center mt-4 mx-8">Delete Pet</div>
+  <div class="text-white font-bold underline text-center mx-8">Delete Pet</div>
 <% end %>
