@@ -17,6 +17,7 @@ class PetsController < ApplicationController
     pet.assign_attributes(pet_params)
 
     if pet.save
+      pet.images.create!(name: "test_image", image: params[:pet][:image]) if params[:pet][:image]
       redirect_to pet_profiles_path, notice: 'Pet updated successfully'
     else
       redirect_back fallback_location: new_pet_onboarding_path, alert: 'Invalid pet information'
