@@ -35,7 +35,12 @@
     </div>
     <div class="h-[12vh]"></div>
     <div class="flex justify-between">
-      <div class="text-lg font-thin"><%= current_user.first_name %> <%= current_user.last_name %></div>
+      <div class="flex items-center space-x-4">
+        <% if current_user.images.any? %>
+          <img src="<%= url_for(current_user.images.order(:created_at).last.image) %>" alt="<%= current_user.first_name %>" class="h-14 w-14 rounded-full flex flex-col justify-end">
+        <% end %>
+        <div class="text-lg font-thin"><%= current_user.first_name %> <%= current_user.last_name %></div>
+      </div>
       <%= link_to destroy_session_path, class: "text-lg font-thin underline" do %>
         Sign Out
       <% end %>
