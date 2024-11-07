@@ -21,8 +21,6 @@
     </div>
     <div class="relative mb-8">
       <img id="main-image" src="<%= url_for(@pet.images.order(:created_at).last.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
-      
-      <!-- Positioned in the top-left corner -->
       <div class="absolute top-0 left-0 m-2">
         <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/png,image/jpeg' %>
         <label for="file-input3" class="flex items-center justify-center p-2 border-2 rounded-lg cursor-pointer bg-black text-white border-none">

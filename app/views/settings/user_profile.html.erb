@@ -14,9 +14,26 @@
   </div>
   <%= form_for current_user, url: update_user_path(current_user) do |f| %>
     <div class="space-y-4 text-left">
-      <% if current_user.images&.order(:created_at)&.first&.image.present? %>
-        <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
-      <% end %>
+      <div class="relative mb-8">
+        <% if current_user.images&.order(:created_at)&.first&.image.present? %>
+          <img id="main-image" src="<%= url_for(current_user.images.order(:created_at).last.image) %>" alt="<%= current_user.first_name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+        <% else %>
+          <svg id="main-image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+        <% end %>
+        <div class="absolute top-0 left-0 m-2">
+          <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/png,image/jpeg' %>
+          <label for="file-input3" class="flex items-center justify-center p-2 border-2 rounded-lg cursor-pointer bg-black text-white border-none">
+            <div class="flex space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+              </svg>
+              <div>Edit Photo</div>
+            </div>
+          </label>
+        </div>
+      </div>
       <div>
         <%= f.label :first_name, class: "text-xl mb-2 font-thin" %>
         <%= f.text_field :first_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
@@ -48,10 +65,6 @@
       <div>
         <%= f.label :postcode, class: "text-xl mb-2 font-thin" %>
         <%= f.text_field :postcode, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
-      </div>
-      <div class="w-full mb-4 text-xl text-white">
-        <%= f.label :image, "Profile Picture", class: "font-thin" %>
-        <%= f.file_field :image, accept: "image/jpeg, image/png", class: "block w-full text-2xl border border-gray-300 rounded-lg cursor-pointer bg-black text-white" %>
       </div>
       <button type="submit" class="bg-white w-full text-black font-bold p-4 rounded-lg flex items-center justify-center space-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black">
@@ -101,4 +114,46 @@
     document.getElementById("overlay").classList.add("hidden");
     document.getElementById("deleteModal").style.height = "0";
   }
+
+  document.getElementById('file-input3').addEventListener('change', function() {
+    const file = this.files[0];
+    
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const newImageSrc = e.target.result;
+      let mainImage = document.getElementById('main-image');
+
+      // Check if mainImage is an <svg>
+      if (mainImage.tagName === 'svg' || mainImage.tagName === 'SVG') {
+        console.log("Replacing SVG with a new image element");
+
+        // Create a new <img> element
+        const imgElement = document.createElement('img');
+        imgElement.id = 'main-image';
+        imgElement.src = newImageSrc;
+        imgElement.alt = 'New Image';
+        imgElement.className = 'rounded-2xl max-h-80 w-full flex flex-col justify-end';
+
+        // Replace the SVG with the new img element
+        mainImage.replaceWith(imgElement);
+      } else if (mainImage.tagName === 'img' || mainImage.tagName === 'IMG') {
+        console.log("Updating existing image src");
+        mainImage.src = newImageSrc;
+      } else {
+        console.error("Expected main-image element to be <img> or <svg>, but got:", mainImage.tagName);
+      }
+    };
+
+    reader.onerror = function() {
+      console.error("Error reading file:", reader.error);
+    };
+
+    reader.readAsDataURL(file);
+  });
 </script>
