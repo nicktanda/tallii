@@ -84,6 +84,22 @@ Rails.application.routes.draw do
   get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
   post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
+  get "/onboarding/user", to: "onboarding_users#new", as: "new_user_onboarding"
+  get "/onboarding/user/email", to: "onboarding_users#email", as: "user_email_onboarding"
+  post "/onboarding/user/email", to: "onboarding_users#update_email", as: "update_user_email_onboarding"
+  get "/onboarding/user/password", to: "onboarding_users#password", as: "user_password_onboarding"
+  post "/onboarding/user/password", to: "onboarding_users#update_password", as: "update_user_password_onboarding"
+  get "/onboarding/user/name", to: "onboarding_users#name", as: "user_name_onboarding"
+  post "/onboarding/user/name", to: "onboarding_users#update_name", as: "update_user_name_onboarding"
+  get "/onboarding/user/phone", to: "onboarding_users#phone", as: "user_phone_onboarding"
+  post "/onboarding/user/phone", to: "onboarding_users#update_phone", as: "update_user_phone_onboarding"
+  get "/onboarding/user/address", to: "onboarding_users#address", as: "user_address_onboarding"
+  post "/onboarding/user/address", to: "onboarding_users#update_address", as: "update_user_address_onboarding"
+  get "/onboarding/user/organisation", to: "onboarding_users#organisation", as: "user_organisation_onboarding"
+  post "/onboarding/user/organisation", to: "onboarding_users#update_organisation", as: "update_user_organisation_onboarding"
+  get "/onboarding/user/complete", to: "onboarding_users#complete", as: "complete_user_onboarding"
+  post "/onboarding/user/create", to: "onboarding_users#create_user", as: "create_user_onboarding"
+
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
   root "sessions#choose_platform", as: "root"

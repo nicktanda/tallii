@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_01_114038) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_10_133908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_114038) do
     t.datetime "updated_at", null: false
     t.index ["organisation_id"], name: "index_onboarding_pets_on_organisation_id"
     t.index ["user_id"], name: "index_onboarding_pets_on_user_id"
+  end
+
+  create_table "onboarding_users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "address"
+    t.string "city"
+    t.string "postcode"
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_onboarding_users_on_organisation_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -290,6 +305,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_01_114038) do
   add_foreign_key "images", "users"
   add_foreign_key "onboarding_pets", "organisations"
   add_foreign_key "onboarding_pets", "users"
+  add_foreign_key "onboarding_users", "organisations"
   add_foreign_key "orders", "organisations"
   add_foreign_key "orders", "users"
   add_foreign_key "pets", "organisations"
