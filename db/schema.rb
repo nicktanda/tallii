@@ -121,7 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_133908) do
 
   create_table "onboarding_users", force: :cascade do |t|
     t.string "email"
-    t.string "password_digest"
+    t.string "password"
     t.string "first_name"
     t.string "last_name"
     t.string "phone"

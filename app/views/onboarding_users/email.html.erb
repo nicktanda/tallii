@@ -1,0 +1,15 @@
+<div class="w-full p-4 text-white text-center space-y-8 px-8">
+  <%= form_with url: update_user_email_onboarding_path(@user) do |f| %>
+    <div class="space-y-56">
+      <div class="text-4xl">Create Account</div>
+      <div class="space-y-8">
+        <div>Hello you beautiful pet owner! Please enter your email below</div>
+        <%= f.email_field :email, value: @user.email, required: true, placeholder: "Bow.wow@gmail.com", class: "bg-black border-2 border-white rounded-2xl text-white text-lg p-4 w-full" %>
+      </div>
+      <div class="space-y-4">
+        <%= f.submit "Next", class: "w-full bg-blue-800 p-4 rounded-lg" %>
+        <div class="text-sm">Already have an account? <%= link_to "Log in", new_session_path, class: "font-bold" %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
