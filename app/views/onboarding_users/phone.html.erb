@@ -1,13 +1,26 @@
 <div class="w-full p-4 text-white text-center space-y-8 px-8">
   <%= form_with url: update_user_phone_onboarding_path(@user) do |f| %>
-    <div class="space-y-56">
-      <div class="flex items-center">
-        <%= link_to user_address_onboarding_path(@user) do %>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-          </svg>
-        <% end %>
-        <div class="text-4xl">What's your number?</div>
+    <div class="space-y-36">
+      <div>
+        <div class="flex space-x-2 items-center">
+          <%= link_to user_address_onboarding_path(@user) do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          <% end %>
+        </div>
+        <div class="space-y-4 mt-8">
+          <div class="flex justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="29.5" stroke="white"/>
+              <rect x="33" y="20" width="10" height="30" rx="1" fill="white"/>
+              <ellipse cx="23" cy="12" rx="6" ry="5" fill="white"/>
+              <ellipse cx="38" cy="12" rx="6" ry="5" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19 20C18.4477 20 18 20.4477 18 21V37.5663L28 31.3176V21C28 20.4477 27.5523 20 27 20H19ZM28 37.2135L18 43.4622V49C18 49.5523 18.4477 50 19 50H27C27.5523 50 28 49.5523 28 49V37.2135Z" fill="white"/>
+            </svg>
+          </div>
+          <div class="text-4xl">What's your number?</div>
+        </div>
       </div>
       <div class="space-y-8">
         <div>For the moments we need to touch base or when your pet's groom is finished</div>
