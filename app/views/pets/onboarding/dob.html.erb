@@ -112,6 +112,7 @@
     const yearSelect = document.getElementById('dob_year');
 
     const updateDays = () => {
+    console.log("look at this bad boi")
     const month = parseInt(monthSelect.value, 10);
     const year = parseInt(yearSelect.value, 10);
     let daysInMonth = 31; // Default to 31 days
@@ -188,7 +189,6 @@
 
     let dobInput = form.querySelector('input[name="dob"]');
 
-    console.log("look for me")
     if (!dobInput) {
       dobInput = document.createElement('input');
       dobInput.type = 'hidden';
