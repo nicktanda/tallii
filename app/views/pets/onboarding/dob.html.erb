@@ -111,8 +111,12 @@
     const monthSelect = document.getElementById('dob_month');
     const yearSelect = document.getElementById('dob_year');
 
-    const updateDays = () => {
     console.log("look at this bad boi")
+    console.log("this is the form", form)
+    console.log("this is the daySelect", daySelect)
+    console.log("this is the monthSelect", monthSelect)
+    console.log("this is the yearSelect", yearSelect)
+    const updateDays = () => {
     const month = parseInt(monthSelect.value, 10);
     const year = parseInt(yearSelect.value, 10);
     let daysInMonth = 31; // Default to 31 days
