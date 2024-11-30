@@ -105,106 +105,113 @@
 </div>
 
 <script>
-  console.log("what the hell is going on here")
-  document.addEventListener('DOMContentLoaded', function() {
+  const initializeDateOfBirthForm = () => {
     const form = document.querySelector('form'); // Get the form element
     const daySelect = document.getElementById('dob_day');
     const monthSelect = document.getElementById('dob_month');
     const yearSelect = document.getElementById('dob_year');
 
+    if (!form || !daySelect || !monthSelect || !yearSelect) return; // Ensure elements exist
+
     const updateDays = () => {
-    const month = parseInt(monthSelect.value, 10);
-    const year = parseInt(yearSelect.value, 10);
-    let daysInMonth = 31; // Default to 31 days
+      const month = parseInt(monthSelect.value, 10);
+      const year = parseInt(yearSelect.value, 10);
+      let daysInMonth = 31; // Default to 31 days
 
-    if (month && year) {
-      // Determine the number of days in the month
-      daysInMonth = new Date(year, month, 0).getDate(); // 0 gets the last day of the previous month
-    }
+      if (month && year) {
+        // Determine the number of days in the month
+        daysInMonth = new Date(year, month, 0).getDate(); // 0 gets the last day of the previous month
+      }
 
-    // Clear existing options
-    daySelect.innerHTML = '';
+      // Clear existing options
+      daySelect.innerHTML = '';
 
-    // Add the prompt option
-    const promptOption = document.createElement('option');
-    promptOption.value = '';
-    promptOption.disabled = true; // Make it unselectable
-    promptOption.selected = true; // Set it as the default selected option
-    daySelect.appendChild(promptOption);
+      // Add the prompt option
+      const promptOption = document.createElement('option');
+      promptOption.value = '';
+      promptOption.disabled = true; // Make it unselectable
+      promptOption.selected = true; // Set it as the default selected option
+      daySelect.appendChild(promptOption);
 
-    // Populate day select with the correct number of days
-    for (let day = 1; day <= daysInMonth; day++) {
-      const option = document.createElement('option');
-      option.value = day;
-      option.textContent = day;
-      daySelect.appendChild(option);
-    }
+      // Populate day select with the correct number of days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
+      }
 
-    // Ensure the day selector is enabled
-    daySelect.disabled = false; 
+      // Ensure the day selector is enabled
+      daySelect.disabled = false;
 
-    // Reset the day selection if the current selection is no longer valid
-    if (parseInt(daySelect.value, 10) > daysInMonth) {
-      daySelect.value = ''; // Reset to the prompt option
+      // Reset the day selection if the current selection is no longer valid
+      if (parseInt(daySelect.value, 10) > daysInMonth) {
+        daySelect.value = ''; // Reset to the prompt option
+      }
+    };
+
+    // Update days when month or year is changed
+    monthSelect.addEventListener('change', updateDays);
+    yearSelect.addEventListener('change', updateDays);
+
+    // Initial call to set up the days based on default selections
+    updateDays();
+
+    // Update the hidden 'dob' input value before form submission
+    form.addEventListener('submit', function (event) {
+      const day = daySelect.value;
+      const month = monthSelect.value;
+      const year = yearSelect.value;
+
+      let dobInput = form.querySelector('input[name="dob"]');
+
+      if (!dobInput) {
+        dobInput = document.createElement('input');
+        dobInput.type = 'hidden';
+        dobInput.name = 'dob'; // Ensure this matches your form field's name
+        form.appendChild(dobInput);
+      }
+
+      // Set the value in the format YYYY-MM-DD
+      if (day && month && year) {
+        dobInput.value = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`; // Format: YYYY-MM-DD
+      } else {
+        dobInput.value = ''; // Clear the value if any are missing
+      }
+    });
+
+    var slider = document.getElementById("myRange");
+
+    if (slider) {
+      slider.oninput = function () {
+        // Ensure the dob input is updated before submitting
+        const day = daySelect.value;
+        const month = monthSelect.value;
+        const year = yearSelect.value;
+
+        let dobInput = form.querySelector('input[name="dob"]');
+
+        if (!dobInput) {
+          dobInput = document.createElement('input');
+          dobInput.type = 'hidden';
+          dobInput.name = 'dob'; // Ensure this matches your form field's name
+          form.appendChild(dobInput);
+        }
+
+        // Set the value in the format YYYY-MM-DD
+        if (day && month && year) {
+          dobInput.value = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`; // Format: YYYY-MM-DD
+        }
+
+        if (this.value == this.max) {
+          // Submit the form when the slider reaches the max value
+          form.submit();
+        }
+      };
     }
   };
 
-  // Update days when month or year is changed
-  monthSelect.addEventListener('change', updateDays);
-  yearSelect.addEventListener('change', updateDays);
-
-  // Initial call to set up the days based on default selections
-  updateDays();
-
-  // Update the hidden 'dob' input value before form submission
-  form.addEventListener('submit', function(event) {
-    const day = daySelect.value;
-    const month = monthSelect.value;
-    const year = yearSelect.value;
-
-    let dobInput = form.querySelector('input[name="dob"]');
-
-    if (!dobInput) {
-      dobInput = document.createElement('input');
-      dobInput.type = 'hidden';
-      dobInput.name = 'dob'; // Ensure this matches your form field's name
-      form.appendChild(dobInput);
-    }
-
-    // Set the value in the format YYYY-MM-DD
-    if (day && month && year) {
-      dobInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Format: YYYY-MM-DD
-    } else {
-      dobInput.value = ''; // Clear the value if any are missing
-    }
-  });
-
-  var slider = document.getElementById("myRange");
-
-  slider.oninput = function() {
-    // Ensure the dob input is updated before submitting
-    const day = daySelect.value;
-    const month = monthSelect.value;
-    const year = yearSelect.value;
-
-    let dobInput = form.querySelector('input[name="dob"]');
-
-    if (!dobInput) {
-      dobInput = document.createElement('input');
-      dobInput.type = 'hidden';
-      dobInput.name = 'dob'; // Ensure this matches your form field's name
-      form.appendChild(dobInput);
-    }
-
-    // Set the value in the format YYYY-MM-DD
-    if (day && month && year) {
-      dobInput.value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Format: YYYY-MM-DD
-    }
-
-    if (this.value == this.max) {
-      // Submit the form when the slider reaches the max value
-      form.submit();
-    }
-  }
-});
+  // Attach the initializer to both DOMContentLoaded and Turbo events
+  document.addEventListener('DOMContentLoaded', initializeDateOfBirthForm);
+  document.addEventListener('turbo:load', initializeDateOfBirthForm);
 </script>
