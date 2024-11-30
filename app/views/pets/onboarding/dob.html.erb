@@ -105,17 +105,13 @@
 </div>
 
 <script>
+  console.log("what the hell is going on here")
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Get the form element
     const daySelect = document.getElementById('dob_day');
     const monthSelect = document.getElementById('dob_month');
     const yearSelect = document.getElementById('dob_year');
 
-    console.log("look at this bad boi")
-    console.log("this is the form", form)
-    console.log("this is the daySelect", daySelect)
-    console.log("this is the monthSelect", monthSelect)
-    console.log("this is the yearSelect", yearSelect)
     const updateDays = () => {
     const month = parseInt(monthSelect.value, 10);
     const year = parseInt(yearSelect.value, 10);
