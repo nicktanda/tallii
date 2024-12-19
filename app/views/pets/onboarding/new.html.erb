@@ -81,8 +81,9 @@
 
   slider.oninput = function() {
     if (this.value == this.max) {
-      // Redirect when the slider reaches the max value
-      window.location.href = "<%= pet_species_onboarding_path(@pet) %>";
+      setTimeout(function () {
+        window.location.href = "<%= pet_species_onboarding_path(@pet) %>";
+      }, 100); // Small delay to ensure the user action is processed
     }
-  }
+  };
 </script>
