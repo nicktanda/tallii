@@ -79,11 +79,12 @@
 <script>
   var slider = document.getElementById("myRange");
 
-  slider.oninput = function() {
-    if (this.value == this.max) {
-      setTimeout(function () {
-        window.location.href = "<%= pet_species_onboarding_path(@pet) %>";
-      }, 100); // Small delay to ensure the user action is processed
-    }
-  };
+slider.oninput = function() {
+  if (this.value == this.max) {
+    setTimeout(function () {
+      // Trigger a Turbo navigation to the desired path
+      Turbo.visit("<%= pet_species_onboarding_path(@pet) %>");
+    }, 100); // Small delay to ensure the user action is processed
+  }
+};
 </script>
