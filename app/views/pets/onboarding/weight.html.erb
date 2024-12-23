@@ -101,7 +101,7 @@
   slider.oninput = function() {
     if (this.value == this.max) {
       // Submit the form when the slider reaches the max value
-      Turbo.navigator.submitForm(form);
+      Turbo.navigator.submitForm(document.getElementById("petWeightForm"));
     }
   }
 </script>
