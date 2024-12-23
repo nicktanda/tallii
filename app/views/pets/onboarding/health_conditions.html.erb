@@ -97,7 +97,7 @@
   slider.oninput = function() {
     if (this.value == this.max) {
       // Submit the form when the slider reaches the max value
-      form.submit();
+      Turbo.navigator.submitForm(form);
     }
   }
 </script>
