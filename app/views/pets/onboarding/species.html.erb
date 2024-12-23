@@ -63,7 +63,7 @@
 </style>
 
 <div class="m-2">
-  <%= form_with url: update_pet_species_onboarding_path(@pet), id: "petSpeciesForm" do |f| %>
+  <%= form_with url: update_pet_species_onboarding_path(@pet), id: "petSpeciesForm", data: { turbo: false } do |f| %>
     <div class="text-center">
       <div class="text-yellow-200 text-4xl font-bold mt-12">Pet Type</div>
       <div class="text-gray-400 text-2xl mt-4">Please select an animal</div>
