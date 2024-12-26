@@ -15,7 +15,7 @@
         </div>
       </label>
       <!-- Set the file input name to be 'image' -->
-      <%= f.file_field :image, id: 'file-input3', class: 'hidden', required: true %>
+      <%= f.file_field :image, id: 'file-input3', class: 'hidden' %>
     </div>
 
     <%= f.submit "Save information", class: "bg-blue-800 mt-36 text-white p-4 w-full rounded-xl" %>
@@ -31,6 +31,13 @@
   <% end %>
 </div>
 <script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const fileInput = document.getElementById('file-input3');
+    if (!fileInput.files.length) {
+      event.preventDefault(); // Stop form submission
+      alert('Please upload a file!');
+    }
+  });
   document.getElementById('file-input3').addEventListener('change', function() {
     const file = this.files[0];
     const preview = document.querySelector('.prev');
