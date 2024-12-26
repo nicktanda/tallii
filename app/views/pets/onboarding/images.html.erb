@@ -1,5 +1,5 @@
 <div class="m-2">
-  <%= form_with url: upload_pet_image_onboarding_path(@pet), method: :post, multipart: true do |f| %>
+  <%= form_with url: upload_pet_image_onboarding_path(@pet), method: :post do |f| %>
     <div class="text-center mb-8 mt-12">
       <div class="text-yellow-200 text-4xl">Selfie Time!</div>
       <div class="text-white text-2xl mt-4">Upload <%= @pet.name %>'s best selfie!</div>
