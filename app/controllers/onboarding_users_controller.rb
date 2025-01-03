@@ -25,7 +25,8 @@ class OnboardingUsersController < ApplicationController
   def name; end
   def update_name
     @user.update!(first_name: params[:first_name], last_name: params[:last_name])
-    redirect_to user_address_onboarding_path(@user)
+    # redirect_to user_address_onboarding_path(@user)
+    redirect_to user_phone_onboarding_path(@user)
   end
 
   def address; end
