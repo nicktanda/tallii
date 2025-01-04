@@ -24,47 +24,69 @@
           <div class="max-h-52 overflow-y-scroll w-full">
             <table class="w-full">
               <thead>
-                <tr class="bg-gray-300 text-left sticky top-0">
+                <tr class="bg-gray-100 text-left sticky top-0">
                   <th class="p-2">Employee</th>
                   <th class="p-2">Time</th>
                   <th class="p-2">Service</th>
                   <th class="p-2">Pet</th>
                   <th class="p-2">Customer</th>
+                  <th class="p-2">Breed</th>
+                  <th class="p-2">Phone</th>
                   <th class="p-2">Notes</th>
                   <th class="p-2">Status</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <% @bookings.each do |booking| %>
+                <% @grooms.each do |booking| %>
                   <tr>
                     <td class="p-2 rounded-full">
                       <div class="inline-block p-2 rounded-full" style="background-color: <%= booking&.user&.colour %>;">
                         <%= booking&.user&.full_name&.split&.map{|name| name.first}&.join %>
                       </div>
                     </td>
-                    <td class="p-2"><%= booking.time.strftime('%H:%M') %></td>
-                    <td class="p-2"><%= booking.service %></td>
-                    <td class="p-2"><%= booking.is_a?(Groom) || booking.is_a?(DaycareVisit) ? booking.pet&.name : booking.pet_name %></td>
-                    <td class="p-2"><%= booking.is_a?(Groom) || booking.is_a?(DaycareVisit) ? booking.pet&.user&.full_name : booking.owner_name %></td>
-                    <td class="p-2"><%= booking.notes? %></td>
-                    <td class="p-2"><%= booking.formatted_status %></td>
+                    <td class="p-2 font-light"><%= booking.time.strftime('%H:%M %p') %></td>
+                    <td class="p-2 font-light"><%= booking.service %></td>
+                    <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.name : booking.pet_name %></td>
+                    <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.user&.full_name : booking.owner_name %></td>
+                    <td class="p-2 font-light"><%= booking.pet.breed %></td>
+                    <td class="p-2 font-light"><%= booking.pet.user.phone %></td>
+                    <% if booking.notes.present? %>
+                      <td class="p-2 font-light underline text-blue-500" onclick='document.getElementById("bookingDialog<%= booking.service %><%= booking.id %>").showModal();'><%= booking.notes? %></td>
+                      <dialog id="bookingDialog<%= booking.service %><%= booking.id %>">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-75 backdrop-blur-sm" onclick='document.getElementById("bookingDialog<%= booking.service %><%= booking.id %>").close();'>
+                          <div class="bg-white absolute bottom-0 w-full px-4 py-8 space-y-10" onclick="event.stopPropagation();">
+                            <div class="flex justify-between">
+                              <div class="font-bold text-2xl">Notes</div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("bookingDialog<%= booking.service %><%= booking.id %>").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>
+                            </div>
+                            <div class="flex flex-wrap space-x-4 items-center">
+                              <div class="break-words w-full"><%= booking.notes %></div>
+                            </div>
+                          </div>
+                        </div>
+                      </dialog>
+                    <% else %>
+                      <td class="p-2 font-light">No</td>
+                    <% end %>
+                    <td class="p-2 font-light"><%= booking.formatted_status %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="w-56 border-2 border-black p-2 rounded-lg space-y-4">
-          <div class="text-lg font-bold">Daily Count</div>
-          <%= pie_chart({"Grooms"=> @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}, "Daycare Visits" => @bookings.count{|booking| booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)}}, height: "100px", width: "200px", legend: false) %>
+        <div class="w-56 p-2 rounded-lg space-y-4">
+          <div class="text-lg font-bold">Total Grooms</div>
+          <%= pie_chart({"Booked Grooms"=> @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}, "Available Grooms" => current_organisation.maximum_daily_grooms - @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}}, height: "100px", width: "200px", legend: false) %>
           <div class="space-y-2">
-            <div class="flex justify-between">
-              <div>Grooms</div>
-              <div><%= @grooms.count %>/<%= current_organisation.maximum_daily_grooms %></div>
+            <div class="w-full text-center">
+              <div class="text-4xl font-bold"><%= @grooms.count %></div>
+              <div>Total Grooms</div>
             </div>
             <div class="flex justify-between">
-              <div>Daycare Visits</div>
-              <div><%= @daycare_visits.count %>/<%= current_organisation.maximum_daily_daycare_visits %></div>
+              <div>Grooms .................... <%= @grooms.count %>/<%= current_organisation.maximum_daily_grooms %></div>
             </div>
           </div>
         </div>
@@ -74,47 +96,61 @@
   <div class="flex space-x-4">
     <div class="w-full bg-white border border-gray-200 rounded-lg">
       <div class="w-full p-4">
-        <div class="font-bold">Daycare Visit Targets</div>
-        <% if current_organisation.daycare_visits.today.any? %>
-          <%= pie_chart({"Half Day Visits"=> current_organisation.daycare_visits.today.where(duration: "half_day").count, "Full Day Visits" => current_organisation.daycare_visits.today.where(duration: "full_day").count}, height: "100px", width: "500px", legend: false) %>
-        <% end %>
+        <div class="font-bold">Daycare Count</div>
+        <div class="flex justify-center">
+          <%= pie_chart({
+            "Half Day Visits"=> @bookings.count{|booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "half_day"},
+            "Full Day Visits"=> @bookings.count{|booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "full_day"},
+            "Available Daycare Visits" => current_organisation.maximum_daily_daycare_visits - @bookings.count{|booking| booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)}
+          }, height: "200px", legend: false) %>
+        </div>
       </div>
       <div class="overflow-hidden rounded-lg p-4">
         <div class="max-h-40 overflow-y-scroll">
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Half Day Visits:</div>
-            <div><%= current_organisation.daycare_visits.today.where(duration: "half_day").count %></div>
+          <div class="flex w-full justify-center">
+            <div class="w-10 text-center">
+              <div class="text-4xl font-bold border-b border-gray-300 pb-2">
+                <%= @daycare_visits.count %>
+              </div>
+              <div class="text-4xl font-bold pt-2 text-gray-600">
+                <%= current_organisation.maximum_daily_daycare_visits %>
+              </div>
+            </div>
           </div>
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Full Day Visits:</div>
-            <div><%= current_organisation.daycare_visits.today.where(duration: "full_day").count %></div>
-          </div>
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Daily Daycare Visits Target:</div>
-            <div><%= current_organisation.maximum_daily_daycare_visits %></div>
-          </div>
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Daycare Visits Booked Today:</div>
-            <div><%= current_organisation.daycare_visits.today.count %></div>
+          <div class="flex justify-center pt-2">
+            <div class="flex items-center space-x-4">
+              <div class="flex space-x-1">
+                <div class="font-light">Half Day:</div>
+                <div class="font-bold">
+                  <%= @bookings.count { |booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "half_day" } %>
+                </div>
+              </div>
+              <div class="border-l border-gray-300 h-6"></div> <!-- Vertical line -->
+              <div class="flex space-x-1">
+                <div class="font-light">Full Day:</div>
+                <div class="font-bold">
+                  <%= @bookings.count { |booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "full_day" } %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="w-full bg-white border border-gray-200 rounded-lg">
       <div class="w-full p-4">
-        <div class="font-bold">Grooming Targets</div>
+        <div class="font-bold">Retail Sales Today</div>
       </div>
       <div class="overflow-hidden rounded-lg p-4">
-        <div class="max-h-40 overflow-y-scroll">
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Daily Grooms Target:</div>
-            <div><%= current_organisation.maximum_daily_grooms %></div>
-          </div>
-          <div class="flex w-full justify-between">
-            <div class="font-bold">Grooms Booked Today:</div>
-            <div><%= current_organisation.grooms.today.count %></div>
-          </div>
-        </div>
+        <div class="text-2xl">Coming Soon!</div>
+      </div>
+    </div>
+    <div class="w-full bg-white border border-gray-200 rounded-lg">
+      <div class="w-full p-4">
+        <div class="font-bold">Business Goals</div>
+      </div>
+      <div class="overflow-hidden rounded-lg p-4">
+        <div class="text-2xl">Coming Soon!</div>
       </div>
     </div>
   </div>
