@@ -6,6 +6,8 @@ module Desktop
       @grooms = current_organisation.grooms.pending_or_confirmed.on_date(@date).order(:date, :time) + current_organisation.temporary_grooms.pending_or_confirmed.on_date(@date).order(:date, :time)
       @in_progress_grooms = current_organisation.grooms.order(:date, :time).in_progress.on_date(@date) + current_organisation.temporary_grooms.order(:date, :time).in_progress.on_date(@date)
       @completed_grooms = current_organisation.grooms.order(:date, :time).missed_appointment_or_completed.on_date(@date) + current_organisation.temporary_grooms.order(:date, :time).missed_appointment_or_completed.on_date(@date)
+
+      @unscoped_grooms = current_organisation.grooms.on_date(@date).order(:date, :time) + current_organisation.temporary_grooms.on_date(@date).order(:date, :time)
     end
 
     def new

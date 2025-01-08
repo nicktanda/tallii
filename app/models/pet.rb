@@ -10,6 +10,17 @@ class Pet < ApplicationRecord
   scope :alive, -> { where("date_of_death > ? OR date_of_death IS NULL", Date.today) }
   default_scope { alive }
 
+  def size
+    case weight
+    when 0..25
+      "Small"
+    when 26..50
+      "Medium"
+    else
+      "Large"
+    end
+  end
+
   def alive?
     date_of_death > Date.today || date_of_death.nil?
   end
