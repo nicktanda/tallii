@@ -1,30 +1,50 @@
 <div class="space-y-8">
-  <div class="w-full flex space-x-4">
-    <div class="w-full bg-white border border-gray-200 rounded-lg">
-      <div class="w-full p-4">
-        <div class="font-bold">Pending And Confirmed Grooms</div>
+  <div>
+    <div class="flex items-center space-x-4">
+      <div class="font-bold text-2xl">Grooming</div>
+      <div class="w-full p-4 flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+          <%= link_to desktop_grooms_path(date: @date - 1.day) do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          <% end %>
+          <%= link_to desktop_grooms_path(date: @date + 1.day) do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          <% end %>
+        </div>
+        <div class="font-bold text-xl"><%= @date.strftime('%d %b %Y') %></div>
       </div>
-      <div class="overflow-hidden rounded-lg">
-        <div class="max-h-40 overflow-y-scroll">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-gray-300 text-left sticky top-0">
-                <th class="p-2">Pet</th>
-                <th class="p-2">Time In</th>
-                <th class="p-2">Status</th>
-                <th class="p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <% @grooms.each do |date, grooms|%>
-                <tr>
-                  <td class="p-2"><%= date.strftime("%B %e") %></td>
-                  <td class="p-2"></td>
-                  <td class="p-2"></td>
-                  <td class="p-2"></td>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg">
+      <div class="flex">
+        <div class="w-full border">
+          <div class="font-bold text-center p-4 text-xl">Today's Grooms</div>
+        </div>
+        <div class="w-full border">
+          <div class="font-bold text-center p-4 text-xl">Currently In</div>
+        </div>
+        <div class="w-full border">
+          <div class="font-bold text-center p-4 text-xl">Finished Grooms</div>
+        </div>
+      </div>
+      <div class="flex bg-white">
+        <div class="overflow-hidden w-full">
+          <div class="max-h-40 overflow-y-scroll">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-gray-100 text-left sticky top-0">
+                  <th class="p-2">Time In</th>
+                  <th class="p-2">Pet</th>
+                  <th class="p-2">Actions</th>
                 </tr>
-                <% grooms.each do |groom| %>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% @grooms.each do |groom|%>
                   <tr class="bg-gray-50 text-left">
+                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
                     <td class="p-2">
                       <div class="flex space-x-2 items-center">
                         <% if groom.user&.colour.present? %>
@@ -34,12 +54,7 @@
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
                         </div>
                       </div>
-                      <div class="text-xs">
-                        <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
-                      </div>
                     </td>
-                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-                    <td class="p-2"><%= groom.formatted_status %></td>
                     <td class="flex space-x-4 p-4">
                       <% if groom.is_a?(Groom) %>
                         <%= link_to desktop_groom_path(groom) do %>
@@ -57,117 +72,101 @@
                     </td>
                   </tr>
                 <% end %>
-              <% end %>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="w-full bg-white border border-gray-200 rounded-lg">
-      <div class="w-full p-4">
-        <div class="font-bold">Currently Checked In</div>
-      </div>
-      <div class="overflow-hidden rounded-lg">
-        <div class="max-h-40 overflow-y-scroll">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-gray-300 text-left sticky top-0">
-                <th class="p-2">Pet</th>
-                <th class="p-2">Time In</th>
-                <th class="p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <% @in_progress_grooms.each do |groom| %>
-                <tr class="bg-gray-50 text-left">
-                  <td class="p-2">
-                    <div class="flex space-x-2 items-center">
-                      <% if groom.user&.colour.present? %>
-                        <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
-                      <% end %>
-                      <div class="font-bold">
-                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
-                      </div>
-                    </div>
-                    <div class="text-xs">
-                      <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
-                    </div>
-                  </td>
-                  <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-                  <td class="flex space-x-4 p-4">
-                    <% if groom.is_a?(Groom) %>
-                      <%= link_to desktop_groom_path(groom) do %>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                        </svg>
-                      <% end %>
-                    <% else %>
-                      <%= link_to desktop_temporary_groom_path(groom) do %>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                        </svg>
-                      <% end %>
-                    <% end %>
-                  </td>
+        <div class="overflow-hidden w-full">
+          <div class="max-h-40 overflow-y-scroll">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-gray-100 text-left sticky top-0">
+                  <th class="p-2">Time In</th>
+                  <th class="p-2">Pet</th>
+                  <th class="p-2">Actions</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% @in_progress_grooms.each do |groom| %>
+                  <tr class="bg-gray-50 text-left">
+                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2">
+                      <div class="flex space-x-2 items-center">
+                        <% if groom.user&.colour.present? %>
+                          <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
+                        <% end %>
+                        <div class="font-bold">
+                          <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="flex space-x-4 p-4">
+                      <% if groom.is_a?(Groom) %>
+                        <%= link_to desktop_groom_path(groom) do %>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                          </svg>
+                        <% end %>
+                      <% else %>
+                        <%= link_to desktop_temporary_groom_path(groom) do %>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                          </svg>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="w-full bg-white border border-gray-200 rounded-lg">
-      <div class="w-full p-4">
-        <div class="font-bold">Completed Grooms</div>
-      </div>
-      <div class="overflow-hidden rounded-lg">
-        <div class="max-h-40 overflow-y-scroll">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-gray-300 text-left sticky top-0">
-                <th class="p-2">Pet</th>
-                <th class="p-2">Time In</th>
-                <th class="p-2">Missed Appointment?</th>
-                <th class="p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <% @completed_grooms.each do |groom| %>
-                <tr class="bg-gray-50 text-left">
-                  <td class="p-2">
-                    <div class="flex space-x-2 items-center">
-                      <% if groom.user&.colour.present? %>
-                        <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
-                      <% end %>
-                      <div class="font-bold">
-                        <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
-                      </div>
-                    </div>
-                    <div class="text-xs">
-                      <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
-                    </div>
-                  </td>
-                  <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
-                  <td class="p-2"><%= groom.status == "missed_appointment" ? "Yes" : "No" %></td>
-                  <td class="flex space-x-4 p-4">
-                    <% if groom.is_a?(Groom) %>
-                      <%= link_to desktop_groom_path(groom) do %>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                        </svg>
-                      <% end %>
-                    <% else %>
-                      <%= link_to desktop_temporary_groom_path(groom) do %>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                        </svg>
-                      <% end %>
-                    <% end %>
-                  </td>
+        <div class="overflow-hidden w-full">
+          <div class="max-h-40 overflow-y-scroll">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-gray-100 text-left sticky top-0">
+                  <th class="p-2">Time In</th>
+                  <th class="p-2">Pet</th>
+                  <th class="p-2">Missed Appointment?</th>
+                  <th class="p-2">Actions</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% @completed_grooms.each do |groom| %>
+                  <tr class="bg-gray-50 text-left">
+                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2">
+                      <div class="flex space-x-2 items-center">
+                        <% if groom.user&.colour.present? %>
+                          <div class="rounded-full h-2 w-2" style="background-color: <%= groom.user.colour %>;"></div>
+                        <% end %>
+                        <div class="font-bold">
+                          <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-2"><%= groom.status == "missed_appointment" ? "Yes" : "No" %></td>
+                    <td class="flex space-x-4 p-4">
+                      <% if groom.is_a?(Groom) %>
+                        <%= link_to desktop_groom_path(groom) do %>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                          </svg>
+                        <% end %>
+                      <% else %>
+                        <%= link_to desktop_temporary_groom_path(groom) do %>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                          </svg>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
