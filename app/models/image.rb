@@ -14,7 +14,7 @@ class Image < ApplicationRecord
   private
 
   def correct_image_type
-    if image.attached? && !image.content_type.in?(%w(image/jpeg image/png))
+    if image.attached? && !image.content_type.in?(%w(image/jpeg image/png image/gif image/webp))
       image.purge
       errors.add(:image, 'must be a JPEG or PNG')
     end
