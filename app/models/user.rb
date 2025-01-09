@@ -20,8 +20,6 @@ class User < ApplicationRecord
   scope :admins, -> { where(role: :admin) }
   scope :employees_and_admins, -> { where(role: [:employee, :admin]) }
 
-  default_scope { active }
-
   def archive
     self.update!(active: false)
   end
