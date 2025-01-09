@@ -15,7 +15,7 @@
         </div>
       </label>
       <!-- Set the file input name to be 'image' -->
-      <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp' %>
+      <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp', capture: 'false' %>
     </div>
 
     <%= f.submit "Save information", class: "bg-blue-800 mt-36 text-white p-4 w-full rounded-xl" %>

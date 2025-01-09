@@ -23,7 +23,7 @@
           </svg>
         <% end %>
         <div class="absolute top-0 left-0 m-2">
-          <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp' %>
+          <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp', capture: 'false' %>
           <label for="file-input3" class="flex items-center justify-center p-2 border-2 rounded-lg cursor-pointer bg-black text-white border-none" >
             <div class="flex space-x-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
