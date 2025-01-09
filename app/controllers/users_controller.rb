@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def delete
-    current_user.archive
+    current_user.destroy!
     redirect_to destroy_session_path
   end
 
