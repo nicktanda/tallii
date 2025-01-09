@@ -43,7 +43,7 @@ module Desktop
         user = current_organisation.users.find(params[:id])
         redirect_to desktop_users_path if user == current_user
 
-        user.archive
+        user.destroy!
         redirect_to desktop_users_path
       end
 
