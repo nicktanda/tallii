@@ -1,5 +1,7 @@
 module Desktop
   class ImportsController < DesktopController
+    def import; end
+
     def import_customers
       return redirect_to desktop_users_new_path, notice: 'No file added' if params[:file].nil?
       return redirect_to desktop_users_new_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
@@ -34,7 +36,6 @@ module Desktop
           password: password,
           phone: phone
         )
-        user = current_organisation.users.new(first_name: row[0], last_name: row[1], email: row[2], password: row[3], phone: row[4])
         
         begin
           if user.save
@@ -50,9 +51,9 @@ module Desktop
       end
 
       notice = "#{user_count} employees imported successfully"
-      notice += "Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
+      notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
 
-      redirect_to desktop_users_new_path, alert: notice
+      redirect_to desktop_import_path, alert: notice
     end
     
     def import_staff
@@ -91,7 +92,6 @@ module Desktop
           phone: phone,
           role: role
         )
-        user = current_organisation.users.new(first_name: row[0], last_name: row[1], email: row[2], password: row[3], phone: row[4])
         
         begin
           if user.save
@@ -107,9 +107,70 @@ module Desktop
       end
 
       notice = "#{user_count} employees imported successfully"
-      notice += "Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
+      notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
 
-      redirect_to desktop_users_new_path, alert: notice
+      redirect_to desktop_import_path, alert: notice
+    end
+
+    def import_pets
+      return redirect_to desktop_users_new_path, notice: 'No file added' if params[:file].nil?
+      return redirect_to desktop_users_new_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
+
+      opened_file = File.open(params[:file])
+      options = { col_sep: ',' }
+
+      pet_count = 0
+      error_messages = []
+
+      CSV.foreach(opened_file, **options) do |row|
+        user_id = row[0].to_s.strip.to_i
+        name = row[1].to_s.strip
+        dob = Date.strptime(row[2].to_s.strip, '%d/%m/%Y')
+        breed = row[3].to_s.strip
+        species = row[4].to_s.strip
+        gender = row[5].to_s.strip
+        weight = row[6].to_s.strip
+        health_conditions = row[7].to_s.strip
+
+        if user_id.blank? || name.empty? || dob.blank? || breed.blank? || species.blank? || gender.blank? || weight.blank? || health_conditions.blank?
+          error_messages << "Pet #{row.inspect}: Missing required fields."
+          next
+        end
+
+        user = current_organisation.users.find_by(id: user_id)
+        unless user
+          error_messages << "Pet #{row[0]}: User not found."
+          next
+        end
+
+        pet = current_organisation.pets.new(
+          user_id: user.id, 
+          name: name,
+          dob: dob,
+          breed: breed,
+          species: species,
+          gender: gender,
+          weight: weight,
+          health_conditions: health_conditions
+        )
+        
+        begin
+          if pet.save
+            pet_count += 1
+          else
+            error_messages << "Row #{row.inspect}: #{pet.errors.full_messages.join(', ')}"
+          end
+        rescue ActiveRecord::RecordNotUnique
+          error_messages << "Email '#{row[2]}' already exists."
+        rescue => e
+          error_messages << e.message
+        end
+      end
+
+      notice = "#{pet_count} pets imported successfully"
+      notice += ", Failed to import pets: #{error_messages.join(', ')}" if error_messages.any?
+
+      redirect_to desktop_import_path, alert: notice
     end
   end
 end

@@ -1,6 +1,11 @@
 <div class="bg-white flex w-full h-[85vh]">
   <div class="w-[30vw] bg-gray-200 p-4">
-    <div class="font-bold text-xl">Customers</div>
+    <div class="flex justify-between">
+      <div class="font-bold text-xl">Customers</div>
+      <div>
+        <%= link_to "+ New", desktop_users_new_path, class: "font-bold p-2 rounded-lg" %>
+      </div>
+    </div>
     <div class="space-y-4 py-4">
       <% @users.each do |user| %>
         <%= link_to desktop_user_path(user) do %>

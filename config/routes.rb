@@ -195,6 +195,11 @@ Rails.application.routes.draw do
   get "/desktop/organisations/new", to: "desktop/organisations#new", as: "desktop_organisations_new"
   post "/desktop/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
 
+  get "/desktop/imports", to: "desktop/imports#import", as: "desktop_import"
+  post "/desktop/imports/customers", to: "desktop/imports#import_customers", as: "desktop_import_customers"
+  post "/desktop/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
+  post "/desktop/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"
+
   # Employee App Routes
   get "/employee_app/dashboard", to: "employee_app/mobile_app#profile", as: "mobile_app_profile"
 
