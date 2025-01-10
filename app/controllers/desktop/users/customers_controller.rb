@@ -1,6 +1,8 @@
 module Desktop
   module Users
     class CustomersController < DesktopController
+      require 'csv'
+
       before_action :users
 
       def index; end
@@ -27,6 +29,62 @@ module Desktop
       end
 
       def new; end
+
+      def import
+        return redirect_to desktop_users_new_path, notice: 'No file added' if params[:file].nil?
+        return redirect_to desktop_users_new_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
+
+        opened_file = File.open(params[:file])
+        options = { col_sep: ',' }
+
+        user_count = 0
+        error_messages = []
+
+        CSV.foreach(opened_file, **options) do |row|
+          first_name = row[0].to_s.strip
+          last_name = row[1].to_s.strip
+          email = row[2].to_s.strip.downcase
+          password = row[3].to_s.strip
+          phone = row[4].to_s.strip.gsub(/\D/, '')
+
+          if first_name.blank? || last_name.blank? || email.blank? || password.blank?
+            error_messages << "User #{row.inspect}: Missing required fields."
+            next
+          end
+
+          unless email.match?(URI::MailTo::EMAIL_REGEXP)
+            error_messages << "User #{first_name} #{last_name}: Invalid email format."
+            next
+          end
+
+          user = current_organisation.users.new(
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: password,
+            phone: phone
+          )
+          user = current_organisation.users.new(first_name: row[0], last_name: row[1], email: row[2], password: row[3], phone: row[4])
+          
+          begin
+            if user.save
+              user_count += 1
+            else
+              error_messages << "Row #{row.inspect}: #{user.errors.full_messages.join(', ')}"
+            end
+          rescue ActiveRecord::RecordNotUnique
+            error_messages << "Email '#{row[2]}' already exists."
+          rescue => e
+            error_messages << e.message
+          end
+        end
+
+        if error_messages.empty?
+          redirect_to desktop_users_new_path, notice: "#{user_count} users imported successfully"
+        else
+          redirect_to desktop_users_new_path, alert: "Failed to import users: #{error_messages.join(', ')}"
+        end
+      end
 
       private
 

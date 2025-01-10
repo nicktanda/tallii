@@ -135,6 +135,7 @@ Rails.application.routes.draw do
   get "/desktop/users/new", to: "desktop/users/customers#new", as: "desktop_users_new"
   get "/desktop/users/:id", to: "desktop/users/customers#show", as: "desktop_user"
   get "/desktop/users/:id/edit", to: "desktop/users/customers#edit", as: "desktop_user_edit"
+  post "/desktop/customers/import", to: "desktop/users/customers#import", as: "desktop_user_import"
   get "/desktop/users/:id/booking_settings/edit", to: "desktop/users/customers#booking_settings", as: "desktop_user_booking_settings_edit"
 
   # employee routes
