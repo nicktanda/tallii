@@ -196,6 +196,9 @@ Rails.application.routes.draw do
   post "/desktop/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
 
   get "/desktop/imports", to: "desktop/imports#import", as: "desktop_import"
+  get "/desktop/example_customer_csv", to: "desktop/imports#example_customer_csv", as: "example_customer_csv"
+  get "/desktop/example_staff_csv", to: "desktop/imports#example_staff_csv", as: "example_staff_csv"
+  get "/desktop/example_pets_csv", to: "desktop/imports#example_pets_csv", as: "example_pets_csv"
   post "/desktop/imports/customers", to: "desktop/imports#import_customers", as: "desktop_import_customers"
   post "/desktop/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
   post "/desktop/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"

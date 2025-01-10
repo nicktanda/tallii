@@ -2,6 +2,33 @@ module Desktop
   class ImportsController < DesktopController
     def import; end
 
+    def example_customer_csv
+      file_path = Rails.root.join('public', 'Talii User Import - Customers.csv')
+      if File.exist?(file_path)
+        send_file file_path, type: 'text/csv', disposition: 'attachment', filename: 'Talii User Import - Customers.csv'
+      else
+        redirect_to root_path, alert: 'File not found.'
+      end
+    end
+
+    def example_staff_csv
+      file_path = Rails.root.join('public', 'Talii User Import - Staff.csv')
+      if File.exist?(file_path)
+        send_file file_path, type: 'text/csv', disposition: 'attachment', filename: 'Talii User Import - Staff.csv'
+      else
+        redirect_to root_path, alert: 'File not found.'
+      end
+    end
+
+    def example_pets_csv
+      file_path = Rails.root.join('public', 'Talii User Import - Pets.csv')
+      if File.exist?(file_path)
+        send_file file_path, type: 'text/csv', disposition: 'attachment', filename: 'Talii User Import - Pets.csv'
+      else
+        redirect_to root_path, alert: 'File not found.'
+      end
+    end
+
     def import_customers
       return redirect_to desktop_users_new_path, notice: 'No file added' if params[:file].nil?
       return redirect_to desktop_users_new_path, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
