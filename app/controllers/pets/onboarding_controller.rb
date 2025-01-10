@@ -63,7 +63,7 @@ module Pets
       pet.save!
       @pet.destroy!
       session["current_pet"] = pet.id if current_pet.nil?
-      redirect_to pet_path(pet), notice: 'Pet created successfully'
+      redirect_to pet_path(pet)
     end
 
     private
