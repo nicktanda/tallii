@@ -28,7 +28,7 @@
       </tbody>
     </table>
     <div class="mt-6">
-      <%= link_to 'Download Example', example_customer_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg' %>
+      <%= link_to 'Download Example', example_customer_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
     </div>
   </details>
   <%= form_with url: desktop_import_customers_path do |f| %>
@@ -73,7 +73,7 @@
       </tbody>
     </table>
     <div class="mt-6">
-      <%= link_to 'Download Example', example_pets_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg' %>
+      <%= link_to 'Download Example', example_pets_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
     </div>
   </details>
   <%= form_with url: desktop_import_pets_path do |f| %>
@@ -116,7 +116,7 @@
       </tbody>
     </table>
     <div class="mt-6">
-      <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg' %>
+      <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
     </div>
   </details>
   <%= form_with url: desktop_import_staff_path do |f| %>
