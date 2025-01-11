@@ -58,7 +58,7 @@ class OnboardingUsersController < ApplicationController
     session["user"]["id"] = user.id
 
     @user.destroy!
-    redirect_to new_pet_onboarding_path(user), notice: 'User created successfully'
+    redirect_to new_pet_onboarding_path(user)
   end
 
   private
