@@ -1,0 +1,2 @@
+class OnboardingOrganisation < ApplicationRecord
+end
