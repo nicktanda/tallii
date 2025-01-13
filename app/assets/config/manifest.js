@@ -6,3 +6,4 @@
 //= link controllers/checkout_controller.js
 //= link controllers/index.js
 //= link custom/companion.js
+//= link_tree ../builds

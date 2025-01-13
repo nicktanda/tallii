@@ -2,7 +2,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.5",
-    "esbuild": "^0.8.26",
+    "esbuild": "^0.24.2",
     "tailwindcss": "^3.4.10"
   },
   "scripts": {
