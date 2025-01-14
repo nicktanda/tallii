@@ -203,9 +203,8 @@ Rails.application.routes.draw do
   post "/desktop/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
   post "/desktop/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"
 
-  get "/desktop/onboarding/organisation", to: "desktop/onboarding_organisations#new", as: "desktop_onboarding_organisation"
-  get "/desktop/onboarding/organisation/:id/user_details", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
-  post "/desktop/onboarding/organisation/:id/user_details", to: "desktop/onboarding_organisations#update_user_details", as: "update_desktop_onboarding_organisation_user_details"
+  get "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
+  post "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#update_user_details", as: "update_desktop_onboarding_organisation_user_details"
   get "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#organisation_details", as: "desktop_onboarding_organisation_organisation_details"
   post "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#update_organisation_details", as: "update_desktop_onboarding_organisation_organisation_details"
   get "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#complete", as: "desktop_onboarding_organisation_complete"
