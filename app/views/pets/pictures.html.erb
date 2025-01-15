@@ -9,7 +9,7 @@
   </div>
   <%= form_with url: upload_new_image_path(@pet) do |f| %>
     <div class="my-4">
-      <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp', capture: 'false' %>
+      <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp' %>
     </div>
     <%= button_tag type: 'submit', class: 'w-full px-4 py-4' do %>
       <div class="w-full flex justify-center items-center space-x-2 border rounded-2xl text-center py-4">
