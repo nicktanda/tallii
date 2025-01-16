@@ -285,7 +285,6 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jsbundling-rails
-  nokogiri
   pg (~> 1.1)
   pry (= 0.14.0)
   puma (~> 5.0)
