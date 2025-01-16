@@ -55,6 +55,8 @@ gem 'stripe'
 
 gem "chartkick"
 
+gem 'nokogiri'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
