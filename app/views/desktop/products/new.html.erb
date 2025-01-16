@@ -57,7 +57,7 @@
       </div>
       <div>
         <%= f.label :image, "Product Photo" %>
-        <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
+        <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>
       <% if @categories.any? %>
         <div>
@@ -84,3 +84,6 @@
     Cancel
   <% end %>
 </div>
+<script>
+  document.getElementById('file-input3').removeAttribute('accept');
+</script>

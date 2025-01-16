@@ -1,11 +1,9 @@
 module Desktop
   class OnboardingOrganisationsController < DesktopController
-    before_action :onboarding_organisation, except: [:new]
+    before_action :onboarding_organisation, except: [:user_details]
 
     skip_before_action :require_organisation
     skip_before_action :require_authenticated_user
-
-    def new; end
 
     def user_details; end
     def update_user_details

@@ -70,7 +70,7 @@
         </div>
         <div class="text-xl w-full border-l-0 border-r-0 border p-2">Profile Pictures</div>
         <div class="w-full mb-4">
-          <%= f.file_field :image, accept: "image/jpeg, image/png", class: "block w-full border border-gray-300 rounded-lg cursor-pointer" %>
+          <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", class: "block w-full border border-gray-300 rounded-lg cursor-pointer" %>
         </div>
         <div class="text-xl w-full border-l-0 border-r-0 border p-2">Rewards Points</div>
         <div>
@@ -99,3 +99,6 @@
     <% end %>
   </div>
 </div>
+<script>
+  document.getElementById('file-input3').removeAttribute('accept');
+</script>

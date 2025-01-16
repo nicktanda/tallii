@@ -61,7 +61,7 @@
       </div>
       <div>
         <%= f.label :image, "Pet Photo" %>
-        <%= f.file_field :image, accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
+        <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -78,3 +78,6 @@
     Cancel
   <% end %>
 </div>
+<script>
+  document.getElementById('file-input3').removeAttribute('accept');
+</script>

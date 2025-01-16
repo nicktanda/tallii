@@ -55,7 +55,7 @@
       </div>
       <div class="text-xl w-full border-l-0 border-r-0 border p-2">Profile Pictures</div>
       <div class="w-full mb-4">
-        <%= f.file_field :image, accept: "image/jpeg, image/png", class: "block w-full border border-gray-300 rounded-lg cursor-pointer" %>
+        <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", class: "block w-full border border-gray-300 rounded-lg cursor-pointer" %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -72,3 +72,6 @@
     </div>
   <% end %>
 </div>
+<script>
+  document.getElementById('file-input3').removeAttribute('accept');
+</script>
