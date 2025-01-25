@@ -1,7 +1,6 @@
 module Desktop
   module Users
     class UsersController < DesktopController
-      skip_before_action :require_authenticated_user, only: [:new, :create]
       skip_before_action :prevent_customer_accessing_desktop, only: [:new, :create]
       skip_before_action :require_organisation
 
