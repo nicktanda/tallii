@@ -102,7 +102,6 @@ Rails.application.routes.draw do
 
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
-  root "sessions#choose_platform", as: "root"
 
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"

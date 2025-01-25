@@ -1,7 +1,5 @@
 module Desktop
   class SessionsController < DesktopController
-    before_action :require_organisation, only: :choose_platform
-
     def new
       return redirect_to desktop_dashboard_path if current_user
     end
