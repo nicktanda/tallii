@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  root to: "pets#current_pet_profile"
+
   get "/service-worker.js" => "service_worker#service_worker"
   get "/manifest.json" => "service_worker#manifest"
 
   # MOBILE APP ROUTES
-  get "/sign_up", to: "users#new", as: "new_user"
-  post "/sign_up", to: "users#create", as: "create_user"
   patch "/update/:id", to: "users#update", as: "update_user"
   delete "/delete/:id", to: "users#delete", as: "delete_user"
   get "/reset_password", to: "users#reset_password", as: "reset_password"
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
   post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
-  get "/onboarding/user", to: "onboarding_users#new", as: "new_user_onboarding"
+  get "/sign_up", to: "onboarding_users#new", as: "new_user_onboarding"
   get "/onboarding/user/:id/email", to: "onboarding_users#email", as: "user_email_onboarding"
   post "/onboarding/user/:id/email", to: "onboarding_users#update_email", as: "update_user_email_onboarding"
   get "/onboarding/user/:id/password", to: "onboarding_users#password", as: "user_password_onboarding"

@@ -1,6 +1,7 @@
 module Desktop
   class SessionsController < DesktopController
     skip_before_action :require_organisation
+    skip_before_action :require_authenticated_desktop_user
 
     def new
       return redirect_to desktop_dashboard_path if current_user
