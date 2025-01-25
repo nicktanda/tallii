@@ -144,10 +144,10 @@ Rails.application.routes.draw do
   get "/desktop/employees/:id/edit", to: "desktop/users/employees#edit", as: "desktop_employee_edit"
   
   # generic user action routes
-  get "/desktop/sign_up", to: "desktop/users/users#new", as: "desktop_user_new"
-  post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
-  patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
-  delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"
+  # get "/desktop/sign_up", to: "desktop/users/users#new", as: "desktop_user_new"
+  # post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
+  # patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
+  # delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"
 
   get "/desktop/products", to: "desktop/products#index", as: "desktop_products"
   get "/desktop/products/new", to: "desktop/products#new", as: "desktop_products_new"
@@ -203,12 +203,14 @@ Rails.application.routes.draw do
   post "/desktop/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
   post "/desktop/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"
 
-  get "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
+  get "/desktop/sign_up", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
   post "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#update_user_details", as: "update_desktop_onboarding_organisation_user_details"
   get "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#organisation_details", as: "desktop_onboarding_organisation_organisation_details"
-  post "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#update_organisation_details", as: "update_desktop_onboarding_organisation_organisation_details"
-  get "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#complete", as: "desktop_onboarding_organisation_complete"
-  post "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#complete", as: "update_desktop_onboarding_organisation_complete"
+  post "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#create_organisation", as: "update_desktop_onboarding_organisation_complete"
+
+  get "/desktop/login", to: "desktop/sessions#new", as: "desktop_new_session"
+  post "/desktop/login", to: "desktop/sessions#create", as: "desktop_create_session"
+  get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
 
   # Employee App Routes
   get "/employee_app/dashboard", to: "employee_app/mobile_app#profile", as: "mobile_app_profile"

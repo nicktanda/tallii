@@ -19,7 +19,7 @@ module Desktop
         if user.save
           session["user"] ||= {}
           session[:user][:id] = user.id
-          return redirect_to desktop_organisations_new_path if user_params[:organisation_id].empty?
+          return redirect_to desktop_onboarding_organisation_user_details_path if user_params[:organisation_id].empty?
           redirect_to desktop_user_path(user)
         else
           redirect_back fallback_location: desktop_users_new_path, alert: 'Invalid email'

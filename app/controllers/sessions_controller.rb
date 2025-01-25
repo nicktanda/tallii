@@ -12,6 +12,8 @@ class SessionsController < ApplicationController
   end
 
   def create
+    return redirect_to current_pet_profile_path if current_user
+
     user = User.find_by(email: params[:email])
 
     if user&.authenticate(params[:password])
@@ -47,7 +49,7 @@ class SessionsController < ApplicationController
 
   def require_organisation
     unless current_organisation
-      redirect_to desktop_organisations_new_path
+      redirect_to desktop_onboarding_organisation_user_details_path
     end
   end
 end
