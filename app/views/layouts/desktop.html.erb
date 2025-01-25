@@ -14,7 +14,7 @@
   </head>
 
   <body class="min-h-screen bg-gray-100 flex w-full">
-    <% if current_user && current_organisation %>
+    <% if current_user && current_organisation && controller_name != "desktop_sessions" %>
       <div class="w-[10vw] bg-sky-500 m-4 rounded-2xl max-h-screen">
         <div class="text-center text-white flex flex-col items-center m-2 p-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none" class="border-2 rounded-2xl">
