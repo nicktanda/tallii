@@ -150,7 +150,7 @@ module Desktop
       error_messages = []
 
       CSV.foreach(opened_file, **options) do |row|
-        user_id = row[0].to_s.strip.to_i
+        user_email = row[0].to_s.strip
         name = row[1].to_s.strip
         dob = Date.strptime(row[2].to_s.strip, '%d/%m/%Y')
         breed = row[3].to_s.strip
@@ -159,19 +159,19 @@ module Desktop
         weight = row[6].to_s.strip
         health_conditions = row[7].to_s.strip
 
-        if user_id.blank? || name.empty? || dob.blank? || breed.blank? || species.blank? || gender.blank? || weight.blank? || health_conditions.blank?
+        if user_email.blank? || name.empty? || dob.blank? || breed.blank? || species.blank? || gender.blank? || weight.blank? || health_conditions.blank?
           error_messages << "Pet #{row.inspect}: Missing required fields."
           next
         end
 
-        user = current_organisation.users.find_by(id: user_id)
+        user = current_organisation.users.find_by(email: user_email)
         unless user
           error_messages << "Pet #{row[0]}: User not found."
           next
         end
 
         pet = current_organisation.pets.new(
-          user_id: user.id, 
+          user: user, 
           name: name,
           dob: dob,
           breed: breed,
