@@ -4,135 +4,141 @@
       <%= msg %>
     </div>
   <% end %>
-  <div class="font-bold text-2xl pt-4">Import Customers</div>
-  <details>
-    <summary>CSV Format</summary>
-    <table class="bg-white">
-      <thead>
-        <tr>
-          <th class="border px-4 py-2">First Name</th>
-          <th class="border px-4 py-2">Last Name</th>
-          <th class="border px-4 py-2">Email</th>
-          <th class="border px-4 py-2">Password</th>
-          <th class="border px-4 py-2">Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="border px-4 py-2">John</td>
-          <td class="border px-4 py-2">Doe</td>
-          <td class="border px-4 py-2">john@doe.com</td>
-          <td class="border px-4 py-2">password</td>
-          <td class="border px-4 py-2">000</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="mt-6">
-      <%= link_to 'Download Example', example_customer_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-    </div>
-  </details>
-  <%= form_with url: desktop_import_customers_path do |f| %>
-    <div class="space-y-4">
-      <div>
-        <label for="file" class="font-bold">Upload a CSV file</label>
+  <div class="p-4 bg-white space-y-4 rounded-lg">
+    <div class="font-bold text-2xl pt-4">Import Customers</div>
+    <details>
+      <summary>CSV Format</summary>
+      <table class="bg-white">
+        <thead>
+          <tr>
+            <th class="border px-4 py-2">First Name</th>
+            <th class="border px-4 py-2">Last Name</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Password</th>
+            <th class="border px-4 py-2">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">John</td>
+            <td class="border px-4 py-2">Doe</td>
+            <td class="border px-4 py-2">john@doe.com</td>
+            <td class="border px-4 py-2">password</td>
+            <td class="border px-4 py-2">000</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <%= link_to 'Download Example', example_customer_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
       </div>
-      <%= f.file_field :file, accept: ".csv", required: true %>
-      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        Import Customers
-      </button>
-    </div>
-  <% end %>
-  <div class="font-bold text-2xl pt-4">Import Pets</div>
-  <details>
-    <summary>CSV Format</summary>
-    <table class="bg-white">
-      <thead>
-        <tr>
-          <th class="border px-4 py-2">User Email</th>
-          <th class="border px-4 py-2">Name</th>
-          <th class="border px-4 py-2">Date Of Birth(DD/MM/YYYY)</th>
-          <th class="border px-4 py-2">Breed</th>
-          <th class="border px-4 py-2">Species</th>
-          <th class="border px-4 py-2">Sex</th>
-          <th class="border px-4 py-2">Weights(lbs)</th>
-          <th class="border px-4 py-2">Health Conditions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="border px-4 py-2">aydan.lalonde@gmail.com</td>
-          <td class="border px-4 py-2">Max</td>
-          <td class="border px-4 py-2">12/06/2012</td>
-          <td class="border px-4 py-2">Labrador</td>
-          <td class="border px-4 py-2">Dog</td>
-          <td class="border px-4 py-2">Male</td>
-          <td class="border px-4 py-2">67</td>
-          <td class="border px-4 py-2">Perfect</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="mt-6">
-      <%= link_to 'Download Example', example_pets_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-    </div>
-  </details>
-  <%= form_with url: desktop_import_pets_path do |f| %>
-    <div class="space-y-4">
-      <div>
-        <label for="file" class="font-bold">Upload a CSV file</label>
+    </details>
+    <%= form_with url: desktop_import_customers_path do |f| %>
+      <div class="space-y-4">
+        <div>
+          <label for="file" class="font-bold">Upload a CSV file</label>
+        </div>
+        <%= f.file_field :file, accept: ".csv", required: true %>
+        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Import Customers
+        </button>
       </div>
-      <%= f.file_field :file, accept: ".csv", required: true %>
-      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        Import Pets
-      </button>
-    </div>
-  <% end %>
-  <div class="font-bold text-2xl pt-4">Import Staff</div>
-  <details>
-    <summary>CSV Format</summary>
-    <table class="bg-white">
-      <thead>
-        <tr>
-          <th class="border px-4 py-2">First Name</th>
-          <th class="border px-4 py-2">Last Name</th>
-          <th class="border px-4 py-2">Email</th>
-          <th class="border px-4 py-2">Password</th>
-          <th class="border px-4 py-2">Phone</th>
-          <th class="border px-4 py-2">Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="border px-4 py-2">John</td>
-          <td class="border px-4 py-2">Doe</td>
-          <td class="border px-4 py-2">john@doe.com</td>
-          <td class="border px-4 py-2">password</td>
-          <td class="border px-4 py-2">000</td>
-          <td class="border px-4 py-2">Admin</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="mt-6">
-      <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-    </div>
-  </details>
-  <%= form_with url: desktop_import_staff_path do |f| %>
-    <div class="space-y-4">
-      <div>
-        <label for="file" class="font-bold">Upload a CSV file</label>
+    <% end %>
+  </div>
+  <div class="p-4 bg-white space-y-4 rounded-lg">
+    <div class="font-bold text-2xl pt-4">Import Pets</div>
+    <details>
+      <summary>CSV Format</summary>
+      <table class="bg-white">
+        <thead>
+          <tr>
+            <th class="border px-4 py-2">User Email</th>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Date Of Birth(DD/MM/YYYY)</th>
+            <th class="border px-4 py-2">Breed</th>
+            <th class="border px-4 py-2">Species</th>
+            <th class="border px-4 py-2">Sex</th>
+            <th class="border px-4 py-2">Weights(lbs)</th>
+            <th class="border px-4 py-2">Health Conditions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">aydan.lalonde@gmail.com</td>
+            <td class="border px-4 py-2">Max</td>
+            <td class="border px-4 py-2">12/06/2012</td>
+            <td class="border px-4 py-2">Labrador</td>
+            <td class="border px-4 py-2">Dog</td>
+            <td class="border px-4 py-2">Male</td>
+            <td class="border px-4 py-2">67</td>
+            <td class="border px-4 py-2">Perfect</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <%= link_to 'Download Example', example_pets_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
       </div>
-      <%= f.file_field :file, accept: ".csv", required: true %>
-      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        Import Staff
-      </button>
-    </div>
-  <% end %>
+    </details>
+    <%= form_with url: desktop_import_pets_path do |f| %>
+      <div class="space-y-4">
+        <div>
+          <label for="file" class="font-bold">Upload a CSV file</label>
+        </div>
+        <%= f.file_field :file, accept: ".csv", required: true %>
+        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Import Pets
+        </button>
+      </div>
+    <% end %>
+  </div>
+  <div class="p-4 bg-white space-y-4 rounded-lg">
+    <div class="font-bold text-2xl pt-4">Import Staff</div>
+    <details>
+      <summary>CSV Format</summary>
+      <table class="bg-white">
+        <thead>
+          <tr>
+            <th class="border px-4 py-2">First Name</th>
+            <th class="border px-4 py-2">Last Name</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Password</th>
+            <th class="border px-4 py-2">Phone</th>
+            <th class="border px-4 py-2">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">John</td>
+            <td class="border px-4 py-2">Doe</td>
+            <td class="border px-4 py-2">john@doe.com</td>
+            <td class="border px-4 py-2">password</td>
+            <td class="border px-4 py-2">000</td>
+            <td class="border px-4 py-2">Admin</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
+      </div>
+    </details>
+    <%= form_with url: desktop_import_staff_path do |f| %>
+      <div class="space-y-4">
+        <div>
+          <label for="file" class="font-bold">Upload a CSV file</label>
+        </div>
+        <%= f.file_field :file, accept: ".csv", required: true %>
+        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Import Staff
+        </button>
+      </div>
+    <% end %>
+  </div>
 </div>
