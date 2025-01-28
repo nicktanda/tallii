@@ -1,32 +1,73 @@
-<div class="bg-white flex w-full h-[85vh]">
-  <div class="w-[30vw] bg-gray-200 p-4">
-    <div class="flex justify-between">
-      <div class="font-bold text-xl">Customers</div>
-      <div>
-        <%= link_to "+ New", desktop_users_new_path, class: "font-bold p-2 rounded-lg" %>
+<div class="flex w-full">
+  <div class="w-full space-y-4">
+    <div class="font-bold text-lg">Customers</div>
+    <div class="flex rounded-lg w-full bg-white">
+      <div class="border-2 border-gray-300 w-full border-r-0 rounded-l-lg p-4">
+        <div>Number of customers</div>
+        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count %></div>
+      </div>
+      <div class="border-2 border-gray-300 w-full p-4">
+        <div>New customers this week</div>
+        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count {|user| user.created_at >= 1.week.ago} %></div>
+      </div>
+      <div class="border-2 border-gray-300 w-full border-l-0 rounded-r-lg p-4">
+        <div>New customers this month</div>
+        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count {|user| user.created_at >= 1.month.ago} %></div>
       </div>
     </div>
-    <div class="space-y-4 py-4">
-      <% @users.each do |user| %>
-        <%= link_to desktop_user_path(user) do %>
-          <div class="hover:bg-white p-2 rounded-lg flex items-center space-x-4">
-            <% if user.images&.order(:created_at)&.first&.image.present? %>
-              <img src="<%= url_for(user.images.order(:created_at).first.image) %>" alt="<%= user.first_name %>" class="rounded-full max-h-8 max-w-8">
+    <div class="bg-white rounded-lg border-gray-300 border-2">
+      <div class="flex space-x-2 p-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+        </svg>
+        <div class="font-bold">Customer List</div>
+      </div>
+      <table class="w-full bg-gray-100">
+        <thead>
+          <tr>
+            <th class="border-2 px-4 py-2">Customer</th>
+            <th class="border-2 px-4 py-2">Pet Names</th>
+            <th class="border-2 px-4 py-2">Services Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% ('A'..'Z').each do |letter| %>
+            <% if current_organisation.users.any? {|user| user.role == "customer" && user.first_name[0] == letter } %>
+              <tr>
+                <td class="font-bold text-lg p-4"><%= letter %></td>
+              </tr>
+              <% current_organisation.users.select {|user| user.role == "customer" && user.first_name[0] == letter }.each do |user| %>
+                <tr>
+                  <td class="bg-white p-4"><%= user.full_name %></td>
+                  <td class="bg-white p-4 text-blue-400">
+                    <div class="flex">
+                      <% user.pets.each_with_index do |pet, index| %>
+                        <%= link_to pet.name, desktop_pets_path(pet) %>
+                        <% if user.pets.size > 1 && index != user.pets.size - 1 %>
+                          <div class="text-blue-400">,</div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </td>
+                  <td class="bg-white p-4">
+                    <div class="flex space-x-2">
+                      <% if user.pets.any? {|pet| pet.grooms.any? } %>
+                        <div class="p-2 bg-blue-500 text-blue-900 rounded-lg">Grooming</div>
+                      <% end %>
+                      <% if user.pets.any? {|pet| pet.daycare_visits.any? } %>
+                        <div class="p-2 bg-red-500 text-red-900 rounded-lg">Daycare</div>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-            <span><%= user.full_name %></span>
-          </div>
-        <% end %>
-      <% end %>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="w-full p-4 flex items-center justify-center">
-    <div class="text-center">
-      <div class="w-full flex justify-center mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-24 h-24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-      </div>
-      <div class="text-2xl">Select A Customer To Inspect</div>
-    </div>
+  <div class="w-1/3 p-4">
+    
   </div>
 </div>

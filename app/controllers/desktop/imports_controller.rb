@@ -77,8 +77,8 @@ module Desktop
         end
       end
 
-      notice = "#{user_count} employees imported successfully"
-      notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
+      notice = "#{user_count} customers imported successfully"
+      notice += ", Failed to import customers: #{error_messages.join(', ')}" if error_messages.any?
 
       redirect_to desktop_import_path, alert: notice
     end
