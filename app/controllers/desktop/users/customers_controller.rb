@@ -5,7 +5,13 @@ module Desktop
 
       before_action :users
 
-      def index; end
+      def index
+        @users = if params[:email].present?
+          current_organisation.users.where("email like ?", "%#{params[:email]}%")
+        else
+          current_organisation.users
+        end
+      end
 
       def show
         @user = users.find(params[:id])

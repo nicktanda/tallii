@@ -15,6 +15,14 @@
         <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count {|user| user.created_at >= 1.month.ago} %></div>
       </div>
     </div>
+    <%= form_with url: desktop_users_path, method: :get do |f| %>
+      <div class="relative">
+        <%= f.text_field :email, placeholder: "Search customer by email", value: params[:email], class: "p-4 pl-12 w-full rounded-lg" %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-1/2 left-4 transform -translate-y-1/2 w-6 h-6 text-gray-500">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </div>
+    <% end %>
     <div class="bg-white rounded-lg border-gray-300 border-2">
       <div class="flex space-x-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -32,11 +40,11 @@
         </thead>
         <tbody>
           <% ('A'..'Z').each do |letter| %>
-            <% if current_organisation.users.any? {|user| user.role == "customer" && user.first_name[0] == letter } %>
+            <% if @users.any? {|user| user.role == "customer" && user.first_name[0] == letter } %>
               <tr>
                 <td class="font-bold text-lg p-4"><%= letter %></td>
               </tr>
-              <% current_organisation.users.select {|user| user.role == "customer" && user.first_name[0] == letter }.each do |user| %>
+              <% @users.select {|user| user.role == "customer" && user.first_name[0] == letter }.each do |user| %>
                 <tr>
                   <td class="bg-white p-4"><%= user.full_name %></td>
                   <td class="bg-white p-4 text-blue-400">
