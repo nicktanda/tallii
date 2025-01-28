@@ -6,8 +6,8 @@ module Desktop
       before_action :users
 
       def index
-        @users = if params[:email].present?
-          current_organisation.users.where("email like ?", "%#{params[:email]}%")
+        @users = if params[:phone].present?
+          current_organisation.users.where("phone like ?", "%#{params[:phone]}%")
         else
           current_organisation.users
         end

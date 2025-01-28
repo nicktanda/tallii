@@ -17,7 +17,7 @@
     </div>
     <%= form_with url: desktop_users_path, method: :get do |f| %>
       <div class="relative">
-        <%= f.text_field :email, placeholder: "Search customer by email", value: params[:email], class: "p-4 pl-12 w-full rounded-lg" %>
+        <%= f.text_field :phone, placeholder: "Search customer by phone", value: params[:phone], class: "p-4 pl-12 w-full rounded-lg" %>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-1/2 left-4 transform -translate-y-1/2 w-6 h-6 text-gray-500">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
@@ -34,6 +34,7 @@
         <thead>
           <tr>
             <th class="border-2 px-4 py-2">Customer</th>
+            <th class="border-2 px-4 py-2">Phone</th>
             <th class="border-2 px-4 py-2">Pet Names</th>
             <th class="border-2 px-4 py-2">Services Used</th>
           </tr>
@@ -47,6 +48,7 @@
               <% @users.select {|user| user.role == "customer" && user.first_name[0] == letter }.each do |user| %>
                 <tr>
                   <td class="bg-white p-4"><%= user.full_name %></td>
+                  <td class="bg-white p-4"><%= user.phone %></td>
                   <td class="bg-white p-4 text-blue-400">
                     <div class="flex">
                       <% user.pets.each_with_index do |pet, index| %>
