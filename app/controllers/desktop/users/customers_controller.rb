@@ -7,9 +7,9 @@ module Desktop
 
       def index
         @users = if params[:phone].present?
-          current_organisation.users.where("phone like ?", "%#{params[:phone]}%")
+          current_organisation.users.where("phone like ?", "%#{params[:phone]}%").where(role: "customer")
         else
-          current_organisation.users
+          current_organisation.users.where(role: "customer")
         end
       end
 
