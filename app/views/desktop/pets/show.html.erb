@@ -1,98 +1,82 @@
-<div class="w-full p-4 space-y-4 overflow-y-scroll h-[85vh]">
-  <div class="flex justify-between">
-    <div class="flex space-x-4">
-      <%= link_to desktop_user_path(@pet.user) do %>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
+<div class="flex space-x-16">
+  <div class="w-1/3">
+    <div class="flex space-x-2 items-end">
+      <div class="font-bold text-2xl">Customers</div>
+      <%= link_to desktop_user_edit_path(@pet.user) do %>
+        <div class="flex space-x-2">
+          <div>/</div>
+          <div class="text-blue-500"><%= @pet.user.full_name %></div>
+        </div>
       <% end %>
-      <div class="font-bold text-2xl"><%= @pet.name %>'s Details</div>
+      <div>/</div>
+      <div><%= @pet.name %></div>
     </div>
-    <%= link_to desktop_pets_pictures_path(@pet) do %>
-      <div class="flex space-x-2 p-2 bg-blue-400 text-white rounded-lg">
+    <div class="mt-8 space-y-2">
+      <div>
+        <% if @pet.images.any? %>
+          <img src="<%= url_for(@pet.images.order(:created_at).last.image) %>" alt="<%= @pet.name %>" class="rounded-2xl h-32 w-32">
+        <% end %>
+      </div>
+      <div class="flex space-x-4">
+        <div class="font-bold text-4xl"><%= @pet.name %></div>
+        <div class="space-x-2 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg>
+          <div class="font-bold text-sm">Edit Profile</div>
+        </div>
+      </div>
+      <div class="flex space-x-2 items-center">
+        <div class="font-bold text-lg">Pet Info</div>
+        <div class="font-thin text-sm">Profile Created <%= @pet.created_at.strftime('%d %b %Y') %></div>
+      </div>
+      <div class="flex space-x-2 items-center">
+        <% if @pet.gender == "male" %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" stroke-width="1" viewBox="0 0 100 100" fill="none" stroke="currentColor" class="h-6 w-6">
+            <path d="M86.3281 9.375H68.75C67.6104 9.375 66.5175 9.8277 65.7116 10.6335C64.9058 11.4393 64.4531 12.5323 64.4531 13.6719C64.4531 14.8115 64.9058 15.9044 65.7116 16.7102C66.5175 17.516 67.6104 17.9688 68.75 17.9688H75.9551L64.1601 29.7637C50.8418 19.4395 31.543 20.3887 19.3281 32.6094C6.07813 45.8613 6.07813 67.4199 19.3359 80.6641C25.714 87.023 34.353 90.5938 43.3594 90.5938C52.3658 90.5938 61.0048 87.023 67.3828 80.6641C79.6035 68.4414 80.5527 49.1504 70.2285 35.832L82.0312 24.0449V31.25C82.0312 32.3896 82.4839 33.4825 83.2898 34.2884C84.0956 35.0942 85.1885 35.5469 86.3281 35.5469C87.4677 35.5469 88.5606 35.0942 89.3665 34.2884C90.1723 33.4825 90.625 32.3896 90.625 31.25V13.6719C90.625 13.1076 90.5138 12.5489 90.2979 12.0275C90.082 11.5062 89.7655 11.0325 89.3665 10.6335C88.9675 10.2345 88.4938 9.91802 87.9725 9.70208C87.4511 9.48614 86.8924 9.375 86.3281 9.375ZM61.3125 74.5938C56.5476 79.3487 50.091 82.0192 43.3594 82.0192C36.6278 82.0192 30.1711 79.3487 25.4062 74.5938C15.5059 64.6953 15.5059 48.5859 25.4062 38.6875C35.3066 28.7891 51.4141 28.7871 61.3125 38.6875C71.2109 48.5879 71.2129 64.6953 61.3125 74.5938Z" fill="currentColor"/>
+          </svg>
+        <% else %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" stroke-width="1" viewBox="0 0 100 100" fill="none" stroke="currentColor" class="h-6 w-6">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M50 6.24963C43.3696 6.24963 37.0107 8.88355 32.3223 13.572C27.6339 18.2604 25 24.6192 25 31.2496C25 37.88 27.6339 44.2389 32.3223 48.9273C37.0107 53.6157 43.3696 56.2496 50 56.2496C56.6304 56.2496 62.9893 53.6157 67.6777 48.9273C72.3661 44.2389 75 37.88 75 31.2496C75 24.6192 72.3661 18.2604 67.6777 13.572C62.9893 8.88355 56.6304 6.24963 50 6.24963ZM18.75 31.2496C18.7501 25.2022 20.5048 19.2847 23.8014 14.2149C27.098 9.14497 31.7948 5.14052 37.3222 2.68716C42.8497 0.233792 48.9702 -0.56308 54.9415 0.393187C60.9128 1.34945 66.4784 4.01777 70.9633 8.07453C75.4481 12.1313 78.6596 17.4022 80.2081 23.248C81.7566 29.0938 81.5757 35.2633 79.6873 41.0083C77.7989 46.7533 74.2842 51.827 69.5693 55.614C64.8545 59.401 59.1421 61.7386 53.125 62.3434V74.9996H65.625C66.4538 74.9996 67.2487 75.3289 67.8347 75.9149C68.4208 76.501 68.75 77.2958 68.75 78.1246C68.75 78.9534 68.4208 79.7483 67.8347 80.3343C67.2487 80.9204 66.4538 81.2496 65.625 81.2496H53.125V96.8746C53.125 97.7034 52.7958 98.4983 52.2097 99.0843C51.6237 99.6704 50.8288 99.9996 50 99.9996C49.1712 99.9996 48.3763 99.6704 47.7903 99.0843C47.2042 98.4983 46.875 97.7034 46.875 96.8746V81.2496H34.375C33.5462 81.2496 32.7513 80.9204 32.1653 80.3343C31.5792 79.7483 31.25 78.9534 31.25 78.1246C31.25 77.2958 31.5792 76.501 32.1653 75.9149C32.7513 75.3289 33.5462 74.9996 34.375 74.9996H46.875V62.3434C39.1668 61.5687 32.0211 57.9584 26.8242 52.213C21.6274 46.4676 18.7499 38.9967 18.75 31.2496Z" fill="currentColor"/>
+          </svg>
+        <% end %>
+        <div><%= @pet.gender.humanize %></div>
+      </div>
+      <div class="flex space-x-2 items-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5.75a3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0L3 16.5m15-3.379a48.474 48.474 0 0 0-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 0 1 3 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 0 1 6 13.12M12.265 3.11a.375.375 0 1 1-.53 0L12 2.845l.265.265Zm-3 0a.375.375 0 1 1-.53 0L9 2.845l.265.265Zm6 0a.375.375 0 1 1-.53 0L15 2.845l.265.265Z" />
         </svg>
-        <div>Photos</div>
+        <div><%= @pet.dob.strftime('%d %b %Y') %></div>
       </div>
-    <% end %>
-  </div>
-  <%= form_for @pet, url: desktop_pets_update_path do |f| %>
-    <div class="space-y-4">
-      <div>
-        <%= f.label "User" %>
-        <%= f.text_field :user_name, value: @pet.user.full_name, readonly: true, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+      <div class="flex space-x-2 items-center">
+        <% if @pet.species == "dog" %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="h-6 w-6" stroke="currentColor">
+            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="currentColor"/>
+            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="currentColor"/>
+            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="currentColor"/>
+            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="currentColor"/>
+            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="currentColor"/>
+          </svg>
+        <% else %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" stroke="currentColor" class="h-6 w-6">
+            <path d="M8.032 7.44984V46.5525C8.032 66.3784 26.562 82.5074 49.3393 82.5074H55.6591C78.4364 82.5074 96.968 66.3784 96.968 46.5525V7.44984L78.8598 18.4394C78.1847 18.849 77.3837 19.0682 76.5622 19.0682H75.7549C75.1994 19.0682 74.6518 18.9682 74.1435 18.7737C67.5592 16.2629 60.0733 14.937 52.4992 14.937C44.9251 14.937 37.4408 16.2629 30.8565 18.7737C30.3482 18.9682 29.799 19.0682 29.2451 19.0682H28.4378C27.6163 19.0682 26.8153 18.849 26.1402 18.4394L8.032 7.44984ZM55.6591 89.5H49.3393C22.1337 89.5 0 70.2343 0 46.5525V6.49922C0 4.07063 1.5359 1.86395 4.00971 0.740746C6.48509 -0.383827 9.4436 -0.218094 11.7317 1.17085L29.2246 11.7879C36.4179 9.27026 44.4263 7.94432 52.4992 7.94432C60.5737 7.94432 68.5821 9.27026 75.7738 11.7879L93.2683 1.17085C95.5564 -0.218094 98.5149 -0.383827 100.989 0.740746C103.463 1.86395 105 4.07063 105 6.49922V46.5525C105 70.2343 82.8663 89.5 55.6591 89.5Z" fill="currentColor"/>
+            <path d="M30.0006 39.5995C34.1377 39.6242 37.4661 42.8938 37.4362 46.9031C37.4047 50.9124 34.026 54.1437 29.8904 54.119C25.7532 54.0957 22.4233 50.8261 22.4548 46.8168C22.4847 42.8061 25.8634 39.5762 30.0006 39.5995Z" fill="currentColor"/>
+            <path d="M74.4298 39.5995C78.5669 39.6242 81.8953 42.8938 81.8654 46.9031C81.8339 50.9124 78.4552 54.1437 74.318 54.119C70.1809 54.0957 66.8525 50.8261 66.884 46.8168C66.9139 42.8061 70.2926 39.5762 74.4298 39.5995Z" fill="currentColor"/>
+            <path d="M60.9103 57.3242C61.0897 55.3846 57.5741 54.1341 53.7375 54.1341C52.9098 54.1341 52.3747 54.1341 51.3927 54.1341C47.5561 54.1341 44.0406 55.3846 44.22 57.3242C44.2074 57.4804 44.2121 57.6393 44.2483 57.805C44.6858 59.8062 47.2414 61.6623 50.2691 62.606C50.9978 62.8334 51.783 62.9389 52.5651 62.9279C53.3472 62.9389 54.1325 62.8334 54.8611 62.606C57.8889 61.6623 60.4445 59.8062 60.8804 57.805C60.9166 57.6393 60.9213 57.4804 60.9103 57.3242Z" fill="currentColor"/>
+          </svg>
+        <% end %>
+        <div><%= @pet.breed.humanize %></div>
       </div>
-      <div>
-        <%= f.label :name, class: "mb-2" %>
-        <%= f.text_field :name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :species, class: "mb-2" %>
-        <div>
-          <%= f.radio_button :species, :dog, id: "species_dog", required: true %>
-          <%= f.label :dog, for: "species_dog" %>
-        </div>
-
-        <div>
-          <%= f.radio_button :species, :cat, id: "species_cat", required: true %>
-          <%= f.label :cat, for: "species_cat" %>
-        </div>
-      </div>
-      <div>
-        <%= f.label :gender, class: "text-xl mb-2" %>
-        <div>
-          <%= f.radio_button :gender, :male, id: "gender_male", required: true %>
-          <%= f.label :male, for: "gender_male" %>
-        </div>
-
-        <div>
-          <%= f.radio_button :gender, :female, id: "gender_female", required: true %>
-          <%= f.label :female, for: "gender_female" %>
-        </div>
-      </div>
-      <div>
-        <%= f.label :dob, "Birthday" %>
-        <%= f.date_field :dob, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :weight %>
-        <%= f.number_field :weight, required: true, step: 0, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :breed %>
-        <%= f.text_field :breed, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :health_conditions, "Health" %>
-        <%= f.text_area :health_conditions, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :notes %>
-        <%= f.text_area :notes, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <div>
-        <%= f.label :date_of_death, "Date Of Death" %>
-        <%= f.date_field :date_of_death, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
-      </div>
-      <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        Update Pet
-      </button>
     </div>
-  <% end %>
-  <%= button_to desktop_pets_delete_path(@pet), method: :delete, class: "bg-red-600 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center" do %>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-    </svg>
-    Delete
-  <% end %>
-  <%= link_to desktop_user_path(@pet.user), class: "bg-white w-full border font-bold p-4 rounded-lg flex items-center justify-center" do %>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    </svg>
-    Cancel
-  <% end %>
+  </div>
+  <div class="w-2/3">
+    <div class="p-2 bg-white rounded-2xl border border-gray-300">
+      <div class="space-x-2 flex">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+        </svg>
+        <div class="font-bold">Groom History</div>
+      </div>
+    </div>
+  </div>
 </div>
