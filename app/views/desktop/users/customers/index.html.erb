@@ -4,25 +4,39 @@
     <div class="flex rounded-lg w-full bg-white">
       <div class="border-2 border-gray-300 w-full border-r-0 rounded-l-lg p-4">
         <div>Number of customers</div>
-        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count %></div>
+        <div class="mt-2 text-2xl font-bold"><%= @users.customers.count %></div>
       </div>
       <div class="border-2 border-gray-300 w-full p-4">
         <div>New customers this week</div>
-        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count {|user| user.created_at >= 1.week.ago} %></div>
+        <div class="mt-2 text-2xl font-bold"><%= @users.count {|user| user.created_at >= 1.week.ago} %></div>
       </div>
       <div class="border-2 border-gray-300 w-full border-l-0 rounded-r-lg p-4">
         <div>New customers this month</div>
-        <div class="mt-2 text-2xl font-bold"><%= current_organisation.users.count {|user| user.created_at >= 1.month.ago} %></div>
+        <div class="mt-2 text-2xl font-bold"><%= @users.count {|user| user.created_at >= 1.month.ago} %></div>
       </div>
     </div>
-    <%= form_with url: desktop_users_path, method: :get do |f| %>
-      <div class="relative">
-        <%= f.text_field :phone, placeholder: "Search customer by phone", value: params[:phone], class: "p-4 pl-12 w-full rounded-lg" %>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-1/2 left-4 transform -translate-y-1/2 w-6 h-6 text-gray-500">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-        </svg>
+    <div class="flex space-x-4 w-full">
+     <div class="w-2/3">
+        <%= form_with url: desktop_users_path, method: :get do |f| %>
+          <div class="relative">
+            <%= f.text_field :phone, placeholder: "Search customer by phone", value: params[:phone], class: "p-4 pl-12 w-full rounded-lg" %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-1/2 left-4 transform -translate-y-1/2 w-6 h-6 text-gray-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+      <div class="w-1/3">
+        <%= link_to desktop_import_path do %>
+          <div class="bg-black text-white p-4 rounded flex space-x-2 justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            <div>Import Customer List</div>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="bg-white rounded-lg border-gray-300 border-2">
       <div class="flex space-x-2 p-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -41,13 +55,17 @@
         </thead>
         <tbody>
           <% ('A'..'Z').each do |letter| %>
-            <% if @users.any? {|user| user.role == "customer" && user.first_name[0] == letter } %>
+            <% if @users.any? {|user| user.first_name[0] == letter } %>
               <tr>
                 <td class="font-bold text-lg p-4"><%= letter %></td>
               </tr>
-              <% @users.select {|user| user.role == "customer" && user.first_name[0] == letter }.each do |user| %>
+              <% @users.select {|user| user.first_name[0] == letter }.each do |user| %>
                 <tr>
-                  <td class="bg-white p-4"><%= user.full_name %></td>
+                  <td class="bg-white p-4">
+                    <%= link_to desktop_user_edit_path(@users.first) do %>
+                      <%= user.full_name %>
+                    <% end %>
+                  </td>
                   <td class="bg-white p-4"><%= user.phone %></td>
                   <td class="bg-white p-4 text-blue-400">
                     <div class="flex">
