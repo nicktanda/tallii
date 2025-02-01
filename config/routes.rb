@@ -110,6 +110,8 @@ Rails.application.routes.draw do
   post "/desktop/grooms/:id/images/upload", to: "desktop/grooms#upload_image", as: "desktop_groom_images_upload"
   delete "/desktop/grooms/:id/images/:image_id", to: "desktop/grooms#destroy_image", as: "desktop_groom_images_destroy"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
+  post "/desktop/bookings/:id/log_report/create", to: "desktop/log_reports#create", as: "desktop_groom_log_report_create"
+  patch "/desktop/bookings/:id/log_report/update", to: "desktop/log_reports#update", as: "desktop_groom_log_report_update"
   
   get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
   get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"

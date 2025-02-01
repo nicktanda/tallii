@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_01_041919) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_01_115424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,23 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_01_041919) do
     t.index ["product_id"], name: "index_images_on_product_id"
     t.index ["temporary_groom_id"], name: "index_images_on_temporary_groom_id"
     t.index ["user_id"], name: "index_images_on_user_id"
+  end
+
+  create_table "log_reports", force: :cascade do |t|
+    t.bigint "groom_id"
+    t.bigint "temporary_groom_id"
+    t.bigint "daycare_visit_id"
+    t.bigint "temporary_daycare_visit_id"
+    t.text "org_notes", default: "", null: false
+    t.text "customer_notes", default: "", null: false
+    t.float "price", default: 0.0, null: false
+    t.integer "payment_method", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daycare_visit_id"], name: "index_log_reports_on_daycare_visit_id"
+    t.index ["groom_id"], name: "index_log_reports_on_groom_id"
+    t.index ["temporary_daycare_visit_id"], name: "index_log_reports_on_temporary_daycare_visit_id"
+    t.index ["temporary_groom_id"], name: "index_log_reports_on_temporary_groom_id"
   end
 
   create_table "onboarding_organisations", force: :cascade do |t|
@@ -323,6 +340,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_01_041919) do
   add_foreign_key "images", "products"
   add_foreign_key "images", "temporary_grooms"
   add_foreign_key "images", "users"
+  add_foreign_key "log_reports", "daycare_visits"
+  add_foreign_key "log_reports", "grooms"
+  add_foreign_key "log_reports", "temporary_daycare_visits"
+  add_foreign_key "log_reports", "temporary_grooms"
   add_foreign_key "onboarding_pets", "organisations"
   add_foreign_key "onboarding_pets", "users"
   add_foreign_key "onboarding_users", "organisations"
