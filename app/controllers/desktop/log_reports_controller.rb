@@ -1,13 +1,13 @@
 module Desktop
-  class CategoriesController < DesktopController
+  class LogReportsController < DesktopController
     def create
-      booking_type = parms[:log_report][:booking_type]
+      booking_type = params[:log_report][:booking_type]
 
-      booking = if booking_type == "groom"
+      booking = if booking_type == "Groom"
         current_organisation.grooms.find(params[:id])
-      elsif booking_type == "temporary_groom"
+      elsif booking_type == "TemporaryGroom"
         current_organisation.temporary_grooms.find(params[:id])
-      elsif booking_type == "daycare_visit"
+      elsif booking_type == "DaycareVisit"
         current_organisation.daycare_visits.find(params[:id])
       else
         current_organisation.temporary_daycare_visits.find(params[:id])
@@ -24,20 +24,19 @@ module Desktop
     end
 
     def update
-      booking_type = parms[:log_report][:booking_type]
+      booking_type = params[:log_report][:booking_type]
 
-      booking = if booking_type == "groom"
+      booking = if booking_type == "Groom"
         current_organisation.grooms.find(params[:id])
-      elsif booking_type == "temporary_groom"
+      elsif booking_type == "TemporaryGroom"
         current_organisation.temporary_grooms.find(params[:id])
-      elsif booking_type == "daycare_visit"
+      elsif booking_type == "DaycareVisit"
         current_organisation.daycare_visits.find(params[:id])
       else
         current_organisation.temporary_daycare_visits.find(params[:id])
       end
 
-      log_report = booking.log_report.update(log_report_params)
-      save_result = log_report.save! ? "Log report successfully updated" : "Invalid log report update"
+      save_result = booking.log_report.update!(log_report_params) ? "Log report successfully updated" : "Invalid log report update"
       redirect_path = if booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)
         desktop_grooms_path(date: booking.date)
       else

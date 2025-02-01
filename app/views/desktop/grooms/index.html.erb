@@ -325,7 +325,7 @@
                                   <% end %>
                                   <div>
                                     <%= f.label :status, "Status" %>
-                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
+                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
                                   </div>
                                 </div>
                                 <div class="p-2 w-full flex justify-center">
@@ -417,6 +417,116 @@
                           <div class="text-sm text-center font-bold">Details</div>
                         </div>
                       <% end %>
+                      <div class="flex flex-col items-center justify-center" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").showModal();'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                        </svg>
+                        <div class="text-sm text-center font-bold">Log Report</div>
+                      </div>
+                      <dialog id="editLogReport<%= groom.class %><%= groom.id %>Dialog">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").close();'>
+                          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                            <div class="flex justify-between p-4 rounded-t-xl">
+                              <div class="flex space-x-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <div class="font-bold text-2xl">Log Report</div>
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>
+                            </div>
+                            <% if groom.log_report.nil? %>
+                              <%= form_with model: LogReport.new, url: desktop_groom_log_report_create_path(groom), method: :post do |f| %>
+                                <%= f.hidden_field :booking_type, value: groom.class %>
+                                <div class="space-y-2">
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-4">
+                                      <div>
+                                        <div>Report Type</div>
+                                        <div class="bg-gray-200 rounded-xl p-2">Grooming Report</div>
+                                      </div>
+                                      <div>
+                                        <div>Date</div>
+                                        <div class="bg-gray-200 rounded-xl p-2"><%= groom.date.strftime("%d/%m/%Y") %></div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <%= f.label :org_notes, "Groomer Report Notes" %>
+                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                    <div>
+                                      <%= f.label :customer_notes, "Customer Report Notes" %>
+                                      <%= f.text_area :customer_notes, placeholder: "Customer sees notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                  </div>
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-2">
+                                      <div>
+                                        <%= f.label :price, "Price of Groom" %>
+                                        <%= f.number_field :price, placeholder: "$00.00", step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                      </div>
+                                      <div>
+                                        <%= f.label :payment_method, "Payment Method" %>
+                                        <%= f.select(:payment_method, options_for_select([["Cash", "cash"], ["Card", "card"]], selected: groom.log_report&.payment_method), { prompt: 'Select' }, { required: true, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="p-2 w-full flex justify-center">
+                                    <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                      Update Report
+                                    </button>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% else %>
+                              <%= form_with model: LogReport.new, url: desktop_groom_log_report_update_path(groom.id), method: :patch do |f| %>
+                                <%= f.hidden_field :booking_type, value: groom.class %>
+                                <div class="space-y-2">
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-4">
+                                      <div>
+                                        <div>Report Type</div>
+                                        <div class="bg-gray-200 rounded-xl p-2">Grooming Report</div>
+                                      </div>
+                                      <div>
+                                        <div>Date</div>
+                                        <div class="bg-gray-200 rounded-xl p-2"><%= groom.date.strftime("%d/%m/%Y") %></div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <%= f.label :org_notes, "Groomer Report Notes" %>
+                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", value: groom.log_report.org_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                    <div>
+                                      <%= f.label :customer_notes, "Customer Report Notes" %>
+                                      <%= f.text_area :customer_notes, placeholder: "Customer sees notes...", value: groom.log_report.customer_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                  </div>
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-2">
+                                      <div>
+                                        <%= f.label :price, "Price of Groom" %>
+                                        <%= f.number_field :price, placeholder: "$00.00", value: (groom.log_report.price.present? ? sprintf('%.2f', groom.log_report.price) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                      </div>
+                                      <div>
+                                        <%= f.label :payment_method, "Payment Method" %>
+                                        <%= f.select(:payment_method, options_for_select([["Cash", "cash"], ["Card", "card"]], selected: groom.log_report&.payment_method), { prompt: 'Select' }, { required: true, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="p-2 w-full flex justify-center">
+                                    <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                      Update Report
+                                    </button>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </dialog>
                       <dialog id="edit<%= groom.class %>Dialog<%= groom.id %>">
                         <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
                           <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
@@ -493,7 +603,7 @@
                                   <% end %>
                                   <div>
                                     <%= f.label :status, "Status" %>
-                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
+                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
                                   </div>
                                 </div>
                                 <div class="p-2 w-full flex justify-center">
