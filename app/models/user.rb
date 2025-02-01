@@ -27,4 +27,28 @@ class User < ApplicationRecord
   def full_name
     [self.first_name, self.last_name].join(" ")
   end
+
+  def self.colour_code_options
+    {
+      new_customer: "New Customer",
+      referral: "Referral",
+      staff_discount: "Staff Discount",
+      senior_discount: "Seniors Discount",
+      military_discount: "Military Discount",
+      do_not_book: "Do Not Book",
+      helicopter: "Helicopter/High Maintenance Client"
+    }
+  end
+
+  def self.colours
+    {
+      new_customer: "bg-emerald-400",
+      referral: "bg-teal-700",
+      staff_discount: "bg-teal-950",
+      senior_discount: "bg-violet-700",
+      military_discount: "bg-amber-500",
+      do_not_book: "bg-red-700",
+      helicopter: "bg-purple-600"
+    }
+  end
 end

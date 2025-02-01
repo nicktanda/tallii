@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_24_234933) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_01_041919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -297,6 +297,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_24_234933) do
     t.text "notes"
     t.string "colour"
     t.integer "rewards_points", default: 0
+    t.text "additional_user_first_name"
+    t.text "additional_user_last_name"
+    t.text "additional_user_email"
+    t.text "additional_user_phone"
+    t.text "additional_user_relationship"
+    t.string "colour_codes", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
   end

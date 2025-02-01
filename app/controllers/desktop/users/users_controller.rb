@@ -32,9 +32,11 @@ module Desktop
         user.images.create!(name: "Profile Pic", image: params[:user][:image]) if params[:user][:image]
 
         if user.save
-          redirect_to desktop_user_path(user), notice: 'User updated'
+          user.update!(colour_codes: params[:user][:colour_codes] || [])
+
+          redirect_to desktop_user_edit_path(user), notice: 'User updated'
         else
-          redirect_back fallback_location: desktop_user_path(user), alert: 'Invalid user information'
+          redirect_back fallback_location: desktop_user_edit_path(user), alert: 'Invalid user information'
         end
       end
 
@@ -49,7 +51,30 @@ module Desktop
       private
 
       def user_params
-        params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :phone, :weight, :notes, :address, :city, :postcode, :max_daycare_visits, :organisation_id, :colour, :rewards_points)
+        params
+          .require(:user)
+          .permit(
+            :id,
+            :first_name,
+            :last_name,
+            :email,
+            :password,
+            :phone,
+            :weight,
+            :notes,
+            :address,
+            :city,
+            :postcode,
+            :max_daycare_visits,
+            :organisation_id,
+            :colour,
+            :rewards_points,
+            :additional_user_first_name,
+            :additional_user_last_name,
+            :additional_user_email,
+            :additional_user_phone,
+            :additional_user_relationship
+          )
       end
     end
   end

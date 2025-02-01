@@ -17,7 +17,7 @@
     </div>
     <div class="flex space-x-4 w-full">
      <div class="w-2/3">
-        <%= form_with url: desktop_user_edit_path(@user), method: :get do |f| %>
+        <%= form_with url: desktop_users_path, method: :get do |f| %>
           <div class="relative">
             <%= f.text_field :phone, placeholder: "Search customer by phone", value: params[:phone], class: "p-4 pl-12 w-full rounded-lg" %>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-1/2 left-4 transform -translate-y-1/2 w-6 h-6 text-gray-500">
@@ -101,16 +101,164 @@
       <div class="text-blue-500 text-lg">(<%= @user.rewards_points %>pts)</div>
     </div>
     <div class="font-thin text-sm">Profile created <%= @user.created_at.strftime('%d %b %Y') %></div>
-    <div class="flex space-x-4">
-      <div class="font-bold text-sm">Contact Info</div>
-      <%= link_to desktop_user_edit_path(@user) do %>
-        <div class="space-x-2 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-          </svg>
-          <div class="font-bold text-sm">Edit Profile</div>
+    <div class="flex flex-wrap space-x-1 w-full">
+      <% @user.colour_codes.each do |colour_code| %>
+        <div class="<%= User.colours[colour_code.to_sym] %> text-white font-bold rounded-full px-4 mb-2">
+          <%= colour_code.humanize %>
         </div>
       <% end %>
+    </div>
+    <div class="flex space-x-4">
+      <div class="font-bold text-sm">Contact Info</div>
+      <div class="space-x-2 flex items-center" onclick='document.getElementById("editUserDialog").showModal();'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </svg>
+        <div class="font-bold text-sm">Edit Profile</div>
+      </div>
+      <dialog id="editUserDialog">
+        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("editUserDialog").close();'>
+          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+            <div class="flex justify-between p-4 rounded-t-xl">
+              <div>
+                <div class="font-bold text-2xl">Customer Info</div>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("editUserDialog").close();'>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </div>
+            <%= form_for @user, url: desktop_user_update_path(@user), method: :patch do |f| %>
+              <details class="w-full group p-2">
+                <summary class="flex items-center cursor-pointer p-2 focus:outline-none text-blue-700 bg-white rounded-xl group-open:rounded-b-none">
+                  <span class="mr-2 font-bold">Customer Info</span>
+                  <span class="flex-grow h-px bg-blue-700"></span>
+                  <span class="ml-2 font-bold">
+                    <span class="group-open:hidden">+</span>
+                    <span class="hidden group-open:inline">−</span>
+                  </span>
+                </summary>
+                <div class="space-y-4">
+                  <div class="p-2 bg-white rounded-b-xl">
+                    <%= f.hidden_field :id %>
+                    <div class="space-y-4">
+                      <div>
+                        <%= f.label :first_name %>
+                        <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :last_name %>
+                        <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :email %>
+                        <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :phone, "Phone Number" %>
+                        <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :address, "Street Address" %>
+                        <%= f.text_field :address, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :city %>
+                        <%= f.text_field :city, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :postcode %>
+                        <%= f.text_field :postcode, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :rewards_points, "Rewards Points" %>
+                        <%= f.number_field :rewards_points, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+              <details class="w-full group p-2">
+                <summary class="flex items-center cursor-pointer p-2 focus:outline-none text-blue-700 bg-white rounded-xl group-open:rounded-b-none">
+                  <span class="mr-2 font-bold">Addition Contact / Owner</span>
+                  <span class="flex-grow h-px bg-blue-700"></span>
+                  <span class="ml-2 font-bold">
+                    <span class="group-open:hidden">+</span>
+                    <span class="hidden group-open:inline">−</span>
+                  </span>
+                </summary>
+                <div class="space-y-4">
+                  <div class="p-2 bg-white rounded-b-xl">
+                    <%= f.hidden_field :id %>
+                    <div class="space-y-4">
+                      <div>
+                        <%= f.label :additional_user_first_name, "First Name" %>
+                        <%= f.text_field :additional_user_first_name, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :additional_user_last_name, "Last Name" %>
+                        <%= f.text_field :additional_user_last_name, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :additional_user_email, "Email" %>
+                        <%= f.email_field :additional_user_email, required: true, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :additional_user_phone, "Phone Number" %>
+                        <%= f.telephone_field :additional_user_phone, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                      <div>
+                        <%= f.label :additional_user_relationship, "Relationship" %>
+                        <%= f.text_field :additional_user_relationship, class: "border w-full rounded-lg p-2" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+              <details class="w-full group p-2">
+                <summary class="flex items-center cursor-pointer p-2 focus:outline-none text-blue-700 bg-white rounded-xl group-open:rounded-b-none">
+                  <span class="mr-2 font-bold">Colour Codes</span>
+                  <span class="flex-grow h-px bg-blue-700"></span>
+                  <span class="ml-2 font-bold">
+                    <span class="group-open:hidden">+</span>
+                    <span class="hidden group-open:inline">−</span>
+                  </span>
+                </summary>
+                <div class="space-y-4">
+                  <div class="p-2 bg-white rounded-b-xl">
+                    <%= f.hidden_field :id %>
+                    <div class="space-y-4">
+                      <div>
+                        <div class="font-bold cursor-pointer">Colour Codes</div>
+                        <div class="bg-emerald-400"></div>
+                        <div class="bg-teal-700"></div>
+                        <div class="bg-teal-950"></div>
+                        <div class="bg-violet-700"></div>
+                        <div class="bg-amber-500"></div>
+                        <div class="bg-red-700"></div>
+                        <div class="bg-purple-600"></div>
+                        <% User.colour_code_options.each do |key, value| %>
+                          <div class="flex items-center">
+                            <input type="checkbox" name="user[colour_codes][]" value="<%= key %>" id="colour_code_<%= key %>" <%= 'checked' if @user.colour_codes.include?(key.to_s) %> class="mr-2">
+                            <label for="colour_code_<%= key %>" class="flex items-center">
+                              <span class="w-4 h-4 inline-block mr-2 <%= User.colours[key] %>"></span>
+                              <%= value %>
+                            </label>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+              <div class="p-2 w-full flex justify-center">
+                <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                  Update Customer Info
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </dialog>
     </div>
     <div class="flex space-x-2 items-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
