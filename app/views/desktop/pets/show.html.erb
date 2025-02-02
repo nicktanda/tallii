@@ -69,13 +69,98 @@
       </div>
     </div>
   </div>
-  <div class="w-2/3">
-    <div class="p-2 bg-white rounded-2xl border border-gray-300">
-      <div class="space-x-2 flex">
+  <div class="w-2/3 space-y-4">
+    <div class="bg-white rounded-2xl border border-gray-300">
+      <div class="p-2 space-x-2 flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
         </svg>
         <div class="font-bold">Groom History</div>
+      </div>
+      <div class="overflow-hidden w-full">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full table-auto">
+            <thead>
+              <tr class="bg-gray-100 text-left sticky top-0">
+                <th class="p-2 w-1 whitespace-nowrap">Date</th>
+                <th class="p-2">Description</th>
+                <th class="p-2 w-1 whitespace-nowrap">Price</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
+              <% @pet.grooms.each do |groom| %>
+                <% log_report = groom.log_report %>
+                <tr>
+                  <td class="p-2 font-light whitespace-nowrap"><%= groom.date.strftime('%d %b %Y') %></td>
+                  <td class="p-2"><%= log_report.org_notes %></td>
+                  <td class="p-2 whitespace-nowrap">$<%= log_report.price %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-gray-300">
+      <div class="p-2 space-x-2 flex">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+        </svg>
+        <div class="font-bold">Purchase History</div>
+      </div>
+      <div class="overflow-hidden w-full">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full table-auto">
+            <thead>
+              <tr class="bg-gray-100 text-left sticky top-0">
+                <th class="p-2 w-1 whitespace-nowrap">Date</th>
+                <th class="p-2">Description</th>
+                <th class="p-2 w-1 whitespace-nowrap">Price</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
+              <% @pet.daycare_visits + @pet.grooms.each do |booking| %>
+                <% log_report = booking.log_report %>
+                <tr>
+                  <td class="p-2 font-light whitespace-nowrap"><%= booking.date.strftime('%d %b %Y') %></td>
+                  <td class="p-2"><%= booking.class.to_s.humanize %></td>
+                  <td class="p-2 whitespace-nowrap">$<%= log_report.price %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-gray-300">
+      <div class="p-2 space-x-2 flex">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+        </svg>
+        <div class="font-bold">Daycare History</div>
+      </div>
+      <div class="overflow-hidden w-full">
+        <div class="max-h-40 overflow-y-scroll">
+          <table class="w-full table-auto">
+            <thead>
+              <tr class="bg-gray-100 text-left sticky top-0">
+                <th class="p-2 w-1 whitespace-nowrap">Date</th>
+                <th class="p-2">Description</th>
+                <th class="p-2 w-1 whitespace-nowrap">Price</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
+              <% @pet.daycare_visits.each do |daycare_visit| %>
+                <% log_report = daycare_visit.log_report %>
+                <tr>
+                  <td class="p-2 font-light whitespace-nowrap"><%= daycare_visit.date.strftime('%d %b %Y') %></td>
+                  <td class="p-2"><%= log_report.org_notes %></td>
+                  <td class="p-2 whitespace-nowrap">$<%= log_report.price %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
