@@ -13,7 +13,19 @@
           <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("calendarDialog").close();'>
             <div class="bg-white items-center w-full m-32 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
               <div class="flex justify-between p-4 rounded-t-xl">
-                <div></div>
+                <div class="flex space-x-2">
+                  <div class="font-bold"><%= @date.strftime('%d %b %Y') %></div>
+                  <%= link_to desktop_dashboard_path(date: @date - 1.day, open: true), class: "focus:outline-none" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  <% end %>
+                  <%= link_to desktop_dashboard_path(date: @date + 1.day, open: true), class: "focus:outline-none" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  <% end %>
+                </div>
                 <div class="bg-black text-white rounded-lg flex space-x-2 p-2" onclick='document.getElementById("calendarDialog").close();'>
                   <div>Collapse Calendar</div>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -33,7 +45,7 @@
                         <th class="p-4 w-1 whitespace-nowrap">Customer</th>
                         <th class="p-4 w-1 whitespace-nowrap">Phone</th>
                         <th class="p-4 w-1 whitespace-nowrap">Breed</th>
-                        <th class="p-4 w-1 whitespace-nowrap">Notes</th>
+                        <th class="p-4 w-1 whitespace-nowrap">Details</th>
                         <th class="p-4 w-1 whitespace-nowrap">Confirmed</th>
                       </tr>
                     </thead>
@@ -84,26 +96,84 @@
                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                                       </svg>
-                                      <div class="font-bold text-2xl">Groom Notes</div>
+                                      <div class="font-bold text-2xl">Scheduled Groom</div>
                                     </div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("calendarGroom<%= groom.class %>Dialog<%= groom.id %>").close();'>
                                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                     </svg>
                                   </div>
-                                  <div class="bg-white p-4">
-                                    <% if groom.is_a?(Groom) && groom.notes.present? %>
-                                      <div><%= groom.notes %></div>
-                                    <% else%>
-                                      <% if groom.owner_notes.present? %>
-                                        <div class="font-bold">Owner Notes</div>
-                                        <div><%= groom.owner_notes %></div>
-                                      <% end %>
-                                      <% if groom.pet_notes.present? %>
-                                        <div class="font-bold">Pet Notes</div>
-                                        <div><%= groom.pet_notes %></div>
-                                      <% end %>
-                                    <% end%>
-                                  </div>
+                                  <%= form_for groom, url: desktop_groom_update_path(groom), method: :patch do |f| %>
+                                    <div class="space-y-2">
+                                      <div class="bg-white rounded-xl p-4 space-y-2">
+                                        <div>Scheduled Pet:</div>
+                                        <div class="bg-green-300 border border-green-500 p-4 rounded-xl inline-flex space-x-2 w-fit">
+                                          <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
+                                            <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
+                                          <% end %>
+                                          <div>
+                                            <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
+                                            <% if groom.is_a?(Groom) %>
+                                              <div><%= groom.pet.breed %></div>
+                                              <div><%= groom.pet.gender.humanize %></div>
+                                            <% end %>
+                                          </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                          <div>Customer:</div>
+                                          <div>
+                                            <% if groom.is_a?(Groom) %>
+                                              <%= link_to desktop_user_edit_path(groom.pet.user), class: "focus:outline-none" do %>
+                                                <div class="text-blue-500"><%= groom.pet.user.full_name %></div>
+                                              <% end %>
+                                            <% else %>
+                                              <div class="text-blue-500"><%= groom.owner_name %></div>
+                                            <% end %>
+                                          </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                          <div>Date:</div>
+                                          <div><%= groom.date.strftime("%I:%M%P") %></div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                          <div>Time:</div>
+                                          <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                          <div>Groomer:</div>
+                                          <div class="flex space-x-2">
+                                            <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { class: "bg-white text-black border border-gray-300 rounded-lg p-2" }) %>
+                                            <% if groom.user.present? %>
+                                              <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800">
+                                                <%= groom.user.first_name.first %><%= groom.user.last_name.first %>
+                                              </div>
+                                            <% end %>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="bg-white rounded-xl p-4 space-y-2">
+                                        <% if groom.is_a?(Groom) %>
+                                          <div>
+                                            <%= f.label :notes, "Groomer Notes" %>
+                                            <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                          </div>
+                                        <% else %>
+                                          <div>
+                                            <%= f.label :pet_notes, "Groomer Notes" %>
+                                            <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                          </div>
+                                        <% end %>
+                                        <div>
+                                          <%= f.label :status, "Status" %>
+                                          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
+                                        </div>
+                                      </div>
+                                      <div class="p-2 w-full flex justify-center">
+                                        <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                          Update Groom
+                                        </button>
+                                      </div>
+                                    </div>
+                                  <% end %>
                                 </div>
                               </div>
                             </dialog>
@@ -288,3 +358,11 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("open") === "true") {
+      document.getElementById("calendarDialog").showModal();
+    }
+  });
+</script>
