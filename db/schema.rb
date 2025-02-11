@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_01_115424) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_09_124815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,6 +211,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_01_115424) do
     t.datetime "updated_at", null: false
     t.text "notes"
     t.date "date_of_death"
+    t.integer "status", default: 0
+    t.text "allergies"
+    t.text "medication"
+    t.date "rabies_expiration"
+    t.date "bordetella_expiration"
+    t.date "dhpp_expiration"
+    t.date "heartworm_expiration"
+    t.date "kennel_cough_expiration"
+    t.string "colour_codes", default: [], array: true
     t.index ["organisation_id"], name: "index_pets_on_organisation_id"
     t.index ["user_id"], name: "index_pets_on_user_id"
   end

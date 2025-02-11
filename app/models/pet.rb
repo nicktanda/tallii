@@ -4,7 +4,14 @@ class Pet < ApplicationRecord
   has_many :grooms, dependent: :destroy
   has_many :images, dependent: :destroy
 
-  enum species: { dog: 0, cat: 1, bird: 2, fish: 3, rabbit: 4, reptile: 5, other: 6 }
+  has_one_attached :rabies_evidence
+  has_one_attached :bordetella_evidence
+  has_one_attached :dhpp_evidence
+  has_one_attached :heartworm_evidence
+  has_one_attached :kennel_cough_evidence
+
+  enum status: { active: 0, inactive: 1, deceased: 6 }
+  enum species: { dog: 0, cat: 1, other: 6 }
   enum gender: { male: 0, female: 1 }
 
   scope :alive, -> { where("date_of_death > ? OR date_of_death IS NULL", Date.today) }
@@ -22,7 +29,7 @@ class Pet < ApplicationRecord
   end
 
   def alive?
-    date_of_death > Date.today || date_of_death.nil?
+    self.date_of_death.nil? || self.date_of_death > Date.today
   end
 
   def age
@@ -57,5 +64,27 @@ class Pet < ApplicationRecord
 
     visit_date = self.daycare_visits.order(date: :asc).first.date
     visit_date.strftime("%B %d, %Y") unless visit_date < Time.now
+  end
+
+  def self.colour_code_options
+    {
+      easy: "Easy",
+      helicopter: "Helicopter",
+      selective: "People Obsessive / Selective",
+      special_needs: "Special Needs",
+      obsessive: "Obsessive Behaviour",
+      senior: "Senior"
+    }
+  end
+
+  def self.colours
+    {
+      easy: "bg-emerald-400",
+      helicopter: "bg-teal-700",
+      selective: "bg-teal-950",
+      special_needs: "bg-violet-700",
+      obsessive: "bg-amber-500",
+      senior: "bg-red-700"
+    }
   end
 end
