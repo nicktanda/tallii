@@ -147,6 +147,7 @@ Rails.application.routes.draw do
   # generic user action routes
   get "/desktop/users/new", to: "desktop/users/users#new", as: "desktop_user_new"
   post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
+  post "/desktop/customers/create", to: "desktop/users/users#create_customer", as: "desktop_customers_create"
   patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
   delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"
 

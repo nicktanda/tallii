@@ -62,7 +62,7 @@
               <% @users.select {|user| user.first_name[0] == letter }.each do |user| %>
                 <tr>
                   <td class="bg-white p-4">
-                    <%= link_to desktop_user_edit_path(@user) do %>
+                    <%= link_to desktop_user_edit_path(user) do %>
                       <%= user.full_name %>
                     <% end %>
                   </td>

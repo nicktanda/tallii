@@ -25,6 +25,42 @@ module Desktop
         end
       end
 
+      def create_customer
+        user = current_organisation.users.new
+        user.first_name = params[:first_name]
+        user.last_name = params[:last_name]
+        user.email = params[:email]
+        user.phone = params[:phone]
+        user.address = params[:address]
+        user.city = params[:city]
+        user.postcode = params[:postcode]
+        user.password = "password"
+        user.role = "customer"
+        
+        pet = current_organisation.pets.new
+        pet.name = params[:name]
+        pet.species = params[:species]
+        pet.gender = params[:gender]
+        pet.breed = params[:breed]
+        pet.weight = params[:weight]
+        pet.dob = params[:dob]
+        pet.status = params[:status]
+        pet.allergies = params[:allergies]
+        pet.medication = params[:medication]
+        pet.health_conditions = ""
+
+        if user.save
+          pet.user = user
+          pet.save
+
+          flash.now[:alert] = "Successfully created customer!"
+          render js: "window.location.reload(true);"
+        else
+          flash.now[:alert] = "Something went wrong!"
+          render js: "window.location.reload(true);"
+        end
+      end
+
       def update
         user = current_organisation.users.find(user_params[:id])
 

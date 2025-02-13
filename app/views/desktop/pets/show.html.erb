@@ -406,11 +406,13 @@
             <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
               <% @pet.grooms.each do |groom| %>
                 <% log_report = groom.log_report %>
-                <tr>
-                  <td class="p-2 font-light whitespace-nowrap"><%= groom.date.strftime('%d %b %Y') %></td>
-                  <td class="p-2"><%= log_report.org_notes %></td>
-                  <td class="p-2 whitespace-nowrap">$<%= log_report.price %></td>
-                </tr>
+                <% if log_report.present? %>
+                  <tr>
+                    <td class="p-2 font-light whitespace-nowrap"><%= groom.date.strftime('%d %b %Y') %></td>
+                    <td class="p-2"><%= log_report&.org_notes %></td>
+                    <td class="p-2 whitespace-nowrap">$<%= log_report&.price %></td>
+                  </tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>
@@ -437,11 +439,13 @@
             <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
               <% @pet.daycare_visits + @pet.grooms.each do |booking| %>
                 <% log_report = booking.log_report %>
-                <tr>
-                  <td class="p-2 font-light whitespace-nowrap"><%= booking.date.strftime('%d %b %Y') %></td>
-                  <td class="p-2"><%= booking.class.to_s.humanize %></td>
-                  <td class="p-2 whitespace-nowrap">$<%= log_report.price %></td>
-                </tr>
+                <% if log_report.present? %>
+                  <tr>
+                    <td class="p-2 font-light whitespace-nowrap"><%= booking.date.strftime('%d %b %Y') %></td>
+                    <td class="p-2"><%= booking.class.to_s.humanize %></td>
+                    <td class="p-2 whitespace-nowrap">$<%= log_report&.price %></td>
+                  </tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>
