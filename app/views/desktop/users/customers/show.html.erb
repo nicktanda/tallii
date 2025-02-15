@@ -127,7 +127,7 @@
           <% end %>
         </div>
       </div>
-      <% if @bookings.any? %>
+      <% if @bookings.present? && @bookings.any? %>
         <div class="overflow-hidden rounded-lg">
           <div class="max-h-40 overflow-y-scroll">
             <table class="w-full">

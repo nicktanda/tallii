@@ -39,9 +39,9 @@ module Desktop
 
       if pet.save
         pet.images.create!(name: "test_image", image: params[:pet][:image]) if params[:pet][:image]
-        redirect_to desktop_user_path(user), notice: 'Pet updated successfully'
+        redirect_to desktop_user_edit_path(user), notice: 'Pet updated successfully'
       else
-        redirect_back fallback_location: new_pet_onboarding_path, alert: 'Invalid pet information'
+        redirect_back fallback_location: desktop_user_edit_path(user), alert: 'Invalid pet information'
       end
     end
 
