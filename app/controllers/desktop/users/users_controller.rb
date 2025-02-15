@@ -25,6 +25,16 @@ module Desktop
         end
       end
 
+      def create_staff
+        user = current_organisation.users.new(user_params)
+
+        if user.save
+          redirect_to desktop_staff_settings_path, alert: "Staff member created"
+        else
+          redirect_to desktop_staff_settings_path, alert: "Staff member not created"
+        end
+      end
+
       def create_customer
         user = current_organisation.users.new
         user.first_name = params[:first_name]
@@ -109,7 +119,8 @@ module Desktop
             :additional_user_last_name,
             :additional_user_email,
             :additional_user_phone,
-            :additional_user_relationship
+            :additional_user_relationship,
+            :role
           )
       end
     end

@@ -13,7 +13,141 @@
   </div>
   <div class="space-y-4">
     <div class="space-y-8 w-full bg-white rounded-lg p-4">
-      
+      <div class="flex space-x-2 bg-blue-500 text-white rounded-lg w-fit p-2" onclick='document.getElementById("addStaffDialog").showModal();'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        <div>Add Staff</div>
+      </div>
+      <dialog id="addStaffDialog">
+        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("addStaffDialog").close();'>
+          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+            <div class="flex justify-between p-4 rounded-t-xl">
+              <div class="flex space-x-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-blue-700">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                <div class="font-bold text-2xl">Add Staff</div>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("addStaffDialog").close();'>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </div>
+            <%= form_for User.new, url: desktop_create_staff_path, method: :post do |f| %>
+              <div class="space-y-4">
+                <div class="p-2 bg-white rounded-b-xl">
+                  <%= f.hidden_field :id %>
+                  <div class="space-y-4">
+                    <div>
+                      <%= f.label :first_name %>
+                      <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
+                    </div>
+                    <div>
+                      <%= f.label :last_name %>
+                      <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
+                    </div>
+                    <div>
+                      <%= f.label :email %>
+                      <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                      <%= f.label :role %>
+                      <%= f.select(:role, options_for_select(User.roles.keys.reject { |key| key == "customer" }.map { |key| [key.humanize, key] }), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
+                    </div>
+                    <div>
+                      <%= f.label :password %>
+                      <%= f.password_field :password, required: true, class: "border w-full rounded-lg p-2" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-2 w-full flex justify-center">
+                <button type="submit" class="bg-blue-400 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                  Add Staff
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </dialog>
+      <div class="max-h-80 overflow-y-scroll rounded-lg border">
+        <table class="w-full table-auto">
+          <thead class="bg-blue-100 text-left">
+            <tr class="text-blue-900">
+              <th class="px-8 p-4">Name</th>
+              <th class="px-8 p-4">Email</th>
+              <th class="px-8 p-4">Role</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% current_organisation.users.employees_and_admins.each do |staff| %>
+              <tr class="text-left">
+                <td class="p-4 flex space-x-2 items-center">
+                  <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800"><%= staff.first_name.first %></div>
+                  <div><%= staff.full_name %></div>
+                </td>
+                <td class="p-4"><%= staff.email %></td>
+                <td class="p-4"><%= staff.role.humanize %></td>
+                <td class="p-4">
+                  <div class="p-2 border border-blue-500 text-blue-500 rounded-lg flex space-x-2 w-fit" onclick='document.getElementById("editStaffDialog<%= staff.id %>").showModal();'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+                    <div>Edit Staff</div>
+                  </div>
+                </td>
+              </tr>
+              <dialog id="editStaffDialog<%= staff.id %>">
+                <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("editStaffDialog<%= staff.id %>").close();'>
+                  <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                    <div class="flex justify-between p-4 rounded-t-xl">
+                      <div class="flex space-x-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-blue-700">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        <div class="font-bold text-2xl">Edit Staff Info</div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("editStaffDialog<%= staff.id %>").close();'>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                    <%= form_for staff, url: desktop_user_update_path(staff), method: :patch do |f| %>
+                      <div class="space-y-4">
+                        <div class="p-2 bg-white rounded-b-xl">
+                          <%= f.hidden_field :id %>
+                          <div class="space-y-4">
+                            <div>
+                              <%= f.label :first_name %>
+                              <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
+                            </div>
+                            <div>
+                              <%= f.label :last_name %>
+                              <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
+                            </div>
+                            <div>
+                              <%= f.label :email %>
+                              <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                              <%= f.label :role %>
+                              <%= f.select(:role, options_for_select(User.roles.keys.reject { |key| key == "customer" }.map { |key| [key.humanize, key] }, selected: staff.role), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="font-thin p-4">Last Save: <%= staff.updated_at.strftime('%d %b %Y') %></div>
+                      <div class="p-2 w-full flex justify-center">
+                        <%= f.submit "Update Staff Info", class: "bg-blue-400 text-white font-bold p-2 rounded-lg flex items-center justify-center" %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </dialog>
+            <% end %>
+          <tbody>
+        </table>
+      </div>
     </div>
     <div class="font-thin px-8">+ Last Save: <%= current_organisation.updated_at.strftime('%d %b %Y') %></div>
   </div>

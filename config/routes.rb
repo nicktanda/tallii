@@ -141,6 +141,7 @@ Rails.application.routes.draw do
   # employee routes
   get "/desktop/employees", to: "desktop/users/employees#index", as: "desktop_employees"
   get "/desktop/employees/new", to: "desktop/users/employees#new", as: "desktop_employees_new"
+  post "/desktop/employees/create", to: "desktop/users/users#create_staff", as: "desktop_create_staff"
   get "/desktop/employees/:id", to: "desktop/users/employees#show", as: "desktop_employee"
   get "/desktop/employees/:id/edit", to: "desktop/users/employees#edit", as: "desktop_employee_edit"
   
