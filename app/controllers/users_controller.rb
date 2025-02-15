@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     else
       redirect_to user_profile_path, alert: 'Invalid password'
     end
-
   end
 
   def delete

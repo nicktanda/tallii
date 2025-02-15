@@ -24,6 +24,17 @@ module Desktop
       end
     end
 
+    def update_password
+      return redirect_to desktop_user_settings_path unless current_user.authenticate(params[:old_password])
+      return redirect_to desktop_user_settings_path unless params[:new_password] == params[:password_confirmation]
+  
+      if current_user.update(password: params[:new_password])
+        redirect_to desktop_user_settings_path, notice: 'Password updated'
+      else
+        redirect_to desktop_user_settings_path, alert: 'Invalid password'
+      end
+    end
+
     def organisation; end
     def update_organisation
       current_organisation.assign_attributes(organisation_params)

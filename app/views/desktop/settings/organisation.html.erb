@@ -1,3 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+    <%= msg %>
+  </div>
+<% end %>
 <div class="space-y-12 h-[85vh] overflow-y-scroll p-4">
   <div class="flex space-x-4 items-center">
     <div class="font-bold text-2xl">Administration</div>

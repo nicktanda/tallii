@@ -196,6 +196,7 @@ Rails.application.routes.draw do
   get "/desktop/settings/user", to: "desktop/settings#user", as: "desktop_user_settings"
   patch "/desktop/settings/user", to: "desktop/settings#update_user", as: "update_desktop_user_settings"
   patch "/desktop/settings/update_profile_picture", to: "desktop/settings#update_profile_picture", as: "update_desktop_profile_picture_settings"
+  patch "/desktop/settings/update_password", to: "desktop/settings#update_password", as: "update_desktop_password"
   get "/desktop/settings/organisation", to: "desktop/settings#organisation", as: "desktop_organisation_settings"
   patch "/desktop/settings/organisation", to: "desktop/settings#update_organisation", as: "update_desktop_organisation_settings"
   get "/desktop/settings/staff", to: "desktop/settings#staff", as: "desktop_staff_settings"
