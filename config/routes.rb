@@ -196,6 +196,7 @@ Rails.application.routes.draw do
   patch "/desktop/settings/user", to: "desktop/settings#update_user", as: "update_desktop_user_settings"
   get "/desktop/settings/organisation", to: "desktop/settings#organisation", as: "desktop_organisation_settings"
   patch "/desktop/settings/organisation", to: "desktop/settings#update_organisation", as: "update_desktop_organisation_settings"
+  get "/desktop/settings/staff", to: "desktop/settings#staff", as: "desktop_staff_settings"
   get "/desktop/settings/retail", to: "desktop/settings#retail", as: "desktop_retail_settings"
   patch "/desktop/settings/retail", to: "desktop/settings#update_retail", as: "update_desktop_retail_settings"
 

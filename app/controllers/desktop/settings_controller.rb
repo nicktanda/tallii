@@ -25,6 +25,8 @@ module Desktop
       end
     end
 
+    def staff; end
+
     def retail; end
     def update_retail
       current_organisation.assign_attributes(organisation_params)

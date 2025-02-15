@@ -1,0 +1,20 @@
+<div class="space-y-12 h-[85vh] overflow-y-scroll p-4">
+  <div class="flex space-x-4 items-center">
+    <div class="font-bold text-2xl">Administration</div>
+    <%= link_to desktop_organisation_settings_path do %>
+      <div class="p-2 rounded-lg">Company Profile</div>
+    <% end %>
+    <%= link_to desktop_staff_settings_path do %>
+      <div class="bg-white p-2 rounded-lg">Staff Management</div>
+    <% end %>
+    <%= link_to desktop_user_settings_path do %>
+      <div class="p-2 rounded-lg">User Profile</div>
+    <% end %>
+  </div>
+  <div class="space-y-4">
+    <div class="space-y-8 w-full bg-white rounded-lg p-4">
+      
+    </div>
+    <div class="font-thin px-8">+ Last Save: <%= current_organisation.updated_at.strftime('%d %b %Y') %></div>
+  </div>
+</div>
