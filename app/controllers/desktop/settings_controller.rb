@@ -8,7 +8,17 @@ module Desktop
       current_user.images.create!(name: "Profile Pic", image: params[:user][:image]) if params[:user][:image]
 
       if current_user.save
-        redirect_to desktop_settings_path, notice: 'User updated'
+        redirect_to desktop_user_settings_path, notice: 'User updated'
+      else
+        redirect_back fallback_location: desktop_user_settings_path, alert: 'Invalid user information'
+      end
+    end
+    
+    def update_profile_picture
+      current_user.images.create!(name: "Profile Pic", image: params[:image]) if params[:image]
+
+      if current_user.save
+        redirect_to desktop_user_settings_path, notice: 'User updated'
       else
         redirect_back fallback_location: desktop_user_settings_path, alert: 'Invalid user information'
       end

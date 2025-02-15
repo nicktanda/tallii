@@ -128,7 +128,7 @@
         <div>
           <% if current_user.images&.order(:created_at)&.first&.image.present? %>
           <div class="w-full flex justify-center items-center">
-            <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="rounded-full w-16 h-16 flex-shrink-0">
+            <img src="<%= url_for(current_user.images.order(:created_at).last.image) %>" alt="<%= current_user.first_name %>" class="rounded-full w-16 h-16 flex-shrink-0">
           </div>
           <% end %>
           <div class="text-center w-full font-bold text-white"><%= current_user.first_name %></div>
