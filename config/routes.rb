@@ -81,8 +81,6 @@ Rails.application.routes.draw do
   post "/onboarding/pets/:id/health_conditions", to: "pets/onboarding#update_health_conditions", as: "update_pet_health_conditions_onboarding"
   get "/onboarding/pets/:id/images", to: "pets/onboarding#images", as: "pet_images_onboarding"
   post "/onboarding/pets/:id/images", to: "pets/onboarding#upload_image", as: "upload_pet_image_onboarding"
-  get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
-  post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
   get "/sign_up", to: "onboarding_users#new", as: "new_user_onboarding"
   get "/onboarding/user/:id/email", to: "onboarding_users#email", as: "user_email_onboarding"
