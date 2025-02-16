@@ -1,7 +1,12 @@
-<div class="fixed bottom-0 w-full p-4 text-white text-center space-y-24 px-8 pb-8">
-  <div class="text-4xl font-bold">Thank you for your information</div>
-  <%= button_to create_user_onboarding_path(@user), class: "w-full bg-yellow-200 text-black p-4 rounded-lg" do %>
-    <div>Now it's your pet's turn!</div>
-  <% end %>
-  <div></div>
+<div class="w-full p-4 text-white text-center space-y-12 px-4 pb-8">
+  <%= image_tag "/app_images/onboarding_user_img.jpg" %>
+  <div class="space-y-4">
+    <div class="text-4xl font-bold">Thank you for your information</div>
+    <div class="px-4">Your information will be saved in your groomer's database. You can delete or alter your data anytime in the app settings.</div>
+  </div>
+  <div class="px-8">
+    <%= button_to create_user_onboarding_path(@user), class: "w-full bg-yellow-200 text-black p-4 rounded-lg" do %>
+      <div>Now it's your pet's turn!</div>
+    <% end %>
+  </div>
 </div>
