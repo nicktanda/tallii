@@ -46,9 +46,9 @@ module Desktop
       groom.assign_attributes(groom_params)
 
       if groom.save
-        redirect_to desktop_grooms_path, notice: 'Groom updated successfully'
+        redirect_to desktop_grooms_path(date: groom.date), notice: 'Groom updated successfully'
       else
-        redirect_back fallback_location: desktop_groom_path(groom), alert: 'Invalid groom information'
+        redirect_back fallback_location: desktop_grooms_path, alert: 'Invalid groom information'
       end
     end
 
