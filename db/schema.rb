@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_09_124815) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_26_122836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -158,10 +158,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_09_124815) do
     t.string "address"
     t.string "city"
     t.string "postcode"
-    t.bigint "organisation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_onboarding_users_on_organisation_id"
+    t.string "access_code"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -193,6 +192,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_09_124815) do
     t.integer "grooming_reward_points", default: 0
     t.integer "daycare_visit_reward_points", default: 0
     t.text "country"
+    t.string "access_code", null: false
   end
 
   create_table "pets", force: :cascade do |t|
@@ -355,7 +355,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_09_124815) do
   add_foreign_key "log_reports", "temporary_grooms"
   add_foreign_key "onboarding_pets", "organisations"
   add_foreign_key "onboarding_pets", "users"
-  add_foreign_key "onboarding_users", "organisations"
   add_foreign_key "orders", "organisations"
   add_foreign_key "orders", "users"
   add_foreign_key "pets", "organisations"

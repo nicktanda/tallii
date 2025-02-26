@@ -1,4 +1,8 @@
 class Organisation < ApplicationRecord
+  before_validation :generate_unique_code, on: :create
+
+  validates :access_code, presence: true, uniqueness: true
+  
   has_many :users
   has_many :pets
   has_many :onboarding_pets, dependent: :destroy
@@ -24,5 +28,14 @@ class Organisation < ApplicationRecord
   
   def daycare_visits_this_week_count
     (self.daycare_visits.this_week + self.temporary_daycare_visits.this_week).count
+  end
+
+  private
+
+  def generate_unique_code
+    self.access_code ||= loop do
+      random_code = SecureRandom.alphanumeric(6)
+      break random_code unless self.class.exists?(access_code: random_code)
+    end
   end
 end

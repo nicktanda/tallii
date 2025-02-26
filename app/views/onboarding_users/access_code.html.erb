@@ -1,5 +1,12 @@
+<% if flash[:alert].present? -%>
+  <div class="p-4">
+    <div class="text-red-500 border-red-500 border rounded-lg p-2">
+      <%= flash[:alert] %>
+    </div>
+  </div>
+<% end -%>
 <div class="w-full p-4 text-white text-center space-y-8 px-8">
-  <%= form_with url: update_user_email_onboarding_path(@user) do |f| %>
+  <%= form_with url: update_user_access_code_onboarding_path(@user) do |f| %>
     <div class="space-y-4">
       <div class="flex space-x-4 items-center">
         <div class="flex space-x-2 items-center">
@@ -13,13 +20,14 @@
       </div>
       <div class="space-y-8">
         <div class="space-y-4">
-          <div class="font-thin text-sm">(1/4 steps)</div>
-          <div>Enter your email below</div>
+          <div>Hello you beautiful pet owner! Please enter your access code below</div>
+          <div>Your groomer will give you this code to access Talii</div>
         </div>
-        <%= f.email_field :email, value: @user.email, required: true, placeholder: "Bow.wow@gmail.com", class: "bg-black border-2 border-white rounded-2xl text-white text-lg p-4 w-full" %>
+        <%= f.text_field :access_code, value: @user.access_code, required: true, placeholder: "x28b4f", class: "bg-black border-2 border-white rounded-2xl text-white text-lg p-4 w-full" %>
       </div>
       <div class="space-y-4">
         <%= f.submit "Next", class: "w-full bg-blue-800 p-4 rounded-lg" %>
+        <div class="text-sm">Already have an account? <%= link_to "Log in", new_session_path, class: "font-bold" %></div>
       </div>
     </div>
   <% end %>

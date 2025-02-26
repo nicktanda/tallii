@@ -83,6 +83,8 @@ Rails.application.routes.draw do
   post "/onboarding/pets/:id/images", to: "pets/onboarding#upload_image", as: "upload_pet_image_onboarding"
 
   get "/sign_up", to: "onboarding_users#new", as: "new_user_onboarding"
+  get "/onboarding/user/:id/access_code", to: "onboarding_users#access_code", as: "user_access_code_onboarding"
+  post "/onboarding/user/:id/access_code", to: "onboarding_users#update_access_code", as: "update_user_access_code_onboarding"
   get "/onboarding/user/:id/email", to: "onboarding_users#email", as: "user_email_onboarding"
   post "/onboarding/user/:id/email", to: "onboarding_users#update_email", as: "update_user_email_onboarding"
   get "/onboarding/user/:id/password", to: "onboarding_users#password", as: "user_password_onboarding"
@@ -93,8 +95,6 @@ Rails.application.routes.draw do
   post "/onboarding/user/:id/phone", to: "onboarding_users#update_phone", as: "update_user_phone_onboarding"
   get "/onboarding/user/:id/address", to: "onboarding_users#address", as: "user_address_onboarding"
   post "/onboarding/user/:id/address", to: "onboarding_users#update_address", as: "update_user_address_onboarding"
-  get "/onboarding/user/:id/organisation", to: "onboarding_users#organisation", as: "user_organisation_onboarding"
-  post "/onboarding/user/:id/organisation", to: "onboarding_users#update_organisation", as: "update_user_organisation_onboarding"
   get "/onboarding/user/:id/complete", to: "onboarding_users#complete", as: "complete_user_onboarding"
   post "/onboarding/user/:id/create", to: "onboarding_users#create_user", as: "create_user_onboarding"
 
