@@ -77,6 +77,8 @@ module Desktop
         end
       end
 
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+
       notice = "#{user_count} customers imported successfully"
       notice += ", Failed to import customers: #{error_messages.join(', ')}" if error_messages.any?
 
@@ -132,6 +134,8 @@ module Desktop
           error_messages << e.message
         end
       end
+
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
 
       notice = "#{user_count} employees imported successfully"
       notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
@@ -194,8 +198,10 @@ module Desktop
         end
       end
 
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+
       notice = "#{pet_count} pets imported successfully"
-      notice += ", Failed to import pets: #{error_messages.join(', ')}" if error_messages.any?
+      notice += ". Some pets failed to import. See details below." if error_messages.any?
 
       redirect_to desktop_import_path, alert: notice
     end
