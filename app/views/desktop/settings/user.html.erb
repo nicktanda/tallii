@@ -50,6 +50,10 @@
             <%= f.label :email %>
             <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
           </div>
+          <div>
+            <%= f.label :phone %>
+            <%= f.phone_field :phone, required: true, class: "border w-full rounded-lg p-2" %>
+          </div>
           <div class="flex justify-end">
             <div class="flex space-x-2 text-blue-700 border-blue-500 border-2 rounded-lg p-2" onclick='document.getElementById("editPasswordDialog").showModal();'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
