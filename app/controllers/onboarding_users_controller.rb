@@ -27,9 +27,7 @@ class OnboardingUsersController < ApplicationController
   def update_email
     user = User.find_by(email: params[:email])
 
-    unless user
-      return redirect_to user_email_onboarding_path(@user), alert: "Email already exists!"
-    end
+    return redirect_to user_email_onboarding_path(@user), alert: "Email already exists!" if user
 
     @user.update!(email: params[:email])
     redirect_to user_password_onboarding_path(@user)
