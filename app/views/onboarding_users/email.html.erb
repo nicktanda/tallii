@@ -1,8 +1,10 @@
 <% if flash[:alert].present? -%>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
+  <div class="p-4">
+    <div class="text-red-500 border-red-500 border rounded-lg p-2">
+      <%= flash[:alert] %>
+    </div>
   </div>
-<% end %>
+<% end -%>
 <div class="w-full p-4 text-white text-center space-y-8 px-8">
   <%= form_with url: update_user_email_onboarding_path(@user) do |f| %>
     <div class="space-y-4">
