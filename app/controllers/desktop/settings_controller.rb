@@ -8,9 +8,30 @@ module Desktop
       current_user.images.create!(name: "Profile Pic", image: params[:user][:image]) if params[:user][:image]
 
       if current_user.save
-        redirect_to desktop_settings_path, notice: 'User updated'
+        redirect_to desktop_user_settings_path, notice: 'User updated'
       else
         redirect_back fallback_location: desktop_user_settings_path, alert: 'Invalid user information'
+      end
+    end
+    
+    def update_profile_picture
+      current_user.images.create!(name: "Profile Pic", image: params[:image]) if params[:image]
+
+      if current_user.save
+        redirect_to desktop_user_settings_path, notice: 'User updated'
+      else
+        redirect_back fallback_location: desktop_user_settings_path, alert: 'Invalid user information'
+      end
+    end
+
+    def update_password
+      return redirect_to desktop_user_settings_path unless current_user.authenticate(params[:old_password])
+      return redirect_to desktop_user_settings_path unless params[:new_password] == params[:password_confirmation]
+  
+      if current_user.update(password: params[:new_password])
+        redirect_to desktop_user_settings_path, notice: 'Password updated'
+      else
+        redirect_to desktop_user_settings_path, alert: 'Invalid password'
       end
     end
 
@@ -24,6 +45,8 @@ module Desktop
         redirect_back fallback_location: desktop_organisation_settings_path, alert: 'Invalid organisation information'
       end
     end
+
+    def staff; end
 
     def retail; end
     def update_retail

@@ -23,9 +23,9 @@ module Desktop
       daycare_visit.assign_attributes(daycare_visit_params)
 
       if daycare_visit.save
-        redirect_to desktop_daycare_visits_path, notice: 'Daycare visit updated successfully'
+        redirect_to desktop_daycare_visits_path(date: daycare_visit.date), notice: 'Daycare visit updated successfully'
       else
-        redirect_back fallback_location: desktop_daycare_visit_path(daycare_visit), alert: 'Invalid daycare visit information'
+        redirect_back fallback_location: desktop_daycare_visits_path, alert: 'Invalid daycare visit information'
       end
     end
 

@@ -12,9 +12,10 @@
     <%= javascript_importmap_tags %>
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
     <script src="https://js.stripe.com/v3"></script>
+    <%= favicon_link_tag '/app_images/app_icon.png', type: 'image/png' %>
   </head>
 
-  <% if controller_name == "sessions" && action_name == "choose_platform" %>
+  <% if controller_name == "sessions" %>
     <body class="min-h-screen bg-black flex flex-col">
       <%= yield %>
     </body>

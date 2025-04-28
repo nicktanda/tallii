@@ -1,3 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+    <%= msg %>
+  </div>
+<% end %>
 <div class="bg-white flex w-full h-[85vh]">
   <div class="w-[30vw] bg-gray-200 p-4">
     <div class="font-bold text-xl">Employees</div>
@@ -102,6 +107,3 @@
     <% end %>
   </div>
 </div>
-<script>
-  document.getElementById('file-input3').removeAttribute('accept');
-</script>

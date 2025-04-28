@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_26_122836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,23 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
+  create_table "log_reports", force: :cascade do |t|
+    t.bigint "groom_id"
+    t.bigint "temporary_groom_id"
+    t.bigint "daycare_visit_id"
+    t.bigint "temporary_daycare_visit_id"
+    t.text "org_notes", default: "", null: false
+    t.text "customer_notes", default: "", null: false
+    t.float "price", default: 0.0, null: false
+    t.integer "payment_method", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daycare_visit_id"], name: "index_log_reports_on_daycare_visit_id"
+    t.index ["groom_id"], name: "index_log_reports_on_groom_id"
+    t.index ["temporary_daycare_visit_id"], name: "index_log_reports_on_temporary_daycare_visit_id"
+    t.index ["temporary_groom_id"], name: "index_log_reports_on_temporary_groom_id"
+  end
+
   create_table "onboarding_organisations", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -141,10 +158,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
     t.string "address"
     t.string "city"
     t.string "postcode"
-    t.bigint "organisation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_onboarding_users_on_organisation_id"
+    t.string "access_code"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -175,6 +191,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
     t.text "stripe_api_key"
     t.integer "grooming_reward_points", default: 0
     t.integer "daycare_visit_reward_points", default: 0
+    t.text "country"
+    t.string "access_code", null: false
   end
 
   create_table "pets", force: :cascade do |t|
@@ -193,6 +211,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
     t.datetime "updated_at", null: false
     t.text "notes"
     t.date "date_of_death"
+    t.integer "status", default: 0
+    t.text "allergies"
+    t.text "medication"
+    t.date "rabies_expiration"
+    t.date "bordetella_expiration"
+    t.date "dhpp_expiration"
+    t.date "heartworm_expiration"
+    t.date "kennel_cough_expiration"
+    t.string "colour_codes", default: [], array: true
     t.index ["organisation_id"], name: "index_pets_on_organisation_id"
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
@@ -296,6 +323,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
     t.text "notes"
     t.string "colour"
     t.integer "rewards_points", default: 0
+    t.text "additional_user_first_name"
+    t.text "additional_user_last_name"
+    t.text "additional_user_email"
+    t.text "additional_user_phone"
+    t.text "additional_user_relationship"
+    t.string "colour_codes", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
   end
@@ -316,9 +349,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_053059) do
   add_foreign_key "images", "products"
   add_foreign_key "images", "temporary_grooms"
   add_foreign_key "images", "users"
+  add_foreign_key "log_reports", "daycare_visits"
+  add_foreign_key "log_reports", "grooms"
+  add_foreign_key "log_reports", "temporary_daycare_visits"
+  add_foreign_key "log_reports", "temporary_grooms"
   add_foreign_key "onboarding_pets", "organisations"
   add_foreign_key "onboarding_pets", "users"
-  add_foreign_key "onboarding_users", "organisations"
   add_foreign_key "orders", "organisations"
   add_foreign_key "orders", "users"
   add_foreign_key "pets", "organisations"

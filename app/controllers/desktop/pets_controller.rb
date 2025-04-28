@@ -39,9 +39,9 @@ module Desktop
 
       if pet.save
         pet.images.create!(name: "test_image", image: params[:pet][:image]) if params[:pet][:image]
-        redirect_to desktop_user_path(user), notice: 'Pet updated successfully'
+        redirect_to desktop_user_edit_path(user), notice: 'Pet updated successfully'
       else
-        redirect_back fallback_location: new_pet_onboarding_path, alert: 'Invalid pet information'
+        redirect_back fallback_location: desktop_user_edit_path(user), alert: 'Invalid pet information'
       end
     end
 
@@ -50,6 +50,7 @@ module Desktop
       pet.assign_attributes(pet_params)
 
       if pet.save
+        pet.update!(colour_codes: params[:pet][:colour_codes] || [])
         return redirect_to desktop_user_path(pet.user), notice: "Pet updated successfully" unless pet.alive?
         redirect_to desktop_pets_path(pet), notice: 'Pet updated successfully'
       else
@@ -65,10 +66,85 @@ module Desktop
       redirect_to desktop_user_path(user)
     end
 
+    def download_rabies_evidence
+      pet = Pet.find(params[:id])
+  
+      if pet.rabies_evidence.attached?
+        redirect_to rails_blob_url(pet.rabies_evidence, disposition: "attachment")
+      else
+        redirect_back fallback_location: desktop_pets_path(pet), alert: "File not found."
+      end
+    end
+    
+    def download_bordetella_evidence
+      pet = Pet.find(params[:id])
+  
+      if pet.bordetella_evidence.attached?
+        redirect_to rails_blob_url(pet.bordetella_evidence, disposition: "attachment")
+      else
+        redirect_back fallback_location: desktop_pets_path(pet), alert: "File not found."
+      end
+    end
+    
+    def download_dhpp_evidence
+      pet = Pet.find(params[:id])
+  
+      if pet.dhpp_evidence.attached?
+        redirect_to rails_blob_url(pet.dhpp_evidence, disposition: "attachment")
+      else
+        redirect_back fallback_location: desktop_pets_path(pet), alert: "File not found."
+      end
+    end
+    
+    def download_heartworm_evidence
+      pet = Pet.find(params[:id])
+  
+      if pet.heartworm_evidence.attached?
+        redirect_to rails_blob_url(pet.heartworm_evidence, disposition: "attachment")
+      else
+        redirect_back fallback_location: desktop_pets_path(pet), alert: "File not found."
+      end
+    end
+    
+    def download_kennel_cough_evidence
+      pet = Pet.find(params[:id])
+  
+      if pet.kennel_cough_evidence.attached?
+        redirect_to rails_blob_url(pet.kennel_cough_evidence, disposition: "attachment")
+      else
+        redirect_back fallback_location: desktop_pets_path(pet), alert: "File not found."
+      end
+    end
+
     private
 
     def pet_params
-      params.require(:pet).except(:user_name).permit(:name, :species, :gender, :dob, :breed, :weight, :health_conditions, :notes, :date_of_death)
+      params
+        .require(:pet)
+        .except(:user_name)
+        .permit(
+          :name,
+          :species,
+          :gender,
+          :dob,
+          :breed,
+          :weight,
+          :health_conditions,
+          :notes,
+          :date_of_death,
+          :status,
+          :allergies,
+          :medication,
+          :rabies_expiration,
+          :rabies_evidence,
+          :bordetella_expiration,
+          :bordetella_evidence,
+          :dhpp_expiration,
+          :dhpp_evidence,
+          :heartworm_expiration,
+          :heartworm_evidence,
+          :kennel_cough_evidence
+        )
     end
   end
 end

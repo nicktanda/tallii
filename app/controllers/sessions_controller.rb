@@ -2,16 +2,14 @@ class SessionsController < ApplicationController
   skip_before_action :require_authenticated_user
   skip_before_action :require_pet
   skip_before_action :prevent_customer_accessing_desktop
-  before_action :prevent_users_reaching_platform_switch, only: :choose_platform
-  before_action :require_organisation, only: :choose_platform
-
-  def choose_platform; end
 
   def new
     return redirect_to current_pet_profile_path if current_user
   end
 
   def create
+    return redirect_to current_pet_profile_path if current_user
+
     user = User.find_by(email: params[:email])
 
     if user&.authenticate(params[:password])
@@ -21,7 +19,7 @@ class SessionsController < ApplicationController
       if current_user.role == "customer"
         redirect_to current_pet_profile_path
       else
-        redirect_to root_path
+        redirect_to mobile_app_profile_path
       end
     else
       redirect_back fallback_location: new_session_path, alert: 'Invalid email or password'
@@ -47,7 +45,7 @@ class SessionsController < ApplicationController
 
   def require_organisation
     unless current_organisation
-      redirect_to desktop_organisations_new_path
+      redirect_to desktop_onboarding_organisation_user_details_path
     end
   end
 end

@@ -1,3 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+    <%= msg %>
+  </div>
+<% end %>
 <div class="space-y-8">
   <div>
     <div class="flex items-center space-x-4">
@@ -60,32 +65,117 @@
                     </td>
                     <td class="flex space-x-4 p-4">
                       <% if groom.is_a?(Groom) %>
-                        <%= link_to desktop_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% else %>
-                        <%= link_to desktop_temporary_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% end %>
+                      <dialog id="edit<%= groom.class %>Dialog<%= groom.id %>">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                            <div class="flex justify-between p-4 rounded-t-xl">
+                              <div class="flex space-x-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <div class="font-bold text-2xl">Scheduled Groom</div>
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>
+                            </div>
+                            <%= form_for groom, url: desktop_groom_update_path(groom), method: :patch do |f| %>
+                              <div class="space-y-2">
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <div>Scheduled Pet:</div>
+                                  <div class="bg-green-300 border border-green-500 p-4 rounded-xl inline-flex space-x-2 w-fit">
+                                    <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
+                                      <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
+                                    <% end %>
+                                    <div>
+                                      <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <div><%= groom.pet.breed %></div>
+                                        <div><%= groom.pet.gender.humanize %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Customer:</div>
+                                    <div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <%= link_to desktop_user_edit_path(groom.pet.user), class: "focus:outline-none" do %>
+                                          <div class="text-blue-500"><%= groom.pet.user.full_name %></div>
+                                        <% end %>
+                                      <% else %>
+                                        <div class="text-blue-500"><%= groom.owner_name %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Date:</div>
+                                    <div><%= groom.date.strftime("%I:%M%P") %></div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Time:</div>
+                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                  </div>
+                                  <div class="flex justify-between items-center">
+                                    <div>Groomer:</div>
+                                    <div class="flex space-x-2">
+                                      <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { class: "bg-white text-black border border-gray-300 rounded-lg p-2" }) %>
+                                      <% if groom.user.present? %>
+                                        <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800">
+                                          <%= groom.user.first_name.first %><%= groom.user.last_name.first %>
+                                        </div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <% if groom.is_a?(Groom) %>
+                                    <div>
+                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% else %>
+                                    <div>
+                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% end %>
+                                  <div>
+                                    <%= f.label :status, "Status" %>
+                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="p-2 w-full flex justify-center">
+                                  <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                    Update Groom
+                                  </button>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </dialog>
                       <% if groom.is_a?(Groom) %>
                         <%= button_to desktop_groom_update_path(groom, groom: { status: "in_progress" }), method: :patch do %>
                           <div class="flex flex-col items-center justify-center">
@@ -142,32 +232,117 @@
                     </td>
                     <td class="flex space-x-4 p-4">
                       <% if groom.is_a?(Groom) %>
-                        <%= link_to desktop_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% else %>
-                        <%= link_to desktop_temporary_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% end %>
+                      <dialog id="edit<%= groom.class %>Dialog<%= groom.id %>">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                            <div class="flex justify-between p-4 rounded-t-xl">
+                              <div class="flex space-x-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <div class="font-bold text-2xl">Scheduled Groom</div>
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>
+                            </div>
+                            <%= form_for groom, url: desktop_groom_update_path(groom), method: :patch do |f| %>
+                              <div class="space-y-2">
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <div>Scheduled Pet:</div>
+                                  <div class="bg-green-300 border border-green-500 p-4 rounded-xl inline-flex space-x-2 w-fit">
+                                    <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
+                                      <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
+                                    <% end %>
+                                    <div>
+                                      <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <div><%= groom.pet.breed %></div>
+                                        <div><%= groom.pet.gender.humanize %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Customer:</div>
+                                    <div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <%= link_to desktop_user_edit_path(groom.pet.user), class: "focus:outline-none" do %>
+                                          <div class="text-blue-500"><%= groom.pet.user.full_name %></div>
+                                        <% end %>
+                                      <% else %>
+                                        <div class="text-blue-500"><%= groom.owner_name %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Date:</div>
+                                    <div><%= groom.date.strftime("%I:%M%P") %></div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Time:</div>
+                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                  </div>
+                                  <div class="flex justify-between items-center">
+                                    <div>Groomer:</div>
+                                    <div class="flex space-x-2">
+                                      <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { class: "bg-white text-black border border-gray-300 rounded-lg p-2" }) %>
+                                      <% if groom.user.present? %>
+                                        <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800">
+                                          <%= groom.user.first_name.first %><%= groom.user.last_name.first %>
+                                        </div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <% if groom.is_a?(Groom) %>
+                                    <div>
+                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% else %>
+                                    <div>
+                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% end %>
+                                  <div>
+                                    <%= f.label :status, "Status" %>
+                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="p-2 w-full flex justify-center">
+                                  <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                    Update Groom
+                                  </button>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </dialog>
                       <% if groom.is_a?(Groom) %>
                         <%= button_to desktop_groom_update_path(groom, groom: { status: "completed" }), method: :patch do %>
                           <div class="flex flex-col items-center justify-center">
@@ -225,50 +400,224 @@
                     </td>
                     <td class="flex space-x-4 p-4">
                       <% if groom.is_a?(Groom) %>
-                        <%= link_to desktop_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% else %>
-                        <%= link_to desktop_temporary_groom_path(groom.pet) do %>
-                          <div class="flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
-                              <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
-                              <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
-                              <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
-                              <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
-                              <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
-                            </svg>
-                            <div class="text-sm text-center font-bold">Details</div>
-                          </div>
-                        <% end %>
+                        <div class="flex flex-col items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").showModal();'>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="w-6 h-6" stroke="black" stroke-width="3">
+                            <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="black"/>
+                            <path d="M53.5602 89.51H51.7676C31.9702 89.51 15.8638 73.4038 15.8638 53.6057V29.5031C15.8638 27.8885 17.1724 26.5808 18.7865 26.5808C20.4005 26.5808 21.7093 27.8885 21.7093 29.5031V53.6057C21.7093 70.1803 35.1933 83.6641 51.7676 83.6641H53.5602C70.1345 83.6641 83.6184 70.1803 83.6184 53.6057V29.5031C83.6184 27.8885 84.9272 26.5808 86.5413 26.5808C88.1553 26.5808 89.464 27.8885 89.464 29.5031V53.6057C89.464 73.4038 73.3575 89.51 53.5602 89.51Z" fill="black"/>
+                            <path d="M36.8315 37.4354C39.8785 38.0114 41.8293 41.2281 41.1887 44.6199C40.548 48.013 37.5586 50.2963 34.5116 49.7215C31.4646 49.1455 29.5139 45.9288 30.1545 42.537C30.7951 39.144 33.7845 36.8606 36.8315 37.4354Z" fill="black"/>
+                            <path d="M68.4954 37.4354C65.4485 38.0114 63.4978 41.2281 64.1384 44.6199C64.7789 48.013 67.7684 50.2963 70.8153 49.7215C73.8623 49.1455 75.813 45.9288 75.1724 42.537C74.532 39.144 71.5425 36.8606 68.4954 37.4354Z" fill="black"/>
+                            <path d="M52.5001 60.346C57.2572 60.346 61.1135 61.6606 61.1135 64.2875C61.1135 67.7916 57.2572 71.2957 52.5001 71.2957C47.7429 71.2957 43.8867 67.7916 43.8867 64.2875C43.8867 61.6606 47.7429 60.346 52.5001 60.346Z" fill="black"/>
+                          </svg>
+                          <div class="text-sm text-center font-bold">Details</div>
+                        </div>
                       <% end %>
-                      <div class="flex flex-col items-center justify-center" onclick='document.getElementById("notesDialog<%= groom.class %><%= groom.id %>").showModal();'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" stroke="black" stroke-width="3">
+                      <div class="flex flex-col items-center justify-center" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").showModal();'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                         </svg>
-                        <div class="text-sm text-center font-bold">Notes</div>
+                        <div class="text-sm text-center font-bold">Log Report</div>
                       </div>
-                      <dialog id="notesDialog<%= groom.class %><%= groom.id %>">
-                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-75 backdrop-blur-sm" onclick='document.getElementById("notesDialog<%= groom.class %><%= groom.id %>").close();'>
-                          <div class="bg-white absolute bottom-0 w-full px-4 py-8 space-y-10" onclick="event.stopPropagation();">
-                            <div class="flex justify-between">
-                              <div class="font-bold text-2xl">Notes</div>
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("notesDialog<%= groom.class %><%= groom.id %>").close();'>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      <dialog id="editLogReport<%= groom.class %><%= groom.id %>Dialog">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").close();'>
+                          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                            <div class="flex justify-between p-4 rounded-t-xl">
+                              <div class="flex space-x-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <div class="font-bold text-2xl">Log Report</div>
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("editLogReport<%= groom.class %><%= groom.id %>Dialog").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                               </svg>
                             </div>
-                            <div class="flex flex-wrap space-x-4 items-center">
-                              <div class="break-words w-full"><%= groom.notes %></div>
+                            <% if groom.log_report.nil? %>
+                              <%= form_with model: LogReport.new, url: desktop_groom_log_report_create_path(groom), method: :post do |f| %>
+                                <%= f.hidden_field :booking_type, value: groom.class %>
+                                <div class="space-y-2">
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-4">
+                                      <div>
+                                        <div>Report Type</div>
+                                        <div class="bg-gray-200 rounded-xl p-2">Grooming Report</div>
+                                      </div>
+                                      <div>
+                                        <div>Date</div>
+                                        <div class="bg-gray-200 rounded-xl p-2"><%= groom.date.strftime("%d/%m/%Y") %></div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <%= f.label :org_notes, "Groomer Report Notes" %>
+                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                    <div>
+                                      <%= f.label :customer_notes, "Customer Report Notes" %>
+                                      <%= f.text_area :customer_notes, placeholder: "Customer sees notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                  </div>
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-2">
+                                      <div>
+                                        <%= f.label :price, "Price of Groom" %>
+                                        <%= f.number_field :price, placeholder: "$00.00", step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                      </div>
+                                      <div>
+                                        <%= f.label :payment_method, "Payment Method" %>
+                                        <%= f.select(:payment_method, options_for_select([["Cash", "cash"], ["Card", "card"]], selected: groom.log_report&.payment_method), { prompt: 'Select' }, { required: true, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="p-2 w-full flex justify-center">
+                                    <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                      Update Report
+                                    </button>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% else %>
+                              <%= form_with model: LogReport.new, url: desktop_groom_log_report_update_path(groom.id), method: :patch do |f| %>
+                                <%= f.hidden_field :booking_type, value: groom.class %>
+                                <div class="space-y-2">
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-4">
+                                      <div>
+                                        <div>Report Type</div>
+                                        <div class="bg-gray-200 rounded-xl p-2">Grooming Report</div>
+                                      </div>
+                                      <div>
+                                        <div>Date</div>
+                                        <div class="bg-gray-200 rounded-xl p-2"><%= groom.date.strftime("%d/%m/%Y") %></div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <%= f.label :org_notes, "Groomer Report Notes" %>
+                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", value: groom.log_report.org_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                    <div>
+                                      <%= f.label :customer_notes, "Customer Report Notes" %>
+                                      <%= f.text_area :customer_notes, placeholder: "Customer sees notes...", value: groom.log_report.customer_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                    </div>
+                                  </div>
+                                  <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div class="flex space-x-2">
+                                      <div>
+                                        <%= f.label :price, "Price of Groom" %>
+                                        <%= f.number_field :price, placeholder: "$00.00", value: (groom.log_report.price.present? ? sprintf('%.2f', groom.log_report.price) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                      </div>
+                                      <div>
+                                        <%= f.label :payment_method, "Payment Method" %>
+                                        <%= f.select(:payment_method, options_for_select([["Cash", "cash"], ["Card", "card"]], selected: groom.log_report&.payment_method), { prompt: 'Select' }, { required: true, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="p-2 w-full flex justify-center">
+                                    <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                      Update Report
+                                    </button>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </dialog>
+                      <dialog id="edit<%= groom.class %>Dialog<%= groom.id %>">
+                        <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                          <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+                            <div class="flex justify-between p-4 rounded-t-xl">
+                              <div class="flex space-x-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <div class="font-bold text-2xl">Scheduled Groom</div>
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" onclick='document.getElementById("edit<%= groom.class %>Dialog<%= groom.id %>").close();'>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>
                             </div>
+                            <%= form_for groom, url: desktop_groom_update_path(groom), method: :patch do |f| %>
+                              <div class="space-y-2">
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <div>Scheduled Pet:</div>
+                                  <div class="bg-green-300 border border-green-500 p-4 rounded-xl inline-flex space-x-2 w-fit">
+                                    <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
+                                      <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
+                                    <% end %>
+                                    <div>
+                                      <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <div><%= groom.pet.breed %></div>
+                                        <div><%= groom.pet.gender.humanize %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Customer:</div>
+                                    <div>
+                                      <% if groom.is_a?(Groom) %>
+                                        <%= link_to desktop_user_edit_path(groom.pet.user), class: "focus:outline-none" do %>
+                                          <div class="text-blue-500"><%= groom.pet.user.full_name %></div>
+                                        <% end %>
+                                      <% else %>
+                                        <div class="text-blue-500"><%= groom.owner_name %></div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Date:</div>
+                                    <div><%= groom.date.strftime("%I:%M%P") %></div>
+                                  </div>
+                                  <div class="flex justify-between">
+                                    <div>Time:</div>
+                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                  </div>
+                                  <div class="flex justify-between items-center">
+                                    <div>Groomer:</div>
+                                    <div class="flex space-x-2">
+                                      <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map{|user| [user.full_name, user.id]}), { prompt: 'Select' }, { class: "bg-white text-black border border-gray-300 rounded-lg p-2" }) %>
+                                      <% if groom.user.present? %>
+                                        <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800">
+                                          <%= groom.user.first_name.first %><%= groom.user.last_name.first %>
+                                        </div>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 space-y-2">
+                                  <% if groom.is_a?(Groom) %>
+                                    <div>
+                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% else %>
+                                    <div>
+                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
+                                    </div>
+                                  <% end %>
+                                  <div>
+                                    <%= f.label :status, "Status" %>
+                                    <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="p-2 w-full flex justify-center">
+                                  <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
+                                    Update Groom
+                                  </button>
+                                </div>
+                              </div>
+                            <% end %>
                           </div>
                         </div>
                       </dialog>

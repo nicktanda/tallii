@@ -28,7 +28,9 @@
     </div>
     <div class="h-[10vh]"></div>
     <div class="flex items-center space-x-4">
-      <img src="<%= url_for(current_pet.images.order(:created_at).last.image) %>" alt="<%= current_pet.name %>" class="h-14 w-14 rounded-full flex flex-col justify-end">
+      <% if current_pet.images.any? %>
+        <img src="<%= url_for(current_pet.images.order(:created_at).last.image) %>" alt="<%= current_pet.name %>" class="h-14 w-14 rounded-full flex flex-col justify-end">
+      <% end %>
       <%= link_to pet_selection_path, class: "text-xl font-thin" do %>
         Switch Pet Account
       <% end %>

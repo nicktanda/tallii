@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  root to: "pets#current_pet_profile"
+
   get "/service-worker.js" => "service_worker#service_worker"
   get "/manifest.json" => "service_worker#manifest"
 
   # MOBILE APP ROUTES
-  get "/sign_up", to: "users#new", as: "new_user"
-  post "/sign_up", to: "users#create", as: "create_user"
   patch "/update/:id", to: "users#update", as: "update_user"
   delete "/delete/:id", to: "users#delete", as: "delete_user"
   get "/reset_password", to: "users#reset_password", as: "reset_password"
@@ -81,10 +81,10 @@ Rails.application.routes.draw do
   post "/onboarding/pets/:id/health_conditions", to: "pets/onboarding#update_health_conditions", as: "update_pet_health_conditions_onboarding"
   get "/onboarding/pets/:id/images", to: "pets/onboarding#images", as: "pet_images_onboarding"
   post "/onboarding/pets/:id/images", to: "pets/onboarding#upload_image", as: "upload_pet_image_onboarding"
-  get "/onboarding/pets/:id/complete", to: "pets/onboarding#complete", as: "complete_onboarding"
-  post "/onboarding/pets/:id/create", to: "pets/onboarding#create_pet", as: "create_pet_onboarding"
 
-  get "/onboarding/user", to: "onboarding_users#new", as: "new_user_onboarding"
+  get "/sign_up", to: "onboarding_users#new", as: "new_user_onboarding"
+  get "/onboarding/user/:id/access_code", to: "onboarding_users#access_code", as: "user_access_code_onboarding"
+  post "/onboarding/user/:id/access_code", to: "onboarding_users#update_access_code", as: "update_user_access_code_onboarding"
   get "/onboarding/user/:id/email", to: "onboarding_users#email", as: "user_email_onboarding"
   post "/onboarding/user/:id/email", to: "onboarding_users#update_email", as: "update_user_email_onboarding"
   get "/onboarding/user/:id/password", to: "onboarding_users#password", as: "user_password_onboarding"
@@ -95,14 +95,11 @@ Rails.application.routes.draw do
   post "/onboarding/user/:id/phone", to: "onboarding_users#update_phone", as: "update_user_phone_onboarding"
   get "/onboarding/user/:id/address", to: "onboarding_users#address", as: "user_address_onboarding"
   post "/onboarding/user/:id/address", to: "onboarding_users#update_address", as: "update_user_address_onboarding"
-  get "/onboarding/user/:id/organisation", to: "onboarding_users#organisation", as: "user_organisation_onboarding"
-  post "/onboarding/user/:id/organisation", to: "onboarding_users#update_organisation", as: "update_user_organisation_onboarding"
   get "/onboarding/user/:id/complete", to: "onboarding_users#complete", as: "complete_user_onboarding"
   post "/onboarding/user/:id/create", to: "onboarding_users#create_user", as: "create_user_onboarding"
 
   # DESKTOP APP ROUTES
   get "/desktop/dashboard", to: "desktop/dashboard#index", as: "desktop_dashboard"
-  root "sessions#choose_platform", as: "root"
 
   get "/desktop/grooms", to: "desktop/grooms#index", as: "desktop_grooms"
   get "/desktop/grooms/new", to: "desktop/grooms#new", as: "desktop_grooms_new"
@@ -111,6 +108,8 @@ Rails.application.routes.draw do
   post "/desktop/grooms/:id/images/upload", to: "desktop/grooms#upload_image", as: "desktop_groom_images_upload"
   delete "/desktop/grooms/:id/images/:image_id", to: "desktop/grooms#destroy_image", as: "desktop_groom_images_destroy"
   patch "/desktop/grooms/:id/update", to: "desktop/grooms#update", as: "desktop_groom_update"
+  post "/desktop/bookings/:id/log_report/create", to: "desktop/log_reports#create", as: "desktop_groom_log_report_create"
+  patch "/desktop/bookings/:id/log_report/update", to: "desktop/log_reports#update", as: "desktop_groom_log_report_update"
   
   get "/desktop/temporary_grooms/new", to: "desktop/temporary_grooms#new", as: "desktop_temporary_grooms_new"
   get "/desktop/temporary_grooms/:id", to: "desktop/temporary_grooms#show", as: "desktop_temporary_groom"
@@ -140,12 +139,14 @@ Rails.application.routes.draw do
   # employee routes
   get "/desktop/employees", to: "desktop/users/employees#index", as: "desktop_employees"
   get "/desktop/employees/new", to: "desktop/users/employees#new", as: "desktop_employees_new"
+  post "/desktop/employees/create", to: "desktop/users/users#create_staff", as: "desktop_create_staff"
   get "/desktop/employees/:id", to: "desktop/users/employees#show", as: "desktop_employee"
   get "/desktop/employees/:id/edit", to: "desktop/users/employees#edit", as: "desktop_employee_edit"
   
   # generic user action routes
-  get "/desktop/sign_up", to: "desktop/users/users#new", as: "desktop_user_new"
+  get "/desktop/users/new", to: "desktop/users/users#new", as: "desktop_user_new"
   post "/desktop/users/create", to: "desktop/users/users#create", as: "desktop_users_create"
+  post "/desktop/customers/create", to: "desktop/users/users#create_customer", as: "desktop_customers_create"
   patch "/desktop/users/:id/update", to: "desktop/users/users#update", as: "desktop_user_update"
   delete "/desktop/users/:id/delete", to: "desktop/users/users#delete", as: "desktop_user_delete"
 
@@ -178,6 +179,11 @@ Rails.application.routes.draw do
   patch "/desktop/pets/:id", to: "desktop/pets#update", as: "desktop_pets_update"
   get "/desktop/pets/:id", to: "desktop/pets#show", as: "desktop_pets"
   get "/desktop/pets/:id/images", to: "desktop/pets#pictures", as: "desktop_pets_pictures"
+  get "/desktop/pets/:id/rabies_evidence", to: "desktop/pets#download_rabies_evidence", as: "desktop_pets_download_rabies_evidence"
+  get "/desktop/pets/:id/bordetella_evidence", to: "desktop/pets#download_bordetella_evidence", as: "desktop_pets_download_bordetella_evidence"
+  get "/desktop/pets/:id/dhpp_evidence", to: "desktop/pets#download_dhpp_evidence", as: "desktop_pets_download_dhpp_evidence"
+  get "/desktop/pets/:id/heartworm_evidence", to: "desktop/pets#download_heartworm_evidence", as: "desktop_pets_download_heartworm_evidence"
+  get "/desktop/pets/:id/kennel_cough_evidence", to: "desktop/pets#download_kennel_cough_evidence", as: "desktop_pets_download_kennel_cough_evidence"
   post "/desktop/pets/:id/images", to: "desktop/pets#upload_new_image", as: "desktop_pets_pictures_upload"
   delete "/desktop/pets/:id/images/:image_id", to: "desktop/pets#delete_pet_picture", as: "desktop_pets_pictures_delete"
   delete "/desktop/pets/:id", to: "desktop/pets#delete", as: "desktop_pets_delete"
@@ -187,8 +193,11 @@ Rails.application.routes.draw do
   get "/desktop/settings", to: "desktop/settings#index", as: "desktop_settings"
   get "/desktop/settings/user", to: "desktop/settings#user", as: "desktop_user_settings"
   patch "/desktop/settings/user", to: "desktop/settings#update_user", as: "update_desktop_user_settings"
+  patch "/desktop/settings/update_profile_picture", to: "desktop/settings#update_profile_picture", as: "update_desktop_profile_picture_settings"
+  patch "/desktop/settings/update_password", to: "desktop/settings#update_password", as: "update_desktop_password"
   get "/desktop/settings/organisation", to: "desktop/settings#organisation", as: "desktop_organisation_settings"
   patch "/desktop/settings/organisation", to: "desktop/settings#update_organisation", as: "update_desktop_organisation_settings"
+  get "/desktop/settings/staff", to: "desktop/settings#staff", as: "desktop_staff_settings"
   get "/desktop/settings/retail", to: "desktop/settings#retail", as: "desktop_retail_settings"
   patch "/desktop/settings/retail", to: "desktop/settings#update_retail", as: "update_desktop_retail_settings"
 
@@ -203,12 +212,14 @@ Rails.application.routes.draw do
   post "/desktop/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
   post "/desktop/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"
 
-  get "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
+  get "/desktop/sign_up", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
   post "/desktop/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#update_user_details", as: "update_desktop_onboarding_organisation_user_details"
   get "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#organisation_details", as: "desktop_onboarding_organisation_organisation_details"
-  post "/desktop/onboarding/organisation/:id/organisation_details", to: "desktop/onboarding_organisations#update_organisation_details", as: "update_desktop_onboarding_organisation_organisation_details"
-  get "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#complete", as: "desktop_onboarding_organisation_complete"
-  post "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#complete", as: "update_desktop_onboarding_organisation_complete"
+  post "/desktop/onboarding/organisation/:id/complete", to: "desktop/onboarding_organisations#create_organisation", as: "update_desktop_onboarding_organisation_complete"
+
+  get "/desktop/login", to: "desktop/sessions#new", as: "desktop_new_session"
+  post "/desktop/login", to: "desktop/sessions#create", as: "desktop_create_session"
+  get "/desktop/logout", to: "desktop/sessions#destroy", as: "desktop_destroy_session"
 
   # Employee App Routes
   get "/employee_app/dashboard", to: "employee_app/mobile_app#profile", as: "mobile_app_profile"

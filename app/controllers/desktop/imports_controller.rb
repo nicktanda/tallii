@@ -77,8 +77,10 @@ module Desktop
         end
       end
 
-      notice = "#{user_count} employees imported successfully"
-      notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+
+      notice = "#{user_count} customers imported successfully"
+      notice += ", Failed to import customers: #{error_messages.join(', ')}" if error_messages.any?
 
       redirect_to desktop_import_path, alert: notice
     end
@@ -133,6 +135,8 @@ module Desktop
         end
       end
 
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+
       notice = "#{user_count} employees imported successfully"
       notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
 
@@ -150,7 +154,7 @@ module Desktop
       error_messages = []
 
       CSV.foreach(opened_file, **options) do |row|
-        user_id = row[0].to_s.strip.to_i
+        user_phone = row[0].to_s.strip
         name = row[1].to_s.strip
         dob = Date.strptime(row[2].to_s.strip, '%d/%m/%Y')
         breed = row[3].to_s.strip
@@ -159,19 +163,19 @@ module Desktop
         weight = row[6].to_s.strip
         health_conditions = row[7].to_s.strip
 
-        if user_id.blank? || name.empty? || dob.blank? || breed.blank? || species.blank? || gender.blank? || weight.blank? || health_conditions.blank?
+        if user_phone.blank? || name.empty? || dob.blank? || breed.blank? || species.blank? || gender.blank? || weight.blank? || health_conditions.blank?
           error_messages << "Pet #{row.inspect}: Missing required fields."
           next
         end
 
-        user = current_organisation.users.find_by(id: user_id)
+        user = current_organisation.users.find_by(phone: user_phone)
         unless user
           error_messages << "Pet #{row[0]}: User not found."
           next
         end
 
         pet = current_organisation.pets.new(
-          user_id: user.id, 
+          user: user, 
           name: name,
           dob: dob,
           breed: breed,
@@ -194,8 +198,10 @@ module Desktop
         end
       end
 
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+
       notice = "#{pet_count} pets imported successfully"
-      notice += ", Failed to import pets: #{error_messages.join(', ')}" if error_messages.any?
+      notice += ". Some pets failed to import. See details below." if error_messages.any?
 
       redirect_to desktop_import_path, alert: notice
     end

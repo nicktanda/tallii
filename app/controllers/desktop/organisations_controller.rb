@@ -11,7 +11,7 @@ module Desktop
         current_user.update(organisation_id: organisation.id)
         redirect_to desktop_dashboard_path
       else
-        redirect_back fallback_location: desktop_organisations_new_path, alert: 'Invalid organisation information'
+        redirect_back fallback_location: desktop_onboarding_organisation_user_details_path, alert: 'Invalid organisation information'
       end
     end
 

@@ -3,15 +3,15 @@ module Desktop
     before_action :onboarding_organisation, except: [:user_details]
 
     skip_before_action :require_organisation
-    skip_before_action :require_authenticated_user
 
     def user_details; end
     def update_user_details
       onboarding_organisation.update!(
         user_name: params[:name],
         email: params[:email],
-        password: params[:password]
+        user_password: params[:user_password]
       )
+      redirect_to desktop_onboarding_organisation_organisation_details_path(onboarding_organisation)
     end
 
     def organisation_details; end
@@ -28,17 +28,21 @@ module Desktop
     def complete; end
     def create_organisation
       organisation_attributes = onboarding_organisation.attributes.except("id", "user_name", "user_password", "created_at", "updated_at")
-      organisation = Organisation.create!(organisation_attributes)
+      organisation = Organisation.create!(organisation_attributes.merge(name: params[:name], country: params[:country]))
       user = organisation.users.create!(
         first_name: onboarding_organisation.user_name.split(" ").first,
         last_name: onboarding_organisation.user_name.split(" ").last,
         email: onboarding_organisation.email,
-        password: onboarding_organisation.user_password
+        password: onboarding_organisation.user_password,
+        role: "admin"
       )
 
       session["user"] ||= {}
       session["user"]["id"] = user.id
-      redirect_to root_path
+
+      onboarding_organisation.destroy
+
+      redirect_to desktop_dashboard_path
     end
 
     private

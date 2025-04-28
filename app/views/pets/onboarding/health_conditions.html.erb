@@ -19,52 +19,6 @@
     width: 100%; /* Full width */
     max-width: 500px; /* Max width */
   }
-
-  /* Hide default appearance of the slider */
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 10px;
-    background: transparent; /* Make native track transparent */
-    outline: none;
-    position: relative;
-  }
-
-  /* Text Background for the slider track */
-  .slider::before {
-    content: "(Selfie time!) - - - >";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: #666;
-    pointer-events: none;
-    width: 100%;
-    text-align: right;
-    line-height: 10px;
-    z-index: -1; /* Ensures it appears below the slider thumb */
-  }
-
-  /* Slider thumb with an image */
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 48px;
-    height: 48px;
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 42 42" fill="none"><g clip-path="url(%23clip0_111_816)"><path d="M20.9999 42C9.47505 42 0.098877 32.6238 0.098877 21.0989C0.098877 9.57393 9.47505 0.197754 20.9999 0.197754C32.5248 0.197754 41.901 9.57393 41.901 21.0989C41.901 32.6238 32.5248 42 20.9999 42Z" fill="%232ABA52"/><path d="M31.5672 21.0169C31.5672 26.4142 33.2408 31.4198 36.0953 35.5463C39.693 31.7902 41.9066 26.6984 41.9066 21.099C41.9066 15.4654 39.6653 10.3461 36.0288 6.5835C33.2146 10.6915 31.5672 15.6615 31.5672 21.0169ZM0.0927734 21.099C0.0927734 26.6984 2.30639 31.7902 5.90403 35.5463C8.75856 31.4198 10.4322 26.4142 10.4322 21.0169C10.4322 15.6615 8.78464 10.6914 5.97056 6.5835C2.33403 10.3461 0.0927734 15.4654 0.0927734 21.099Z" fill="%23B4D99A"/><path d="M33.4894 21.0987C33.4894 16.4134 34.8442 11.9369 37.3664 8.11434C36.5479 7.08453 35.6348 6.13358 34.6391 5.27393C33.511 6.87416 32.5578 8.59074 31.7958 10.3942C30.3613 13.7857 29.634 17.3872 29.634 21.0987C29.634 24.8102 30.3612 28.4117 31.7958 31.8032C32.5579 33.6067 33.5111 35.3234 34.6391 36.9236C35.6348 36.064 36.5479 35.113 37.3665 34.0832C34.8442 30.2606 33.4894 25.784 33.4894 21.0987ZM4.63363 8.11434C7.15584 11.9369 8.51059 16.4135 8.51059 21.0987C8.51059 25.784 7.15576 30.2606 4.63354 34.0832C5.45204 35.113 6.36512 36.064 7.36084 36.9236C8.48889 35.3234 9.44213 33.6067 10.2042 31.8032C11.6387 28.4117 12.3661 24.8102 12.3661 21.0987C12.3661 17.3872 11.6387 13.7857 10.2042 10.3942C9.44217 8.59075 8.48896 6.87417 7.36092 5.27393C6.3652 6.13358 5.45213 7.08453 4.63363 8.11434Z" fill="%23E5E4DF"/></g><defs><clipPath id="clip0_111_816"><rect width="42" height="42" fill="white"/></clipPath></defs></svg>') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-  }
-
-  .slider::-moz-range-thumb {
-    width: 48px;
-    height: 48px;
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 42 42" fill="none"><g clip-path="url(%23clip0_111_816)"><path d="M20.9999 42C9.47505 42 0.098877 32.6238 0.098877 21.0989C0.098877 9.57393 9.47505 0.197754 20.9999 0.197754C32.5248 0.197754 41.901 9.57393 41.901 21.0989C41.901 32.6238 32.5248 42 20.9999 42Z" fill="%232ABA52"/><path d="M31.5672 21.0169C31.5672 26.4142 33.2408 31.4198 36.0953 35.5463C39.693 31.7902 41.9066 26.6984 41.9066 21.099C41.9066 15.4654 39.6653 10.3461 36.0288 6.5835C33.2146 10.6915 31.5672 15.6615 31.5672 21.0169ZM0.0927734 21.099C0.0927734 26.6984 2.30639 31.7902 5.90403 35.5463C8.75856 31.4198 10.4322 26.4142 10.4322 21.0169C10.4322 15.6615 8.78464 10.6914 5.97056 6.5835C2.33403 10.3461 0.0927734 15.4654 0.0927734 21.099Z" fill="%23B4D99A"/><path d="M33.4894 21.0987C33.4894 16.4134 34.8442 11.9369 37.3664 8.11434C36.5479 7.08453 35.6348 6.13358 34.6391 5.27393C33.511 6.87416 32.5578 8.59074 31.7958 10.3942C30.3613 13.7857 29.634 17.3872 29.634 21.0987C29.634 24.8102 30.3612 28.4117 31.7958 31.8032C32.5579 33.6067 33.5111 35.3234 34.6391 36.9236C35.6348 36.064 36.5479 35.113 37.3665 34.0832C34.8442 30.2606 33.4894 25.784 33.4894 21.0987ZM4.63363 8.11434C7.15584 11.9369 8.51059 16.4135 8.51059 21.0987C8.51059 25.784 7.15576 30.2606 4.63354 34.0832C5.45204 35.113 6.36512 36.064 7.36084 36.9236C8.48889 35.3234 9.44213 33.6067 10.2042 31.8032C11.6387 28.4117 12.3661 24.8102 12.3661 21.0987C12.3661 17.3872 11.6387 13.7857 10.2042 10.3942C9.44217 8.59075 8.48896 6.87417 7.36092 5.27393C6.3652 6.13358 5.45213 7.08453 4.63363 8.11434Z" fill="%23E5E4DF"/></g><defs><clipPath id="clip0_111_816"><rect width="42" height="42" fill="white"/></clipPath></defs></svg>') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-  }
 </style>
 <div class="m-2">
   <%= form_with url: update_pet_health_conditions_onboarding_path(@pet), id: "petHealthForm" do |f| %>
@@ -76,8 +30,10 @@
       <%= f.label :health_conditions, "Share health history", class: "block text-xl font-semibold mb-2 text-yellow-200" %>
       <%= f.text_area :health_conditions, required: true, rows: 5, placeholder: "#{@pet.name}...", class: "bg-black border-2 border-yellow-200 rounded-2xl text-white text-2xl p-4 font-bold w-full" %>
     </div>
+    <div class="p-8">
+      <%= f.submit "Next", class: "w-full bg-blue-800 p-4 rounded-lg text-white" %>
+    </div>
     <div class="slider-container mt-32 px-8">
-      <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
       <div class="mt-12 flex space-x-1 mx-12">
         <div class="w-full h-1 bg-yellow-200"></div>
         <div class="w-full h-1 bg-yellow-200"></div>

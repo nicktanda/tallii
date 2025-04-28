@@ -1,6 +1,7 @@
 class OnboardingUsersController < ApplicationController
   before_action :user, except: [:new]
   before_action :prevent_access_if_user_exists
+  before_action :prevent_onboarding_without_access_code, except: [:new, :access_code, :update_access_code]
 
   skip_before_action :require_authenticated_user
   skip_before_action :prevent_customer_accessing_desktop
@@ -10,8 +11,24 @@ class OnboardingUsersController < ApplicationController
     @user = OnboardingUser.create!
   end
 
+  def access_code; end
+  def update_access_code
+    organisation = Organisation.find_by(access_code: params[:access_code])
+
+    unless organisation
+      return redirect_to user_access_code_onboarding_path(@user), alert: "Invalid access code!"
+    end
+
+    @user.update!(access_code: params[:access_code])
+    redirect_to user_email_onboarding_path(@user)
+  end
+
   def email; end
   def update_email
+    user = User.find_by(email: params[:email])
+
+    return redirect_to user_email_onboarding_path(@user), alert: "Email already exists!" if user
+
     @user.update!(email: params[:email])
     redirect_to user_password_onboarding_path(@user)
   end
@@ -38,22 +55,15 @@ class OnboardingUsersController < ApplicationController
   def phone; end
   def update_phone
     @user.update!(phone: params[:phone])
-    redirect_to update_user_organisation_onboarding_path(@user)
-  end
-
-  def organisation
-    @organisations = Organisation.all.map { |o| { name: o.name, id: o.id } }
-  end
-  def update_organisation
-    @user.update!(organisation_id: params[:organisation_id])
     redirect_to complete_user_onboarding_path(@user)
   end
 
   def complete; end
   def create_user
-    user_attributes = @user.attributes.except("id", "created_at", "updated_at")
+    organisation = Organisation.find_by(access_code: @user.access_code)
+    user_attributes = @user.attributes.except("id", "created_at", "updated_at", "access_code")
 
-    user = User.create!(user_attributes)
+    user = organisation.users.create!(user_attributes)
     session["user"] ||= {}
     session["user"]["id"] = user.id
 
@@ -69,5 +79,9 @@ class OnboardingUsersController < ApplicationController
 
   def prevent_access_if_user_exists
     redirect_to new_pet_onboarding_path(User.find(session["user"]["id"])) if session["user"]
+  end
+
+  def prevent_onboarding_without_access_code
+    redirect_to user_access_code_onboarding_path(@user), alert: "Invalid access code!" if @user.access_code.nil?
   end
 end
