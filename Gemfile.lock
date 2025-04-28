@@ -311,7 +311,7 @@ DEPENDENCIES
   jsbundling-rails
   matrix (~> 0.4.2)
   mutex_m (~> 0.3.0)
-  nokogiri (>= 1.15.0)
+  nokogiri
   pg (~> 1.1)
   pry (= 0.14.0)
   puma (~> 6.6.0)
