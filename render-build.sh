@@ -4,6 +4,7 @@ set -o errexit
 bundle config set force_ruby_platform true
 
 bundle install
+bundle exec rake tailwindcss:install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 bundle exec rails db:migrate
