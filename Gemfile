@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.4"
+ruby "3.4.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.6"
+gem "rails", "~> 8.0.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -12,7 +12,7 @@ gem "sprockets-rails"
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.6.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -56,6 +56,14 @@ gem 'stripe'
 gem "chartkick"
 
 gem 'nokogiri', '>= 1.15.0', require: false
+
+gem "matrix", "~> 0.4.2"
+
+gem "mutex_m", "~> 0.3.0"
+
+gem "bigdecimal", "~> 3.1"
+
+gem "csv", "~> 3.3"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
