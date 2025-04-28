@@ -1,6 +1,7 @@
 # exit on error
 set -o errexit
-rm -rf vendor/bundle
+rm -rf vendor
+rm Gemfile.lock
 
 bundle config unset force_ruby_platform
 bundle config set --local force_ruby_platform false
