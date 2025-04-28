@@ -1,10 +1,9 @@
 # exit on error
 set -o errexit
 
+bundle lock --add-platform x86_64-linux
 bundle config set force_ruby_platform true
 
-bundle update --bundler
-bundle lock --add-platform x86_64-linux
 bundle install
 bundle exec rake tailwindcss:install
 bundle exec rails assets:precompile
