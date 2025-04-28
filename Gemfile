@@ -55,7 +55,7 @@ gem 'stripe'
 
 gem "chartkick"
 
-gem 'nokogiri', '>= 1.15.0', require: false
+gem 'nokogiri', '>= 1.15.0', platforms: :ruby, require: false
 
 gem "matrix", "~> 0.4.2"
 
