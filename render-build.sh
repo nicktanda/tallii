@@ -1,11 +1,11 @@
 # exit on error
 set -o errexit
 
-gem install bundler
-bundle update --bundler
-
 bundle config set force_ruby_platform true
 bundle lock --add-platform x86_64-linux
+
+gem install bundler
+bundle update --bundler
 
 bundle install
 bundle exec rails assets:precompile
