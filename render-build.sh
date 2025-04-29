@@ -2,7 +2,7 @@
 set -o errexit
 
 bundle lock --add-platform x86_64-linux
-bundle config set force_ruby_platform false
+bundle config set force_ruby_platform true
 
 bundle install
 
