@@ -10,7 +10,7 @@ bundle config unset force_ruby_platform
 bundle config set --local build.nokogiri "--use-system-libraries"
 
 # Install gems, forcing native build
-bundle install --platform ruby
+bundle install
 
 # Build JS/CSS assets
 bundle exec rake tailwindcss:install
