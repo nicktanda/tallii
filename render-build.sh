@@ -1,7 +1,10 @@
 # exit on error
 set -o errexit
 
-bundle config set force_ruby_platform false
+# Ensure nokogiri builds against system libraries
+bundle config set force_ruby_platform true
+bundle config set build.nokogiri --use-system-libraries
+
 bundle install
 
 bundle exec rails assets:precompile
