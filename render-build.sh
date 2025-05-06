@@ -9,6 +9,7 @@ bundle config set build.nokogiri --use-system-libraries
 
 bundle install
 
+bundle exec rake tailwindcss:install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 bundle exec rails db:migrate
