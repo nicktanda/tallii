@@ -1,7 +1,7 @@
 # exit on error
 set -o errexit
 
-bundle config set force_ruby_platform true
+bundle config set force_ruby_platform false
 bundle install
 
 bundle exec rails assets:precompile
