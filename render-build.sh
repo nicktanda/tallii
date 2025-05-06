@@ -7,7 +7,7 @@ bundle lock --add-platform ruby
 bundle config unset force_ruby_platform
 
 # Force Nokogiri to build from source
-bundle config set --local build.nokogiri "--use-system-libraries"
+bundle config set force_ruby_platform true
 
 # Install gems, forcing native build
 bundle install
