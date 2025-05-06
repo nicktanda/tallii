@@ -14,6 +14,7 @@ bundle install
 
 # Build JS/CSS assets
 bundle exec rake tailwindcss:install
+bundle exec rake tailwindcss:build
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 
