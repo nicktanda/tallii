@@ -4,7 +4,7 @@ set -o errexit
 bundle lock --add-platform ruby
 
 # Ensure nokogiri builds against system libraries
-bundle config set force_ruby_platform true
+bundle config unset force_ruby_platform
 bundle config set build.nokogiri --use-system-libraries
 
 bundle install
