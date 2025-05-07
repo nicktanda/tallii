@@ -344,7 +344,7 @@ DEPENDENCIES
   matrix (~> 0.4.2)
   mutex_m (~> 0.3.0)
   nokogiri (~> 1.18)
-  pg (~> 1.1)
+  pg
   pry (= 0.14.0)
   puma (~> 6.6.0)
   rails (~> 8.0.2)
