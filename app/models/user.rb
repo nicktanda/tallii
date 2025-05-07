@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :temporary_grooms, foreign_key: 'employee_id'
   has_many :temporary_daycare_visits, foreign_key: 'employee_id'
 
-  enum role: { customer: 0, employee: 1, admin: 2 }
+  enum :role, { customer: 0, employee: 1, admin: 2 }, default: :customer
 
   scope :active, -> { where(active: true) }
   scope :customers, -> { where(role: :customer) }

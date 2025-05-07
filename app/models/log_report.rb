@@ -4,5 +4,5 @@ class LogReport < ApplicationRecord
   belongs_to :daycare_visit, optional: true
   belongs_to :temporary_daycare_visit, optional: true
 
-  enum payment_method: { cash: 0, card: 1 }
+  enum :payment_method, { cash: 0, card: 1 }, default: :cash
 end

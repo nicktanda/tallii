@@ -10,9 +10,9 @@ class Pet < ApplicationRecord
   has_one_attached :heartworm_evidence
   has_one_attached :kennel_cough_evidence
 
-  enum status: { active: 0, inactive: 1, deceased: 6 }
-  enum species: { dog: 0, cat: 1, other: 6 }
-  enum gender: { male: 0, female: 1 }
+  enum :status, { active: 0, inactive: 1, deceased: 6 }, default: :active
+  enum :species, { dog: 0, cat: 1, other: 6 }, default: :dog
+  enum :gender, { male: 0, female: 1 }, default: :male
 
   scope :alive, -> { where("date_of_death > ? OR date_of_death IS NULL", Date.today) }
   default_scope { alive }

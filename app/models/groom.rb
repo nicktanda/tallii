@@ -20,7 +20,7 @@ class Groom < ApplicationRecord
 
   validate :groom_date_is_in_the_future, on: :create
 
-  enum status: { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }
+  enum :status, { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }, default: :pending
 
   def service
     "Groom"

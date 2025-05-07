@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 
   scope :today, -> { where(created_at: Time.zone.today.beginning_of_day..Time.zone.today.end_of_day) }
 
-  enum status: [:pending, :processing, :failed, :succeed]
+  enum :status, [:pending, :processing, :failed, :succeed], default: :pending
 
   def total_price
     (products.sum(:price) * 100).to_i # in cents
