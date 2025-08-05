@@ -1,5 +1,6 @@
 module Desktop
   class SessionsController < DesktopController
+    before_action :redirect_if_user_is_logged_in
     skip_before_action :require_organisation
     skip_before_action :require_authenticated_desktop_user
 
@@ -29,9 +30,11 @@ module Desktop
     private
 
     def require_organisation
-      unless current_organisation
-        redirect_to desktop_onboarding_organisation_user_details_path
-      end
+      redirect_to desktop_onboarding_organisation_user_details_path unless current_organisation
+    end
+
+    def redirect_if_user_is_logged_in
+      redirect_to desktop_dashboard_path if current_user
     end
   end
 end

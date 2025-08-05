@@ -2,6 +2,7 @@ module Desktop
   class OnboardingOrganisationsController < DesktopController
     before_action :onboarding_organisation, except: [:user_details]
 
+    before_action :redirect_if_user_is_logged_in
     skip_before_action :require_organisation
 
     def user_details; end
@@ -49,6 +50,10 @@ module Desktop
 
     def onboarding_organisation
       @onboarding_organisation ||= params[:id] ? OnboardingOrganisation.find(params[:id]) : OnboardingOrganisation.create!
+    end
+
+    def redirect_if_user_is_logged_in
+      redirect_to desktop_dashboard_path if current_user
     end
   end
 end
