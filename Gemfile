@@ -66,6 +66,8 @@ gem "bigdecimal", "~> 3.1"
 
 gem "csv", "~> 3.3"
 
+gem "ostruct", "~> 0.6.0"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -77,6 +79,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'pry', '0.14.0'
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do

@@ -4,7 +4,7 @@ class TemporaryDaycareVisit < ApplicationRecord
   has_one :log_report
 
   enum :duration, { half_day: 0, full_day: 1 }, default: :half_day
-  enum :status, { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }, default: :pending
+  enum :status, { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }, default: :pending, prefix: :status
 
   scope :today, -> { where(date: Time.zone.today) }
   scope :on_date, ->(date) { where(date: date) }

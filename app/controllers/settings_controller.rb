@@ -3,7 +3,7 @@ class SettingsController < ApplicationController
 
   def pet_profiles; end
   def pet_profile
-    @pet = Pet.find(params[:id])
+    @pet = current_user.pets.find(params[:id])
   end
 
   def pet_selection; end

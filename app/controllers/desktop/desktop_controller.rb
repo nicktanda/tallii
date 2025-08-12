@@ -9,7 +9,7 @@ module Desktop
 
     def require_authenticated_desktop_user
       unless current_user
-        desktop_new_session_path
+        redirect_to desktop_new_session_path
       end
     end
 

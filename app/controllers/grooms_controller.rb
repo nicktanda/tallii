@@ -17,7 +17,7 @@ class GroomsController < ApplicationController
     if groom.save
       redirect_to grooms_path
     else
-      redirect_back fallback_location: show_groom_path(groom), alert: 'Invalid groom information'
+      redirect_back fallback_location: groom_path(groom), alert: 'Invalid groom information'
     end
   end
 

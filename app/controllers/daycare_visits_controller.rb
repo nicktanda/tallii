@@ -17,7 +17,7 @@ class DaycareVisitsController < ApplicationController
     if daycare_visit.save
       redirect_to daycare_visits_path
     else
-      redirect_back fallback_location: show_daycare_visit_path(daycare_visit), alert: 'Invalid daycare visit information'
+      redirect_back fallback_location: daycare_visit_path(daycare_visit), alert: 'Invalid daycare visit information'
     end
   end
 
