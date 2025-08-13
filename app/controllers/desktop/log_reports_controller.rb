@@ -54,7 +54,8 @@ module Desktop
           :org_notes,
           :customer_notes,
           :price,
-          :payment_method
+          :payment_method,
+          :duration
         )
     end
   end

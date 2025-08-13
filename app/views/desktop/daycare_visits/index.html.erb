@@ -550,6 +550,10 @@
                                     </div>
                                   </div>
                                   <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div>
+                                      <%= f.label :duration, "Duration (hours)", class: "text-sm" %>
+                                      <%= f.number_field :duration, placeholder: "0.00", step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                    </div>
                                     <div class="flex space-x-2">
                                       <div>
                                         <%= f.label :price, "Price of Daycare", class: "text-sm" %>
@@ -575,31 +579,35 @@
                                   <div class="bg-white rounded-xl p-4 space-y-2">
                                     <div class="flex space-x-4">
                                       <div>
-                                        <div>Report Type</div>
+                                        <div class="text-sm">Report Type</div>
                                         <div class="bg-gray-200 rounded-xl p-2">Daycare Report</div>
                                       </div>
                                       <div>
-                                        <div>Date</div>
+                                        <div class="text-sm">Date</div>
                                         <div class="bg-gray-200 rounded-xl p-2"><%= daycare_visit.date.strftime("%d/%m/%Y") %></div>
                                       </div>
                                     </div>
                                     <div>
-                                      <%= f.label :org_notes, "Daycare Report Notes" %>
+                                      <%= f.label :org_notes, "Daycare Report Notes", class: "text-sm" %>
                                       <%= f.text_area :org_notes, placeholder: "Groomer notes...", value: daycare_visit.log_report.org_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
                                     </div>
                                     <div>
-                                      <%= f.label :customer_notes, "Customer Report Notes" %>
+                                      <%= f.label :customer_notes, "Customer Report Notes", class: "text-sm" %>
                                       <%= f.text_area :customer_notes, placeholder: "Customer sees notes...", value: daycare_visit.log_report.customer_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
                                     </div>
                                   </div>
                                   <div class="bg-white rounded-xl p-4 space-y-2">
+                                    <div>
+                                      <%= f.label :duration, "Duration (hours)", class: "text-sm" %>
+                                      <%= f.number_field :duration, placeholder: "0.00", value: (daycare_visit.log_report.duration.present? ? sprintf('%.2f', daycare_visit.log_report.duration) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                    </div>
                                     <div class="flex space-x-2">
                                       <div>
-                                        <%= f.label :price, "Price of Daycare Visit" %>
+                                        <%= f.label :price, "Price of Daycare Visit", class: "text-sm" %>
                                         <%= f.number_field :price, placeholder: "$00.00", value: (daycare_visit.log_report.price.present? ? sprintf('%.2f', daycare_visit.log_report.price) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
                                       </div>
                                       <div>
-                                        <%= f.label :payment_method, "Payment Method" %>
+                                        <%= f.label :payment_method, "Payment Method", class: "text-sm" %>
                                         <%= f.select(:payment_method, options_for_select([["Cash", "cash"], ["Card", "card"]], selected: daycare_visit.log_report&.payment_method), { prompt: 'Select' }, { required: true, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
                                       </div>
                                     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_26_122836) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_13_123725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,6 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_26_122836) do
     t.integer "payment_method", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "duration", precision: 5, scale: 2, default: "0.0"
     t.index ["daycare_visit_id"], name: "index_log_reports_on_daycare_visit_id"
     t.index ["groom_id"], name: "index_log_reports_on_groom_id"
     t.index ["temporary_daycare_visit_id"], name: "index_log_reports_on_temporary_daycare_visit_id"
