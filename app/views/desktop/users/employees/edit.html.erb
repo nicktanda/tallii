@@ -37,15 +37,24 @@
       <div class="space-y-4">
         <div class="text-xl w-full border-l-0 border-r-0 border p-2">Personal Details</div>
         <div>
-          <%= f.label :first_name %>
+          <div class="flex">
+            <%= f.label :first_name %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>
-          <%= f.label :last_name %>
+          <div class="flex">
+            <%= f.label :last_name %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>
-          <%= f.label :email %>
+          <div class="flex">
+            <%= f.label :email %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
         </div>
         <div>

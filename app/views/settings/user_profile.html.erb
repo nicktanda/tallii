@@ -35,23 +35,38 @@
         </div>
       </div>
       <div>
-        <%= f.label :first_name, class: "text-xl mb-2 font-thin" %>
+        <div class="flex">
+          <%= f.label :first_name, class: "text-xl mb-2 font-thin" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :first_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :last_name, class: "text-xl mb-2 font-thin" %>
+        <div class="flex">
+          <%= f.label :last_name, class: "text-xl mb-2 font-thin" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :last_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :email, class: "text-xl mb-2 font-thin" %>
+        <div class="flex">
+          <%= f.label :email, class: "text-xl mb-2 font-thin" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.email_field :email, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :phone, class: "text-xl mb-2 font-thin" %>
+        <div class="flex">
+          <%= f.label :phone, class: "text-xl mb-2 font-thin" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.telephone_field :phone, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :weight, class: "text-xl mb-2 font-thin" %>
+        <div class="flex">
+          <%= f.label :weight, class: "text-xl mb-2 font-thin" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :weight, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <button type="submit" class="bg-white w-full text-black font-bold p-4 rounded-lg flex items-center justify-center space-x-2">

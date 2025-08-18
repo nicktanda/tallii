@@ -35,9 +35,11 @@
     <%= form_for @user, url: desktop_user_update_path(@user), method: :patch do |f| %>
       <%= f.hidden_field :id %>
       <div class="space-y-4">
-        <div>
+        <div class="flex">
           <%= f.label :max_daycare_visits, "Daycare Visits Available" %>
-          <%= f.text_field :max_daycare_visits, required: true, class: "border w-full rounded-lg p-2" %>
+          <div class="text-red-500">*</div>
+        </div>
+        <%= f.text_field :max_daycare_visits, required: true, class: "border w-full rounded-lg p-2" %>
         </div>
         <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">

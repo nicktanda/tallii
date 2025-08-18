@@ -44,27 +44,45 @@
                   <%= f.hidden_field :id %>
                   <div class="space-y-4">
                     <div>
-                      <%= f.label :first_name %>
+                      <div class="flex">
+                        <%= f.label :first_name %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
                     </div>
                     <div>
-                      <%= f.label :last_name %>
+                      <div class="flex">
+                        <%= f.label :last_name %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
                     </div>
                     <div>
-                      <%= f.label :email %>
+                      <div class="flex">
+                        <%= f.label :email %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
                     </div>
                     <div>
-                      <%= f.label :phone %>
+                      <div class="flex">
+                        <%= f.label :phone %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.phone_field :phone, required: true, class: "border w-full rounded-lg p-2" %>
                     </div>
                     <div class="flex-1 flex flex-col">
-                      <%= f.label :role %>
+                      <div class="flex">
+                        <%= f.label :role %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.select(:role, options_for_select(User.roles.keys.reject { |key| key == "customer" }.map { |key| [key.humanize, key] }), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
                     </div>
                     <div>
-                      <%= f.label :password %>
+                      <div class="flex">
+                        <%= f.label :password %>
+                        <div class="text-red-500">*</div>
+                      </div>
                       <%= f.password_field :password, required: true, class: "border w-full rounded-lg p-2" %>
                     </div>
                   </div>
@@ -129,23 +147,38 @@
                           <%= f.hidden_field :id %>
                           <div class="space-y-4">
                             <div>
-                              <%= f.label :first_name %>
+                              <div class="flex">
+                                <%= f.label :first_name %>
+                                <div class="text-red-500">*</div>
+                              </div>
                               <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
                             </div>
                             <div>
-                              <%= f.label :last_name %>
+                              <div class="flex">
+                                <%= f.label :last_name %>
+                                <div class="text-red-500">*</div>
+                              </div>
                               <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
                             </div>
                             <div>
-                              <%= f.label :email %>
+                              <div class="flex">
+                                <%= f.label :email %>
+                                <div class="text-red-500">*</div>
+                              </div>
                               <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
                             </div>
                             <div>
-                              <%= f.label :phone %>
+                              <div class="flex">
+                                <%= f.label :phone %>
+                                <div class="text-red-500">*</div>
+                              </div>
                               <%= f.phone_field :phone, required: true, class: "border w-full rounded-lg p-2" %>
                             </div>
                             <div class="flex-1 flex flex-col">
-                              <%= f.label :role %>
+                              <div class="flex">
+                                <%= f.label :role %>
+                                <div class="text-red-500">*</div>
+                              </div>
                               <%= f.select(:role, options_for_select(User.roles.keys.reject { |key| key == "customer" }.map { |key| [key.humanize, key] }, selected: staff.role), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
                             </div>
                           </div>

@@ -21,19 +21,31 @@
     <%= f.hidden_field :origin, value: "desktop"%>
     <div class="space-y-4">
       <div>
-        <%= f.label :pet_id, "Pet" %>
+        <div class="flex">
+          <%= f.label :pet_id, "Pet" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.select(:pet_id, options_for_select(@pets.map{|pet| [pet.name, pet.id]}), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
       </div>
       <div>
-        <%= f.label :date, "Request Date" %>
+        <div class="flex">
+          <%= f.label :date, "Request Date" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :time, "Dropoff Time" %>
+        <div class="flex">
+          <%= f.label :time, "Dropoff Time" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <div>
           <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
           <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>

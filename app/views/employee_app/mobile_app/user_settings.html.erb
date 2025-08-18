@@ -6,19 +6,31 @@
         <img src="<%= url_for(current_user.images.order(:created_at).first.image) %>" alt="<%= current_user.first_name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end mb-8">
       <% end %>
       <div>
-        <%= f.label :first_name, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :first_name, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :first_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :last_name, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :last_name, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :last_name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :email, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :email, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.email_field :email, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :phone, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :phone, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.telephone_field :phone, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <%= f.submit "Update Account", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>

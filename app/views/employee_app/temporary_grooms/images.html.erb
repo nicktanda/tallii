@@ -9,7 +9,10 @@
   </div>
   <%= form_with url: employee_app_temporary_groom_images_upload_path(@temporary_groom) do |f| %>
     <div class="my-4 space-y-2">
-      <%= f.label :image, "Upload New Photo", class: "font-bold" %>
+      <div class="flex">
+        <%= f.label :image, "Upload New Photo", class: "font-bold" %>
+        <div class="text-red-500">*</div>
+      </div>
       <div>
         <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", required: true %>
       </div>

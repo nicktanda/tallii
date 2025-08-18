@@ -16,7 +16,10 @@
     <div class="space-y-4 w-full">
       <div class="text-xl w-full border-l-0 border-r-0 border p-2">Details</div>
       <div>
-        <%= f.label :stripe_api_key %>
+        <div class="flex">
+          <%= f.label :stripe_api_key %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.password_field :stripe_api_key, value: current_organisation.stripe_api_key, required: true, class: "border w-full rounded-lg p-2" %>
         <details class="p-4">
           <summary>What is this?</summary>
@@ -24,11 +27,17 @@
         </details>
       </div>
       <div>
-        <%= f.label :grooming_reward_points, "Groom Reward Points" %>
+        <div class="flex">
+          <%= f.label :grooming_reward_points, "Groom Reward Points" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :grooming_reward_points, required: true, class: "border w-full rounded-lg p-2"  %>
       </div>
       <div>
-        <%= f.label :daycare_visit_reward_points, "Daycare Visit Reward Points" %>
+        <div class="flex">
+          <%= f.label :daycare_visit_reward_points, "Daycare Visit Reward Points" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :daycare_visit_reward_points, required: true, class: "border w-full rounded-lg p-2"  %>
         <details class="p-4">
           <summary>What is this?</summary>

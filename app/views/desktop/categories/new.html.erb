@@ -8,15 +8,24 @@
   <%= form_for Category.new, url: desktop_categories_create_path do |f| %>
     <div class="space-y-4">
       <div>
-        <%= f.label :name %>
+        <div class="flex">
+          <%= f.label :name %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :name, placeholder: "Chew Toy", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :description %>
+        <div class="flex">
+          <%= f.label :description %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_area :description, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4", rows: 1, placeholder: "Toys for your dog" %>
       </div>
       <div>
-        <%= f.label :image, "Category Photo" %>
+        <div class="flex">
+          <%= f.label :image, "Category Photo" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>
       <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">

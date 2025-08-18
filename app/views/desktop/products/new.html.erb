@@ -8,55 +8,94 @@
   <%= form_for Product.new, url: desktop_products_create_path do |f| %>
     <div class="space-y-4">
       <div>
-        <%= f.label :name %>
+        <div class="flex">
+          <%= f.label :name %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :name, placeholder: "Chew Toy", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :brand %>
+        <div class="flex">
+          <%= f.label :brand %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :brand, placeholder: "ChuckIt!", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :description %>
+        <div class="flex">
+          <%= f.label :description %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_area :description, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4", rows: 1, placeholder: "Chew toy, very soft!" %>
       </div>
       <div>
-        <%= f.label :price %>
+        <div class="flex">
+          <%= f.label :price %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :price, placeholder: "4.99", step: "0.01", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :stock %>
+        <div class="flex">
+          <%= f.label :stock %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :stock, placeholder: "50", step: "0", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :features %>
+        <div class="flex">
+          <%= f.label :features %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_area :features, required: true, value: "", class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4", rows: 3, placeholder: "Add a new feature in each row" %>
       </div>
       <div>
-        <%= f.label :item_number %>
+        <div class="flex">
+          <%= f.label :item_number %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :item_number, placeholder: "0010", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :dimensions %>
+        <div class="flex">
+          <%= f.label :dimensions %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :dimensions, placeholder: "4 inches x 4 inches", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :weight %>
+        <div class="flex">
+          <%= f.label :weight %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :weight, placeholder: "3 ounces", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :life_stage %>
+        <div class="flex">
+          <%= f.label :life_stage %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :life_stage, placeholder: "Adult", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :breed_size %>
+        <div class="flex">
+          <%= f.label :breed_size %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :breed_size, placeholder: "Small breed, Medium breed", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :material %>
+        <div class="flex">
+          <%= f.label :material %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :material, placeholder: "Rubber", required: true, class: "bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :image, "Product Photo" %>
+        <div class="flex">
+          <%= f.label :image, "Product Photo" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.file_field :image, id: 'file-input3', accept: "image/jpeg, image/png", required: true, class: "w-full border-gray-300 cursor-pointer" %>
       </div>
       <% if @categories.any? %>

@@ -148,15 +148,24 @@
                       <%= f.hidden_field :id %>
                       <div class="space-y-4">
                         <div>
-                          <%= f.label :first_name %>
+                          <div class="flex">
+                            <%= f.label :first_name %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.text_field :first_name, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
-                          <%= f.label :last_name %>
+                          <div class="flex">
+                            <%= f.label :last_name %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.text_field :last_name, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
-                          <%= f.label :email %>
+                          <div class="flex">
+                            <%= f.label :email %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.email_field :email, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
@@ -197,15 +206,24 @@
                       <%= f.hidden_field :id %>
                       <div class="space-y-4">
                         <div>
-                          <%= f.label :additional_user_first_name, "First Name" %>
+                          <div class="flex">
+                            <%= f.label :additional_user_first_name, "First Name" %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.text_field :additional_user_first_name, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
-                          <%= f.label :additional_user_last_name, "Last Name" %>
+                          <div class="flex">
+                            <%= f.label :additional_user_last_name, "Last Name" %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.text_field :additional_user_last_name, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
-                          <%= f.label :additional_user_email, "Email" %>
+                          <div class="flex">
+                            <%= f.label :additional_user_email, "Email" %>
+                            <div class="text-red-500">*</div>
+                          </div>
                           <%= f.email_field :additional_user_email, required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
@@ -329,39 +347,66 @@
                         <%= f.hidden_field :health_conditions, value: "" %>
                         <div class="space-y-4">
                           <div class="flex-1 flex flex-col">
-                            <%= f.label :species %>
+                            <div class="flex">
+                              <%= f.label :species %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.select(:species, options_for_select(Pet.species.keys.map { |key| [key.humanize, key] }), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
                           </div>
                           <div>
-                            <%= f.label :name %>
+                            <div class="flex">
+                              <%= f.label :name %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.text_field :name, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                           <div class="flex-1 flex flex-col">
-                            <%= f.label :gender %>
+                            <div class="flex">
+                              <%= f.label :gender %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.select(:gender, options_for_select(Pet.genders.keys.map { |key| [key.humanize, key] }), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
                           </div>
                           <div>
-                            <%= f.label :breed %>
+                            <div class="flex">
+                              <%= f.label :breed %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.text_field :breed, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                           <div>
-                            <%= f.label :weight, "Weight (lbs)" %>
+                            <div class="flex">
+                              <%= f.label :weight, "Weight (lbs)" %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.number_field :weight, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                           <div>
-                            <%= f.label :dob, "Birthday" %>
+                            <div class="flex">
+                              <%= f.label :dob, "Birthday" %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.date_field :dob, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                           <div class="flex-1 flex flex-col">
-                            <%= f.label :status %>
+                            <div class="flex">
+                              <%= f.label :status %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.select(:status, options_for_select(Pet.statuses.keys.map { |key| [key.humanize, key] }), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
                           </div>
                           <div>
-                            <%= f.label :allergies %>
+                            <div class="flex">
+                              <%= f.label :allergies %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.text_field :allergies, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                           <div>
-                            <%= f.label :medication, "Does your pet take any medication - Please list" %>
+                            <div class="flex">
+                              <%= f.label :medication, "Does your pet take any medication - Please list" %>
+                              <div class="text-red-500">*</div>
+                            </div>
                             <%= f.text_field :medication, required: true, class: "border w-full rounded-lg p-2" %>
                           </div>
                         </div>

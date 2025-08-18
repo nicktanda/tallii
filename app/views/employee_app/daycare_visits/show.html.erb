@@ -16,16 +16,25 @@
         </div>
       <% else %>
         <div>
-          <%= f.label :date, "Request Date" %>
+          <div class="flex">
+            <%= f.label :date, "Request Date" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.date_field :date, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
         </div>
       <% end %>
       <div>
-        <%= f.label :time, "Dropoff Time" %>
+        <div class="flex">
+          <%= f.label :time, "Dropoff Time" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.time_field :time, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <div>
           <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
           <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>
@@ -41,7 +50,10 @@
       </div>
       <% unless @daycare_visit.status == "completed" %>
         <div>
-          <%= f.label :status, "Status" %>
+          <div class="flex">
+            <%= f.label :status, "Status" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: @daycare_visit.status), { prompt: 'Select' }, { required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" }) %>
         </div>
       <% end %>

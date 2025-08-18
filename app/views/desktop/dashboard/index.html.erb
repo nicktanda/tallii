@@ -168,7 +168,10 @@
                                           </div>
                                         <% end %>
                                         <div>
-                                          <%= f.label :status, "Status" %>
+                                          <div class="flex">
+                                            <%= f.label :status, "Status" %>
+                                            <div class="text-red-500">*</div>
+                                          </div>
                                           <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
                                         </div>
                                       </div>

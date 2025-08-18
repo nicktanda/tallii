@@ -26,11 +26,17 @@
           </div>
           <div class="w-full space-y-4">
             <div>
-              <%= f.label :name %>
+              <div class="flex">
+                <%= f.label :name %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.text_field :name, required: true, class: "border w-full rounded-lg p-2" %>
             </div>
             <div>
-              <%= f.label :email %>
+              <div class="flex">
+                <%= f.label :email %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.email_field :email, class: "border w-full rounded-lg p-2" %>
             </div>
             <div>
@@ -66,19 +72,31 @@
           </div>
           <div class="w-full space-y-4">
             <div>
-              <%= f.label :maximum_daily_daycare_visits, "Maximum Daily Daycare Visits" %>
+              <div class="flex">
+                <%= f.label :maximum_daily_daycare_visits, "Maximum Daily Daycare Visits" %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.number_field :maximum_daily_daycare_visits, required: true, step: 0, value: current_organisation.maximum_daily_daycare_visits, class: "bg-white text-black w-full rounded-lg p-4" %>
             </div>
             <div>
-              <%= f.label :maximum_weekly_daycare_visits, "Maximum Weekly Daycare Visits" %>
+              <div class="flex">
+                <%= f.label :maximum_weekly_daycare_visits, "Maximum Weekly Daycare Visits" %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.number_field :maximum_weekly_daycare_visits, required: true, step: 0, value: current_organisation.maximum_weekly_daycare_visits, class: "bg-white text-black w-full rounded-lg p-4" %>
             </div>
             <div>
-              <%= f.label :maximum_daily_grooms, "Maximum Daily Grooms" %>
+              <div class="flex">
+                <%= f.label :maximum_daily_grooms, "Maximum Daily Grooms" %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.number_field :maximum_daily_grooms, required: true, step: 0, value: current_organisation.maximum_daily_grooms, class: "bg-white text-black w-full rounded-lg p-4" %>
             </div>
             <div>
-              <%= f.label :maximum_weekly_grooms, "Maximum Weekly Grooms" %>
+              <div class="flex">
+                <%= f.label :maximum_weekly_grooms, "Maximum Weekly Grooms" %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.number_field :maximum_weekly_grooms, required: true, step: 0, value: current_organisation.maximum_weekly_grooms, class: "bg-white text-black w-full rounded-lg p-4" %>
             </div>
           </div>
@@ -90,7 +108,10 @@
           </div>
           <div class="w-full space-y-4">
             <div>
-              <%= f.label :access_code, "Talii Customer Access Code" %>
+              <div class="flex">
+                <%= f.label :access_code, "Talii Customer Access Code" %>
+                <div class="text-red-500">*</div>
+              </div>
               <%= f.text_field :access_code, readonly: true, value: current_organisation.access_code, class: "bg-white text-black w-full rounded-lg p-4" %>
               <div class="font-thin text-sm">Give this to customers signing up to your business if you aren't creating them through Talii</div>
             </div>

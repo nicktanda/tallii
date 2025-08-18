@@ -42,27 +42,45 @@
     </div>
     <div class="space-y-12 text-left">
       <div>
-        <%= f.label :name, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :name, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :name, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :species, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :species, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.select :species, options_for_select([['Dog', :dog], ['Cat', :cat]], f.object.species), { include_blank: false }, { class: 'bg-black text-white border-x-0 border-t-0 w-full text-xl' } %>
       </div>
       <div>
-        <%= f.label :gender, class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :gender, class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.select :gender, options_for_select([['Male', :male], ['Female', :female]], f.object.gender), { include_blank: false }, { class: 'bg-black text-white border-x-0 border-t-0 w-full text-xl' } %>
       </div>
       <div>
-        <%= f.label :dob, "Birthday" %>
+        <div class="flex">
+          <%= f.label :dob, "Birthday" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.date_field :dob, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :weight %>
+        <div class="flex">
+          <%= f.label :weight %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.number_field :weight, required: true, step: 0, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
-        <%= f.label :breed %>
+        <div class="flex">
+          <%= f.label :breed %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :breed, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>

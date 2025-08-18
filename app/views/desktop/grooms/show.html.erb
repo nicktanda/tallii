@@ -28,16 +28,25 @@
         </div>
       <% else %>
         <div>
-          <%= f.label :date, "Request Date" %>
+          <div class="flex">
+            <%= f.label :date, "Request Date" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
         </div>
       <% end %>
       <div>
-        <%= f.label :time, "Request Time" %>
+        <div class="flex">
+          <%= f.label :time, "Request Time" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :last_groom, "When Was Last Groom?" %>
+        <div class="flex">
+          <%= f.label :last_groom, "When Was Last Groom?" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.date_field :last_groom, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
@@ -50,7 +59,10 @@
       </div>
       <% unless @groom.status == "completed" %>
         <div>
-          <%= f.label :status, "Status" %>
+          <div class="flex">
+            <%= f.label :status, "Status" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: @groom.status), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
         </div>
       <% end %>

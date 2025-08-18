@@ -9,31 +9,49 @@
     <%= f.hidden_field :origin, value: "desktop"%>
     <div class="space-y-4">
       <div>
-        <%= f.label :pet_name %>
+        <div class="flex">
+          <%= f.label :pet_name %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :pet_name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :owner_name %>
+        <div class="flex">
+          <%= f.label :owner_name %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.text_field :owner_name, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <% if @temporary_daycare_visit.status == "completed" %>
         <div>
-          <%= f.label :date, "Request Date" %>
+          <div class="flex">
+            <%= f.label :date, "Request Date" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.hidden_field :pet_id, value: @temporary_daycare_visit.date %>
           <div class="bg-white text-black border-x-0 border-t-0 w-full rounded-lg p-4"><%= @temporary_daycare_visit.date %></div>
         </div>
       <% else %>
         <div>
-          <%= f.label :date, "Request Date" %>
+          <div class="flex">
+            <%= f.label :date, "Request Date" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
         </div>
       <% end %>
       <div>
-        <%= f.label :time, "Dropoff Time" %>
+        <div class="flex">
+          <%= f.label :time, "Dropoff Time" %>
+          <div class="text-red-500">*</div>
+        </div>
         <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
       </div>
       <div>
-        <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+        <div class="flex">
+          <%= f.label :duration, "Half or Full Day Visit?", class: "text-xl mb-2" %>
+          <div class="text-red-500">*</div>
+        </div>
         <div>
           <%= f.radio_button :duration, :half_day, id: "duration_half_day", required: true %>
           <%= f.label :half_day, "Half Day", class: "text-lg", for: "duration_half_day" %>
@@ -57,7 +75,10 @@
       </div>
       <% unless @temporary_daycare_visit.status == "completed" %>
         <div>
-          <%= f.label :status, "Status" %>
+          <div class="flex">
+            <%= f.label :status, "Status" %>
+            <div class="text-red-500">*</div>
+          </div>
           <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: @temporary_daycare_visit.status), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" }) %>
         </div>
       <% end %>
