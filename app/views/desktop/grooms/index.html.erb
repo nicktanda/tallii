@@ -152,18 +152,28 @@
                                 <div class="bg-white rounded-xl p-4 space-y-2">
                                   <% if groom.is_a?(Groom) %>
                                     <div>
-                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.label :notes, "Notes" %>
                                       <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% else %>
                                     <div>
-                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.label :pet_notes, "Notes" %>
                                       <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% end %>
                                   <div>
                                     <%= f.label :status, "Status" %>
                                     <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full text-xl rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 flex space-x-2">
+                                  <div>
+                                    <%= f.label :deposit, "Deposit" %>
+                                    <%= f.number_field :deposit, placeholder: "0.00", value: (groom.deposit.present? ? sprintf('%.2f', groom.deposit) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                  </div>
+                                  <div>
+                                    <%= f.label :deposit_method, "Deposit Method" %>
+                                    <%= f.select(:deposit_method, options_for_select([["Cash", "cash"], ["Card", "card"], ["E-Transfer", "e_transfer"], ["Reward Points", "reward_points"]], selected: groom.deposit_method), { prompt: 'Select' }, { class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
                                   </div>
                                 </div>
                                 <div class="p-2 w-full flex justify-center">
@@ -319,18 +329,28 @@
                                 <div class="bg-white rounded-xl p-4 space-y-2">
                                   <% if groom.is_a?(Groom) %>
                                     <div>
-                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.label :notes, "Notes" %>
                                       <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% else %>
                                     <div>
-                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.label :pet_notes, "Notes" %>
                                       <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% end %>
                                   <div>
                                     <%= f.label :status, "Status" %>
                                     <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 flex space-x-2">
+                                  <div>
+                                    <%= f.label :deposit, "Deposit" %>
+                                    <%= f.number_field :deposit, placeholder: "0.00", value: (groom.deposit.present? ? sprintf('%.2f', groom.deposit) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                  </div>
+                                  <div>
+                                    <%= f.label :deposit_method, "Deposit Method" %>
+                                    <%= f.select(:deposit_method, options_for_select([["Cash", "cash"], ["Card", "card"], ["E-Transfer", "e_transfer"], ["Reward Points", "reward_points"]], selected: groom.deposit_method), { prompt: 'Select' }, { class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
                                   </div>
                                 </div>
                                 <div class="p-2 w-full flex justify-center">
@@ -459,7 +479,7 @@
                                     </div>
                                     <div>
                                       <%= f.label :org_notes, "Groomer Report Notes", class: "text-sm" %>
-                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                      <%= f.text_area :org_notes, placeholder: "Notes...", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
                                     </div>
                                     <div>
                                       <%= f.label :customer_notes, "Customer Report Notes", class: "text-sm" %>
@@ -509,7 +529,7 @@
                                     </div>
                                     <div>
                                       <%= f.label :org_notes, "Groomer Report Notes", class: "text-sm" %>
-                                      <%= f.text_area :org_notes, placeholder: "Groomer notes...", value: groom.log_report.org_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
+                                      <%= f.text_area :org_notes, placeholder: "Notes...", value: groom.log_report.org_notes, class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4", rows: 4 %>
                                     </div>
                                     <div>
                                       <%= f.label :customer_notes, "Customer Report Notes", class: "text-sm" %>
@@ -611,18 +631,28 @@
                                 <div class="bg-white rounded-xl p-4 space-y-2">
                                   <% if groom.is_a?(Groom) %>
                                     <div>
-                                      <%= f.label :notes, "Groomer Notes" %>
+                                      <%= f.label :notes, "Notes" %>
                                       <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% else %>
                                     <div>
-                                      <%= f.label :pet_notes, "Groomer Notes" %>
+                                      <%= f.label :pet_notes, "Notes" %>
                                       <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                     </div>
                                   <% end %>
                                   <div>
                                     <%= f.label :status, "Status" %>
                                     <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]], selected: groom.status), { prompt: 'Select' }, { required: true, class: "bg-gray-100 border border-gray-100 text-black w-full rounded-lg p-4" }) %>
+                                  </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 flex space-x-2">
+                                  <div>
+                                    <%= f.label :deposit, "Deposit" %>
+                                    <%= f.number_field :deposit, placeholder: "0.00", value: (groom.deposit.present? ? sprintf('%.2f', groom.deposit) : ""), step: "0.01", min: "0", class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" %>
+                                  </div>
+                                  <div>
+                                    <%= f.label :deposit_method, "Deposit Method" %>
+                                    <%= f.select(:deposit_method, options_for_select([["Cash", "cash"], ["Card", "card"], ["E-Transfer", "e_transfer"], ["Reward Points", "reward_points"]], selected: groom.deposit_method), { prompt: 'Select' }, { class: "bg-gray-200 text-black border border-gray-200 w-full rounded-lg p-4" }) %>
                                   </div>
                                 </div>
                                 <div class="p-2 w-full flex justify-center">

@@ -158,12 +158,12 @@
                                       <div class="bg-white rounded-xl p-4 space-y-2">
                                         <% if groom.is_a?(Groom) %>
                                           <div>
-                                            <%= f.label :notes, "Groomer Notes" %>
+                                            <%= f.label :notes, "Notes" %>
                                             <%= f.text_area :notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                           </div>
                                         <% else %>
                                           <div>
-                                            <%= f.label :pet_notes, "Groomer Notes" %>
+                                            <%= f.label :pet_notes, "Notes" %>
                                             <%= f.text_area :pet_notes, class: "bg-white text-black border border-gray-300 w-full rounded-lg p-4", rows: 3 %>
                                           </div>
                                         <% end %>

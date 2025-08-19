@@ -171,7 +171,8 @@ CREATE TABLE public.daycare_visits (
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    status integer DEFAULT 0
+    status integer DEFAULT 0,
+    employee_id bigint
 );
 
 
@@ -208,7 +209,10 @@ CREATE TABLE public.grooms (
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    status integer DEFAULT 0
+    status integer DEFAULT 0,
+    employee_id bigint,
+    deposit double precision,
+    deposit_method integer
 );
 
 
@@ -243,7 +247,10 @@ CREATE TABLE public.images (
     product_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    user_id bigint
+    user_id bigint,
+    category_id bigint,
+    groom_id bigint,
+    temporary_groom_id bigint
 );
 
 
@@ -264,6 +271,83 @@ CREATE SEQUENCE public.images_id_seq
 --
 
 ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
+
+
+--
+-- Name: log_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.log_reports (
+    id bigint NOT NULL,
+    groom_id bigint,
+    temporary_groom_id bigint,
+    daycare_visit_id bigint,
+    temporary_daycare_visit_id bigint,
+    org_notes text DEFAULT ''::text NOT NULL,
+    customer_notes text DEFAULT ''::text NOT NULL,
+    price double precision DEFAULT 0.0 NOT NULL,
+    payment_method integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    duration numeric(5,2) DEFAULT 0.0
+);
+
+
+--
+-- Name: log_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.log_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: log_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.log_reports_id_seq OWNED BY public.log_reports.id;
+
+
+--
+-- Name: onboarding_organisations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.onboarding_organisations (
+    id bigint NOT NULL,
+    name character varying,
+    email character varying,
+    phone character varying,
+    address character varying,
+    city character varying,
+    postcode character varying,
+    user_name character varying,
+    user_password character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: onboarding_organisations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.onboarding_organisations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: onboarding_organisations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.onboarding_organisations_id_seq OWNED BY public.onboarding_organisations.id;
 
 
 --
@@ -303,6 +387,45 @@ CREATE SEQUENCE public.onboarding_pets_id_seq
 --
 
 ALTER SEQUENCE public.onboarding_pets_id_seq OWNED BY public.onboarding_pets.id;
+
+
+--
+-- Name: onboarding_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.onboarding_users (
+    id bigint NOT NULL,
+    email character varying,
+    password character varying,
+    first_name character varying,
+    last_name character varying,
+    phone character varying,
+    address character varying,
+    city character varying,
+    postcode character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    access_code character varying
+);
+
+
+--
+-- Name: onboarding_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.onboarding_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: onboarding_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.onboarding_users_id_seq OWNED BY public.onboarding_users.id;
 
 
 --
@@ -347,7 +470,22 @@ CREATE TABLE public.organisations (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    email character varying,
+    phone character varying,
+    address text,
+    city text,
+    postcode text,
+    maximum_weekly_grooms integer DEFAULT 0,
+    maximum_daily_grooms integer DEFAULT 0,
+    maximum_weekly_daycare_visits integer DEFAULT 0,
+    maximum_daily_daycare_visits integer DEFAULT 0,
+    revenue_target integer DEFAULT 0,
+    stripe_api_key text,
+    grooming_reward_points integer DEFAULT 0,
+    daycare_visit_reward_points integer DEFAULT 0,
+    country text,
+    access_code character varying NOT NULL
 );
 
 
@@ -388,7 +526,18 @@ CREATE TABLE public.pets (
     user_id bigint NOT NULL,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    notes text,
+    date_of_death date,
+    status integer DEFAULT 0,
+    allergies text,
+    medication text,
+    rabies_expiration date,
+    bordetella_expiration date,
+    dhpp_expiration date,
+    heartworm_expiration date,
+    kennel_cough_expiration date,
+    colour_codes character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -409,6 +558,38 @@ CREATE SEQUENCE public.pets_id_seq
 --
 
 ALTER SEQUENCE public.pets_id_seq OWNED BY public.pets.id;
+
+
+--
+-- Name: product_category_joins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_category_joins (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    category_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: product_category_joins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.product_category_joins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_category_joins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.product_category_joins_id_seq OWNED BY public.product_category_joins.id;
 
 
 --
@@ -440,7 +621,6 @@ CREATE TABLE public.products (
     breed_size character varying,
     material character varying,
     organisation_id bigint,
-    category_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -509,6 +689,86 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: temporary_daycare_visits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.temporary_daycare_visits (
+    id bigint NOT NULL,
+    pet_name text NOT NULL,
+    owner_name text NOT NULL,
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    duration integer NOT NULL,
+    pet_notes text,
+    owner_notes text,
+    employee_id bigint,
+    status integer DEFAULT 0,
+    organisation_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: temporary_daycare_visits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.temporary_daycare_visits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: temporary_daycare_visits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.temporary_daycare_visits_id_seq OWNED BY public.temporary_daycare_visits.id;
+
+
+--
+-- Name: temporary_grooms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.temporary_grooms (
+    id bigint NOT NULL,
+    pet_name text NOT NULL,
+    owner_name text NOT NULL,
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    last_groom date,
+    pet_notes text,
+    owner_notes text,
+    employee_id bigint,
+    status integer DEFAULT 0,
+    organisation_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: temporary_grooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.temporary_grooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: temporary_grooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.temporary_grooms_id_seq OWNED BY public.temporary_grooms.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -526,7 +786,18 @@ CREATE TABLE public.users (
     weight integer,
     address text,
     city text,
-    postcode text
+    postcode text,
+    role integer DEFAULT 0,
+    max_daycare_visits integer DEFAULT 10,
+    notes text,
+    colour character varying,
+    rewards_points integer DEFAULT 0,
+    additional_user_first_name text,
+    additional_user_last_name text,
+    additional_user_email text,
+    additional_user_phone text,
+    additional_user_relationship text,
+    colour_codes character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -599,10 +870,31 @@ ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.image
 
 
 --
+-- Name: log_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports ALTER COLUMN id SET DEFAULT nextval('public.log_reports_id_seq'::regclass);
+
+
+--
+-- Name: onboarding_organisations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_organisations ALTER COLUMN id SET DEFAULT nextval('public.onboarding_organisations_id_seq'::regclass);
+
+
+--
 -- Name: onboarding_pets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.onboarding_pets ALTER COLUMN id SET DEFAULT nextval('public.onboarding_pets_id_seq'::regclass);
+
+
+--
+-- Name: onboarding_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_users ALTER COLUMN id SET DEFAULT nextval('public.onboarding_users_id_seq'::regclass);
 
 
 --
@@ -627,6 +919,13 @@ ALTER TABLE ONLY public.pets ALTER COLUMN id SET DEFAULT nextval('public.pets_id
 
 
 --
+-- Name: product_category_joins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_category_joins ALTER COLUMN id SET DEFAULT nextval('public.product_category_joins_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -638,6 +937,20 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 --
 
 ALTER TABLE ONLY public.reviews ALTER COLUMN id SET DEFAULT nextval('public.reviews_id_seq'::regclass);
+
+
+--
+-- Name: temporary_daycare_visits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_daycare_visits ALTER COLUMN id SET DEFAULT nextval('public.temporary_daycare_visits_id_seq'::regclass);
+
+
+--
+-- Name: temporary_grooms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_grooms ALTER COLUMN id SET DEFAULT nextval('public.temporary_grooms_id_seq'::regclass);
 
 
 --
@@ -712,11 +1025,35 @@ ALTER TABLE ONLY public.images
 
 
 --
+-- Name: log_reports log_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports
+    ADD CONSTRAINT log_reports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: onboarding_organisations onboarding_organisations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_organisations
+    ADD CONSTRAINT onboarding_organisations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: onboarding_pets onboarding_pets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.onboarding_pets
     ADD CONSTRAINT onboarding_pets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: onboarding_users onboarding_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.onboarding_users
+    ADD CONSTRAINT onboarding_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -744,6 +1081,14 @@ ALTER TABLE ONLY public.pets
 
 
 --
+-- Name: product_category_joins product_category_joins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_category_joins
+    ADD CONSTRAINT product_category_joins_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -765,6 +1110,22 @@ ALTER TABLE ONLY public.reviews
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: temporary_daycare_visits temporary_daycare_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_daycare_visits
+    ADD CONSTRAINT temporary_daycare_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: temporary_grooms temporary_grooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_grooms
+    ADD CONSTRAINT temporary_grooms_pkey PRIMARY KEY (id);
 
 
 --
@@ -811,6 +1172,13 @@ CREATE INDEX index_categories_on_organisation_id ON public.categories USING btre
 
 
 --
+-- Name: index_daycare_visits_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daycare_visits_on_employee_id ON public.daycare_visits USING btree (employee_id);
+
+
+--
 -- Name: index_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -825,6 +1193,13 @@ CREATE INDEX index_daycare_visits_on_pet_id ON public.daycare_visits USING btree
 
 
 --
+-- Name: index_grooms_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grooms_on_employee_id ON public.grooms USING btree (employee_id);
+
+
+--
 -- Name: index_grooms_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -836,6 +1211,20 @@ CREATE INDEX index_grooms_on_organisation_id ON public.grooms USING btree (organ
 --
 
 CREATE INDEX index_grooms_on_pet_id ON public.grooms USING btree (pet_id);
+
+
+--
+-- Name: index_images_on_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_category_id ON public.images USING btree (category_id);
+
+
+--
+-- Name: index_images_on_groom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_groom_id ON public.images USING btree (groom_id);
 
 
 --
@@ -860,10 +1249,45 @@ CREATE INDEX index_images_on_product_id ON public.images USING btree (product_id
 
 
 --
+-- Name: index_images_on_temporary_groom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_images_on_temporary_groom_id ON public.images USING btree (temporary_groom_id);
+
+
+--
 -- Name: index_images_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_images_on_user_id ON public.images USING btree (user_id);
+
+
+--
+-- Name: index_log_reports_on_daycare_visit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_log_reports_on_daycare_visit_id ON public.log_reports USING btree (daycare_visit_id);
+
+
+--
+-- Name: index_log_reports_on_groom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_log_reports_on_groom_id ON public.log_reports USING btree (groom_id);
+
+
+--
+-- Name: index_log_reports_on_temporary_daycare_visit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_log_reports_on_temporary_daycare_visit_id ON public.log_reports USING btree (temporary_daycare_visit_id);
+
+
+--
+-- Name: index_log_reports_on_temporary_groom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_log_reports_on_temporary_groom_id ON public.log_reports USING btree (temporary_groom_id);
 
 
 --
@@ -909,6 +1333,20 @@ CREATE INDEX index_pets_on_user_id ON public.pets USING btree (user_id);
 
 
 --
+-- Name: index_product_category_joins_on_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_category_joins_on_category_id ON public.product_category_joins USING btree (category_id);
+
+
+--
+-- Name: index_product_category_joins_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_category_joins_on_product_id ON public.product_category_joins USING btree (product_id);
+
+
+--
 -- Name: index_product_order_joins_on_order_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -920,13 +1358,6 @@ CREATE INDEX index_product_order_joins_on_order_id ON public.product_order_joins
 --
 
 CREATE INDEX index_product_order_joins_on_product_id ON public.product_order_joins USING btree (product_id);
-
-
---
--- Name: index_products_on_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_products_on_category_id ON public.products USING btree (category_id);
 
 
 --
@@ -948,6 +1379,34 @@ CREATE INDEX index_reviews_on_product_id ON public.reviews USING btree (product_
 --
 
 CREATE INDEX index_reviews_on_user_id ON public.reviews USING btree (user_id);
+
+
+--
+-- Name: index_temporary_daycare_visits_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_daycare_visits_on_employee_id ON public.temporary_daycare_visits USING btree (employee_id);
+
+
+--
+-- Name: index_temporary_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_daycare_visits_on_organisation_id ON public.temporary_daycare_visits USING btree (organisation_id);
+
+
+--
+-- Name: index_temporary_grooms_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_grooms_on_employee_id ON public.temporary_grooms USING btree (employee_id);
+
+
+--
+-- Name: index_temporary_grooms_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_grooms_on_organisation_id ON public.temporary_grooms USING btree (organisation_id);
 
 
 --
@@ -997,11 +1456,59 @@ ALTER TABLE ONLY public.onboarding_pets
 
 
 --
+-- Name: temporary_grooms fk_rails_3eeab0d03e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_grooms
+    ADD CONSTRAINT fk_rails_3eeab0d03e FOREIGN KEY (employee_id) REFERENCES public.users(id);
+
+
+--
+-- Name: log_reports fk_rails_42082339ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports
+    ADD CONSTRAINT fk_rails_42082339ed FOREIGN KEY (temporary_groom_id) REFERENCES public.temporary_grooms(id);
+
+
+--
+-- Name: daycare_visits fk_rails_518dd25eba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daycare_visits
+    ADD CONSTRAINT fk_rails_518dd25eba FOREIGN KEY (employee_id) REFERENCES public.users(id);
+
+
+--
 -- Name: products fk_rails_550fc2b569; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT fk_rails_550fc2b569 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: product_category_joins fk_rails_56df6eaf7a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_category_joins
+    ADD CONSTRAINT fk_rails_56df6eaf7a FOREIGN KEY (category_id) REFERENCES public.categories(id);
+
+
+--
+-- Name: images fk_rails_5f6f7eff28; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_5f6f7eff28 FOREIGN KEY (groom_id) REFERENCES public.grooms(id);
+
+
+--
+-- Name: images fk_rails_6d4d09f216; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_6d4d09f216 FOREIGN KEY (temporary_groom_id) REFERENCES public.temporary_grooms(id);
 
 
 --
@@ -1029,6 +1536,14 @@ ALTER TABLE ONLY public.daycare_visits
 
 
 --
+-- Name: grooms fk_rails_7a98d4e14b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grooms
+    ADD CONSTRAINT fk_rails_7a98d4e14b FOREIGN KEY (employee_id) REFERENCES public.users(id);
+
+
+--
 -- Name: pets fk_rails_7c53bdee02; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1037,11 +1552,35 @@ ALTER TABLE ONLY public.pets
 
 
 --
+-- Name: temporary_daycare_visits fk_rails_84cf442eab; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_daycare_visits
+    ADD CONSTRAINT fk_rails_84cf442eab FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: log_reports fk_rails_88d34f032d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports
+    ADD CONSTRAINT fk_rails_88d34f032d FOREIGN KEY (groom_id) REFERENCES public.grooms(id);
+
+
+--
 -- Name: orders fk_rails_8adba69ca4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT fk_rails_8adba69ca4 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: product_category_joins fk_rails_8cc50ae96f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_category_joins
+    ADD CONSTRAINT fk_rails_8cc50ae96f FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -1061,6 +1600,14 @@ ALTER TABLE ONLY public.onboarding_pets
 
 
 --
+-- Name: log_reports fk_rails_98e4f3e5f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports
+    ADD CONSTRAINT fk_rails_98e4f3e5f3 FOREIGN KEY (temporary_daycare_visit_id) REFERENCES public.temporary_daycare_visits(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1074,6 +1621,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT fk_rails_9a64b73984 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
+-- Name: images fk_rails_9dab9b62a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT fk_rails_9dab9b62a6 FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
@@ -1101,6 +1656,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: temporary_daycare_visits fk_rails_c8b128f1f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_daycare_visits
+    ADD CONSTRAINT fk_rails_c8b128f1f3 FOREIGN KEY (employee_id) REFERENCES public.users(id);
+
+
+--
 -- Name: grooms fk_rails_e1b884cc88; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1117,19 +1680,27 @@ ALTER TABLE ONLY public.images
 
 
 --
+-- Name: log_reports fk_rails_ec0ff3140c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.log_reports
+    ADD CONSTRAINT fk_rails_ec0ff3140c FOREIGN KEY (daycare_visit_id) REFERENCES public.daycare_visits(id);
+
+
+--
+-- Name: temporary_grooms fk_rails_f104b5e9b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temporary_grooms
+    ADD CONSTRAINT fk_rails_f104b5e9b3 FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
 -- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: products fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT fk_rails_fb915499a4 FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
@@ -1147,21 +1718,56 @@ ALTER TABLE ONLY public.images
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20240327123129'),
-('20240327123312'),
-('20240403115052'),
-('20240403120526'),
-('20240403121514'),
-('20240404110118'),
-('20240519114136'),
-('20240604113529'),
-('20240604115053'),
-('20240703102909'),
-('20240708111816'),
-('20240715114418'),
-('20240715115959'),
-('20240717104219'),
+('20250819122549'),
+('20250813123725'),
+('20250226122836'),
+('20250226115444'),
+('20250209124815'),
+('20250209123005'),
+('20250209120104'),
+('20250209115850'),
+('20250201115424'),
+('20250201041919'),
+('20250201040630'),
+('20250124234933'),
+('20250116103712'),
+('20250116102515'),
+('20250116053059'),
+('20250112121317'),
+('20241110133908'),
+('20241001114038'),
+('20240925124458'),
+('20240925115751'),
+('20240923113840'),
+('20240923112139'),
+('20240922130108'),
+('20240910111129'),
+('20240910100011'),
+('20240909123800'),
+('20240909114417'),
+('20240828121210'),
+('20240827120105'),
+('20240820123001'),
+('20240820121612'),
+('20240815121645'),
+('20240814120510'),
+('20240813122310'),
+('20240812124826'),
+('20240812123002'),
+('20240811113015'),
+('20240731102032'),
 ('20240721104704'),
-('20240731102032');
-
+('20240717104219'),
+('20240715115959'),
+('20240715114418'),
+('20240703102909'),
+('20240604115053'),
+('20240604113529'),
+('20240519114136'),
+('20240404110118'),
+('20240403121514'),
+('20240403120526'),
+('20240403115052'),
+('20240327123312'),
+('20240327123129');
 

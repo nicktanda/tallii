@@ -14,6 +14,9 @@ module Talii
     # Fix Rails 8.1 timezone deprecation warning
     config.active_support.to_time_preserves_timezone = :zone
 
+    # Use structure.sql instead of schema.rb
+    config.active_record.schema_format = :sql
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
