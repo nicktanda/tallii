@@ -68,6 +68,8 @@ gem "csv", "~> 3.3"
 
 gem "ostruct", "~> 0.6.0"
 
+gem "phonelib"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

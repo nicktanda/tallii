@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
   belongs_to :organisation, optional: true
+  
+  # Custom phone validation using phonelib
+  validate :phone_number_validity, if: -> { phone.present? }
 
   has_many :reviews, dependent: :destroy
   has_many :pets, dependent: :destroy
@@ -50,5 +53,33 @@ class User < ApplicationRecord
       do_not_book: "bg-red-700",
       helicopter: "bg-purple-600"
     }
+  end
+  
+  def formatted_phone
+    return unless phone.present?
+    parsed = Phonelib.parse(phone)
+    parsed.valid? ? parsed.international : phone
+  end
+  
+  def phone_with_country_code=(value)
+    self.phone = value
+  end
+  
+  def country_code=(code)
+    if phone.present? && code.present?
+      # Prepend the country code to the phone number
+      phone_with_code = "+#{code}#{phone.gsub(/^\+?\d+/, '')}"
+      parsed = Phonelib.parse(phone_with_code)
+      self.phone = parsed.full_e164 if parsed.valid?
+    end
+  end
+  
+  private
+  
+  def phone_number_validity
+    parsed = Phonelib.parse(phone)
+    unless parsed.possible?
+      errors.add(:phone, "is not a valid phone number")
+    end
   end
 end

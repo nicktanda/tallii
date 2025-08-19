@@ -196,6 +196,7 @@ GEM
       racc (~> 1.4)
     ostruct (0.6.3)
     pg (1.5.9)
+    phonelib (0.10.11)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -357,6 +358,7 @@ DEPENDENCIES
   nokogiri (~> 1.18)
   ostruct (~> 0.6.0)
   pg
+  phonelib
   pry (= 0.14.0)
   puma (~> 6.6.0)
   rails (~> 8.0.2)

@@ -54,7 +54,7 @@ class OnboardingUsersController < ApplicationController
 
   def phone; end
   def update_phone
-    @user.update!(phone: params[:phone])
+    @user.update!(phone: params["[country_code]"] + params["phone"])
     redirect_to complete_user_onboarding_path(@user)
   end
 

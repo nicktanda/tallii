@@ -170,7 +170,7 @@
                         </div>
                         <div>
                           <%= f.label :phone, "Phone Number" %>
-                          <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
+                          <%= phone_with_country_code_field(f, :phone), class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
                           <%= f.label :address, "Street Address" %>
@@ -228,7 +228,7 @@
                         </div>
                         <div>
                           <%= f.label :additional_user_phone, "Phone Number" %>
-                          <%= f.telephone_field :additional_user_phone, class: "border w-full rounded-lg p-2" %>
+                          <%= phone_with_country_code_field(f, :additional_user_phone), class: "border w-full rounded-lg p-2" %>
                         </div>
                         <div>
                           <%= f.label :additional_user_relationship, "Relationship" %>

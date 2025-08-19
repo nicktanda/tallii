@@ -19,7 +19,7 @@ module Desktop
     def update_organisation_details
       onboarding_organisation.update!(
         name: params[:name],
-        phone: params[:phone],
+        phone: params["[country_code]"] + params["phone"],
         address: params[:address],
         city: params[:city],
         postcode: params[:postcode]

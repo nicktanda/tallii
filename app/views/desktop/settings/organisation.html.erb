@@ -41,7 +41,7 @@
             </div>
             <div>
               <%= f.label :phone %>
-              <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
+              <%= phone_with_country_code_field(f, :phone), class: "border w-full rounded-lg p-2" %>
             </div>
           </div>
         </div>

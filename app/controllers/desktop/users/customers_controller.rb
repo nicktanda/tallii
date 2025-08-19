@@ -6,8 +6,8 @@ module Desktop
       before_action :users
 
       def index
-        @users = if params[:phone].present?
-          current_organisation.users.customers.where("phone like ?", "%#{params[:phone]}%")
+        @users = if (params["[country_code]"] + params["phone"]).present?
+          current_organisation.users.customers.where("phone like ?", "%#{(params["[country_code]"] + params["phone"])}%")
         else
           current_organisation.users.customers
         end
@@ -15,8 +15,8 @@ module Desktop
 
       def show
         @user = users.find(params[:id])
-        @users = if params[:phone].present?
-          current_organisation.users.customers.where("phone like ?", "%#{params[:phone]}%")
+        @users = if (params["[country_code]"] + params["phone"]).present?
+          current_organisation.users.customers.where("phone like ?", "%#{params["[country_code]"] + params["phone"]}%")
         else
           current_organisation.users.customers
         end
@@ -24,8 +24,8 @@ module Desktop
 
       def edit
         @user = users.find(params[:id])
-        @users = if params[:phone].present?
-          current_organisation.users.customers.where("phone like ?", "%#{params[:phone]}%")
+        @users = if (params["[country_code]"] + params["phone"]).present?
+          current_organisation.users.customers.where("phone like ?", "%#{params["[country_code]"] + params["phone"]}%")
         else
           current_organisation.users.customers
         end

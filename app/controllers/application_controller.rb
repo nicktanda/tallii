@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include PhoneHelper
+  
   before_action :require_authenticated_user
   before_action :require_pet
   before_action :set_stripe_api_key

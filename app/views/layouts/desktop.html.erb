@@ -202,7 +202,7 @@
                               </div>
                               <div>
                                 <%= f.label :phone, "Phone Number" %>
-                                <%= f.telephone_field :phone, class: "border w-full rounded-lg p-2" %>
+                                <%= phone_with_country_code_field(f, :phone) %>
                               </div>
                               <div>
                                 <%= f.label :address, "Street Address" %>
@@ -381,11 +381,21 @@
             </dialog>
           </div>
         </div>
+        <% if flash[:alert].present? -%>
+          <div class="alert alert-danger">
+            <%= flash[:alert] %>
+          </div>
+        <% end -%>
         <div class="mx-4 mb-4 rounded-lg flex-1 overflow-y-auto">
           <%= yield %>
         </div>
       </div>
     <% else %>
+      <% if flash[:alert].present? -%>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end -%>
       <div class="w-full flex flex-col">
         <%= yield %>
       </div>

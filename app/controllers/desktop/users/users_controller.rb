@@ -40,7 +40,7 @@ module Desktop
         user.first_name = params[:first_name]
         user.last_name = params[:last_name]
         user.email = params[:email]
-        user.phone = params[:phone]
+        user.phone = params["[country_code]"] + params["phone"]
         user.address = params[:address]
         user.city = params[:city]
         user.postcode = params[:postcode]
@@ -106,6 +106,7 @@ module Desktop
             :email,
             :password,
             :phone,
+            :country_code,
             :weight,
             :notes,
             :address,

@@ -31,7 +31,7 @@
           <%= f.label :phone, class: "text-xl mb-2" %>
           <div class="text-red-500">*</div>
         </div>
-        <%= f.telephone_field :phone, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= phone_with_country_code_field(f, :phone), class: "bg-black text-white border-x-0 border-t-0 w-full text-xl", required: true %>
       </div>
       <%= f.submit "Update Account", class: "bg-white w-full text-black font-bold p-4 rounded-lg" %>
     </div>
