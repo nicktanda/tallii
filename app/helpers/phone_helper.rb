@@ -58,11 +58,11 @@ module PhoneHelper
   end
   
   def phone_with_country_code_field(form, field_name, options = {})
-    content_tag :div, class: "phone-input-group" do
+    content_tag :div, class: "phone-input-group w-full" do
       country_select = select_tag(
         "#{form.object_name}[country_code]",
         options_for_select(country_options_for_phone, selected: '1'),
-        class: "border rounded-lg p-2 w-48"
+        class: "border rounded-lg p-2 w-24"
       )
       
       phone_field = form.telephone_field(
@@ -73,7 +73,7 @@ module PhoneHelper
         )
       )
       
-      content_tag(:div, class: "flex gap-2") do
+      content_tag(:div, class: "flex gap-3 w-full") do
         country_select + phone_field
       end
     end
