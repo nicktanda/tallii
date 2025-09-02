@@ -1,8 +1,3 @@
-<% flash.each do |type, msg| %>
-  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
-    <%= msg %>
-  </div>
-<% end %>
 <div class="py-4 px-2">
   <div class="space-y-4">
     <div class="font-bold text-2xl">Daily Calendar</div>
@@ -57,10 +52,12 @@
                     <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
                       <% @grooms.each do |groom| %>
                         <tr>
-                          <td class="p-4 flex space-x-2 items-center">
-                            <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800"><%= groom.user.first_name.first %></div>
-                            <div><%= groom.user.first_name %>
-                          </td>
+                          <% if groom.user.present? %>
+                            <td class="p-4 flex space-x-2 items-center">
+                              <div class="rounded-full w-8 h-8 bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-800"><%= groom.user.first_name.first %></div>
+                              <div><%= groom.user.first_name %>
+                            </td>
+                          <% end %>
                           <td class="p-4"><%= groom.time.strftime('%H:%M %p') %></div>
                           <td class="p-4">Groom</div>
                           <td class="p-4">
@@ -369,6 +366,11 @@
     </div>
   </div>
 </div>
+<% flash.each do |type, msg| %>
+  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
+    <%= msg %>
+  </div>
+<% end %>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
