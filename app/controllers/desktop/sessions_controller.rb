@@ -1,6 +1,6 @@
 module Desktop
   class SessionsController < DesktopController
-    before_action :redirect_if_user_is_logged_in
+    before_action :redirect_if_user_is_logged_in, except: [:destroy]
     skip_before_action :require_organisation
     skip_before_action :require_authenticated_desktop_user
 
@@ -23,7 +23,7 @@ module Desktop
     end
 
     def destroy
-      session.delete(:user)
+      session.delete("user")
       redirect_to desktop_new_session_path
     end
 

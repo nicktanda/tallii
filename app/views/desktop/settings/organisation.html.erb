@@ -41,7 +41,7 @@
             </div>
             <div>
               <%= f.label :phone %>
-              <%= phone_with_country_code_field(f, :phone), class: "border w-full rounded-lg p-2" %>
+              <%= phone_with_country_code_field(f, :phone, class: "border w-full rounded-lg p-2") %>
             </div>
           </div>
         </div>
@@ -108,10 +108,7 @@
           </div>
           <div class="w-full space-y-4">
             <div>
-              <div class="flex">
-                <%= f.label :access_code, "Talii Customer Access Code" %>
-                <div class="text-red-500">*</div>
-              </div>
+              <%= f.label :access_code, "Talii Customer Access Code" %>
               <%= f.text_field :access_code, readonly: true, value: current_organisation.access_code, class: "bg-white text-black w-full rounded-lg p-4" %>
               <div class="font-thin text-sm">Give this to customers signing up to your business if you aren't creating them through Talii</div>
             </div>
