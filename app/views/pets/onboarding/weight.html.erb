@@ -1,13 +1,25 @@
 <style>
+  .weight-input-container {
+    display: inline-flex;
+    align-items: baseline;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .weight-input {
+    width: auto;
+    min-width: 150px;
+    max-width: 400px;
+    text-align: center;
+    padding-right: 1.5rem !important;
+  }
+  
   .input-label {
-    position: absolute;
-    right: 4px;
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Center adjustment */
-    transition: transform 0.2s ease, top 0.2s ease;
-    color: #FEF08A; /* Change color to match your design */
-    pointer-events: none; /* Prevent pointer events on label */
+    margin-left: 1rem;
+    color: #FEF08A;
     font-size: 24px;
+    align-self: center;
   }
 
   /* Slider Track with Text */
@@ -27,11 +39,11 @@
       <div class="text-gray-400 text-2xl mt-4">How much does <%= @pet.name %> weigh?</div>
     </div>
     <div class="w-full mb-4 mt-24 px-32">
-      <div class="relative">
+      <div class="weight-input-container">
         <%= f.number_field :weight, required: true, step: "0.01", 
-          class: "bg-black text-white border-x-0 border-t-0 border-yellow-200 w-full text-5xl font-bold pt-6 pl-4 placeholder-transparent", 
+          class: "weight-input bg-black text-white border-x-0 border-t-0 border-yellow-200 text-5xl font-bold pt-6 pl-4 placeholder-transparent", 
           id: "weight", placeholder: " " %>
-        <label for="weight" class="input-label text-yellow-200">lbs</label>
+        <span class="input-label text-yellow-200">lbs</span>
       </div>
     </div>
     <div class="p-8">
@@ -53,6 +65,34 @@
 <script>
   var slider = document.getElementById("myRange");
   var form = document.getElementById("petWeightForm");
+  var weightInput = document.getElementById("weight");
+
+  // Create a hidden span to measure text width
+  var measureSpan = document.createElement('span');
+  measureSpan.style.visibility = 'hidden';
+  measureSpan.style.position = 'absolute';
+  measureSpan.style.fontSize = window.getComputedStyle(weightInput).fontSize;
+  measureSpan.style.fontFamily = window.getComputedStyle(weightInput).fontFamily;
+  measureSpan.style.fontWeight = window.getComputedStyle(weightInput).fontWeight;
+  measureSpan.style.letterSpacing = window.getComputedStyle(weightInput).letterSpacing;
+  measureSpan.style.whiteSpace = 'pre';
+  document.body.appendChild(measureSpan);
+
+  // Function to adjust input width based on actual text width
+  function adjustInputWidth() {
+    var value = weightInput.value || "";
+    // Use placeholder width if empty
+    measureSpan.textContent = value || "000";
+    var textWidth = measureSpan.offsetWidth;
+    // Add moderate padding for a reasonably wider input field
+    weightInput.style.width = (textWidth + 100) + "px";
+  }
+
+  // Adjust width on input
+  weightInput.addEventListener('input', adjustInputWidth);
+  
+  // Adjust width on page load if there's a value
+  adjustInputWidth();
 
   slider.oninput = function() {
     if (this.value == this.max) {
