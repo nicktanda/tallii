@@ -17,7 +17,7 @@
           <div class="font-thin text-sm">(4/4 steps)</div>
           <div>For the moments we need to touch base or when your pet's groom is finished</div>
         </div>
-        <%= f.phone_field :phone, value: @user.phone, required: true, placeholder: "(+1)613 464 2505", class: "bg-black border-2 border-white rounded-2xl text-white text-lg p-4 w-full" %>
+        <%= phone_with_country_code_field(f, :phone, class: "bg-black border-2 border-white rounded-2xl text-white text-lg p-4 w-full", required: true, value: @user.phone) %>
       </div>
       <div class="space-y-4">
         <%= f.submit "Next", class: "w-full bg-blue-800 p-4 rounded-lg" %>

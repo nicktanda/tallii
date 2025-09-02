@@ -1,8 +1,37 @@
 <style>
-  input:checked + label {
+  /* Default grey background for both labels */
+  label[for="species_dog"], label[for="species_cat"] {
+    background-color: rgb(156, 163, 175); /* gray-400 */
+  }
+  
+  /* Default gray text for Dog/Cat labels */
+  label[for="species_dog"] .bg-black,
+  label[for="species_cat"] .bg-black {
+    color: rgb(156, 163, 175); /* gray-400 */
+  }
+  
+  /* Red background and text when dog is selected */
+  input#species_dog:checked + label {
+    background-color: rgb(248, 113, 113); /* red-400 */
     color: #00FFFF;
     font-weight: bold;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  input#species_dog:checked + label .bg-black {
+    color: rgb(248, 113, 113); /* red-400 */
+  }
+  
+  /* Purple background and text when cat is selected */
+  input#species_cat:checked + label {
+    background-color: rgb(192, 132, 252); /* purple-400 */
+    color: #00FFFF;
+    font-weight: bold;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  input#species_cat:checked + label .bg-black {
+    color: rgb(192, 132, 252); /* purple-400 */
   }
 
   /* Slider Track with Text */
@@ -25,9 +54,9 @@
     <div class="text-white text-2xl space-x-2 flex w-full mt-24">
       <div class="w-full">
         <input class="hidden" id="species_dog" type="radio" name="species" value="dog" <%= @pet.species == "dog" || @pet.species.nil? ? 'checked' : '' %>>
-        <label class="flex flex-col items-center border-4 border-black cursor-pointer bg-red-400 rounded-xl" for="species_dog">
+        <label class="flex flex-col items-center border-4 border-black cursor-pointer rounded-xl" for="species_dog">
           <div class="flex justify-start w-full">
-            <div class="bg-black rounded-br-xl p-4 text-red-400">Dog</div>
+            <div class="bg-black rounded-br-xl p-4">Dog</div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" class="h-36 w-36" stroke="currentColor">
             <path d="M63.6747 -2.28882e-05H41.3258C18.5387 -2.28882e-05 0 18.5396 0 41.3264V43.4644C0 51.1321 5.18959 57.8071 12.6241 59.6988L19.546 61.4497C19.2536 59.4663 19.2166 57.4212 19.2358 55.3416L14.0615 54.0327C9.22399 52.8017 5.84564 48.456 5.84564 43.4644V41.3264C5.84564 21.7619 21.7617 5.84584 41.3258 5.84584H63.6747C83.2384 5.84584 99.1541 21.7619 99.1541 41.3264V43.4644C99.1541 48.456 95.776 52.8017 90.9427 54.0316L88.2809 54.7049C88.0439 56.828 87.7112 58.9316 87.2216 61.0031L92.3799 59.6977C99.8103 57.8071 105 51.1321 105 43.4644V41.3264C105 18.5396 86.4616 -2.28882e-05 63.6747 -2.28882e-05Z" fill="currentColor"/>
@@ -41,7 +70,7 @@
       </div>
       <div class="w-full">
         <input class="hidden" id="species_cat" type="radio" name="species" value="cat" <%= @pet.species == "cat" ? 'checked' : '' %>>
-        <label class="flex flex-col items-center border-4 border-black cursor-pointer bg-purple-400 rounded-3xl" for="species_cat">
+        <label class="flex flex-col items-center border-4 border-black cursor-pointer rounded-3xl" for="species_cat">
           <div class="h-16"></div>
           <svg xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none" stroke="currentColor" class="h-36 w-36">
             <path d="M8.032 7.44984V46.5525C8.032 66.3784 26.562 82.5074 49.3393 82.5074H55.6591C78.4364 82.5074 96.968 66.3784 96.968 46.5525V7.44984L78.8598 18.4394C78.1847 18.849 77.3837 19.0682 76.5622 19.0682H75.7549C75.1994 19.0682 74.6518 18.9682 74.1435 18.7737C67.5592 16.2629 60.0733 14.937 52.4992 14.937C44.9251 14.937 37.4408 16.2629 30.8565 18.7737C30.3482 18.9682 29.799 19.0682 29.2451 19.0682H28.4378C27.6163 19.0682 26.8153 18.849 26.1402 18.4394L8.032 7.44984ZM55.6591 89.5H49.3393C22.1337 89.5 0 70.2343 0 46.5525V6.49922C0 4.07063 1.5359 1.86395 4.00971 0.740746C6.48509 -0.383827 9.4436 -0.218094 11.7317 1.17085L29.2246 11.7879C36.4179 9.27026 44.4263 7.94432 52.4992 7.94432C60.5737 7.94432 68.5821 9.27026 75.7738 11.7879L93.2683 1.17085C95.5564 -0.218094 98.5149 -0.383827 100.989 0.740746C103.463 1.86395 105 4.07063 105 6.49922V46.5525C105 70.2343 82.8663 89.5 55.6591 89.5Z" fill="currentColor"/>
@@ -50,7 +79,7 @@
             <path d="M60.9103 57.3242C61.0897 55.3846 57.5741 54.1341 53.7375 54.1341C52.9098 54.1341 52.3747 54.1341 51.3927 54.1341C47.5561 54.1341 44.0406 55.3846 44.22 57.3242C44.2074 57.4804 44.2121 57.6393 44.2483 57.805C44.6858 59.8062 47.2414 61.6623 50.2691 62.606C50.9978 62.8334 51.783 62.9389 52.5651 62.9279C53.3472 62.9389 54.1325 62.8334 54.8611 62.606C57.8889 61.6623 60.4445 59.8062 60.8804 57.805C60.9166 57.6393 60.9213 57.4804 60.9103 57.3242Z" fill="currentColor"/>
           </svg>
           <div class="flex justify-end w-full">
-            <div class="content-end bg-black text-purple-400 rounded-tl-xl p-4">Cat</div>
+            <div class="content-end bg-black rounded-tl-xl p-4">Cat</div>
           </div>
         </label>
       </div>
