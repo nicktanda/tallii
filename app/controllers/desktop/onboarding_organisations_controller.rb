@@ -4,6 +4,7 @@ module Desktop
 
     before_action :redirect_if_user_is_logged_in
     skip_before_action :require_organisation
+    skip_before_action :require_authenticated_desktop_user
 
     def user_details; end
     def update_user_details
