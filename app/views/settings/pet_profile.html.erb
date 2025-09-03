@@ -25,8 +25,12 @@
     <div class="relative mb-8">
       <% if @pet.images.any? %>
         <img id="main-image" src="<%= url_for(@pet.images.order(:created_at).last.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+      <% elsif @pet.images.none? && @pet.dog? %>
+        <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
+      <% elsif @pet.images.none? && @pet.cat? %>
+        <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
       <% else %>
-        <div class="h-6"></div>
+        <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
       <% end %>
       <div class="absolute top-0 left-0 m-2">
         <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp' %>

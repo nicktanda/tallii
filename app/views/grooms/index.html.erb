@@ -28,6 +28,12 @@
             <div class="flex space-x-4">
               <% if pet.images.any? %>
                 <img src="<%= url_for(pet.images.first.image) %>" alt="<%= pet.name %>" class="rounded-lg w-24 h-24">
+              <% elsif pet.images.none? && pet.dog? %>
+                <%= image_tag "/app_images/backup_dog.png", class: "rounded-lg w-24 h-24" %>
+              <% elsif pet.images.none? && pet.cat? %>
+                <%= image_tag "/app_images/backup_cat.png", class: "rounded-lg w-24 h-24" %>
+              <% else %>
+                <%= image_tag "/app_images/backup_user.png", class: "rounded-lg w-24 h-24" %>
               <% end %>
               <div class="text-purple-800 space-y-2">
                 <div class="flex space-x-2">
@@ -87,6 +93,12 @@
             <div class="flex space-x-4">
               <% if pet.images.any? %>
                 <img src="<%= url_for(pet.images.first.image) %>" alt="<%= pet.name %>" class="rounded-lg w-24 h-24">
+              <% elsif pet.images.none? && pet.dog? %>
+                <%= image_tag "/app_images/backup_dog.png", class: "rounded-lg w-24 h-24" %>
+              <% elsif pet.images.none? && pet.cat? %>
+                <%= image_tag "/app_images/backup_cat.png", class: "rounded-lg w-24 h-24" %>
+              <% else %>
+                <%= image_tag "/app_images/backup_user.png", class: "rounded-lg w-24 h-24" %>
               <% end %>
               <div class="text-purple-800 space-y-2">
                 <div class="flex space-x-2">

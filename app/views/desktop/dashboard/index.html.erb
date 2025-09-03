@@ -111,6 +111,12 @@
                                         <div class="bg-green-300 border border-green-500 p-4 rounded-xl inline-flex space-x-2 w-fit">
                                           <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
                                             <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
+                                          <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.dog? %>
+                                            <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
+                                          <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
+                                            <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                          <% else %>
+                                            <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
                                           <% end %>
                                           <div>
                                             <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
