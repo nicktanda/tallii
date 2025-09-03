@@ -14,7 +14,18 @@ module Desktop
       end
 
       log_report = booking.create_log_report(log_report_params)
-      save_result = log_report.save! ? "Log report successfully created" : "Invalid log report"
+      
+      if log_report.save!
+        if log_report.rewards_points.present? && log_report.reward_points > 0
+          user = get_user_from_booking(booking)
+          user.rewards_points += log_report.reward_points
+          user.save
+        end
+        save_result = "Log report successfully created"
+      else
+        save_result = "Invalid log report"
+      end
+      
       redirect_path = if booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)
         desktop_grooms_path(date: booking.date)
       else
@@ -37,6 +48,9 @@ module Desktop
       end
 
       save_result = booking.log_report.update!(log_report_params) ? "Log report successfully updated" : "Invalid log report update"
+      user = get_user_from_booking(booking)
+      user.rewards_points += booking.log_report.reward_points
+      user.save
       redirect_path = if booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)
         desktop_grooms_path(date: booking.date)
       else
@@ -55,8 +69,19 @@ module Desktop
           :customer_notes,
           :price,
           :payment_method,
-          :duration
+          :duration,
+          :reward_points
         )
+    end
+    
+    def get_user_from_booking(booking)
+      if booking.respond_to?(:pet) && booking.pet
+        booking.pet.user
+      elsif booking.respond_to?(:user)
+        booking.user
+      else
+        nil
+      end
     end
   end
 end

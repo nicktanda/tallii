@@ -43,8 +43,6 @@ class GroomsController < ApplicationController
     end
 
     if groom.save
-      rewards_points = groom.pet.user.rewards_points + current_organisation.grooming_reward_points
-      groom.pet.user.update!(rewards_points: rewards_points)
       groom.images.create!(name: "test_image", image: params[:groom][:image])
       if params[:groom][:origin] == "desktop"
         redirect_to desktop_grooms_path

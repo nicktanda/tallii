@@ -1,3 +1,8 @@
+\restrict eeraVkQ4RRjXExDeJDkdybP54y3Z690xOzLp3RvrY0AhDmUWNvRFe3yoP3fScNx
+
+-- Dumped from database version 15.13 (Homebrew)
+-- Dumped by pg_dump version 15.14 (Homebrew)
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -289,7 +294,8 @@ CREATE TABLE public.log_reports (
     payment_method integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    duration numeric(5,2) DEFAULT 0.0
+    duration numeric(5,2) DEFAULT 0.0,
+    reward_points integer DEFAULT 0
 );
 
 
@@ -485,7 +491,9 @@ CREATE TABLE public.organisations (
     grooming_reward_points integer DEFAULT 0,
     daycare_visit_reward_points integer DEFAULT 0,
     country text,
-    access_code character varying NOT NULL
+    access_code character varying NOT NULL,
+    default_groom_cost double precision,
+    default_daycare_visit_cost double precision
 );
 
 
@@ -1715,9 +1723,13 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
+\unrestrict eeraVkQ4RRjXExDeJDkdybP54y3Z690xOzLp3RvrY0AhDmUWNvRFe3yoP3fScNx
+
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250902131258'),
+('20250902130509'),
 ('20250819122549'),
 ('20250813123725'),
 ('20250226122836'),
