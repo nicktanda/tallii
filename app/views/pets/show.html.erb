@@ -11,9 +11,13 @@
         </div>
       <% end %>
       <div class="absolute bottom-0 left-0 right-0">
-        <div class="flex justify-between">
-          <div class="text-white font-bold text-5xl bg-black rounded-2xl p-3"><%= @pet.name %></div>
-          <div class="text-white bg-blue-500 font-bold text-xl rounded-2xl p-3"><%= @pet.age %> YO</div>
+        <div class="flex justify-between items-end">
+          <div class="text-white font-bold text-5xl leading-none bg-black rounded-2xl p-3">
+            <%= @pet.name %>
+          </div>
+          <div class="text-white font-bold text-xl leading-none bg-blue-500 rounded-2xl p-3 whitespace-nowrap">
+            <%= @pet.age %> YO
+          </div>
         </div>
       </div>
     </div>
@@ -180,7 +184,9 @@
     <% @pet.grooms.flat_map(&:images).each_with_index do |image, index| %>
       <div class="space-y-2 p-4 <%= index.even? ? 'bg-teal-200' : 'bg-teal-300' %>">
         <div><b>Uploaded at:</b> <%= image.created_at.strftime("%B %d, %Y") %></div>
-        <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+        <% if image.image.attached? %>
+          <img src="<%= url_for(image.image) %>" alt="<%= @pet.name %>" class="rounded-2xl max-h-80 w-full flex flex-col justify-end">
+        <% end %>
       </div>
     <% end %>
   </div>
