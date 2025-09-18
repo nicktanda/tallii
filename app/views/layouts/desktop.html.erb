@@ -344,58 +344,244 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  <%= form_for Groom.new, url: create_groom_path, method: :post do |f| %>
-                    <div class="bg-white">
-                      <div class="p-2 w-full flex justify-center">
-                        <div class="space-y-4">
-                          <div>
-                            <div class="flex">
-                              <%= f.label :pet, "Search Pet" %>
-                              <div class="text-red-500">*</div>
-                            </div>
-                            <input list="pet-list" id="pet-input" placeholder="Please Search Pet" class="border w-full rounded-lg p-2" required>
-                            <%= f.hidden_field :pet_id, id: "pet_id", required: true %>
-                            <datalist id="pet-list">
-                              <% current_organisation.pets.each do |pet| %>
-                                <option data-id="<%= pet.id %>" value="<%= pet.name %> (<%= pet.user.full_name %>)"></option>
-                              <% end %>
-                            </datalist>
-                            <script>
-                              document.getElementById('pet-input').addEventListener('input', function() {
-                                let inputValue = this.value;
-                                let options = document.querySelectorAll("#pet-list option");
-
-                                options.forEach(option => {
-                                  if (option.value === inputValue) {
-                                    document.getElementById('pet_id').value = option.getAttribute('data-id');
-                                  }
-                                });
-                              });
-                            </script>
-                          </div>
-                          <div class="flex-1 flex flex-col">
-                            <%= f.label :employee_id %>
-                            <%= f.select(:employee_id, options_for_select(current_organisation.users.employees_and_admins.map {|user| [user.full_name, user.id]}), { prompt: 'Select' }, { required: true, class: "border w-full rounded-lg p-2" }) %>
-                          </div>
-                          <div>
-                            <%= f.label :date %>
-                            <%= f.date_field :date, required: true, class: "border w-full rounded-lg p-2" %>
-                          </div>
-                          <div>
-                            <%= f.label :time %>
-                            <%= f.time_field :time, required: true, class: "border w-full rounded-lg p-2" %>
-                          </div>
-                          <%= f.hidden_field :organisation, value: current_organisation.id%>
-                          <%= f.hidden_field :origin, value: "desktop"%>
-                        </div>
+                  <%= form_for Groom.new, url: create_groom_path, method: :post, html: { id: 'groom-booking-form' } do |f| %>
+                    <div class="bg-white p-4 space-y-4">
+                      <!-- Select Customer -->
+                      <div>
+                        <input list="customer-list" id="customer-search" placeholder="Search and select a customer" class="border w-full rounded-lg p-2">
+                        <input type="hidden" id="customer-id" value="">
+                        <datalist id="customer-list">
+                          <% current_organisation.users.customers.each do |customer| %>
+                            <option data-id="<%= customer.id %>" value="<%= customer.full_name %>"></option>
+                          <% end %>
+                        </datalist>
                       </div>
-                      <div class="p-2 w-full flex justify-center">
-                        <button type="submit" class="bg-blue-500 text-white font-bold p-2 rounded-lg flex items-center justify-center">
-                          Book Groom
-                        </button>
+
+                      <!-- Select Pet -->
+                      <div id="pet-section" class="hidden">
+                        <input list="pet-list" id="pet-search" placeholder="Search and select a pet" class="border w-full rounded-lg p-2">
+                        <%= f.hidden_field :pet_id, id: "pet_id" %>
+                        <datalist id="pet-list">
+                          <!-- Pet options will be populated dynamically -->
+                        </datalist>
+                      </div>
+
+                      <!-- Book Details -->
+                      <div id="booking-section" class="hidden space-y-3">
+                        <div>
+                          <%= f.label :employee_id, "Groomer" %>
+                          <input list="groomer-list" id="groomer-search" placeholder="Search and select a groomer" class="border w-full rounded-lg p-2">
+                          <%= f.hidden_field :employee_id, id: "employee-id" %>
+                          <datalist id="groomer-list">
+                            <% current_organisation.users.employees_and_admins.each do |user| %>
+                              <option data-id="<%= user.id %>" value="<%= user.full_name %>"></option>
+                            <% end %>
+                          </datalist>
+                        </div>
+                        <div>
+                          <%= f.label :date %>
+                          <%= f.date_field :date, id: 'date-field', required: true, class: "border w-full rounded-lg p-2" %>
+                        </div>
+                        <div>
+                          <%= f.label :time %>
+                          <%= f.time_field :time, id: 'time-field', required: true, class: "border w-full rounded-lg p-2" %>
+                        </div>
+                        <%= f.hidden_field :organisation, value: current_organisation.id%>
+                        <%= f.hidden_field :origin, value: "desktop"%>
+                      </div>
+
+                      <!-- Submit Button -->
+                      <div id="submit-section" class="hidden">
+                        <div class="flex justify-end">
+                          <button type="submit" id="submit-button" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-lg disabled:bg-gray-400" disabled>
+                            Book Groom
+                          </button>
+                        </div>
                       </div>
                     </div>
                   <% end %>
+
+                  <script>
+                    // Store pets data
+                    const petsData = {
+                      <% current_organisation.users.customers.each do |customer| %>
+                        <%= customer.id %>: [
+                          <% customer.pets.each do |pet| %>
+                            { id: <%= pet.id %>, name: '<%= pet.name %>' },
+                          <% end %>
+                        ],
+                      <% end %>
+                    };
+
+                    // Store customer data for lookup
+                    const customerData = {
+                      <% current_organisation.users.customers.each do |customer| %>
+                        '<%= customer.full_name %>': <%= customer.id %>,
+                      <% end %>
+                    };
+
+                    // Store groomer data for lookup
+                    const groomerData = {
+                      <% current_organisation.users.employees_and_admins.each do |user| %>
+                        '<%= user.full_name %>': <%= user.id %>,
+                      <% end %>
+                    };
+
+                    // Get elements
+                    const customerSearch = document.getElementById('customer-search');
+                    const customerId = document.getElementById('customer-id');
+                    const petSearch = document.getElementById('pet-search');
+                    const petList = document.getElementById('pet-list');
+                    const petSection = document.getElementById('pet-section');
+                    const bookingSection = document.getElementById('booking-section');
+                    const submitSection = document.getElementById('submit-section');
+                    const submitButton = document.getElementById('submit-button');
+                    const groomerSearch = document.getElementById('groomer-search');
+                    const employeeId = document.getElementById('employee-id');
+                    const dateField = document.getElementById('date-field');
+                    const timeField = document.getElementById('time-field');
+                    const groomForm = document.getElementById('groom-booking-form');
+
+                    // Handle customer selection
+                    customerSearch.addEventListener('input', function() {
+                      const customerName = this.value;
+                      const customerId_value = customerData[customerName];
+
+                      if (customerId_value) {
+                        customerId.value = customerId_value;
+
+                        // Show pet section
+                        petSection.classList.remove('hidden');
+
+                        // Populate pets datalist
+                        petList.innerHTML = '';
+                        const pets = petsData[customerId_value] || [];
+                        pets.forEach(pet => {
+                          const option = document.createElement('option');
+                          option.setAttribute('data-id', pet.id);
+                          option.value = pet.name;
+                          petList.appendChild(option);
+                        });
+
+                        // Reset subsequent sections if customer changes
+                        petSearch.value = '';
+                        document.getElementById('pet_id').value = '';
+                        groomerSearch.value = '';
+                        employeeId.value = '';
+                        bookingSection.classList.add('hidden');
+                        submitSection.classList.add('hidden');
+                        checkFormComplete();
+                      } else {
+                        // Clear customer selection if no match
+                        customerId.value = '';
+                        petSection.classList.add('hidden');
+                        bookingSection.classList.add('hidden');
+                        submitSection.classList.add('hidden');
+                        petSearch.value = '';
+                        document.getElementById('pet_id').value = '';
+                        groomerSearch.value = '';
+                        employeeId.value = '';
+                        checkFormComplete();
+                      }
+                    });
+
+                    // Handle pet selection
+                    petSearch.addEventListener('input', function() {
+                      const petName = this.value;
+                      const petOptions = petList.querySelectorAll('option');
+                      let petId = '';
+
+                      // Find the pet ID from the datalist options
+                      petOptions.forEach(option => {
+                        if (option.value === petName) {
+                          petId = option.getAttribute('data-id');
+                        }
+                      });
+
+                      if (petId) {
+                        document.getElementById('pet_id').value = petId;
+
+                        // Show booking section and submit button
+                        bookingSection.classList.remove('hidden');
+                        submitSection.classList.remove('hidden');
+                      } else {
+                        // Clear pet selection if no match
+                        document.getElementById('pet_id').value = '';
+                        bookingSection.classList.add('hidden');
+                        submitSection.classList.add('hidden');
+                        groomerSearch.value = '';
+                        employeeId.value = '';
+                      }
+                      checkFormComplete();
+                    });
+
+                    // Handle groomer selection
+                    groomerSearch.addEventListener('input', function() {
+                      const groomerName = this.value;
+                      const groomerId = groomerData[groomerName];
+
+                      if (groomerId) {
+                        employeeId.value = groomerId;
+                      } else {
+                        employeeId.value = '';
+                      }
+                      checkFormComplete();
+                    });
+
+                    // Function to check if form is complete
+                    function checkFormComplete() {
+                      const petId = document.getElementById('pet_id').value;
+                      const groomerId = employeeId.value;
+                      const date = dateField.value;
+                      const time = timeField.value;
+
+                      console.log('Form check:', { petId, groomerId, date, time });
+
+                      // Only require pet, date, and time - groomer is optional
+                      if (petId && date && time) {
+                        submitButton.disabled = false;
+                        submitButton.classList.remove('bg-gray-400');
+                        submitButton.classList.add('bg-blue-500');
+                        console.log('Submit button enabled');
+                      } else {
+                        submitButton.disabled = true;
+                        submitButton.classList.remove('bg-blue-500');
+                        submitButton.classList.add('bg-gray-400');
+                        console.log('Submit button disabled');
+                      }
+                    }
+
+                    // Handle date and time changes
+                    dateField.addEventListener('change', checkFormComplete);
+                    timeField.addEventListener('change', checkFormComplete);
+
+                    // Debug submit button clicks
+                    submitButton.addEventListener('click', function(e) {
+                      console.log('Submit button clicked!', {
+                        disabled: this.disabled,
+                        petId: document.getElementById('pet_id').value,
+                        employeeId: employeeId.value,
+                        date: dateField.value,
+                        time: timeField.value
+                      });
+                    });
+
+                    // Add required validation
+                    groomForm.addEventListener('submit', function(e) {
+                      console.log('Form submit event triggered');
+                      if (!document.getElementById('pet_id').value) {
+                        e.preventDefault();
+                        alert('Please select a pet');
+                        return false;
+                      }
+                      if (!dateField.value || !timeField.value) {
+                        e.preventDefault();
+                        alert('Please fill in date and time');
+                        return false;
+                      }
+                      console.log('Form validation passed, submitting...');
+                    });
+                  </script>
                 </div>
               </div>
             </dialog>
