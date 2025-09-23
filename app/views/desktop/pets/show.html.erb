@@ -386,7 +386,7 @@
             <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
               <% @pet.grooms.select{|groom| groom.log_report.present?}.each do |groom| %>
                 <% log_report = groom.log_report %>
-                <tr>
+                <tr class="hover:bg-gray-50 cursor-pointer" onclick='document.getElementById("groomLogReportDialog<%= groom.id %>").showModal();'>
                   <td class="p-2 font-light whitespace-nowrap"><%= groom.date.strftime('%d %b %Y') %></td>
                   <td class="p-2"><%= log_report&.org_notes %></td>
                   <td class="p-2 whitespace-nowrap"><%= log_report&.duration.present? ? "#{log_report.duration} hrs" : "-" %></td>
@@ -454,7 +454,7 @@
             <tbody class="bg-white divide-y divide-gray-200 rounded-b-xl">
               <% @pet.daycare_visits.select{|visit| visit.log_report.present?}.each do |daycare_visit| %>
                 <% log_report = daycare_visit.log_report %>
-                <tr>
+                <tr class="hover:bg-gray-50 cursor-pointer" onclick='document.getElementById("daycareLogReportDialog<%= daycare_visit.id %>").showModal();'>
                   <td class="p-2 font-light whitespace-nowrap"><%= daycare_visit.date.strftime('%d %b %Y') %></td>
                   <td class="p-2"><%= log_report.org_notes %></td>
                   <td class="p-2 whitespace-nowrap"><%= log_report&.duration.present? ? "#{log_report.duration} hrs" : "-" %></td>
@@ -467,4 +467,158 @@
       </div>
     </div>
   </div>
+
+  <!-- Groom Log Report Modals -->
+  <% @pet.grooms.select{|groom| groom.log_report.present?}.each do |groom| %>
+    <% log_report = groom.log_report %>
+    <dialog id="groomLogReportDialog<%= groom.id %>">
+      <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("groomLogReportDialog<%= groom.id %>").close();'>
+        <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+          <div class="flex justify-between p-4 rounded-t-xl">
+            <div class="flex space-x-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+              <div class="font-bold text-2xl">Grooming Log Report</div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer" onclick='document.getElementById("groomLogReportDialog<%= groom.id %>").close();'>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-white rounded-xl p-4 space-y-2">
+              <div class="flex space-x-4">
+                <div>
+                  <div class="text-sm text-gray-600">Pet</div>
+                  <div class="font-semibold"><%= @pet.name %></div>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-600">Date</div>
+                  <div class="font-semibold"><%= groom.date.strftime("%d %b %Y") %></div>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-600">Duration</div>
+                  <div class="font-semibold"><%= log_report.duration.present? ? "#{log_report.duration} hrs" : "-" %></div>
+                </div>
+              </div>
+              <div class="border-t pt-2">
+                <div class="text-sm text-gray-600">Groomer Notes</div>
+                <div class="bg-gray-50 rounded-lg p-3 mt-1">
+                  <%= log_report.org_notes.present? ? log_report.org_notes : "No groomer notes available" %>
+                </div>
+              </div>
+              <% if log_report.customer_notes.present? %>
+                <div>
+                  <div class="text-sm text-gray-600">Customer Notes</div>
+                  <div class="bg-gray-50 rounded-lg p-3 mt-1">
+                    <%= log_report.customer_notes %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="bg-white rounded-xl p-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Price</span>
+                <span class="font-bold text-lg">$<%= log_report.price %></span>
+              </div>
+              <% if log_report.payment_method.present? %>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Payment Method</span>
+                  <span class="font-semibold"><%= log_report.payment_method.humanize %></span>
+                </div>
+              <% end %>
+              <% if log_report.reward_points.present? && log_report.reward_points > 0 %>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Reward Points</span>
+                  <span class="font-semibold"><%= log_report.reward_points %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="p-4 flex justify-center">
+            <button type="button" class="bg-gray-400 text-white font-bold px-6 py-2 rounded-lg" onclick='document.getElementById("groomLogReportDialog<%= groom.id %>").close();'>
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  <% end %>
+
+  <!-- Daycare Log Report Modals -->
+  <% @pet.daycare_visits.select{|visit| visit.log_report.present?}.each do |daycare_visit| %>
+    <% log_report = daycare_visit.log_report %>
+    <dialog id="daycareLogReportDialog<%= daycare_visit.id %>">
+      <div class="fixed top-0 left-0 w-screen h-screen bg-gray-200 bg-opacity-10 flex items-center justify-center" onclick='document.getElementById("daycareLogReportDialog<%= daycare_visit.id %>").close();'>
+        <div class="bg-gray-200 items-center w-96 overflow-y-auto max-h-screen my-4 rounded-xl shadow-xl" onclick="event.stopPropagation();">
+          <div class="flex justify-between p-4 rounded-t-xl">
+            <div class="flex space-x-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+              <div class="font-bold text-2xl">Daycare Log Report</div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer" onclick='document.getElementById("daycareLogReportDialog<%= daycare_visit.id %>").close();'>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-white rounded-xl p-4 space-y-2">
+              <div class="flex space-x-4">
+                <div>
+                  <div class="text-sm text-gray-600">Pet</div>
+                  <div class="font-semibold"><%= @pet.name %></div>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-600">Date</div>
+                  <div class="font-semibold"><%= daycare_visit.date.strftime("%d %b %Y") %></div>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-600">Duration</div>
+                  <div class="font-semibold"><%= log_report.duration.present? ? "#{log_report.duration} hrs" : "-" %></div>
+                </div>
+              </div>
+              <div class="border-t pt-2">
+                <div class="text-sm text-gray-600">Daycare Notes</div>
+                <div class="bg-gray-50 rounded-lg p-3 mt-1">
+                  <%= log_report.org_notes.present? ? log_report.org_notes : "No daycare notes available" %>
+                </div>
+              </div>
+              <% if log_report.customer_notes.present? %>
+                <div>
+                  <div class="text-sm text-gray-600">Customer Notes</div>
+                  <div class="bg-gray-50 rounded-lg p-3 mt-1">
+                    <%= log_report.customer_notes %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="bg-white rounded-xl p-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Price</span>
+                <span class="font-bold text-lg">$<%= log_report.price %></span>
+              </div>
+              <% if log_report.payment_method.present? %>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Payment Method</span>
+                  <span class="font-semibold"><%= log_report.payment_method.humanize %></span>
+                </div>
+              <% end %>
+              <% if log_report.reward_points.present? && log_report.reward_points > 0 %>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Reward Points</span>
+                  <span class="font-semibold"><%= log_report.reward_points %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="p-4 flex justify-center">
+            <button type="button" class="bg-gray-400 text-white font-bold px-6 py-2 rounded-lg" onclick='document.getElementById("daycareLogReportDialog<%= daycare_visit.id %>").close();'>
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  <% end %>
 </div>
