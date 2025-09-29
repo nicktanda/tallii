@@ -70,6 +70,8 @@ gem "ostruct", "~> 0.6.0"
 
 gem "phonelib"
 
+gem "rack-attack"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
