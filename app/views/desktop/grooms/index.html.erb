@@ -55,11 +55,11 @@
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
                           <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -115,11 +115,11 @@
                                     <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
                                       <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.dog? %>
-                                      <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
@@ -244,11 +244,11 @@
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
                           <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -304,11 +304,11 @@
                                     <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
                                       <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.dog? %>
-                                      <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
@@ -434,11 +434,11 @@
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
                           <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -626,11 +626,11 @@
                                     <% if groom.respond_to?(:pet) && groom.pet.images.any? %>
                                       <img src="<%= url_for(groom.pet.images.order(:created_at).last.image) %>" alt="<%= groom.pet.name %>" class="rounded-2xl h-20 w-20">
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.dog? %>
-                                      <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>

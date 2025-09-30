@@ -56,9 +56,9 @@
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
                           <img src="<%= url_for(daycare_visit.pet.images.order(:created_at).last.image) %>" alt="<%= daycare_visit.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
@@ -121,9 +121,9 @@
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
                                       <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %></div>
@@ -234,11 +234,11 @@
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
                           <img src="<%= url_for(daycare_visit.pet.images.order(:created_at).last.image) %>" alt="<%= daycare_visit.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
@@ -299,11 +299,11 @@
                                     <% if daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.any? %>
                                       <img src="<%= url_for(daycare_visit.pet.images.order(:created_at).last.image) %>" alt="<%= daycare_visit.pet.name %>" class="rounded-2xl h-20 w-20">
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
-                                      <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %></div>
@@ -414,11 +414,11 @@
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
                           <img src="<%= url_for(daycare_visit.pet.images.order(:created_at).last.image) %>" alt="<%= daycare_visit.pet.name %>" class="rounded-full h-6 w-6">
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
-                          <%= image_tag "/app_images/backup_dog.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
                         <% elsif daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                          <%= image_tag "/app_images/backup_cat.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %>
@@ -479,11 +479,11 @@
                                     <% if daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.any? %>
                                       <img src="<%= url_for(daycare_visit.pet.images.order(:created_at).last.image) %>" alt="<%= daycare_visit.pet.name %>" class="rounded-2xl h-20 w-20">
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.dog? %>
-                                      <%= image_tag "/app_images/backup_dog.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% elsif daycare_visit.respond_to?(:pet) && daycare_visit.pet.images.none? && daycare_visit.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.name : daycare_visit.pet_name %></div>

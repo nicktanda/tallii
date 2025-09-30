@@ -31,11 +31,11 @@
       <% if current_pet.images.any? %>
         <img src="<%= url_for(current_pet.images.order(:created_at).last.image) %>" alt="<%= current_pet.name %>" class="h-14 w-14 rounded-full flex flex-col justify-end">
       <% elsif current_pet.images.none? && current_pet.dog? %>
-        <%= image_tag "/app_images/backup_dog.png", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
+        <%= image_tag "/app_images/backup_dog.jpg", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
       <% elsif current_pet.images.none? && current_pet.cat? %>
-        <%= image_tag "/app_images/backup_cat.png", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
+        <%= image_tag "/app_images/backup_cat.jpg", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
       <% else %>
-        <%= image_tag "/app_images/backup_user.png", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
+        <%= image_tag "/app_images/backup_user.jpg", class: "h-14 w-14 rounded-full flex flex-col justify-end" %>
       <% end %>
       <%= link_to pet_selection_path, class: "text-xl font-thin" do %>
         Switch Pet Account

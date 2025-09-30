@@ -73,7 +73,7 @@
                   </td>
                   <td class="bg-white p-4"><%= user.phone %></td>
                   <td class="bg-white p-4 text-blue-400">
-                    <div class="flex">
+                    <div class="flex flex-wrap">
                       <% user.pets.each_with_index do |pet, index| %>
                         <%= link_to pet.name, desktop_pets_path(pet) %>
                         <% if user.pets.size > 1 && index != user.pets.size - 1 %>
@@ -461,11 +461,11 @@
           <% if pet.images.any? %>
             <img src="<%= url_for(pet.images.order(:created_at).last.image) %>" alt="<%= pet.name %>" class="rounded-lg h-12 w-12">
           <% elsif pet.images.none? && pet.dog? %>
-            <%= image_tag "/app_images/backup_dog.png", class: "rounded-lg h-12 w-12" %>
+            <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-lg h-12 w-12" %>
           <% elsif pet.images.none? && pet.cat? %>
-            <%= image_tag "/app_images/backup_cat.png", class: "rounded-lg h-12 w-12" %>
+            <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-lg h-12 w-12" %>
           <% else %>
-            <%= image_tag "/app_images/backup_user.png", class: "rounded-lg h-12 w-12" %>
+            <%= image_tag "/app_images/backup_user.jpg", class: "rounded-lg h-12 w-12" %>
           <% end %>
           <div>
             <div class="font-bold text-lg"><%= pet.name %></div>
