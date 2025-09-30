@@ -50,3 +50,30 @@ Rack::Attack.throttled_response = ->(_env) {
 
 # (Optional) Safelist health checks if you have one
 # Rack::Attack.safelist('healthcheck') { |req| req.path == '/up' }
+
+# config/initializers/rack_attack.rb
+
+Rack::Attack.blocklist('block cms probes') do |req|
+  path_q = "#{req.path}?#{req.query_string}".downcase
+
+  wp =
+    path_q.include?('wlwmanifest.xml') ||
+    path_q.include?('wp-admin') ||
+    path_q.include?('wp-login.php') ||
+    path_q.include?('xmlrpc.php') ||
+    path_q.include?('wp-content') ||
+    path_q.include?('wp-includes')
+
+  joomla =
+    path_q.include?('media/system/') ||   # e.g. /media/system/js/core.js
+    path_q.include?('administrator') ||
+    path_q.include?('components/com_') ||
+    path_q.include?('templates/') ||
+    path_q.include?('modules/') ||
+    path_q.include?('plugins/system') ||
+    path_q.include?('index.php?option=com_')
+
+  wp || joomla
+end
+
+Rack::Attack.blocklisted_response = ->(_) { [410, {'Content-Type' => 'text/plain'}, ["Gone\n"]] }
