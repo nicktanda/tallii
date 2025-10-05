@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get "/service-worker.js" => "service_worker#service_worker"
   get "/manifest.json" => "service_worker#manifest"
+  get "/health", to: proc { [200, { "Content-Type" => "text/plain" }, ["ok"]] }
 
   # MOBILE APP ROUTES
   patch "/mobile_app/update/:id", to: "users#update", as: "update_user"
