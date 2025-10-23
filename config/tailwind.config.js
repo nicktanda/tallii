@@ -7,6 +7,9 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
+  safelist: [
+    'hover:bg-gray-100',
+  ],
   theme: {
     extend: {
       fontFamily: {
