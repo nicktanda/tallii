@@ -48,13 +48,14 @@
                 <tbody>
                   <% for i in 0..48 %>
                     <tr>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
-                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 hover:bg-gray-300"><%= Time.parse(time_conversion(i * 30)).strftime("%I:%M %p") %></td>
+                      - converted_time = Time.parse(time_conversion(i * 30))
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Monday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Tuesday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Wednesday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Thursday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Friday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Saturday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
+                      <td class="p-4 whitespace-nowrap border-2 border-gray-200 <%= is_in_opening_hours?(converted_time, current_organisation, "Sunday") ? 'hover:bg-gray-300' : 'bg-gray-100' %>"><%= converted_time.strftime("%I:%M %p") %></td>
                     </tr>
                   <% end %>
                 </tbody>
