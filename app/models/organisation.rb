@@ -2,7 +2,9 @@ class Organisation < ApplicationRecord
   before_validation :generate_unique_code, on: :create
 
   validates :access_code, presence: true, uniqueness: true
-  
+
+  serialize :opening_hours, coder: JSON
+
   has_many :users
   has_many :pets
   has_many :onboarding_pets, dependent: :destroy

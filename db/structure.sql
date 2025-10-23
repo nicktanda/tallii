@@ -1,4 +1,4 @@
-\restrict eeraVkQ4RRjXExDeJDkdybP54y3Z690xOzLp3RvrY0AhDmUWNvRFe3yoP3fScNx
+\restrict vVPAlGfaGerMahHODOdLdk3frQBWus8DWQmtdfIZrfmhCgCe41AwUvHzxyxrmuX
 
 -- Dumped from database version 15.13 (Homebrew)
 -- Dumped by pg_dump version 15.14 (Homebrew)
@@ -493,7 +493,8 @@ CREATE TABLE public.organisations (
     country text,
     access_code character varying NOT NULL,
     default_groom_cost double precision,
-    default_daycare_visit_cost double precision
+    default_daycare_visit_cost double precision,
+    opening_hours text
 );
 
 
@@ -1723,11 +1724,12 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict eeraVkQ4RRjXExDeJDkdybP54y3Z690xOzLp3RvrY0AhDmUWNvRFe3yoP3fScNx
+\unrestrict vVPAlGfaGerMahHODOdLdk3frQBWus8DWQmtdfIZrfmhCgCe41AwUvHzxyxrmuX
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251023124605'),
 ('20250902131258'),
 ('20250902130509'),
 ('20250819122549'),
