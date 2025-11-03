@@ -8314,8 +8314,16 @@ var checkout_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/controllers/dashboard_controller.js
+var dashboard_controller_default = class extends Controller {
+  connect() {
+    console.log("Dashboard controller connected");
+  }
+};
+
 // app/javascript/controllers/index.js
 application.register("checkout", checkout_controller_default);
+application.register("dashboard", dashboard_controller_default);
 
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {
