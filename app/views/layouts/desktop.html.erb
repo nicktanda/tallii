@@ -128,12 +128,12 @@
         <hr class="m-2" />
         <div class="mt-auto mb-4">
           <% if current_user.images&.order(:created_at)&.first&.image.present? %>
-          <div class="w-full flex justify-center items-center">
-            <img src="<%= url_for(current_user.images.order(:created_at).last.image) %>" alt="<%= current_user.first_name %>" class="rounded-full w-16 h-16 flex-shrink-0">
-          </div>
+            <div class="w-full flex justify-center items-center">
+              <img src="<%= url_for(current_user.images.order(:created_at).last.image) %>" alt="<%= current_user.first_name %>" class="rounded-full w-16 h-16 flex-shrink-0">
+            </div>
           <% else %>
             <div class="w-full flex justify-center items-center">
-              <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full w-16 h-16" %>
+              <%= image_tag "/app_images/backup_user.png", class: "rounded-full w-16 h-16" %>
             </div>
           <% end %>
           <div class="text-center w-full font-bold text-white"><%= current_user.first_name %></div>
@@ -413,7 +413,7 @@
                               name: '<%= pet.name %>',
                               species: '<%= pet.species.humanize %>',
                               gender: '<%= pet.gender.humanize %>',
-                              image: '<% if pet.images.any? %><%= url_for(pet.images.order(:created_at).last.image) %><% elsif pet.dog? %>/app_images/backup_dog.jpg<% elsif pet.cat? %>/app_images/backup_cat.jpg<% else %>/app_images/backup_user.jpg<% end %>'
+                              image: '<% if pet.images.any? %><%= url_for(pet.images.order(:created_at).last.image) %><% elsif pet.dog? %>/app_images/backup_dog.jpg<% elsif pet.cat? %>/app_images/backup_cat.jpg<% else %>/app_images/backup_user.png<% end %>'
                             },
                           <% end %>
                         ],

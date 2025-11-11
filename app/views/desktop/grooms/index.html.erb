@@ -37,7 +37,7 @@
       </div>
       <div class="flex bg-white">
         <div class="overflow-hidden w-full">
-          <div class="max-h-40 overflow-y-scroll">
+          <div class="max-h-80 min-h-80 overflow-y-scroll">
             <table class="w-full">
               <thead>
                 <tr class="bg-gray-100 text-left sticky top-0">
@@ -59,7 +59,7 @@
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
                           <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -119,7 +119,7 @@
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
                                       <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
+                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
@@ -248,7 +248,7 @@
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
                           <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -308,7 +308,7 @@
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
                                       <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>
@@ -438,7 +438,7 @@
                         <% elsif groom.is_a?(Groom) && groom.pet.images.none? && groom.pet.cat? %>
                           <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
                         <% else %>
-                          <%= image_tag "/app_images/backup_user.jpg", class: "rounded-full h-6 w-6" %>
+                          <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
                         <% end %>
                         <div class="font-bold">
                           <%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %>
@@ -630,7 +630,7 @@
                                     <% elsif groom.respond_to?(:pet) && groom.pet.images.none? && groom.pet.cat? %>
                                       <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl h-20 w-20" %>
                                     <% else %>
-                                      <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl h-20 w-20" %>
+                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl h-20 w-20" %>
                                     <% end %>
                                     <div>
                                       <div class="font-bold text-lg"><%= groom.is_a?(Groom) ? groom.pet.name : groom.pet_name %></div>

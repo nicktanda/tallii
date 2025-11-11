@@ -30,7 +30,7 @@
       <% elsif @pet.images.none? && @pet.cat? %>
         <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
       <% else %>
-        <%= image_tag "/app_images/backup_user.jpg", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
+        <%= image_tag "/app_images/backup_user.png", class: "rounded-2xl max-h-80 w-full flex flex-col justify-end", id: "main-image" %>
       <% end %>
       <div class="absolute top-0 left-0 m-2">
         <%= f.file_field :image, id: 'file-input3', class: 'hidden', accept: 'image/jpeg,image/png,image/gif,image/webp' %>
