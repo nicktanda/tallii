@@ -5,6 +5,9 @@ class User < ApplicationRecord
   # Custom phone validation using phonelib
   validate :phone_number_validity, if: -> { phone.present? }
 
+  # Normalize phone numbers before saving
+  before_save :normalize_phone_numbers
+
   has_many :reviews, dependent: :destroy
   has_many :pets, dependent: :destroy
   has_many :onboarding_pets, dependent: :destroy
@@ -75,7 +78,13 @@ class User < ApplicationRecord
   end
   
   private
-  
+
+  def normalize_phone_numbers
+    # Strip all non-numeric characters from phone numbers
+    self.phone = phone.gsub(/\D/, '') if phone.present?
+    self.additional_user_phone = additional_user_phone.gsub(/\D/, '') if additional_user_phone.present?
+  end
+
   def phone_number_validity
     parsed = Phonelib.parse(phone)
     unless parsed.possible?

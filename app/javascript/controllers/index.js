@@ -9,3 +9,6 @@ application.register("checkout", CheckoutController)
 
 import DashboardController from "./dashboard_controller"
 application.register("dashboard", DashboardController)
+
+import PhoneInputController from "./phone_input_controller"
+application.register("phone-input", PhoneInputController)

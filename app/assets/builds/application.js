@@ -8321,9 +8321,31 @@ var dashboard_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/controllers/phone_input_controller.js
+var phone_input_controller_default = class extends Controller {
+  static targets = ["input"];
+  connect() {
+    console.log("Phone input controller connected");
+    if (this.inputTarget.value) {
+      this.clean();
+    }
+  }
+  clean(event) {
+    const input = this.inputTarget;
+    const cursorPosition = input.selectionStart;
+    let cleaned = input.value.replace(/\D/g, "");
+    cleaned = cleaned.substring(0, 15);
+    input.value = cleaned;
+    if (event) {
+      input.setSelectionRange(cursorPosition, cursorPosition);
+    }
+  }
+};
+
 // app/javascript/controllers/index.js
 application.register("checkout", checkout_controller_default);
 application.register("dashboard", dashboard_controller_default);
+application.register("phone-input", phone_input_controller_default);
 
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {

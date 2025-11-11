@@ -2,8 +2,5 @@
 //= link tailwind.css
 //= link application.css
 //= link application.js
-//= link controllers/application.js
-//= link controllers/index.js
-//= link controllers/dashboard_controller.js
-//= link controllers/checkout_controller.js
+//= link_tree ../../javascript/controllers .js
 //= link custom/companion.js

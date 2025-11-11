@@ -61,21 +61,27 @@ module PhoneHelper
     content_tag :div, class: "phone-input-group w-full" do
       # Apply same styling but keep w-24 for country select
       country_classes = options[:class] ? "#{options[:class].gsub(/w-\w+/, '')} w-24" : "border rounded-lg p-2 w-24"
-      
+
       country_select = select_tag(
         "#{form.object_name}[country_code]",
         options_for_select(country_options_for_phone, selected: '1'),
         class: country_classes
       )
-      
+
+      # Add Stimulus controller and data attributes
       phone_field = form.telephone_field(
         field_name,
         {
           class: options[:class] || "border flex-1 rounded-lg p-2",
-          placeholder: options[:placeholder] || "Phone number"
+          placeholder: options[:placeholder] || "Phone number",
+          data: {
+            controller: "phone-input",
+            phone_input_target: "input",
+            action: "input->phone-input#clean"
+          }
         }.merge(options.except(:class, :placeholder))
       )
-      
+
       content_tag(:div, class: "flex gap-3 w-full") do
         country_select + phone_field
       end
