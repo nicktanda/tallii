@@ -81,6 +81,6 @@ class GroomsController < ApplicationController
   private
 
   def groom_params
-    params.require(:groom).permit(:date, :time, :notes, :pet_id, :last_groom, :employee_id)
+    params.require(:groom).permit(:date, :start_time, :notes, :pet_id, :last_groom, :employee_id)
   end
 end

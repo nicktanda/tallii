@@ -1,9 +1,9 @@
 module EmployeeApp
   class GroomsController < MobileAppController
     def index
-      @grooms = current_user.grooms.pending_or_confirmed.today.order(:time) + current_user.temporary_grooms.pending_or_confirmed.today.order(:time)
-      @in_progress_grooms = current_user.grooms.in_progress.today.order(:time) + current_user.temporary_grooms.in_progress.today.order(:time)
-      @completed_grooms = current_user.grooms.missed_appointment_or_completed.today.order(:time) + current_user.temporary_grooms.missed_appointment_or_completed.today.order(:time)
+      @grooms = current_user.grooms.pending_or_confirmed.today.order(:start_time) + current_user.temporary_grooms.pending_or_confirmed.today.order(:start_time)
+      @in_progress_grooms = current_user.grooms.in_progress.today.order(:start_time) + current_user.temporary_grooms.in_progress.today.order(:start_time)
+      @completed_grooms = current_user.grooms.missed_appointment_or_completed.today.order(:start_time) + current_user.temporary_grooms.missed_appointment_or_completed.today.order(:start_time)
     end
 
     def show
@@ -47,7 +47,7 @@ module EmployeeApp
     private
 
     def groom_params
-      params.require(:groom).permit(:date, :time, :notes, :pet_id, :last_groom, :status)
+      params.require(:groom).permit(:date, :start_time, :notes, :pet_id, :last_groom, :status)
     end
   end
 end

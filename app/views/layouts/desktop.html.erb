@@ -382,9 +382,15 @@
                           <%= f.label :date %>
                           <%= f.date_field :date, id: 'date-field', required: true, class: "border w-full rounded-lg p-2" %>
                         </div>
-                        <div>
-                          <%= f.label :time %>
-                          <%= f.time_field :time, id: 'time-field', required: true, class: "border w-full rounded-lg p-2" %>
+                        <div class="flex space-x-3">
+                          <div class="flex-1">
+                            <%= f.label :start_time %>
+                            <%= f.time_field :start_time, id: 'start-time-field', required: true, class: "border w-full rounded-lg p-2" %>
+                          </div>
+                          <div class="flex-1">
+                            <%= f.label :end_time %>
+                            <%= f.time_field :end_time, id: 'end-time-field', class: "border w-full rounded-lg p-2" %>
+                          </div>
                         </div>
                         <%= f.hidden_field :organisation, value: current_organisation.id%>
                         <%= f.hidden_field :origin, value: "desktop"%>

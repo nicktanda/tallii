@@ -105,7 +105,7 @@
                         <%= booking&.user&.full_name&.split&.map{|name| name.first}&.join %>
                       </div>
                     </td>
-                    <td class="p-2 font-light"><%= booking.time.strftime('%H:%M %p') %></td>
+                    <td class="p-2 font-light"><%= booking.start_time.strftime('%H:%M %p') %></td>
                     <td class="p-2 font-light"><%= booking.service %></td>
                     <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.name : booking.pet_name %></td>
                     <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.user&.full_name : booking.owner_name %></td>

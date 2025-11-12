@@ -14,13 +14,13 @@ RSpec.describe Desktop::DashboardController, type: :controller do
     let(:today) { Date.today }
     let(:tomorrow) { Date.today + 1.day }
 
-    let!(:groom_today) { create(:groom, organisation: organisation, date: today, time: '09:00', pet: pet) }
-    let!(:groom_tomorrow) { create(:groom, organisation: organisation, date: tomorrow, time: '10:00', pet: pet) }
-    let!(:temp_groom_today) { create(:temporary_groom, organisation: organisation, date: today, time: '11:00') }
+    let!(:groom_today) { create(:groom, organisation: organisation, date: today, start_time: '09:00', pet: pet) }
+    let!(:groom_tomorrow) { create(:groom, organisation: organisation, date: tomorrow, start_time: '10:00', pet: pet) }
+    let!(:temp_groom_today) { create(:temporary_groom, organisation: organisation, date: today, start_time: '11:00') }
 
-    let!(:daycare_visit_today) { create(:daycare_visit, organisation: organisation, date: today, time: '12:00', pet: pet) }
-    let!(:daycare_visit_tomorrow) { create(:daycare_visit, organisation: organisation, date: tomorrow, time: '13:00', pet: pet) }
-    let!(:temp_daycare_visit_today) { create(:temporary_daycare_visit, organisation: organisation, date: today, time: '14:00') }
+    let!(:daycare_visit_today) { create(:daycare_visit, organisation: organisation, date: today, start_time: '12:00', pet: pet) }
+    let!(:daycare_visit_tomorrow) { create(:daycare_visit, organisation: organisation, date: tomorrow, start_time: '13:00', pet: pet) }
+    let!(:temp_daycare_visit_today) { create(:temporary_daycare_visit, organisation: organisation, date: today, start_time: '14:00') }
 
     context 'when no date parameter is provided' do
       it 'uses today as the default date' do
@@ -53,8 +53,8 @@ RSpec.describe Desktop::DashboardController, type: :controller do
     context 'when date parameter is provided' do
       let(:specific_date) { Date.current + 30.days }
       let(:date_param) { "#{specific_date.year}-#{specific_date.month}-#{specific_date.day}" }
-      let!(:groom_specific_date) { create(:groom, organisation: organisation, date: specific_date, time: '15:00', pet: pet) }
-      let!(:daycare_visit_specific_date) { create(:daycare_visit, organisation: organisation, date: specific_date, time: '16:00', pet: pet) }
+      let!(:groom_specific_date) { create(:groom, organisation: organisation, date: specific_date, start_time: '15:00', pet: pet) }
+      let!(:daycare_visit_specific_date) { create(:daycare_visit, organisation: organisation, date: specific_date, start_time: '16:00', pet: pet) }
 
       it 'parses the date parameter correctly' do
         get :index, params: { date: date_param }

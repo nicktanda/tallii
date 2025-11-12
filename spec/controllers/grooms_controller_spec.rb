@@ -83,7 +83,7 @@ RSpec.describe GroomsController, type: :controller do
         patch :update, params: valid_params
         groom.reload
         expect(groom.notes).to eq('Updated notes')
-        expect(groom.time.strftime('%H:%M')).to eq('10:00')
+        expect(groom.start_time.strftime('%H:%M')).to eq('10:00')
       end
 
       it 'redirects to grooms path' do

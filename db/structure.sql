@@ -1,6 +1,6 @@
-\restrict vVPAlGfaGerMahHODOdLdk3frQBWus8DWQmtdfIZrfmhCgCe41AwUvHzxyxrmuX
+\restrict IGWVfZyCjEBRCctkhLdYBv6ZXCZZeYC16MgzdwSpEd9RC5pv7TjZOhcJxq89voz
 
--- Dumped from database version 15.13 (Homebrew)
+-- Dumped from database version 15.14 (Homebrew)
 -- Dumped by pg_dump version 15.14 (Homebrew)
 
 SET statement_timeout = 0;
@@ -207,7 +207,7 @@ ALTER SEQUENCE public.daycare_visits_id_seq OWNED BY public.daycare_visits.id;
 CREATE TABLE public.grooms (
     id bigint NOT NULL,
     date date NOT NULL,
-    "time" time without time zone NOT NULL,
+    start_time time without time zone NOT NULL,
     last_groom date,
     notes text,
     pet_id bigint NOT NULL,
@@ -217,7 +217,8 @@ CREATE TABLE public.grooms (
     status integer DEFAULT 0,
     employee_id bigint,
     deposit double precision,
-    deposit_method integer
+    deposit_method integer,
+    end_time time without time zone
 );
 
 
@@ -1724,11 +1725,13 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict vVPAlGfaGerMahHODOdLdk3frQBWus8DWQmtdfIZrfmhCgCe41AwUvHzxyxrmuX
+\unrestrict IGWVfZyCjEBRCctkhLdYBv6ZXCZZeYC16MgzdwSpEd9RC5pv7TjZOhcJxq89voz
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251112092604'),
+('20251112092222'),
 ('20251023124605'),
 ('20250902131258'),
 ('20250902130509'),

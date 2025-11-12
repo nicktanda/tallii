@@ -49,7 +49,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @grooms.each do |groom|%>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2"><%= groom.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2">
                       <div class="flex space-x-2 items-center">
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
@@ -147,7 +147,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                    <div><%= groom.start_time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Groomer:</div>
@@ -238,7 +238,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @in_progress_grooms.each do |groom| %>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2"><%= groom.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2">
                       <div class="flex space-x-2 items-center">
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
@@ -336,7 +336,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                    <div><%= groom.start_time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Groomer:</div>
@@ -428,7 +428,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @completed_grooms.each do |groom| %>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2"><%= groom.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2">
                       <div class="flex space-x-2 items-center">
                         <% if groom.is_a?(Groom) && groom.pet.images.any? %>
@@ -658,7 +658,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= groom.time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
+                                    <div><%= groom.start_time.strftime('%H:%M %p') %> - <%= (groom.time + 1.hour).strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Groomer:</div>
@@ -776,7 +776,7 @@
             <tbody class="bg-white divide-y divide-gray-200">
               <% @unscoped_grooms.each do |groom| %>
                 <tr class="bg-gray-50 text-left">
-                  <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                  <td class="p-2"><%= groom.start_time.strftime("%I:%M%P") %></td>
                   <td class="p-2 text-blue-500 underline">
                     <%= link_to desktop_user_path(groom.pet.user) do %>
                       <div><%= groom.pet.user.full_name %></div>
