@@ -392,6 +392,14 @@
                             <%= f.time_field :end_time, id: 'end-time-field', class: "border w-full rounded-lg p-2" %>
                           </div>
                         </div>
+                        <div>
+                          <%= f.label :notes, "Additional Grooming Notes" %>
+                          <%= f.text_area :notes, class: "border w-full rounded-lg p-2", rows: 3, placeholder: "Write any notes here" %>
+                        </div>
+                        <div>
+                          <%= f.label :status, "Status" %>
+                          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]]), { prompt: 'Select' }, { class: "border w-full rounded-lg p-2" }) %>
+                        </div>
                         <%= f.hidden_field :organisation, value: current_organisation.id%>
                         <%= f.hidden_field :origin, value: "desktop"%>
                       </div>
