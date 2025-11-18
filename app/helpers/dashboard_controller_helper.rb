@@ -17,4 +17,9 @@ module DashboardControllerHelper
     close = Time.parse(opening_hours[day]["close"])
     time >= open && time <= close
   end
+
+  def date_conversion(date, day)
+    calculated_date = date.beginning_of_week + day.to_i
+    calculated_date.strftime('%Y-%m-%d')
+  end
 end
