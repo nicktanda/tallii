@@ -41,7 +41,7 @@ module EmployeeApp
     private
 
     def temporary_groom_params
-      params.require(:temporary_groom).permit(:owner_name, :pet_name, :date, :time, :owner_notes, :pet_notes, :last_groom, :status)
+      params.require(:temporary_groom).permit(:owner_name, :pet_name, :date, :start_time, :end_time, :owner_notes, :pet_notes, :last_groom, :status)
     end
   end
 end

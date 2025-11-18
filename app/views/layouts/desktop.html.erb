@@ -459,7 +459,7 @@
                     const groomerSearch = document.getElementById('groomer-search');
                     const employeeId = document.getElementById('employee-id');
                     const dateField = document.getElementById('date-field');
-                    const timeField = document.getElementById('time-field');
+                    const timeField = document.getElementById('start-time-field');
                     const groomForm = document.getElementById('groom-booking-form');
 
                     // Handle customer selection
@@ -589,7 +589,7 @@
 
                       console.log('Form check:', { petId, groomerId, date, time });
 
-                      // Only require pet, date, and time - groomer is optional
+                      // Only require pet, date, and start time - groomer and end time are optional
                       if (petId && date && time) {
                         submitButton.disabled = false;
                         submitButton.classList.remove('bg-gray-400');

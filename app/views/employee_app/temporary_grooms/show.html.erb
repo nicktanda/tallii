@@ -34,10 +34,10 @@
       <% end %>
       <div>
         <div class="flex">
-          <%= f.label :time, "Request Time" %>
+          <%= f.label :start_time, "Request Time" %>
           <div class="text-red-500">*</div>
         </div>
-        <%= f.time_field :time, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
+        <%= f.time_field :start_time, required: true, class: "bg-black text-white border-x-0 border-t-0 w-full text-xl" %>
       </div>
       <div>
         <%= f.label :last_groom, "When Was Last Groom?" %>

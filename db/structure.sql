@@ -1,4 +1,4 @@
-\restrict IGWVfZyCjEBRCctkhLdYBv6ZXCZZeYC16MgzdwSpEd9RC5pv7TjZOhcJxq89voz
+\restrict e1lZMC5mONDPKENIO1aqoCTDypHOZ7OUDPo00LgdqmzxaCj24oL9wVqCjKEJdAp
 
 -- Dumped from database version 15.14 (Homebrew)
 -- Dumped by pg_dump version 15.14 (Homebrew)
@@ -747,7 +747,7 @@ CREATE TABLE public.temporary_grooms (
     pet_name text NOT NULL,
     owner_name text NOT NULL,
     date date NOT NULL,
-    "time" time without time zone NOT NULL,
+    start_time time without time zone NOT NULL,
     last_groom date,
     pet_notes text,
     owner_notes text,
@@ -755,7 +755,8 @@ CREATE TABLE public.temporary_grooms (
     status integer DEFAULT 0,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    end_time time without time zone
 );
 
 
@@ -1725,11 +1726,13 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict IGWVfZyCjEBRCctkhLdYBv6ZXCZZeYC16MgzdwSpEd9RC5pv7TjZOhcJxq89voz
+\unrestrict e1lZMC5mONDPKENIO1aqoCTDypHOZ7OUDPo00LgdqmzxaCj24oL9wVqCjKEJdAp
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251118130201'),
+('20251118130130'),
 ('20251112092604'),
 ('20251112092222'),
 ('20251023124605'),

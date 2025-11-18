@@ -18,8 +18,6 @@ class Groom < ApplicationRecord
   scope :missed_appointment, -> { where(status: "missed_appointment")}
   scope :missed_appointment_or_completed, -> { missed_appointment.or(completed) }
 
-  validate :groom_date_is_in_the_future, on: :create
-
   enum :status, { pending: 0, confirmed: 1, in_progress: 2, completed: 3, missed_appointment: 4 }, default: :pending, prefix: :status
   enum :deposit_method, { cash: 0, card: 1, bank_transfer: 2, reward_points: 3 }, prefix: :deposit
 
@@ -43,14 +41,6 @@ class Groom < ApplicationRecord
       'Completed'
     when 'missed_appointment'
       'Missed Appointment'
-    end
-  end
-
-  private
-
-  def groom_date_is_in_the_future
-    if date.present? && date < Date.today
-      errors.add(:date, "can't be in the past")
     end
   end
 end

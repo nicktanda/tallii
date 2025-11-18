@@ -44,12 +44,18 @@
           <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
         </div>
       <% end %>
-      <div>
-        <div class="flex">
-          <%= f.label :time, "Request Time" %>
-          <div class="text-red-500">*</div>
+      <div class="flex space-x-4">
+        <div class="flex-1">
+          <div class="flex">
+            <%= f.label :start_time, "Request Time" %>
+            <div class="text-red-500">*</div>
+          </div>
+          <%= f.time_field :start_time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
         </div>
-        <%= f.time_field :time, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        <div class="flex-1">
+          <%= f.label :end_time, "End Time" %>
+          <%= f.time_field :end_time, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+        </div>
       </div>
       <div>
         <%= f.label :last_groom, "When Was Last Groom?" %>
