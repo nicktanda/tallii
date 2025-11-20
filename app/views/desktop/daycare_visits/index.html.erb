@@ -50,7 +50,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @daycare_visits.each do |daycare_visit|%>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2 text-sm"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2 text-sm"><%= daycare_visit.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2 text-sm">
                       <div class="flex space-x-2 items-center">
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
@@ -151,7 +151,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= daycare_visit.time.strftime('%H:%M %p') %></div>
+                                    <div><%= daycare_visit.start_time.strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Duration:</div>
@@ -228,7 +228,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @in_progress_daycare_visits.each do |daycare_visit| %>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2 text-sm"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2 text-sm"><%= daycare_visit.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2 text-sm">
                       <div class="flex space-x-2 items-center">
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
@@ -331,7 +331,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= daycare_visit.time.strftime('%H:%M %p') %></div>
+                                    <div><%= daycare_visit.start_time.strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Duration:</div>
@@ -408,7 +408,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <% @completed_daycare_visits.each do |daycare_visit| %>
                   <tr class="bg-gray-50 text-left">
-                    <td class="p-2 text-sm"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                    <td class="p-2 text-sm"><%= daycare_visit.start_time.strftime("%I:%M%P") %></td>
                     <td class="p-2 text-sm">
                       <div class="flex space-x-2 items-center">
                         <% if daycare_visit.is_a?(DaycareVisit) && daycare_visit.pet.images.any? %>
@@ -511,7 +511,7 @@
                                   </div>
                                   <div class="flex justify-between">
                                     <div>Time:</div>
-                                    <div><%= daycare_visit.time.strftime('%H:%M %p') %></div>
+                                    <div><%= daycare_visit.start_time.strftime('%H:%M %p') %></div>
                                   </div>
                                   <div class="flex justify-between items-center">
                                     <div>Duration:</div>
@@ -746,7 +746,7 @@
             <tbody class="bg-white divide-y divide-gray-200">
               <% @unscoped_daycare_visits.each do |daycare_visit| %>
                 <tr class="bg-gray-50 text-left">
-                  <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                  <td class="p-2"><%= daycare_visit.start_time.strftime("%I:%M%P") %></td>
                   <td class="p-2 text-blue-500 underline">
                     <%= link_to desktop_user_path(daycare_visit.pet.user) do %>
                       <div><%= daycare_visit.pet.user.full_name %></div>

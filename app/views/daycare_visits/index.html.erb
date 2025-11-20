@@ -26,7 +26,7 @@
           <summary>
             <div class="pl-2 inline-flex items-center gap-4 cursor-pointer">
             <div><%= daycare_visit.date.strftime("%B %d") %></div>
-            <div><%= daycare_visit.time.strftime("%I:%M %p") %></div>
+            <div><%= daycare_visit.start_time.strftime("%I:%M %p") %></div>
             <div><%= pet.name %></div>
           </summary>
           <p class="mt-2">
@@ -57,7 +57,7 @@
           <summary>
             <div class="pl-2 inline-flex items-center gap-4 cursor-pointer">
             <div><%= daycare_visit.date.strftime("%B %d") %></div>
-            <div><%= daycare_visit.time.strftime("%I:%M %p") %></div>
+            <div><%= daycare_visit.start_time.strftime("%I:%M %p") %></div>
             <div><%= pet.name %></div>
           </summary>
           <p class="mt-2">

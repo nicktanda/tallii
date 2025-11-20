@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :daycare_visit do
     date { 1.week.from_now }
-    time { "09:00" }
+    start_time { "09:00" }
     duration { :half_day }
     status { :pending }
     notes { "Regular daycare visit" }

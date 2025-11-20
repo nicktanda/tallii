@@ -1,9 +1,9 @@
 module EmployeeApp
   class DaycareVisitsController < MobileAppController
     def index
-      @daycare_visits = current_user.daycare_visits.pending_or_confirmed.today.order(:time) + current_user.temporary_daycare_visits.pending_or_confirmed.today.order(:time)
-      @in_progress_daycare_visits = current_user.daycare_visits.in_progress.today.order(:time) + current_user.temporary_daycare_visits.in_progress.today.order(:time)
-      @completed_daycare_visits = current_user.daycare_visits.missed_appointment_or_completed.today.order(:time) + current_user.temporary_daycare_visits.missed_appointment_or_completed.today.order(:time)
+      @daycare_visits = current_user.daycare_visits.pending_or_confirmed.today.order(:start_time) + current_user.temporary_daycare_visits.pending_or_confirmed.today.order(:start_time)
+      @in_progress_daycare_visits = current_user.daycare_visits.in_progress.today.order(:start_time) + current_user.temporary_daycare_visits.in_progress.today.order(:start_time)
+      @completed_daycare_visits = current_user.daycare_visits.missed_appointment_or_completed.today.order(:start_time) + current_user.temporary_daycare_visits.missed_appointment_or_completed.today.order(:start_time)
     end
 
     def show
@@ -24,7 +24,7 @@ module EmployeeApp
     private
 
     def daycare_visit_params
-      params.require(:daycare_visit).permit(:date, :time, :notes, :pet_id, :duration, :status)
+      params.require(:daycare_visit).permit(:date, :start_time, :notes, :pet_id, :duration, :status)
     end
   end
 end

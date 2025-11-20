@@ -1,4 +1,4 @@
-\restrict e1lZMC5mONDPKENIO1aqoCTDypHOZ7OUDPo00LgdqmzxaCj24oL9wVqCjKEJdAp
+\restrict HeLpve4JcioOJ4OjJZ6mkuRDXhLcu3dvFHW6fPwowE7acsPtIb2El7boxZVB3cf
 
 -- Dumped from database version 15.14 (Homebrew)
 -- Dumped by pg_dump version 15.14 (Homebrew)
@@ -169,7 +169,7 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 CREATE TABLE public.daycare_visits (
     id bigint NOT NULL,
     date date NOT NULL,
-    "time" time without time zone NOT NULL,
+    start_time time without time zone NOT NULL,
     duration integer NOT NULL,
     notes text,
     pet_id bigint NOT NULL,
@@ -707,7 +707,7 @@ CREATE TABLE public.temporary_daycare_visits (
     pet_name text NOT NULL,
     owner_name text NOT NULL,
     date date NOT NULL,
-    "time" time without time zone NOT NULL,
+    start_time time without time zone NOT NULL,
     duration integer NOT NULL,
     pet_notes text,
     owner_notes text,
@@ -1726,11 +1726,13 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict e1lZMC5mONDPKENIO1aqoCTDypHOZ7OUDPo00LgdqmzxaCj24oL9wVqCjKEJdAp
+\unrestrict HeLpve4JcioOJ4OjJZ6mkuRDXhLcu3dvFHW6fPwowE7acsPtIb2El7boxZVB3cf
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251118130911'),
+('20251118130852'),
 ('20251118130201'),
 ('20251118130130'),
 ('20251112092604'),

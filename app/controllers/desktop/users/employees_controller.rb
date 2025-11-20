@@ -10,10 +10,10 @@ module Desktop
 
         bookings = @user.pets.map do |pet|
           grooms = pet.grooms.map do |groom|
-            { pet: pet.name, time: groom.time, date: groom.date, status: groom.status }
+            { pet: pet.name, time: groom.start_time, date: groom.date, status: groom.status }
           end
           daycare_visits = pet.daycare_visits.map do |daycare_visit|
-            { pet: pet.name, time: daycare_visit.time, date: daycare_visit.date, status: daycare_visit.status }
+            { pet: pet.name, time: daycare_visit.start_time, date: daycare_visit.date, status: daycare_visit.status }
           end
           (grooms + daycare_visits)
         end.flatten

@@ -3,7 +3,7 @@ FactoryBot.define do
     pet_name { "Test Pet" }
     owner_name { "Test Owner" }
     date { 1.week.from_now }
-    time { "09:00" }
+    start_time { "09:00" }
     duration { :half_day }
     status { :pending }
     pet_notes { nil }

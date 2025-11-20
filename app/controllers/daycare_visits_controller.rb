@@ -91,6 +91,6 @@ class DaycareVisitsController < ApplicationController
   private
 
   def visit_params
-    params.require(:daycare_visit).permit(:date, :time, :notes, :pet_id, :duration, :employee_id)
+    params.require(:daycare_visit).permit(:date, :start_time, :notes, :pet_id, :duration, :employee_id)
   end
 end

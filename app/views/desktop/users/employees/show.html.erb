@@ -108,7 +108,7 @@
                     <%= groom.is_a?(Groom) ? groom.pet.user.full_name : groom.owner_name %>
                   </div>
                 </td>
-                <td class="p-2"><%= groom.time.strftime("%I:%M%P") %></td>
+                <td class="p-2"><%= groom.start_time.strftime("%I:%M%P") %></td>
                 <td class="p-2"><%= groom.date.strftime("%B %e") %></td>
                 <td class="p-2"><%= groom.status.capitalize %></td>
               </tr>
@@ -144,7 +144,7 @@
                     <%= daycare_visit.is_a?(DaycareVisit) ? daycare_visit.pet.user.full_name : daycare_visit.owner_name %>
                   </div>
                 </td>
-                <td class="p-2"><%= daycare_visit.time.strftime("%I:%M%P") %></td>
+                <td class="p-2"><%= daycare_visit.start_time.strftime("%I:%M%P") %></td>
                 <td class="p-2"><%= daycare_visit.date.strftime("%B %e") %></td>
                 <td class="p-2"><%= daycare_visit.duration == "half_day" ? "Half Day" : "Full Day" %>
                 <td class="p-2"><%= daycare_visit.formatted_status %></td>

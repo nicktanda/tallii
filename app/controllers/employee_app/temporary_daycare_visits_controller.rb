@@ -18,7 +18,7 @@ module EmployeeApp
     private
 
     def temporary_daycare_visit_params
-      params.require(:temporary_daycare_visit).permit(:pet_name, :owner_name, :date, :time, :pet_notes, :owner_notes, :duration, :status)
+      params.require(:temporary_daycare_visit).permit(:pet_name, :owner_name, :date, :start_time, :pet_notes, :owner_notes, :duration, :status)
     end
   end
 end
