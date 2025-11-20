@@ -13,8 +13,8 @@ module DashboardControllerHelper
 
     return false if opening_hours[day]["closed"] == "true"
 
-    open = Time.parse("2000-01-01 #{opening_hours[day]['open']}")
-    close = Time.parse("2000-01-01 #{opening_hours[day]['close']}")
+    open = Time.zone.parse("2000-01-01 #{opening_hours[day]['open']}")
+    close = Time.zone.parse("2000-01-01 #{opening_hours[day]['close']}")
     time >= open && time <= close
   end
 
@@ -24,6 +24,10 @@ module DashboardControllerHelper
   end
 
   def spanning?(time, booking)
-    booking.start_time >= time && booking.end_time <= time
+    booking.start_time <= time && booking.end_time >= time
+  end
+
+  def booking_starts_closest_to?(time, booking)
+    time - booking.start_time <= 10.minutes
   end
 end

@@ -49,25 +49,49 @@
                   <tbody>
                     <% for i in 0..96 %>
                       <tr>
-                        <% converted_time = Time.parse("2000-01-01 #{time_conversion(i * 15)}") %>
+                        <% converted_time = Time.zone.parse("2000-01-01 #{time_conversion(i * 15)}") %>
                         <% %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each_with_index do |day, index| %>
                           <% bookings = @grooms.select { |booking| booking.date == Date.parse(date_conversion(@date, index)) } %>
                           <% spanning_bookings = bookings.select { |booking| spanning?(converted_time, booking) } %>
                           <% open = is_in_opening_hours?(converted_time, current_organisation, day) && spanning_bookings.none? %>
-                          <td
-                            class="px-2 py-1whitespace-nowrap border-2 border-gray-200 <%= open ? 'hover:bg-gray-300 cursor-pointer' : 'bg-gray-100' %>"
-                            role="<%= open ? 'button' : nil %>"
-                            tabindex="<%= open ? '0' : nil %>"
-                            data-time="<%= converted_time.strftime('%H:%M') %>"
-                            data-date="<%= date_conversion(@date, index) %>"
-                            data-dashboard-target="timeSlot"
-                            data-action="click->dashboard#timeSlotTargetClicked"
-                            <% if open %>onclick="(function(){
-                              var dlg = document.getElementById('groomBookingDialog');
-                              if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
-                            })()"<% end %>>
-                            <%= converted_time.strftime('%I:%M %p') %>
-                          </td>
+                          <% if open %>
+                            <td
+                              class="px-2 py-1whitespace-nowrap border-2 border-gray-200 <%= open ? 'hover:bg-gray-300 cursor-pointer' : 'bg-gray-100' %>"
+                              role="<%= open ? 'button' : nil %>"
+                              tabindex="<%= open ? '0' : nil %>"
+                              data-time="<%= converted_time.strftime('%H:%M') %>"
+                              data-date="<%= date_conversion(@date, index) %>"
+                              data-dashboard-target="timeSlot"
+                              data-action="click->dashboard#timeSlotTargetClicked"
+                              <% if open %>onclick="(function(){
+                                var dlg = document.getElementById('groomBookingDialog');
+                                if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
+                              })()"<% end %>>
+                              <%= converted_time.strftime('%I:%M %p') %>
+                            </td>
+                          <% elsif spanning_bookings.any? %>
+                            <td class="px-2 py-1whitespace-nowrap border-2 border-gray-300 bg-gray-300" title="<%= spanning_bookings.pluck(:service).join(', ') %>">
+                              <%= converted_time.strftime('%I:%M %p') %>
+                              <% spanning_bookings.each do |booking| %>
+                                <% if booking_starts_closest_to?(converted_time, booking) %>
+                                  <div class="flex space-x-2 items-center">
+                                    <% if booking.pet.dog?%>
+                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
+                                    <% elsif booking.pet.cat? %>
+                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
+                                    <% else %>
+                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                                    <% end %>
+                                    <div class="text-xs text-black"><%= booking.pet.name %>, <%= booking.start_time.strftime('%I:%M %p') %></div>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                            </td>
+                          <% else %>
+                            <td class="px-2 py-1whitespace-nowrap border-2 border-gray-200 bg-gray-100">
+                              <%= converted_time.strftime('%I:%M %p') %>
+                            </td>
+                          <% end %>
                         <% end %>
                       </tr>
                     <% end %>
