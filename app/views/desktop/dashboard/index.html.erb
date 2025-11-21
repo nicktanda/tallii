@@ -71,19 +71,21 @@
                             </td>
                           <% elsif spanning_bookings.any? %>
                             <td class="px-2 py-1whitespace-nowrap border-2 border-gray-300 bg-gray-300" title="<%= spanning_bookings.pluck(:service).join(', ') %>">
-                              <%= converted_time.strftime('%I:%M %p') %>
-                              <% spanning_bookings.each do |booking| %>
-                                <% if booking_starts_closest_to?(converted_time, booking) %>
-                                  <div class="flex space-x-2 items-center">
-                                    <% if booking.pet.dog?%>
-                                      <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
-                                    <% elsif booking.pet.cat? %>
-                                      <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
-                                    <% else %>
-                                      <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
-                                    <% end %>
-                                    <div class="text-xs text-black"><%= booking.pet.name %>, <%= booking.start_time.strftime('%I:%M %p') %></div>
-                                  </div>
+                              <%= link_to desktop_grooms_path(date: @date), class: "block" do %>
+                                <%= converted_time.strftime('%I:%M %p') %>
+                                <% spanning_bookings.each do |booking| %>
+                                  <% if booking_starts_closest_to?(converted_time, booking) %>
+                                    <div class="flex space-x-2 items-center">
+                                      <% if booking.pet.dog?%>
+                                        <%= image_tag "/app_images/backup_dog.jpg", class: "rounded-full h-6 w-6" %>
+                                      <% elsif booking.pet.cat? %>
+                                        <%= image_tag "/app_images/backup_cat.jpg", class: "rounded-full h-6 w-6" %>
+                                      <% else %>
+                                        <%= image_tag "/app_images/backup_user.png", class: "rounded-full h-6 w-6" %>
+                                      <% end %>
+                                      <div class="text-xs text-black"><%= booking.pet.name %>, <%= booking.start_time.strftime('%I:%M %p') %></div>
+                                    </div>
+                                  <% end %>
                                 <% end %>
                               <% end %>
                             </td>
