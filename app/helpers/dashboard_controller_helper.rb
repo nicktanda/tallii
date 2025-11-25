@@ -10,7 +10,7 @@ module DashboardControllerHelper
 
   def is_in_opening_hours?(time, organisation, day)
     opening_hours = organisation.opening_hours
-
+    return false if opening_hours.nil? || opening_hours[day].nil?
     return false if opening_hours[day]["closed"] == "true"
 
     open = Time.zone.parse("2000-01-01 #{opening_hours[day]['open']}")
