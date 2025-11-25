@@ -1,4 +1,4 @@
-\restrict HeLpve4JcioOJ4OjJZ6mkuRDXhLcu3dvFHW6fPwowE7acsPtIb2El7boxZVB3cf
+\restrict lCCEcqdHxWMQdyBsJ96QnaFbnxOyk6W0uXfJnD1V71pjP6923BwPenAkYw4N8Vk
 
 -- Dumped from database version 15.14 (Homebrew)
 -- Dumped by pg_dump version 15.14 (Homebrew)
@@ -1726,11 +1726,12 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict HeLpve4JcioOJ4OjJZ6mkuRDXhLcu3dvFHW6fPwowE7acsPtIb2El7boxZVB3cf
+\unrestrict lCCEcqdHxWMQdyBsJ96QnaFbnxOyk6W0uXfJnD1V71pjP6923BwPenAkYw4N8Vk
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251125123247'),
 ('20251118130911'),
 ('20251118130852'),
 ('20251118130201'),

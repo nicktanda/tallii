@@ -1,9 +1,20 @@
 class Organisation < ApplicationRecord
   before_validation :generate_unique_code, on: :create
+  before_validation :set_default_opening_hours, on: :create
 
   validates :access_code, presence: true, uniqueness: true
 
   serialize :opening_hours, coder: JSON
+
+  DEFAULT_OPENING_HOURS = {
+    "Monday" => { "open" => "09:00", "close" => "17:00", "closed" => "false" },
+    "Tuesday" => { "open" => "09:00", "close" => "17:00", "closed" => "false" },
+    "Wednesday" => { "open" => "09:00", "close" => "17:00", "closed" => "false" },
+    "Thursday" => { "open" => "09:00", "close" => "17:00", "closed" => "false" },
+    "Friday" => { "open" => "09:00", "close" => "17:00", "closed" => "false" },
+    "Saturday" => { "open" => "09:00", "close" => "17:00", "closed" => "true" },
+    "Sunday" => { "open" => "09:00", "close" => "17:00", "closed" => "true" }
+  }.freeze
 
   has_many :users
   has_many :pets
@@ -39,5 +50,9 @@ class Organisation < ApplicationRecord
       random_code = SecureRandom.alphanumeric(6)
       break random_code unless self.class.exists?(access_code: random_code)
     end
+  end
+
+  def set_default_opening_hours
+    self.opening_hours ||= DEFAULT_OPENING_HOURS.deep_dup
   end
 end
