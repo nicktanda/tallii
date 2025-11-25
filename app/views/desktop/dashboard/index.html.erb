@@ -147,8 +147,8 @@
                       <td class="p-2 font-light"><%= booking.service %></td>
                       <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.name : booking.pet_name %></td>
                       <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.user&.full_name : booking.owner_name %></td>
-                      <td class="p-2 font-light"><%= booking.pet.breed %></td>
-                      <td class="p-2 font-light"><%= booking.pet.user.phone %></td>
+                      <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.breed : "N/A" %></td>
+                      <td class="p-2 font-light"><%= booking.is_a?(Groom) ? booking.pet&.user&.phone : "N/A" %></td>
                       <% if booking.notes.present? %>
                         <td class="p-2 font-light underline text-blue-500" onclick='document.getElementById("bookingDialog<%= booking.service %><%= booking.id %>").showModal();'><%= booking.notes? %></td>
                         <dialog id="bookingDialog<%= booking.service %><%= booking.id %>">
