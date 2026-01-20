@@ -28,19 +28,19 @@ class Organisation < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   def grooms_today_count
-    (self.grooms.today + self.temporary_grooms.today).count
+    grooms.today.count + temporary_grooms.today.count
   end
-  
+
   def grooms_this_week_count
-    (self.grooms.this_week + self.temporary_grooms.this_week).count
+    grooms.this_week.count + temporary_grooms.this_week.count
   end
-  
+
   def daycare_visits_today_count
-    (self.daycare_visits.today + self.temporary_daycare_visits.today).count
+    daycare_visits.today.count + temporary_daycare_visits.today.count
   end
-  
+
   def daycare_visits_this_week_count
-    (self.daycare_visits.this_week + self.temporary_daycare_visits.this_week).count
+    daycare_visits.this_week.count + temporary_daycare_visits.this_week.count
   end
 
   private

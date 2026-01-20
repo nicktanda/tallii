@@ -76,7 +76,7 @@ module Desktop
       product = current_organisation.products.find(params[:id])
 
       image = product.images.find(params[:image_id])
-      if product.images.count > 1
+      if product.images.limit(2).count > 1
         image.destroy
         redirect_to desktop_product_pictures_path(product), notice: 'Image deleted'
       else

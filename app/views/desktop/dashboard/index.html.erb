@@ -51,7 +51,8 @@
                       <tr>
                         <% converted_time = Time.zone.parse("2000-01-01 #{time_conversion(i * 15)}") %>
                         <% %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each_with_index do |day, index| %>
-                          <% bookings = @grooms.select { |booking| booking.date == Date.parse(date_conversion(@date, index)) } %>
+                          <% target_date = Date.parse(date_conversion(@date, index)) %>
+                          <% bookings = @grooms_by_date[target_date] || [] %>
                           <% spanning_bookings = bookings.select { |booking| spanning?(converted_time, booking) } %>
                           <% open = is_in_opening_hours?(converted_time, current_organisation, day) && spanning_bookings.none? %>
                           <% if open %>
@@ -194,7 +195,7 @@
           </div>
           <div class="w-56 p-2 rounded-lg space-y-4">
             <div class="text-lg font-bold">Total Grooms</div>
-            <%= pie_chart({"Booked Grooms"=> @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}, "Available Grooms" => current_organisation.maximum_daily_grooms - @bookings.count{|booking| booking.is_a?(Groom) || booking.is_a?(TemporaryGroom)}}, height: "100px", width: "200px", legend: false) %>
+            <%= pie_chart({"Booked Grooms"=> @groom_count, "Available Grooms" => current_organisation.maximum_daily_grooms - @groom_count}, height: "100px", width: "200px", legend: false) %>
             <div class="space-y-2">
               <div class="w-full text-center">
                 <div class="text-4xl font-bold"><%= @grooms.count %></div>
@@ -214,9 +215,9 @@
           <div class="font-bold">Daycare Count</div>
           <div class="flex justify-center">
             <%= pie_chart({
-              "Half Day Visits"=> @bookings.count{|booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "half_day"},
-              "Full Day Visits"=> @bookings.count{|booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "full_day"},
-              "Available Daycare Visits" => current_organisation.maximum_daily_daycare_visits - @bookings.count{|booking| booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)}
+              "Half Day Visits"=> @half_day_count,
+              "Full Day Visits"=> @full_day_count,
+              "Available Daycare Visits" => current_organisation.maximum_daily_daycare_visits - @daycare_visit_count
             }, height: "150px", legend: false) %>
           </div>
         </div>
@@ -240,14 +241,14 @@
                 <div class="flex space-x-1">
                   <div class="font-light">Half Day:</div>
                   <div class="font-bold">
-                    <%= @bookings.count { |booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "half_day" } %>
+                    <%= @half_day_count %>
                   </div>
                 </div>
                 <div class="border-l border-gray-300 h-6"></div> <!-- Vertical line -->
                 <div class="flex space-x-1">
                   <div class="font-light">Full Day:</div>
                   <div class="font-bold">
-                    <%= @bookings.count { |booking| (booking.is_a?(DaycareVisit) || booking.is_a?(TemporaryDaycareVisit)) && booking.duration == "full_day" } %>
+                    <%= @full_day_count %>
                   </div>
                 </div>
               </div>

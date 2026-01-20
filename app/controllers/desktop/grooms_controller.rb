@@ -11,7 +11,7 @@ module Desktop
     end
 
     def new
-      @pets = current_organisation.users.map(&:pets).flatten
+      @pets = current_organisation.pets.includes(:user)
     end
 
     def show
@@ -33,7 +33,7 @@ module Desktop
       groom = current_organisation.grooms.find(params[:id])
 
       image = groom.images.find(params[:image_id])
-      if groom.images.count > 1
+      if groom.images.limit(2).count > 1
         image.destroy
         redirect_to desktop_groom_images_path(groom), notice: 'Image deleted'
       else

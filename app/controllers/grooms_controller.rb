@@ -24,7 +24,8 @@ class GroomsController < ApplicationController
   def create
     groom = current_organisation.grooms.new(groom_params)
 
-    if current_organisation.grooms.today.count == current_organisation.maximum_daily_grooms
+    # Use cached count methods from Organisation model for consistency
+    if current_organisation.grooms_today_count >= current_organisation.maximum_daily_grooms
       if params[:groom][:origin] == "desktop"
         redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms today, please rebook for another day'
       else
@@ -33,7 +34,7 @@ class GroomsController < ApplicationController
       return
     end
 
-    if current_organisation.grooms.this_week.count == current_organisation.maximum_weekly_grooms
+    if current_organisation.grooms_this_week_count >= current_organisation.maximum_weekly_grooms
       if params[:groom][:origin] == "desktop"
         redirect_back fallback_location: desktop_grooms_new_path, alert: 'We are unable to take any extra grooms this week, please rebook for another week'
       else

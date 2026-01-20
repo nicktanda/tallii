@@ -1,7 +1,7 @@
 module Desktop
   class TemporaryDaycareVisitsController < DesktopController
     def new
-      @pets = current_organisation.users.map(&:pets).flatten
+      @pets = current_organisation.pets.includes(:user)
     end
 
     def show

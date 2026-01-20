@@ -77,7 +77,7 @@ module Desktop
         end
       end
 
-      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages, expires_in: 1.hour)
 
       notice = "#{user_count} customers imported successfully"
       notice += ", Failed to import customers: #{error_messages.join(', ')}" if error_messages.any?
@@ -135,7 +135,7 @@ module Desktop
         end
       end
 
-      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages, expires_in: 1.hour)
 
       notice = "#{user_count} employees imported successfully"
       notice += ", Failed to import employees: #{error_messages.join(', ')}" if error_messages.any?
@@ -198,7 +198,7 @@ module Desktop
         end
       end
 
-      Rails.cache.write("import_errors_#{current_user.id}", error_messages)
+      Rails.cache.write("import_errors_#{current_user.id}", error_messages, expires_in: 1.hour)
 
       notice = "#{pet_count} pets imported successfully"
       notice += ". Some pets failed to import. See details below." if error_messages.any?

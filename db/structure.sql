@@ -1,7 +1,7 @@
-\restrict lCCEcqdHxWMQdyBsJ96QnaFbnxOyk6W0uXfJnD1V71pjP6923BwPenAkYw4N8Vk
+\restrict 4xZc49MGFwpPR5EArAVAkT2OFVtvN1lsY5ERRNJ1ZnW7JP2eeheoui9VFrBM1dD
 
--- Dumped from database version 15.14 (Homebrew)
--- Dumped by pg_dump version 15.14 (Homebrew)
+-- Dumped from database version 15.15 (Homebrew)
+-- Dumped by pg_dump version 15.15 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1190,10 +1190,24 @@ CREATE INDEX index_daycare_visits_on_employee_id ON public.daycare_visits USING 
 
 
 --
+-- Name: index_daycare_visits_on_org_status_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daycare_visits_on_org_status_date ON public.daycare_visits USING btree (organisation_id, status, date);
+
+
+--
 -- Name: index_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_daycare_visits_on_organisation_id ON public.daycare_visits USING btree (organisation_id);
+
+
+--
+-- Name: index_daycare_visits_on_organisation_id_and_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daycare_visits_on_organisation_id_and_date ON public.daycare_visits USING btree (organisation_id, date);
 
 
 --
@@ -1211,10 +1225,24 @@ CREATE INDEX index_grooms_on_employee_id ON public.grooms USING btree (employee_
 
 
 --
+-- Name: index_grooms_on_org_status_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grooms_on_org_status_date ON public.grooms USING btree (organisation_id, status, date);
+
+
+--
 -- Name: index_grooms_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_grooms_on_organisation_id ON public.grooms USING btree (organisation_id);
+
+
+--
+-- Name: index_grooms_on_organisation_id_and_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grooms_on_organisation_id_and_date ON public.grooms USING btree (organisation_id, date);
 
 
 --
@@ -1400,10 +1428,24 @@ CREATE INDEX index_temporary_daycare_visits_on_employee_id ON public.temporary_d
 
 
 --
+-- Name: index_temporary_daycare_visits_on_org_status_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_daycare_visits_on_org_status_date ON public.temporary_daycare_visits USING btree (organisation_id, status, date);
+
+
+--
 -- Name: index_temporary_daycare_visits_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_temporary_daycare_visits_on_organisation_id ON public.temporary_daycare_visits USING btree (organisation_id);
+
+
+--
+-- Name: index_temporary_daycare_visits_on_organisation_id_and_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_daycare_visits_on_organisation_id_and_date ON public.temporary_daycare_visits USING btree (organisation_id, date);
 
 
 --
@@ -1414,10 +1456,24 @@ CREATE INDEX index_temporary_grooms_on_employee_id ON public.temporary_grooms US
 
 
 --
+-- Name: index_temporary_grooms_on_org_status_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_grooms_on_org_status_date ON public.temporary_grooms USING btree (organisation_id, status, date);
+
+
+--
 -- Name: index_temporary_grooms_on_organisation_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_temporary_grooms_on_organisation_id ON public.temporary_grooms USING btree (organisation_id);
+
+
+--
+-- Name: index_temporary_grooms_on_organisation_id_and_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_temporary_grooms_on_organisation_id_and_date ON public.temporary_grooms USING btree (organisation_id, date);
 
 
 --
@@ -1432,6 +1488,13 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 --
 
 CREATE INDEX index_users_on_organisation_id ON public.users USING btree (organisation_id);
+
+
+--
+-- Name: index_users_on_organisation_id_and_phone; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_organisation_id_and_phone ON public.users USING btree (organisation_id, phone);
 
 
 --
@@ -1726,11 +1789,12 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict lCCEcqdHxWMQdyBsJ96QnaFbnxOyk6W0uXfJnD1V71pjP6923BwPenAkYw4N8Vk
+\unrestrict 4xZc49MGFwpPR5EArAVAkT2OFVtvN1lsY5ERRNJ1ZnW7JP2eeheoui9VFrBM1dD
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260120092418'),
 ('20251125123247'),
 ('20251118130911'),
 ('20251118130852'),

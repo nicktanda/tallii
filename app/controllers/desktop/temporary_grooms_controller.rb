@@ -1,7 +1,7 @@
 module Desktop
   class TemporaryGroomsController < DesktopController
     def new
-      @pets = current_organisation.users.map(&:pets).flatten
+      @pets = current_organisation.pets.includes(:user)
     end
 
     def show
@@ -44,7 +44,7 @@ module Desktop
       temporary_groom = current_organisation.temporary_grooms.find(params[:id])
 
       image = temporary_groom.images.find(params[:image_id])
-      if temporary_groom.images.count > 1
+      if temporary_groom.images.limit(2).count > 1
         image.destroy
         redirect_to desktop_temporary_groom_images_path(temporary_groom), notice: 'Image deleted'
       else

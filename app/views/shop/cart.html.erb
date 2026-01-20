@@ -25,7 +25,8 @@
               <div class="space-y-2">
                 <div class="font-light text-sm">Quantity</div>
                 <select id="stock" name="order[][stock]" class=" h-12 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                  <% (product.stock + 1).times do |i| %>
+                  <% max_quantity = [product.stock, 99].min %>
+                  <% (max_quantity + 1).times do |i| %>
                     <option value="<%= i %>" <%= 'selected="selected"' if i == quantity %>><%= i %></option>
                   <% end %>
                 </select>

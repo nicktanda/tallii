@@ -34,10 +34,16 @@ class ShopController < ApplicationController
   end
 
   def cart
-    cart = session["user"]["cart"]
-    @cart_products = cart.group_by(&:itself).transform_values(&:count).map do |product_id, quantity|
-      product = Product.find(product_id)
-      
+    cart = session["user"]["cart"] || []
+    grouped_cart = cart.group_by(&:itself).transform_values(&:count)
+
+    # Batch load all products in a single query instead of N+1
+    products_by_id = Product.where(id: grouped_cart.keys).index_by(&:id)
+
+    @cart_products = grouped_cart.filter_map do |product_id, quantity|
+      product = products_by_id[product_id.to_i]
+      next unless product
+
       { product: product, quantity: quantity }
     end
   end

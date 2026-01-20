@@ -33,7 +33,8 @@ class DaycareVisitsController < ApplicationController
       return
     end
 
-    if current_organisation.daycare_visits.today.count == current_organisation.maximum_daily_daycare_visits
+    # Use cached count methods from Organisation model for consistency
+    if current_organisation.daycare_visits_today_count >= current_organisation.maximum_daily_daycare_visits
       if params[:daycare_visit][:origin] == "desktop"
         redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits today, please rebook for another day'
       else
@@ -42,7 +43,7 @@ class DaycareVisitsController < ApplicationController
       return
     end
 
-    if current_organisation.daycare_visits.this_week.count == current_organisation.maximum_weekly_daycare_visits
+    if current_organisation.daycare_visits_this_week_count >= current_organisation.maximum_weekly_daycare_visits
       if params[:daycare_visit][:origin] == "desktop"
         redirect_back fallback_location: desktop_daycare_visits_new_path, alert: 'We are unable to take any extra daycare visits this week, please rebook for another week'
       else
