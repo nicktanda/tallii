@@ -26,11 +26,12 @@
           <%= f.select(:pet_id, options_for_select(current_user.pets.all.map { |pet| [pet.name, pet.id] }), { prompt: 'Select' }, { required: true, class: "bg-white text-black border-x-0 border-t-0 h-full text-xl rounded-lg p-4 flex-grow" }) %>
         </div>
         <div class="flex-1 space-y-2">
-          <div class="flex">
-            <%= f.label :date, "Request Date" %>
-            <div class="text-red-500">*</div>
-          </div>
-          <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
+          <div>
+            <div class="flex">
+              <%= f.label :date, "Request Date" %>
+              <div class="text-red-500">*</div>
+            </div>
+            <%= f.date_field :date, required: true, class: "bg-white text-black border-x-0 border-t-0 w-full text-xl rounded-lg p-4" %>
           </div>
           <div>
             <div class="flex">

@@ -43,11 +43,6 @@ Rack::Attack.blocklisted_response = ->(_env) {
   [410, {'Content-Type' => 'text/plain'}, ["Gone\n"]]
 }
 
-# (Optional) Custom 429 for throttles
-Rack::Attack.throttled_response = ->(_env) {
-  [429, {'Content-Type' => 'text/plain'}, ["Retry later\n"]]
-}
-
 # (Optional) Safelist health checks if you have one
 # Rack::Attack.safelist('healthcheck') { |req| req.path == '/up' }
 
