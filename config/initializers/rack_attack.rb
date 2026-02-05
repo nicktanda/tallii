@@ -16,14 +16,6 @@ Rack::Attack.throttle('limit logins per email', limit: 6, period: 60) do |req|
   end
 end
 
-# Example dynamic throttle by REMOTE_USER
-limit_proc  = proc { |req| req.env["REMOTE_USER"] == "admin" ? 100 : 1 }
-period_proc = proc { |req| req.env["REMOTE_USER"] == "admin" ? 1 : 60 }
-
-Rack::Attack.throttle('request per ip', limit: limit_proc, period: period_proc) do |request|
-  request.ip
-end
-
 # -------------------------
 # NEW: Block WordPress scanners
 # -------------------------
@@ -41,6 +33,11 @@ end
 # Return 410 Gone for blocklisted requests (faster than 404 for scanners)
 Rack::Attack.blocklisted_response = ->(_env) {
   [410, {'Content-Type' => 'text/plain'}, ["Gone\n"]]
+}
+
+# (Optional) Custom 429 for throttles
+Rack::Attack.throttled_response = ->(_env) {
+  [429, {'Content-Type' => 'text/plain'}, ["Retry later\n"]]
 }
 
 # (Optional) Safelist health checks if you have one
