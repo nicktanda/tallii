@@ -732,7 +732,7 @@
           "Large"=> @unscoped_grooms.count { |groom| groom.pet.size == "Large" },
           "Medium"=> @unscoped_grooms.count { |groom| groom.pet.size == "Medium" },
           "Small" => @unscoped_grooms.count { |groom| groom.pet.size == "Small" }
-        }, height: "200px", legend: false) %>
+        }, height: "200px", legend: false, colors: ["#93c5fd", "#86efac", "#fca5a5"]) %>
       <div class="p-4">
         <table class="w-full border border-gray-100">
           <thead>
