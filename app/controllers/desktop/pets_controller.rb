@@ -63,7 +63,7 @@ module Desktop
       user = pet.user
       pet.destroy
 
-      redirect_to desktop_user_path(user)
+      redirect_to desktop_user_path(user), notice: 'Pet deleted'
     end
 
     def download_rabies_evidence

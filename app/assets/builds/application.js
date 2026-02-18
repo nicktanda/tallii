@@ -8348,10 +8348,28 @@ var phone_input_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/controllers/flash_toast_controller.js
+var flash_toast_controller_default = class extends Controller {
+  connect() {
+    this.timeout = setTimeout(() => {
+      this.dismiss();
+    }, 2e4);
+  }
+  disconnect() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+  dismiss() {
+    this.element.remove();
+  }
+};
+
 // app/javascript/controllers/index.js
 application.register("checkout", checkout_controller_default);
 application.register("dashboard", dashboard_controller_default);
 application.register("phone-input", phone_input_controller_default);
+application.register("flash-toast", flash_toast_controller_default);
 
 // app/javascript/custom/companion.js
 if (navigator.serviceWorker) {

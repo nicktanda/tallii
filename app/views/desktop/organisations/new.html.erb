@@ -1,9 +1,3 @@
-<% if flash[:alert].present? -%>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end -%>
-
 <div class="bg-black text-white">
   <%= form_for Organisation.new, url: desktop_organisations_create_path do |f| %>
     <div class="text-center m-8">

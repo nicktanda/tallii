@@ -29,7 +29,7 @@ module Desktop
         user = current_organisation.users.new(user_params)
 
         if user.save
-          redirect_to desktop_staff_settings_path, alert: "Staff member created"
+          redirect_to desktop_staff_settings_path, notice: "Staff member created"
         else
           redirect_to desktop_staff_settings_path, alert: "Staff member not created"
         end
@@ -91,7 +91,7 @@ module Desktop
         redirect_to desktop_users_path if user == current_user
 
         user.destroy!
-        redirect_to desktop_users_path
+        redirect_to desktop_users_path, notice: 'User deleted'
       end
 
       private

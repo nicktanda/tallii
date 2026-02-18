@@ -44,7 +44,7 @@ module Desktop
       category = current_organisation.categories.find(params[:id])
       category.destroy
 
-      redirect_to desktop_categories_path
+      redirect_to desktop_categories_path, notice: 'Category deleted'
     end
 
     def pictures

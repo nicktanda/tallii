@@ -3,6 +3,9 @@ class Organisation < ApplicationRecord
   before_validation :set_default_opening_hours, on: :create
 
   validates :access_code, presence: true, uniqueness: true
+  validates :small_pet_max_weight, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+  validates :medium_pet_max_weight, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+  validate :small_pet_weight_less_than_medium
 
   serialize :opening_hours, coder: JSON
 
@@ -26,6 +29,7 @@ class Organisation < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :imports, dependent: :destroy
 
   def grooms_today_count
     grooms.today.count + temporary_grooms.today.count
@@ -54,5 +58,13 @@ class Organisation < ApplicationRecord
 
   def set_default_opening_hours
     self.opening_hours ||= DEFAULT_OPENING_HOURS.deep_dup
+  end
+
+  def small_pet_weight_less_than_medium
+    return if small_pet_max_weight.nil? || medium_pet_max_weight.nil?
+
+    if small_pet_max_weight >= medium_pet_max_weight
+      errors.add(:small_pet_max_weight, "must be less than medium pet max weight")
+    end
   end
 end

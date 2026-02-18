@@ -15,6 +15,7 @@
   </head>
 
   <body class="min-h-screen bg-black flex flex-col pb-20">
+    <%= render "shared/flash_toast" %>
     <%= yield %>
     <% if current_user %>
       <footer class="fixed bottom-0 left-0 w-full bg-black flex text-white py-2 h-[8vh] items-center">

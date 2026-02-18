@@ -12,3 +12,6 @@ application.register("dashboard", DashboardController)
 
 import PhoneInputController from "./phone_input_controller"
 application.register("phone-input", PhoneInputController)
+
+import FlashToastController from "./flash_toast_controller"
+application.register("flash-toast", FlashToastController)

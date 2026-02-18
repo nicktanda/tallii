@@ -9,13 +9,7 @@
   <div class="font-light">Maximum occupany at daycare is 30 dogs per day, your request may be reviewed before approval.</div>
   <div class="text-orange-500 border-orange-500 w-full p-2 border-2 rounded-lg">
     <%= "You have #{current_user.max_daycare_visits} visits remaining in your package" %>
-  </div>
-  <% flash.each do |type, msg| %>
-    <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
-      <%= msg %>
-    </div>
-  <% end %>
-  <%= form_for @daycare_visit, url: update_daycare_visits_path do |f| %>
+  </div>  <%= form_for @daycare_visit, url: update_daycare_visits_path do |f| %>
     <div class="w-full mt-4 space-y-4 h-auto">
       <div class="flex space-x-4 h-auto">
         <div class="flex-1 flex flex-col">

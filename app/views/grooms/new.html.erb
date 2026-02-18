@@ -6,13 +6,7 @@
     <div class="text-violet-400 text-3xl">Book a groom</div>
   </div>
   <div class="text-2xl">Disclaimer</div>
-  <div class="font-light">Requested groom time may not be given but we will do our best to accommodate your request.</div>
-  <% flash.each do |type, msg| %>
-    <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
-      <%= msg %>
-    </div>
-  <% end %>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <div class="font-light">Requested groom time may not be given but we will do our best to accommodate your request.</div>  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <%= form_for Groom.new, url: create_groom_path do |f| %>
     <div class="w-full mt-4 space-y-4 h-auto">
       <div class="flex space-x-4 h-auto">

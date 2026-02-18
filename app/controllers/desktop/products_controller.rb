@@ -59,7 +59,7 @@ module Desktop
       product = current_organisation.products.find(params[:id])
       product.destroy
 
-      redirect_to desktop_products_path
+      redirect_to desktop_products_path, notice: 'Product deleted'
     end
 
     def pictures

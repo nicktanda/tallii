@@ -84,7 +84,7 @@
             </div>
           <% end %>
         <% end %>
-        <% if (controller_name == 'customers' || controller_name == 'pets') %>
+        <% if (controller_name == 'customers' || controller_name == 'pets' || controller_name == 'imports') %>
           <%= link_to desktop_users_path do %>
             <div class="text-center text-white flex flex-col items-center font-bold stroke-2 bg-sky-950 rounded-2xl m-2 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-2">
@@ -640,21 +640,13 @@
             </dialog>
           </div>
         </div>
-        <% if flash[:alert].present? -%>
-          <div class="alert alert-danger">
-            <%= flash[:alert] %>
-          </div>
-        <% end -%>
+        <%= render "shared/flash_toast" %>
         <div class="mx-4 mb-4 rounded-lg flex-1 overflow-y-auto">
           <%= yield %>
         </div>
       </div>
     <% else %>
-      <% if flash[:alert].present? -%>
-        <div class="alert alert-danger">
-          <%= flash[:alert] %>
-        </div>
-      <% end -%>
+      <%= render "shared/flash_toast" %>
       <div class="w-full flex flex-col">
         <%= yield %>
       </div>

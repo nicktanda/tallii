@@ -4,141 +4,383 @@
       <%= msg %>
     </div>
   <% end %>
-  <div class="p-4 bg-white space-y-4 rounded-lg">
-    <div class="font-bold text-2xl pt-4">Import Customers</div>
-    <details>
-      <summary>CSV Format</summary>
-      <table class="bg-white">
-        <thead>
-          <tr>
-            <th class="border px-4 py-2">First Name</th>
-            <th class="border px-4 py-2">Last Name</th>
-            <th class="border px-4 py-2">Email</th>
-            <th class="border px-4 py-2">Password</th>
-            <th class="border px-4 py-2">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border px-4 py-2">John</td>
-            <td class="border px-4 py-2">Doe</td>
-            <td class="border px-4 py-2">john@doe.com</td>
-            <td class="border px-4 py-2">password</td>
-            <td class="border px-4 py-2">000</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mt-6">
-        <%= link_to 'Download Example', example_customer_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-      </div>
-    </details>
-    <%= form_with url: desktop_import_customers_path do |f| %>
-      <div class="space-y-4">
-        <div>
-          <label for="file" class="font-bold">Upload a CSV file</label>
+
+  <!-- Combined Import Section -->
+  <div class="p-4 bg-blue-50 border-2 border-blue-200 space-y-4 rounded-lg">
+    <div class="font-bold text-2xl pt-4">Import Customers & Pets (Combined)</div>
+    <p class="text-sm text-gray-600">Import customers and their pets from a single file. Duplicate customers (matching email or phone) will have pets attached to the existing record.</p>
+
+    <div id="combined-progress-section" class="hidden">
+      <div class="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-4 mb-4">
+        <div class="flex items-center">
+          <svg class="animate-spin h-5 w-5 mr-3 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="font-bold text-yellow-800">Import in progress - Please do not leave this page!</span>
         </div>
-        <%= f.file_field :file, accept: ".csv", required: true %>
-        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+      </div>
+      <div class="bg-white rounded-lg p-4 space-y-3">
+        <div class="flex justify-between text-sm">
+          <span>Processing: <span id="combined-progress-current">0</span> / <span id="combined-progress-total">0</span> rows</span>
+          <span id="combined-progress-percentage">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-4">
+          <div id="combined-progress-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <div class="text-sm text-gray-600 grid grid-cols-2 gap-2">
+          <div>Customers found: <span id="combined-users-found" class="font-semibold">0</span></div>
+          <div>Customers created: <span id="combined-users-created" class="font-semibold">0</span></div>
+          <div>Pets skipped: <span id="combined-pets-skipped" class="font-semibold">0</span></div>
+          <div>Pets created: <span id="combined-pets-created" class="font-semibold">0</span></div>
+          <div class="col-span-2 text-orange-600">Rows skipped: <span id="combined-rows-skipped" class="font-semibold">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="combined-success-section" class="hidden">
+      <div class="bg-green-100 border-2 border-green-400 rounded-lg p-4">
+        <div class="flex items-center">
+          <svg class="h-6 w-6 mr-3 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          Import Customers
-        </button>
-      </div>
-    <% end %>
-  </div>
-  <div class="p-4 bg-white space-y-4 rounded-lg">
-    <div class="font-bold text-2xl pt-4">Import Pets</div>
-    <details>
-      <summary>CSV Format</summary>
-      <table class="bg-white">
-        <thead>
-          <tr>
-            <th class="border px-4 py-2">User Phone</th>
-            <th class="border px-4 py-2">Name</th>
-            <th class="border px-4 py-2">Date Of Birth(DD/MM/YYYY)</th>
-            <th class="border px-4 py-2">Breed</th>
-            <th class="border px-4 py-2">Species</th>
-            <th class="border px-4 py-2">Sex</th>
-            <th class="border px-4 py-2">Weights(lbs)</th>
-            <th class="border px-4 py-2">Health Conditions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border px-4 py-2">000</td>
-            <td class="border px-4 py-2">Max</td>
-            <td class="border px-4 py-2">12/06/2012</td>
-            <td class="border px-4 py-2">Labrador</td>
-            <td class="border px-4 py-2">Dog</td>
-            <td class="border px-4 py-2">Male</td>
-            <td class="border px-4 py-2">67</td>
-            <td class="border px-4 py-2">Perfect</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mt-6">
-        <%= link_to 'Download Example', example_pets_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-      </div>
-    </details>
-    <%= form_with url: desktop_import_pets_path do |f| %>
-      <div class="space-y-4">
-        <div>
-          <label for="file" class="font-bold">Upload a CSV file</label>
+          <span class="font-bold text-green-800">Import completed!</span>
         </div>
-        <%= f.file_field :file, accept: ".csv", required: true %>
-        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          Import Pets
-        </button>
+        <div class="mt-3 text-green-700 grid grid-cols-2 gap-2 text-sm">
+          <div>Customers found (existing): <span id="combined-final-users-found" class="font-semibold">0</span></div>
+          <div>Customers created (new): <span id="combined-final-users-created" class="font-semibold">0</span></div>
+          <div>Pets skipped (existing): <span id="combined-final-pets-skipped" class="font-semibold">0</span></div>
+          <div>Pets created (new): <span id="combined-final-pets-created" class="font-semibold">0</span></div>
+          <div class="col-span-2 text-orange-600">Rows skipped (no valid email/phone match): <span id="combined-final-rows-skipped" class="font-semibold">0</span></div>
+        </div>
       </div>
-    <% end %>
+    </div>
+
+    <div id="combined-errors-section" class="hidden">
+      <div class="bg-red-100 border-2 border-red-400 rounded-lg p-4 mt-4">
+        <div class="font-bold text-red-800 mb-2">Some records failed to import:</div>
+        <ul id="combined-errors-list" class="list-disc list-inside text-red-700 text-sm max-h-40 overflow-y-auto"></ul>
+      </div>
+    </div>
+
+    <div id="combined-form-section">
+      <details>
+        <summary>File Format (CSV or Excel)</summary>
+        <table class="bg-white">
+          <thead>
+            <tr>
+              <th class="border px-4 py-2">first_name</th>
+              <th class="border px-4 py-2">last_name</th>
+              <th class="border px-4 py-2">email</th>
+              <th class="border px-4 py-2">phone_1</th>
+              <th class="border px-4 py-2">pets</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border px-4 py-2">John</td>
+              <td class="border px-4 py-2">Doe</td>
+              <td class="border px-4 py-2">john@example.com</td>
+              <td class="border px-4 py-2">5551234567</td>
+              <td class="border px-4 py-2">Max (Labrador), Bella (Poodle)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-2 text-sm text-gray-600">Accepts CSV (comma or tab separated) and Excel files. Pets should be comma-separated with breed in parentheses, e.g. "Max (Labrador)". Other columns from the source system will be ignored.</p>
+        <div class="mt-6">
+          <%= link_to 'Download Example', example_combined_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
+        </div>
+      </details>
+
+      <form id="combined-import-form" class="mt-4" data-turbo="false">
+        <div class="space-y-4">
+          <div>
+            <label for="combined-import-file" class="font-bold">Upload a CSV or Excel file</label>
+          </div>
+          <input type="file" name="file" id="combined-import-file" accept=".csv,.xlsx,.xls" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+          <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            Import Customers & Pets
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <!-- Staff Import Section -->
   <div class="p-4 bg-white space-y-4 rounded-lg">
     <div class="font-bold text-2xl pt-4">Import Staff</div>
-    <details>
-      <summary>CSV Format</summary>
-      <table class="bg-white">
-        <thead>
-          <tr>
-            <th class="border px-4 py-2">First Name</th>
-            <th class="border px-4 py-2">Last Name</th>
-            <th class="border px-4 py-2">Email</th>
-            <th class="border px-4 py-2">Password</th>
-            <th class="border px-4 py-2">Phone</th>
-            <th class="border px-4 py-2">Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border px-4 py-2">John</td>
-            <td class="border px-4 py-2">Doe</td>
-            <td class="border px-4 py-2">john@doe.com</td>
-            <td class="border px-4 py-2">password</td>
-            <td class="border px-4 py-2">000</td>
-            <td class="border px-4 py-2">Admin</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mt-6">
-        <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
-      </div>
-    </details>
-    <%= form_with url: desktop_import_staff_path do |f| %>
-      <div class="space-y-4">
-        <div>
-          <label for="file" class="font-bold">Upload a CSV file</label>
+
+    <div id="staff-progress-section" class="hidden">
+      <div class="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-4 mb-4">
+        <div class="flex items-center">
+          <svg class="animate-spin h-5 w-5 mr-3 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="font-bold text-yellow-800">Import in progress - Please do not leave this page!</span>
         </div>
-        <%= f.file_field :file, accept: ".csv", required: true %>
-        <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+        <div class="flex justify-between text-sm">
+          <span>Processing: <span id="staff-progress-current">0</span> / <span id="staff-progress-total">0</span> rows</span>
+          <span id="staff-progress-percentage">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-4">
+          <div id="staff-progress-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <div class="text-sm text-gray-600 grid grid-cols-2 gap-2">
+          <div>Staff found (existing): <span id="staff-users-found" class="font-semibold">0</span></div>
+          <div>Staff created (new): <span id="staff-users-created" class="font-semibold">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="staff-success-section" class="hidden">
+      <div class="bg-green-100 border-2 border-green-400 rounded-lg p-4">
+        <div class="flex items-center">
+          <svg class="h-6 w-6 mr-3 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          Import Staff
-        </button>
+          <span class="font-bold text-green-800">Import completed!</span>
+        </div>
+        <div class="mt-3 text-green-700 grid grid-cols-2 gap-2 text-sm">
+          <div>Staff found (existing): <span id="staff-final-users-found" class="font-semibold">0</span></div>
+          <div>Staff created (new): <span id="staff-final-users-created" class="font-semibold">0</span></div>
+        </div>
       </div>
-    <% end %>
+    </div>
+
+    <div id="staff-errors-section" class="hidden">
+      <div class="bg-red-100 border-2 border-red-400 rounded-lg p-4 mt-4">
+        <div class="font-bold text-red-800 mb-2">Some records failed to import:</div>
+        <ul id="staff-errors-list" class="list-disc list-inside text-red-700 text-sm max-h-40 overflow-y-auto"></ul>
+      </div>
+    </div>
+
+    <div id="staff-form-section">
+      <details>
+        <summary>CSV Format</summary>
+        <table class="bg-white">
+          <thead>
+            <tr>
+              <th class="border px-4 py-2">First Name</th>
+              <th class="border px-4 py-2">Last Name</th>
+              <th class="border px-4 py-2">Email</th>
+              <th class="border px-4 py-2">Password</th>
+              <th class="border px-4 py-2">Phone</th>
+              <th class="border px-4 py-2">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border px-4 py-2">John</td>
+              <td class="border px-4 py-2">Doe</td>
+              <td class="border px-4 py-2">john@doe.com</td>
+              <td class="border px-4 py-2">password</td>
+              <td class="border px-4 py-2">000</td>
+              <td class="border px-4 py-2">Admin</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-6">
+          <%= link_to 'Download Example', example_staff_csv_path, class: 'bg-white border-gray-200 font-bold p-2 rounded-lg', data: { turbo: false } %>
+        </div>
+      </details>
+
+      <form id="staff-import-form" class="mt-4" data-turbo="false">
+        <div class="space-y-4">
+          <div>
+            <label for="staff-import-file" class="font-bold">Upload a CSV file</label>
+          </div>
+          <input type="file" name="file" id="staff-import-file" accept=".csv" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+          <button type="submit" class="bg-blue-800 w-full text-white font-bold p-4 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            Import Staff
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let importInProgress = false;
+
+    // Warn before leaving page during import
+    window.addEventListener('beforeunload', function(e) {
+      if (importInProgress) {
+        e.preventDefault();
+        e.returnValue = 'Import is still in progress. Are you sure you want to leave?';
+        return e.returnValue;
+      }
+    });
+
+    // Setup Combined Import
+    setupImporter({
+      formId: 'combined-import-form',
+      fileInputId: 'combined-import-file',
+      formSectionId: 'combined-form-section',
+      progressSectionId: 'combined-progress-section',
+      successSectionId: 'combined-success-section',
+      errorsSectionId: 'combined-errors-section',
+      errorsListId: 'combined-errors-list',
+      progressCurrentId: 'combined-progress-current',
+      progressTotalId: 'combined-progress-total',
+      progressPercentageId: 'combined-progress-percentage',
+      progressBarId: 'combined-progress-bar',
+      usersFoundId: 'combined-users-found',
+      usersCreatedId: 'combined-users-created',
+      petsSkippedId: 'combined-pets-skipped',
+      petsCreatedId: 'combined-pets-created',
+      rowsSkippedId: 'combined-rows-skipped',
+      finalUsersFoundId: 'combined-final-users-found',
+      finalUsersCreatedId: 'combined-final-users-created',
+      finalPetsSkippedId: 'combined-final-pets-skipped',
+      finalPetsCreatedId: 'combined-final-pets-created',
+      finalRowsSkippedId: 'combined-final-rows-skipped',
+      uploadUrl: '<%= desktop_import_combined_path %>',
+      showPets: true
+    });
+
+    // Setup Staff Import
+    setupImporter({
+      formId: 'staff-import-form',
+      fileInputId: 'staff-import-file',
+      formSectionId: 'staff-form-section',
+      progressSectionId: 'staff-progress-section',
+      successSectionId: 'staff-success-section',
+      errorsSectionId: 'staff-errors-section',
+      errorsListId: 'staff-errors-list',
+      progressCurrentId: 'staff-progress-current',
+      progressTotalId: 'staff-progress-total',
+      progressPercentageId: 'staff-progress-percentage',
+      progressBarId: 'staff-progress-bar',
+      usersFoundId: 'staff-users-found',
+      usersCreatedId: 'staff-users-created',
+      finalUsersFoundId: 'staff-final-users-found',
+      finalUsersCreatedId: 'staff-final-users-created',
+      uploadUrl: '<%= desktop_import_staff_path %>',
+      showPets: false
+    });
+
+    function setupImporter(config) {
+      const form = document.getElementById(config.formId);
+      const fileInput = document.getElementById(config.fileInputId);
+      const formSection = document.getElementById(config.formSectionId);
+      const progressSection = document.getElementById(config.progressSectionId);
+      const successSection = document.getElementById(config.successSectionId);
+      const errorsSection = document.getElementById(config.errorsSectionId);
+      const errorsList = document.getElementById(config.errorsListId);
+
+      let pollingInterval = null;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        if (!fileInput.files.length) {
+          alert('Please select a file');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        formSection.classList.add('hidden');
+        progressSection.classList.remove('hidden');
+        successSection.classList.add('hidden');
+        errorsSection.classList.add('hidden');
+        importInProgress = true;
+
+        try {
+          const csrfToken = document.querySelector('meta[name="csrf-token"]');
+          const response = await fetch(config.uploadUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'X-CSRF-Token': csrfToken ? csrfToken.content : ''
+            }
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Upload failed');
+          }
+
+          startPolling(data.import_id);
+        } catch (error) {
+          console.error('Import error:', error);
+          alert('Error: ' + error.message);
+          formSection.classList.remove('hidden');
+          progressSection.classList.add('hidden');
+          importInProgress = false;
+        }
+      });
+
+      function startPolling(importId) {
+        pollingInterval = setInterval(async function() {
+          try {
+            const response = await fetch(`/imports/${importId}/progress`);
+            const data = await response.json();
+
+            updateProgress(data);
+
+            if (data.status === 'completed' || data.status === 'failed') {
+              clearInterval(pollingInterval);
+              importInProgress = false;
+              showResults(data);
+            }
+          } catch (error) {
+            console.error('Polling error:', error);
+          }
+        }, 1000);
+      }
+
+      function updateProgress(data) {
+        document.getElementById(config.progressCurrentId).textContent = data.progress;
+        document.getElementById(config.progressTotalId).textContent = data.total;
+        document.getElementById(config.progressPercentageId).textContent = data.progress_percentage + '%';
+        document.getElementById(config.progressBarId).style.width = data.progress_percentage + '%';
+        document.getElementById(config.usersFoundId).textContent = data.users_found;
+        document.getElementById(config.usersCreatedId).textContent = data.users_created;
+        if (config.showPets) {
+          document.getElementById(config.petsSkippedId).textContent = data.pets_skipped;
+          document.getElementById(config.petsCreatedId).textContent = data.pets_created;
+          document.getElementById(config.rowsSkippedId).textContent = data.rows_skipped || 0;
+        }
+      }
+
+      function showResults(data) {
+        progressSection.classList.add('hidden');
+        successSection.classList.remove('hidden');
+
+        document.getElementById(config.finalUsersFoundId).textContent = data.users_found;
+        document.getElementById(config.finalUsersCreatedId).textContent = data.users_created;
+        if (config.showPets) {
+          document.getElementById(config.finalPetsSkippedId).textContent = data.pets_skipped;
+          document.getElementById(config.finalPetsCreatedId).textContent = data.pets_created;
+          document.getElementById(config.finalRowsSkippedId).textContent = data.rows_skipped || 0;
+        }
+
+        if (data.error_messages && data.error_messages.length > 0) {
+          errorsSection.classList.remove('hidden');
+          errorsList.innerHTML = '';
+          data.error_messages.forEach(function(error) {
+            const li = document.createElement('li');
+            li.textContent = error;
+            errorsList.appendChild(li);
+          });
+        }
+
+        formSection.classList.remove('hidden');
+        fileInput.value = '';
+      }
+    }
+  });
+</script>

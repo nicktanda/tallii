@@ -206,12 +206,11 @@ Rails.application.routes.draw do
   post "/organisations/create", to: "desktop/organisations#create", as: "desktop_organisations_create"
 
   get "/imports", to: "desktop/imports#import", as: "desktop_import"
-  get "/example_customer_csv", to: "desktop/imports#example_customer_csv", as: "example_customer_csv"
+  get "/example_combined_csv", to: "desktop/imports#example_combined_csv", as: "example_combined_csv"
+  post "/imports/combined", to: "desktop/imports#import_combined", as: "desktop_import_combined"
+  get "/imports/:id/progress", to: "desktop/imports#import_progress", as: "desktop_import_progress"
   get "/example_staff_csv", to: "desktop/imports#example_staff_csv", as: "example_staff_csv"
-  get "/example_pets_csv", to: "desktop/imports#example_pets_csv", as: "example_pets_csv"
-  post "/imports/customers", to: "desktop/imports#import_customers", as: "desktop_import_customers"
   post "/imports/staff", to: "desktop/imports#import_staff", as: "desktop_import_staff"
-  post "/imports/pets", to: "desktop/imports#import_pets", as: "desktop_import_pets"
 
   get "/sign_up", to: "desktop/onboarding_organisations#user_details", as: "desktop_onboarding_organisation_user_details"
   post "/onboarding/organisation/user_details", to: "desktop/onboarding_organisations#update_user_details", as: "update_desktop_onboarding_organisation_user_details"

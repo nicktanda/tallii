@@ -66,6 +66,8 @@ gem "bigdecimal", "~> 3.1"
 
 gem "csv", "~> 3.3"
 
+gem "roo", "~> 2.10"
+
 gem "ostruct", "~> 0.6.0"
 
 gem "phonelib"

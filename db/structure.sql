@@ -1,4 +1,4 @@
-\restrict 4xZc49MGFwpPR5EArAVAkT2OFVtvN1lsY5ERRNJ1ZnW7JP2eeheoui9VFrBM1dD
+\restrict rWhkjwg2TtIL0Yyx5pLgp5axKFs2Zdgysk1WMfIabkMlaL55i0IntFd64XHTZNw
 
 -- Dumped from database version 15.15 (Homebrew)
 -- Dumped by pg_dump version 15.15 (Homebrew)
@@ -280,6 +280,51 @@ ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
+-- Name: imports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.imports (
+    id bigint NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    progress integer DEFAULT 0 NOT NULL,
+    total integer DEFAULT 0 NOT NULL,
+    users_imported integer DEFAULT 0 NOT NULL,
+    pets_imported integer DEFAULT 0 NOT NULL,
+    error_messages text,
+    user_id bigint NOT NULL,
+    organisation_id bigint NOT NULL,
+    file_name character varying,
+    import_type character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    users_found integer DEFAULT 0 NOT NULL,
+    users_created integer DEFAULT 0 NOT NULL,
+    pets_skipped integer DEFAULT 0 NOT NULL,
+    pets_created integer DEFAULT 0 NOT NULL,
+    rows_skipped integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: imports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.imports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: imports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.imports_id_seq OWNED BY public.imports.id;
+
+
+--
 -- Name: log_reports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -495,7 +540,9 @@ CREATE TABLE public.organisations (
     access_code character varying NOT NULL,
     default_groom_cost double precision,
     default_daycare_visit_cost double precision,
-    opening_hours text
+    opening_hours text,
+    small_pet_max_weight integer DEFAULT 25,
+    medium_pet_max_weight integer DEFAULT 50
 );
 
 
@@ -881,6 +928,13 @@ ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.image
 
 
 --
+-- Name: imports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.imports ALTER COLUMN id SET DEFAULT nextval('public.imports_id_seq'::regclass);
+
+
+--
 -- Name: log_reports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1033,6 +1087,14 @@ ALTER TABLE ONLY public.grooms
 
 ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: imports imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.imports
+    ADD CONSTRAINT imports_pkey PRIMARY KEY (id);
 
 
 --
@@ -1302,6 +1364,20 @@ CREATE INDEX index_images_on_user_id ON public.images USING btree (user_id);
 
 
 --
+-- Name: index_imports_on_organisation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_imports_on_organisation_id ON public.imports USING btree (organisation_id);
+
+
+--
+-- Name: index_imports_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_imports_on_user_id ON public.imports USING btree (user_id);
+
+
+--
 -- Name: index_log_reports_on_daycare_visit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1522,6 +1598,14 @@ ALTER TABLE ONLY public.images
 
 
 --
+-- Name: imports fk_rails_38c337161c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.imports
+    ADD CONSTRAINT fk_rails_38c337161c FOREIGN KEY (organisation_id) REFERENCES public.organisations(id);
+
+
+--
 -- Name: onboarding_pets fk_rails_3a66c530fb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1706,6 +1790,14 @@ ALTER TABLE ONLY public.images
 
 
 --
+-- Name: imports fk_rails_b1e2154c26; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.imports
+    ADD CONSTRAINT fk_rails_b1e2154c26 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: images fk_rails_bd36e75ae4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1789,11 +1881,15 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4xZc49MGFwpPR5EArAVAkT2OFVtvN1lsY5ERRNJ1ZnW7JP2eeheoui9VFrBM1dD
+\unrestrict rWhkjwg2TtIL0Yyx5pLgp5axKFs2Zdgysk1WMfIabkMlaL55i0IntFd64XHTZNw
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260218122121'),
+('20260218120842'),
+('20260218114013'),
+('20260218111307'),
 ('20260120092418'),
 ('20251125123247'),
 ('20251118130911'),

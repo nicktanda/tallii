@@ -17,10 +17,12 @@
 
   <% if controller_name == "sessions" %>
     <body class="min-h-screen bg-black flex flex-col">
+      <%= render "shared/flash_toast" %>
       <%= yield %>
     </body>
   <% else %>
     <body class="min-h-screen bg-black flex flex-col pb-20">
+      <%= render "shared/flash_toast" %>
       <%= yield %>
       <% if current_user && controller_name != "onboarding" && controller_name != "settings" %>
         <footer class="fixed bottom-0 left-0 w-full bg-black flex text-white py-2 h-[8vh] items-center">

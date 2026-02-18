@@ -15,7 +15,7 @@ class GroomsController < ApplicationController
     groom.assign_attributes(groom_params)
 
     if groom.save
-      redirect_to grooms_path
+      redirect_to grooms_path, notice: 'Groom updated'
     else
       redirect_back fallback_location: groom_path(groom), alert: 'Invalid groom information'
     end
@@ -46,9 +46,9 @@ class GroomsController < ApplicationController
     if groom.save
       groom.images.create!(name: "test_image", image: params[:groom][:image])
       if params[:groom][:origin] == "desktop"
-        redirect_to desktop_grooms_path
+        redirect_to desktop_grooms_path, notice: 'Groom appointment saved'
       else
-        redirect_to grooms_path
+        redirect_to grooms_path, notice: 'Groom appointment saved'
       end
     else
       if params[:groom][:origin] == "desktop"
@@ -63,7 +63,7 @@ class GroomsController < ApplicationController
     groom = current_organisation.grooms.find(params[:id])
 
     if groom.update!(status: 'confirmed')
-      redirect_to grooms_path
+      redirect_to grooms_path, notice: 'Groom confirmed'
     else
       redirect_back fallback_location: grooms_path, alert: 'Please try again'
     end
@@ -73,7 +73,7 @@ class GroomsController < ApplicationController
     groom = current_organisation.grooms.find(params[:id])
 
     if groom.destroy
-      redirect_to grooms_path
+      redirect_to grooms_path, notice: 'Groom deleted'
     else
       redirect_back fallback_location: grooms_path, alert: 'Please try again'
     end

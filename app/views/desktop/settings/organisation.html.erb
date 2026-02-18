@@ -1,8 +1,3 @@
-<% flash.each do |type, msg| %>
-  <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
-    <%= msg %>
-  </div>
-<% end %>
 <div class="space-y-12 h-[85vh] overflow-y-scroll p-4">
   <div class="flex space-x-4 items-center">
     <div class="font-bold text-2xl">Administration</div>
@@ -71,7 +66,14 @@
             <div class="text-sm font-thin">Set your business hours for each day</div>
           </div>
           <div class="w-full space-y-3">
-            <% opening_hours = current_organisation.opening_hours || {} %>
+            <%
+              raw_hours = current_organisation.opening_hours
+              opening_hours = case raw_hours
+                              when Hash then raw_hours
+                              when String then (JSON.parse(raw_hours) rescue {})
+                              else {}
+                              end
+            %>
             <% ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].each do |day| %>
               <div class="flex items-center space-x-4">
                 <div class="w-24 font-semibold"><%= day %></div>
@@ -136,6 +138,24 @@
                 <div class="text-red-500">*</div>
               </div>
               <%= f.number_field :maximum_weekly_grooms, required: true, step: 0, value: current_organisation.maximum_weekly_grooms, class: "bg-white text-black w-full rounded-lg p-4" %>
+            </div>
+          </div>
+        </div>
+        <div class="flex space-x-4">
+          <div class="w-1/3">
+            <div class="text-blue-900 font-bold">Pet Size Settings</div>
+            <div class="text-sm font-thin">Configure weight thresholds for pet size categories (in lbs)</div>
+          </div>
+          <div class="w-full space-y-4">
+            <div>
+              <%= f.label :small_pet_max_weight, "Small Pet Max Weight (lbs)" %>
+              <%= f.number_field :small_pet_max_weight, min: 1, value: current_organisation.small_pet_max_weight || 25, class: "bg-white text-black w-full rounded-lg p-4" %>
+              <div class="font-thin text-sm">Pets weighing up to this amount are considered "Small"</div>
+            </div>
+            <div>
+              <%= f.label :medium_pet_max_weight, "Medium Pet Max Weight (lbs)" %>
+              <%= f.number_field :medium_pet_max_weight, min: 1, value: current_organisation.medium_pet_max_weight || 50, class: "bg-white text-black w-full rounded-lg p-4" %>
+              <div class="font-thin text-sm">Pets weighing up to this amount are considered "Medium". Above this is "Large"</div>
             </div>
           </div>
         </div>

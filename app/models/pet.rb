@@ -18,10 +18,14 @@ class Pet < ApplicationRecord
   default_scope { alive }
 
   def size
+    org = user&.organisation
+    small_max = org&.small_pet_max_weight || 25
+    medium_max = org&.medium_pet_max_weight || 50
+
     case weight
-    when 0..25
+    when 0..small_max
       "Small"
-    when 26..50
+    when (small_max + 1)..medium_max
       "Medium"
     else
       "Large"

@@ -66,7 +66,7 @@ module Desktop
     end
 
     def organisation_params
-      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode, :maximum_weekly_daycare_visits, :maximum_daily_daycare_visits, :maximum_weekly_grooms, :maximum_daily_grooms, :stripe_api_key, :grooming_reward_points, :daycare_visit_reward_points, opening_hours: {})
+      params.require(:organisation).permit(:id, :name, :email, :phone, :address, :city, :postcode, :maximum_weekly_daycare_visits, :maximum_daily_daycare_visits, :maximum_weekly_grooms, :maximum_daily_grooms, :stripe_api_key, :grooming_reward_points, :daycare_visit_reward_points, :small_pet_max_weight, :medium_pet_max_weight, opening_hours: {})
     end
   end
 end

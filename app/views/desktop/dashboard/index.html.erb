@@ -121,7 +121,7 @@
         <div class="flex">
           <div class="w-full p-4 flex space-x-4">
             <div class="overflow-hidden rounded-lg w-full">
-            <div class="max-h-80 min-h-80 overflow-y-scroll w-full">
+            <div class="max-h-[400px] min-h-[400px] overflow-y-scroll w-full">
               <table class="w-full">
                 <thead>
                   <tr class="bg-gray-100 text-left sticky top-0">
@@ -280,13 +280,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <% flash.each do |type, msg| %>
-    <div class="text-red-500 border-red-500 w-full p-2 border-2 rounded-lg">
-      <%= msg %>
-    </div>
-  <% end %>
-</div>
+  </div></div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
