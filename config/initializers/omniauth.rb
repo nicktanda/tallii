@@ -1,6 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   redirect_uri = if Rails.env.production?
-                   'https://yourdomain.com/auth/google_oauth2/callback'
+                   'https://talii.app/auth/google_oauth2/callback'
                  else
                    'http://localhost:3001/auth/google_oauth2/callback'
                  end

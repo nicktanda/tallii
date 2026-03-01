@@ -14,25 +14,19 @@ class OmniauthCallbacksController < ApplicationController
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     user ||= User.find_by(email: auth.info.email)
 
-    if user
-      # Update OAuth credentials if linking existing account
-      if user.provider.nil?
-        user.update!(
-          provider: auth.provider,
-          uid: auth.uid,
-          avatar_url: auth.info.image
-        )
-      end
-    else
-      # Create new user
-      user = User.create!(
-        email: auth.info.email,
-        first_name: auth.info.first_name || auth.info.name&.split&.first,
-        last_name: auth.info.last_name || auth.info.name&.split&.last,
+    unless user
+      # No account found - redirect back with error
+      redirect_path = is_desktop ? desktop_new_session_path : new_session_path
+      redirect_to redirect_path, alert: 'No account found with this email. Please sign up first.'
+      return
+    end
+
+    # Update OAuth credentials if linking existing account
+    if user.provider.nil?
+      user.update!(
         provider: auth.provider,
         uid: auth.uid,
-        avatar_url: auth.info.image,
-        role: is_desktop ? :admin : :customer
+        avatar_url: auth.info.image
       )
     end
 
