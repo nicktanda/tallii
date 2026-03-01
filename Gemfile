@@ -74,6 +74,9 @@ gem "phonelib"
 
 gem "rack-attack"
 
+gem 'omniauth-google-oauth2', '~> 1.1'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

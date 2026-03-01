@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_secure_password
+  has_secure_password validations: false
+  validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
   belongs_to :organisation, optional: true
   
   # Custom phone validation using phonelib
@@ -90,5 +91,13 @@ class User < ApplicationRecord
     unless parsed.possible?
       errors.add(:phone, "is not a valid phone number")
     end
+  end
+
+  def oauth_user?
+    provider.present?
+  end
+
+  def password_required?
+    !oauth_user? && !password_digest.present?
   end
 end

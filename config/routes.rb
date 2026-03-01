@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get "/manifest.json" => "service_worker#manifest"
   get "/health", to: proc { [200, { "Content-Type" => "text/plain" }, ["ok"]] }
 
+  # OAuth routes
+  get '/auth/:provider/callback', to: 'omniauth_callbacks#create'
+  post '/auth/:provider/callback', to: 'omniauth_callbacks#create'
+  get '/auth/failure', to: 'omniauth_callbacks#failure'
+
   # MOBILE APP ROUTES
   patch "/mobile_app/update/:id", to: "users#update", as: "update_user"
   delete "/mobile_app/delete/:id", to: "users#delete", as: "delete_user"

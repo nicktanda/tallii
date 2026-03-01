@@ -12,7 +12,9 @@ class SessionsController < ApplicationController
 
     user = User.find_by(email: params[:email])
 
-    if user&.authenticate(params[:password])
+    if user&.oauth_user? && !user.password_digest.present?
+      redirect_back fallback_location: new_session_path, alert: 'This account uses Google sign-in. Please tap "Continue with Google" to sign in.'
+    elsif user&.authenticate(params[:password])
       session["user"] ||= {}
       session["user"]["id"] = user.id
       session["current_pet"] = user.pets.first.id if user.pets.any?

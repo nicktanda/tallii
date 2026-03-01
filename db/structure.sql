@@ -1,4 +1,4 @@
-\restrict rWhkjwg2TtIL0Yyx5pLgp5axKFs2Zdgysk1WMfIabkMlaL55i0IntFd64XHTZNw
+\restrict h5oggtA6cuXQ8bY18brQ79avo1wpPebq9vGHJ4VCYbwAYTUgVadBlsdEsziD1Aj
 
 -- Dumped from database version 15.15 (Homebrew)
 -- Dumped by pg_dump version 15.15 (Homebrew)
@@ -835,7 +835,7 @@ CREATE TABLE public.users (
     first_name character varying(100) NOT NULL,
     last_name character varying(100) NOT NULL,
     email character varying(100) NOT NULL,
-    password_digest character varying NOT NULL,
+    password_digest character varying,
     organisation_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -855,7 +855,10 @@ CREATE TABLE public.users (
     additional_user_email text,
     additional_user_phone text,
     additional_user_relationship text,
-    colour_codes character varying[] DEFAULT '{}'::character varying[]
+    colour_codes character varying[] DEFAULT '{}'::character varying[],
+    provider character varying,
+    uid character varying,
+    avatar_url character varying
 );
 
 
@@ -1574,6 +1577,13 @@ CREATE INDEX index_users_on_organisation_id_and_phone ON public.users USING btre
 
 
 --
+-- Name: index_users_on_provider_and_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_provider_and_uid ON public.users USING btree (provider, uid);
+
+
+--
 -- Name: pets fk_rails_0fa4bae6b1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1881,11 +1891,12 @@ ALTER TABLE ONLY public.images
 -- PostgreSQL database dump complete
 --
 
-\unrestrict rWhkjwg2TtIL0Yyx5pLgp5axKFs2Zdgysk1WMfIabkMlaL55i0IntFd64XHTZNw
+\unrestrict h5oggtA6cuXQ8bY18brQ79avo1wpPebq9vGHJ4VCYbwAYTUgVadBlsdEsziD1Aj
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260301000001'),
 ('20260218122121'),
 ('20260218120842'),
 ('20260218114013'),
