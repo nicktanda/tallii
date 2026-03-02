@@ -77,7 +77,11 @@ class User < ApplicationRecord
       self.phone = parsed.full_e164 if parsed.valid?
     end
   end
-  
+
+  def oauth_user?
+    provider.present?
+  end
+
   private
 
   def normalize_phone_numbers
@@ -91,10 +95,6 @@ class User < ApplicationRecord
     unless parsed.possible?
       errors.add(:phone, "is not a valid phone number")
     end
-  end
-
-  def oauth_user?
-    provider.present?
   end
 
   def password_required?
