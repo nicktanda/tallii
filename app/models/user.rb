@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password validations: false
   validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
   validates :email, uniqueness: { scope: :organisation_id, message: "is already taken" }, if: -> { email.present? }
+  validates :phone, uniqueness: { scope: :organisation_id, message: "is already taken" }, if: -> { phone.present? }
   belongs_to :organisation, optional: true
 
   # Custom phone validation using phonelib
