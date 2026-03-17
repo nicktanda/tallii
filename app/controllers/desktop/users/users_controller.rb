@@ -31,7 +31,7 @@ module Desktop
         if user.save
           redirect_to desktop_staff_settings_path, notice: "Staff member created"
         else
-          redirect_to desktop_staff_settings_path, alert: "Staff member not created"
+          redirect_to desktop_staff_settings_path, alert: user.errors.full_messages.to_sentence
         end
       end
 
