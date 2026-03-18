@@ -363,48 +363,23 @@
                         <div id="pet-checkboxes" class="grid grid-cols-2 gap-4">
                           <!-- Pet checkboxes will be populated dynamically -->
                         </div>
-                        <div id="pet-ids-container">
-                          <!-- Hidden fields for selected pet IDs will be added here -->
-                        </div>
                       </div>
 
-                      <!-- Book Details -->
-                      <div id="booking-section" class="hidden space-y-3">
-                        <div>
-                          <%= f.label :employee_id, "Groomer" %>
-                          <input list="groomer-list" id="groomer-search" placeholder="Search and select a groomer" class="border w-full rounded-lg p-2">
-                          <%= f.hidden_field :employee_id, id: "employee-id" %>
-                          <datalist id="groomer-list">
-                            <% current_organisation.users.employees_and_admins.each do |user| %>
-                              <option data-id="<%= user.id %>" value="<%= user.full_name %>"></option>
-                            <% end %>
-                          </datalist>
-                        </div>
-                        <div>
-                          <%= f.label :date %>
-                          <%= f.date_field :date, id: 'date-field', required: true, class: "border w-full rounded-lg p-2" %>
-                        </div>
-                        <div class="flex space-x-3">
-                          <div class="flex-1">
-                            <%= f.label :start_time %>
-                            <%= f.time_field :start_time, id: 'start-time-field', required: true, class: "border w-full rounded-lg p-2" %>
-                          </div>
-                          <div class="flex-1">
-                            <%= f.label :end_time %>
-                            <%= f.time_field :end_time, id: 'end-time-field', class: "border w-full rounded-lg p-2" %>
-                          </div>
-                        </div>
-                        <div>
-                          <%= f.label :notes, "Additional Grooming Notes" %>
-                          <%= f.text_area :notes, class: "border w-full rounded-lg p-2", rows: 3, placeholder: "Write any notes here" %>
-                        </div>
-                        <div>
-                          <%= f.label :status, "Status" %>
-                          <%= f.select(:status, options_for_select([["Pending", "pending"], ["Confirmed", "confirmed"], ["In Progress", "in_progress"], ["Completed", "completed"], ["Missed Appointment", "missed_appointment"]]), { prompt: 'Select' }, { class: "border w-full rounded-lg p-2" }) %>
-                        </div>
-                        <%= f.hidden_field :organisation, value: current_organisation.id%>
-                        <%= f.hidden_field :origin, value: "desktop"%>
+                      <!-- Groomer datalist (shared) -->
+                      <datalist id="groomer-list">
+                        <% current_organisation.users.employees_and_admins.each do |user| %>
+                          <option data-id="<%= user.id %>" value="<%= user.full_name %>"></option>
+                        <% end %>
+                      </datalist>
+
+                      <!-- Individual Pet Booking Sections -->
+                      <div id="pet-bookings-container" class="space-y-4">
+                        <!-- Pet booking sections will be dynamically added here -->
                       </div>
+
+                      <!-- Hidden fields for organisation and origin -->
+                      <input type="hidden" name="groom[organisation]" value="<%= current_organisation.id %>">
+                      <input type="hidden" name="groom[origin]" value="desktop">
 
                       <!-- Submit Button -->
                       <div id="submit-section" class="hidden">
@@ -454,30 +429,112 @@
                     const customerSearch = document.getElementById('customer-search');
                     const customerId = document.getElementById('customer-id');
                     const petCheckboxes = document.getElementById('pet-checkboxes');
-                    const petIdsContainer = document.getElementById('pet-ids-container');
                     const petSection = document.getElementById('pet-section');
-                    const bookingSection = document.getElementById('booking-section');
+                    const petBookingsContainer = document.getElementById('pet-bookings-container');
                     const submitSection = document.getElementById('submit-section');
                     const submitButton = document.getElementById('submit-button');
-                    const groomerSearch = document.getElementById('groomer-search');
-                    const employeeId = document.getElementById('employee-id');
-                    const dateField = document.getElementById('date-field');
-                    const timeField = document.getElementById('start-time-field');
                     const groomForm = document.getElementById('groom-booking-form');
 
-                    // Track selected pet IDs
-                    let selectedPetIds = [];
+                    // Track selected pets with their data
+                    let selectedPets = {};
 
-                    // Function to update hidden pet ID fields
-                    function updatePetIdFields() {
-                      petIdsContainer.innerHTML = '';
-                      selectedPetIds.forEach(petId => {
-                        const hiddenField = document.createElement('input');
-                        hiddenField.type = 'hidden';
-                        hiddenField.name = 'groom[pet_ids][]';
-                        hiddenField.value = petId;
-                        petIdsContainer.appendChild(hiddenField);
+                    // Function to create a booking section for a pet
+                    function createPetBookingSection(pet) {
+                      const section = document.createElement('div');
+                      section.id = `pet-booking-${pet.id}`;
+                      section.className = 'bg-gray-50 border-2 border-gray-300 rounded-lg p-4 space-y-3';
+
+                      section.innerHTML = `
+                        <div class="flex items-center space-x-3 pb-3 border-b border-gray-200">
+                          <img src="${pet.image}" alt="${pet.name}" class="w-12 h-12 rounded-full object-cover">
+                          <div>
+                            <div class="font-bold text-lg">${pet.name}</div>
+                            <div class="text-sm text-gray-600">${pet.species} · ${pet.gender}</div>
+                          </div>
+                        </div>
+                        <input type="hidden" name="bookings[][pet_id]" value="${pet.id}">
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-1">Groomer</label>
+                          <input list="groomer-list" id="groomer-search-${pet.id}" placeholder="Select a groomer" class="border w-full rounded-lg p-2 groomer-input" data-pet-id="${pet.id}">
+                          <input type="hidden" name="bookings[][employee_id]" id="employee-id-${pet.id}" value="">
+                        </div>
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                          <input type="date" name="bookings[][date]" id="date-field-${pet.id}" required class="border w-full rounded-lg p-2 date-input">
+                        </div>
+                        <div class="flex space-x-3">
+                          <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                            <input type="time" name="bookings[][start_time]" id="start-time-field-${pet.id}" required class="border w-full rounded-lg p-2 time-input">
+                          </div>
+                          <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                            <input type="time" name="bookings[][end_time]" id="end-time-field-${pet.id}" class="border w-full rounded-lg p-2">
+                          </div>
+                        </div>
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                          <textarea name="bookings[][notes]" class="border w-full rounded-lg p-2" rows="2" placeholder="Grooming notes for ${pet.name}"></textarea>
+                        </div>
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                          <select name="bookings[][status]" class="border w-full rounded-lg p-2">
+                            <option value="">Select</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="missed_appointment">Missed Appointment</option>
+                          </select>
+                        </div>
+                      `;
+
+                      // Add groomer selection handler
+                      const groomerInput = section.querySelector(`#groomer-search-${pet.id}`);
+                      const employeeIdField = section.querySelector(`#employee-id-${pet.id}`);
+                      groomerInput.addEventListener('input', function() {
+                        const groomerName = this.value;
+                        const groomerId = groomerData[groomerName];
+                        employeeIdField.value = groomerId || '';
                       });
+
+                      // Add change handlers for validation
+                      section.querySelectorAll('.date-input, .time-input').forEach(input => {
+                        input.addEventListener('change', checkFormComplete);
+                      });
+
+                      return section;
+                    }
+
+                    // Function to update pet booking sections
+                    function updatePetBookingSections() {
+                      // Get current pet IDs in the container
+                      const currentSections = petBookingsContainer.querySelectorAll('[id^="pet-booking-"]');
+                      const currentPetIds = Array.from(currentSections).map(s => parseInt(s.id.replace('pet-booking-', '')));
+                      const selectedPetIds = Object.keys(selectedPets).map(id => parseInt(id));
+
+                      // Remove sections for deselected pets
+                      currentPetIds.forEach(petId => {
+                        if (!selectedPetIds.includes(petId)) {
+                          const section = document.getElementById(`pet-booking-${petId}`);
+                          if (section) section.remove();
+                        }
+                      });
+
+                      // Add sections for newly selected pets
+                      selectedPetIds.forEach(petId => {
+                        if (!currentPetIds.includes(petId)) {
+                          const section = createPetBookingSection(selectedPets[petId]);
+                          petBookingsContainer.appendChild(section);
+                        }
+                      });
+
+                      // Show/hide submit section
+                      if (selectedPetIds.length > 0) {
+                        submitSection.classList.remove('hidden');
+                      } else {
+                        submitSection.classList.add('hidden');
+                      }
                     }
 
                     // Handle customer selection
@@ -493,7 +550,8 @@
 
                         // Populate pet checkboxes
                         petCheckboxes.innerHTML = '';
-                        selectedPetIds = [];
+                        selectedPets = {};
+                        petBookingsContainer.innerHTML = '';
                         const pets = petsData[customerId_value] || [];
 
                         if (pets.length === 0) {
@@ -547,79 +605,45 @@
                               // Toggle the checkbox
                               checkboxInput.checked = !checkboxInput.checked;
 
-                              // Update selected pet IDs array
+                              // Update selected pets
                               if (checkboxInput.checked) {
-                                selectedPetIds.push(pet.id);
+                                selectedPets[pet.id] = pet;
                                 // Add green styling to selected pet box
                                 checkboxWrapper.classList.remove('bg-gray-100', 'border-gray-400');
                                 checkboxWrapper.classList.add('bg-green-300', 'border-green-500');
                               } else {
-                                selectedPetIds = selectedPetIds.filter(id => id !== pet.id);
+                                delete selectedPets[pet.id];
                                 // Remove green styling
                                 checkboxWrapper.classList.remove('bg-green-300', 'border-green-500');
                                 checkboxWrapper.classList.add('bg-gray-100', 'border-gray-400');
                               }
 
-                              // Update hidden fields
-                              updatePetIdFields();
-
-                              // Show/hide booking section based on selection
-                              if (selectedPetIds.length > 0) {
-                                bookingSection.classList.remove('hidden');
-                                submitSection.classList.remove('hidden');
-                              } else {
-                                bookingSection.classList.add('hidden');
-                                submitSection.classList.add('hidden');
-                              }
+                              // Update booking sections
+                              updatePetBookingSections();
                               checkFormComplete();
                             });
                           });
                         }
 
                         // Reset subsequent sections if customer changes
-                        petIdsContainer.innerHTML = '';
-                        groomerSearch.value = '';
-                        employeeId.value = '';
-                        bookingSection.classList.add('hidden');
                         submitSection.classList.add('hidden');
                         checkFormComplete();
                       } else {
                         // Clear customer selection if no match
                         customerId.value = '';
                         petSection.classList.add('hidden');
-                        bookingSection.classList.add('hidden');
                         submitSection.classList.add('hidden');
                         petCheckboxes.innerHTML = '';
-                        petIdsContainer.innerHTML = '';
-                        selectedPetIds = [];
-                        groomerSearch.value = '';
-                        employeeId.value = '';
+                        petBookingsContainer.innerHTML = '';
+                        selectedPets = {};
                         checkFormComplete();
                       }
                     });
 
-
-                    // Handle groomer selection
-                    groomerSearch.addEventListener('input', function() {
-                      const groomerName = this.value;
-                      const groomerId = groomerData[groomerName];
-
-                      if (groomerId) {
-                        employeeId.value = groomerId;
-                      } else {
-                        employeeId.value = '';
-                      }
-                      checkFormComplete();
-                    });
-
                     // Function to check if form is complete
                     function checkFormComplete() {
+                      const selectedPetIds = Object.keys(selectedPets);
                       const hasPets = selectedPetIds.length > 0;
-                      const groomerId = employeeId.value;
-                      const date = dateField.value;
-                      const time = timeField.value;
-
-                      console.log('Form check:', { selectedPetIds, groomerId, date, time });
 
                       // Update button text based on number of pets selected
                       if (selectedPetIds.length > 1) {
@@ -628,48 +652,53 @@
                         submitButton.textContent = 'Book Groom';
                       }
 
-                      // Only require pet(s), date, and start time - groomer and end time are optional
-                      if (hasPets && date && time) {
+                      // Check if all pet booking sections have required fields filled
+                      let allFieldsFilled = hasPets;
+                      if (hasPets) {
+                        selectedPetIds.forEach(petId => {
+                          const dateField = document.getElementById(`date-field-${petId}`);
+                          const timeField = document.getElementById(`start-time-field-${petId}`);
+                          if (!dateField || !timeField || !dateField.value || !timeField.value) {
+                            allFieldsFilled = false;
+                          }
+                        });
+                      }
+
+                      console.log('Form check:', { selectedPetIds, allFieldsFilled });
+
+                      if (allFieldsFilled) {
                         submitButton.disabled = false;
                         submitButton.classList.remove('bg-gray-400');
                         submitButton.classList.add('bg-blue-500');
-                        console.log('Submit button enabled');
                       } else {
                         submitButton.disabled = true;
                         submitButton.classList.remove('bg-blue-500');
                         submitButton.classList.add('bg-gray-400');
-                        console.log('Submit button disabled');
                       }
                     }
-
-                    // Handle date and time changes
-                    dateField.addEventListener('change', checkFormComplete);
-                    timeField.addEventListener('change', checkFormComplete);
-
-                    // Debug submit button clicks
-                    submitButton.addEventListener('click', function(e) {
-                      console.log('Submit button clicked!', {
-                        disabled: this.disabled,
-                        petIds: selectedPetIds,
-                        employeeId: employeeId.value,
-                        date: dateField.value,
-                        time: timeField.value
-                      });
-                    });
 
                     // Add required validation
                     groomForm.addEventListener('submit', function(e) {
                       console.log('Form submit event triggered');
+                      const selectedPetIds = Object.keys(selectedPets);
+
                       if (selectedPetIds.length === 0) {
                         e.preventDefault();
                         alert('Please select at least one pet');
                         return false;
                       }
-                      if (!dateField.value || !timeField.value) {
-                        e.preventDefault();
-                        alert('Please fill in date and time');
-                        return false;
+
+                      // Validate each pet's booking section
+                      for (const petId of selectedPetIds) {
+                        const dateField = document.getElementById(`date-field-${petId}`);
+                        const timeField = document.getElementById(`start-time-field-${petId}`);
+                        if (!dateField.value || !timeField.value) {
+                          e.preventDefault();
+                          alert(`Please fill in date and time for ${selectedPets[petId].name}`);
+                          return false;
+                        }
                       }
+
                       console.log('Form validation passed, submitting...');
                     });
                     })();
