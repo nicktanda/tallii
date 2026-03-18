@@ -357,13 +357,15 @@
                         </datalist>
                       </div>
 
-                      <!-- Select Pet -->
+                      <!-- Select Pet(s) -->
                       <div id="pet-section" class="hidden">
-                        <label class="font-bold mb-2 block">Select a Pet</label>
-                        <div id="pet-radio-buttons" class="grid grid-cols-2 gap-4">
-                          <!-- Pet radio buttons will be populated dynamically -->
+                        <label class="font-bold mb-2 block">Select Pet(s)</label>
+                        <div id="pet-checkboxes" class="grid grid-cols-2 gap-4">
+                          <!-- Pet checkboxes will be populated dynamically -->
                         </div>
-                        <%= f.hidden_field :pet_id, id: "pet_id" %>
+                        <div id="pet-ids-container">
+                          <!-- Hidden fields for selected pet IDs will be added here -->
+                        </div>
                       </div>
 
                       <!-- Book Details -->
@@ -451,7 +453,8 @@
                     // Get elements
                     const customerSearch = document.getElementById('customer-search');
                     const customerId = document.getElementById('customer-id');
-                    const petRadioButtons = document.getElementById('pet-radio-buttons');
+                    const petCheckboxes = document.getElementById('pet-checkboxes');
+                    const petIdsContainer = document.getElementById('pet-ids-container');
                     const petSection = document.getElementById('pet-section');
                     const bookingSection = document.getElementById('booking-section');
                     const submitSection = document.getElementById('submit-section');
@@ -461,6 +464,21 @@
                     const dateField = document.getElementById('date-field');
                     const timeField = document.getElementById('start-time-field');
                     const groomForm = document.getElementById('groom-booking-form');
+
+                    // Track selected pet IDs
+                    let selectedPetIds = [];
+
+                    // Function to update hidden pet ID fields
+                    function updatePetIdFields() {
+                      petIdsContainer.innerHTML = '';
+                      selectedPetIds.forEach(petId => {
+                        const hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = 'groom[pet_ids][]';
+                        hiddenField.value = petId;
+                        petIdsContainer.appendChild(hiddenField);
+                      });
+                    }
 
                     // Handle customer selection
                     customerSearch.addEventListener('input', function() {
@@ -473,24 +491,25 @@
                         // Show pet section
                         petSection.classList.remove('hidden');
 
-                        // Populate pet radio buttons
-                        petRadioButtons.innerHTML = '';
+                        // Populate pet checkboxes
+                        petCheckboxes.innerHTML = '';
+                        selectedPetIds = [];
                         const pets = petsData[customerId_value] || [];
 
                         if (pets.length === 0) {
-                          petRadioButtons.innerHTML = '<p class="text-gray-500 italic">No pets found for this customer</p>';
+                          petCheckboxes.innerHTML = '<p class="text-gray-500 italic">No pets found for this customer</p>';
                         } else {
                           pets.forEach(pet => {
-                            const radioWrapper = document.createElement('label');
-                            radioWrapper.className = 'flex items-center p-3 bg-gray-100 border-2 border-gray-400 rounded-lg cursor-pointer transition-colors w-full';
-                            radioWrapper.htmlFor = 'pet_' + pet.id;
+                            const checkboxWrapper = document.createElement('label');
+                            checkboxWrapper.className = 'flex items-center p-3 bg-gray-100 border-2 border-gray-400 rounded-lg cursor-pointer transition-colors w-full';
+                            checkboxWrapper.htmlFor = 'pet_' + pet.id;
 
-                            const radioInput = document.createElement('input');
-                            radioInput.type = 'radio';
-                            radioInput.name = 'pet_radio';
-                            radioInput.id = 'pet_' + pet.id;
-                            radioInput.value = pet.id;
-                            radioInput.className = 'hidden';
+                            const checkboxInput = document.createElement('input');
+                            checkboxInput.type = 'checkbox';
+                            checkboxInput.name = 'pet_checkbox';
+                            checkboxInput.id = 'pet_' + pet.id;
+                            checkboxInput.value = pet.id;
+                            checkboxInput.className = 'hidden';
 
                             const petImage = document.createElement('img');
                             petImage.src = pet.image;
@@ -516,37 +535,49 @@
                             petInfo.appendChild(petSpecies);
                             petInfo.appendChild(petGender);
 
-                            radioWrapper.appendChild(radioInput);
-                            radioWrapper.appendChild(petImage);
-                            radioWrapper.appendChild(petInfo);
-                            petRadioButtons.appendChild(radioWrapper);
+                            checkboxWrapper.appendChild(checkboxInput);
+                            checkboxWrapper.appendChild(petImage);
+                            checkboxWrapper.appendChild(petInfo);
+                            petCheckboxes.appendChild(checkboxWrapper);
 
                             // Add event listener to the wrapper
-                            radioWrapper.addEventListener('click', function() {
-                              // Check the radio button
-                              radioInput.checked = true;
+                            checkboxWrapper.addEventListener('click', function(e) {
+                              e.preventDefault();
 
-                              // Remove green styling from all pet boxes
-                              const allPetBoxes = petRadioButtons.querySelectorAll('label');
-                              allPetBoxes.forEach(box => {
-                                box.classList.remove('bg-green-300', 'border-green-500');
-                                box.classList.add('bg-gray-100', 'border-gray-400');
-                              });
+                              // Toggle the checkbox
+                              checkboxInput.checked = !checkboxInput.checked;
 
-                              // Add green styling to selected pet box
-                              radioWrapper.classList.remove('bg-gray-100', 'border-gray-400');
-                              radioWrapper.classList.add('bg-green-300', 'border-green-500');
+                              // Update selected pet IDs array
+                              if (checkboxInput.checked) {
+                                selectedPetIds.push(pet.id);
+                                // Add green styling to selected pet box
+                                checkboxWrapper.classList.remove('bg-gray-100', 'border-gray-400');
+                                checkboxWrapper.classList.add('bg-green-300', 'border-green-500');
+                              } else {
+                                selectedPetIds = selectedPetIds.filter(id => id !== pet.id);
+                                // Remove green styling
+                                checkboxWrapper.classList.remove('bg-green-300', 'border-green-500');
+                                checkboxWrapper.classList.add('bg-gray-100', 'border-gray-400');
+                              }
 
-                              document.getElementById('pet_id').value = radioInput.value;
-                              bookingSection.classList.remove('hidden');
-                              submitSection.classList.remove('hidden');
+                              // Update hidden fields
+                              updatePetIdFields();
+
+                              // Show/hide booking section based on selection
+                              if (selectedPetIds.length > 0) {
+                                bookingSection.classList.remove('hidden');
+                                submitSection.classList.remove('hidden');
+                              } else {
+                                bookingSection.classList.add('hidden');
+                                submitSection.classList.add('hidden');
+                              }
                               checkFormComplete();
                             });
                           });
                         }
 
                         // Reset subsequent sections if customer changes
-                        document.getElementById('pet_id').value = '';
+                        petIdsContainer.innerHTML = '';
                         groomerSearch.value = '';
                         employeeId.value = '';
                         bookingSection.classList.add('hidden');
@@ -558,8 +589,9 @@
                         petSection.classList.add('hidden');
                         bookingSection.classList.add('hidden');
                         submitSection.classList.add('hidden');
-                        petRadioButtons.innerHTML = '';
-                        document.getElementById('pet_id').value = '';
+                        petCheckboxes.innerHTML = '';
+                        petIdsContainer.innerHTML = '';
+                        selectedPetIds = [];
                         groomerSearch.value = '';
                         employeeId.value = '';
                         checkFormComplete();
@@ -582,15 +614,22 @@
 
                     // Function to check if form is complete
                     function checkFormComplete() {
-                      const petId = document.getElementById('pet_id').value;
+                      const hasPets = selectedPetIds.length > 0;
                       const groomerId = employeeId.value;
                       const date = dateField.value;
                       const time = timeField.value;
 
-                      console.log('Form check:', { petId, groomerId, date, time });
+                      console.log('Form check:', { selectedPetIds, groomerId, date, time });
 
-                      // Only require pet, date, and start time - groomer and end time are optional
-                      if (petId && date && time) {
+                      // Update button text based on number of pets selected
+                      if (selectedPetIds.length > 1) {
+                        submitButton.textContent = `Book ${selectedPetIds.length} Grooms`;
+                      } else {
+                        submitButton.textContent = 'Book Groom';
+                      }
+
+                      // Only require pet(s), date, and start time - groomer and end time are optional
+                      if (hasPets && date && time) {
                         submitButton.disabled = false;
                         submitButton.classList.remove('bg-gray-400');
                         submitButton.classList.add('bg-blue-500');
@@ -611,7 +650,7 @@
                     submitButton.addEventListener('click', function(e) {
                       console.log('Submit button clicked!', {
                         disabled: this.disabled,
-                        petId: document.getElementById('pet_id').value,
+                        petIds: selectedPetIds,
                         employeeId: employeeId.value,
                         date: dateField.value,
                         time: timeField.value
@@ -621,9 +660,9 @@
                     // Add required validation
                     groomForm.addEventListener('submit', function(e) {
                       console.log('Form submit event triggered');
-                      if (!document.getElementById('pet_id').value) {
+                      if (selectedPetIds.length === 0) {
                         e.preventDefault();
-                        alert('Please select a pet');
+                        alert('Please select at least one pet');
                         return false;
                       }
                       if (!dateField.value || !timeField.value) {
